@@ -1,0 +1,6 @@
+.font2 {
+	color: var(--gainsboro);
+	font-size: 3vh;
+	background-color: var(--eerieBlack);
+	font-family: var(--var-nunito);
+}
