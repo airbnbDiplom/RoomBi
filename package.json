@@ -1,4 +1,5 @@
 {
+
   "name": "roombi",
   "version": "0.1.0",
   "private": true,
@@ -27,4 +28,5 @@
     "eslint-config-next": "14.0.4",
     "typescript": "^5"
   }
+
 }
