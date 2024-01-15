@@ -1,0 +1,88 @@
+import { CardBiProps } from "../components/card/CardBi";
+
+export const cardData: CardBiProps[] = [
+  {
+    id: 1,
+    title: "Nooks by AdyBeca",
+    name: "Домик целиком, Bălnaca, Румыния",
+    date: "25фев - 1мар",
+    src: [
+      "/test1.webp",
+      "/test2.webp",
+      "/test3.webp",
+      "/test4.webp",
+      "/test5.webp",
+    ],
+    price: 50,
+  },
+  {
+    id: 2,
+    title: "Korcula Diamond",
+    name: "Роскошная вилла Korcula Diamond",
+    date: "1 - 8мар",
+    src: [
+      "/test2.webp",
+      "/test3.webp",
+      "/test5.webp",
+      "/test1.webp",
+      "/test4.webp",
+    ],
+    price: 60,
+  },
+  {
+    id: 3,
+    title: "Râșnov",
+    name: "Дом на дереве, Râșnov, Румыния",
+    date: "25-30янв",
+    src: [
+      "/test5.webp",
+      "/test4.webp",
+      "/test3.webp",
+      "/test2.webp",
+      "/test1.webp",
+    ],
+    price: 70,
+  },
+  {
+    id: 4,
+    title: "Роскошная квартира",
+    name: "Жилье целиком, Львов, Украина",
+    date: "26-31янв",
+    src: [
+      "/test3.webp",
+      "/test4.webp",
+      "/test5.webp",
+      "/test2.webp",
+      "/test1.webp",
+    ],
+    price: 70,
+  },
+  {
+    id: 5,
+    title: "двухуровневая квартира",
+    name: "Жилье целиком, Киев, Украина",
+    date: "31янв-5фев",
+    src: [
+      "/test4.webp",
+      "/test3.webp",
+      "/test4.webp",
+      "/test5.webp",
+      "/test1.webp",
+    ],
+    price: 70,
+  },
+  {
+    id: 6,
+    title: "Cătunu' lui Victor",
+    name: "Старый деревянный амбар, Cătunu' lui Victor",
+    date: "31янв-5фев",
+    src: [
+      "/test1.webp",
+      "/test1.webp",
+      "/test3.webp",
+      "/test4.webp",
+      "/test2.webp",
+    ],
+    price: 70,
+  },
+];
