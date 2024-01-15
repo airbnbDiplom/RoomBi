@@ -1,5 +1,6 @@
 import { Footer } from './startComponents/footer/Footer'
 import { Header } from './startComponents/header/Header'
+import { Main } from './startComponents/main/Main'
 import { Naw } from './startComponents/naw/Naw'
 
 export default function Home() {
@@ -7,7 +8,9 @@ export default function Home() {
 		<>
 			<Header />
 			<Naw />
-			<main></main>
+			<main>
+				<Main />
+			</main>
 			<Footer />
 		</>
 	)
