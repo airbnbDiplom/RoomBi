@@ -21,4 +21,7 @@
 }
 body {
 	color: rgb(var(--eerieBlack));
+	font-family: var(--var-nunito), sans-serif;
+	background-color: var(--boyRed);
+	padding: 3%;
 }
