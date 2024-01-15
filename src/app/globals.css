@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
 	--foreground-rgb: 0, 0, 0;
@@ -18,10 +21,6 @@
 }
 body {
 	color: rgb(var(--eerieBlack));
-<<<<<<< HEAD
 	font-family: var(--var-nunito), sans-serif;
 	background-color: var(--boyRed);
-	padding: 3%;
-=======
->>>>>>> origin/Max
 }
