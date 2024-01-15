@@ -3,16 +3,62 @@
     z-index: 2;
     width: 25px;
     height: 25px;
-    top: 5px;
-    right: 5px;
+    top: 10px;
+    right: 10px;
     background-color: rgba(240, 248, 255, 0);
     background-position: center;
     background-image: url('/heart.png');
     background-size: 100%;
     border: none;
   }
-  
+
   .card{
-    margin-top: 20px;
-    margin-bottom: 10px;
+    z-index: 0;
   }
+
+ .cardBody{
+     background-color: var(--gainsboro);  
+ }
+
+  .choiceGuests {
+    font-size: 15px;
+    position: absolute;
+    z-index: 0;
+    padding: 2px 7px;
+    top: 10px;
+    left: 10px;
+    background: rgb(255, 255, 255);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer; 
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently
+                                    not supported by any browser */
+}
+
+.thisRating{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.subtitle{
+ margin: 0;
+ font-size: 15px;
+ font-weight: bold;
+ overflow: hidden;
+ text-overflow: ellipsis; /* Додає трохи місця для завершення тексту (...) */
+ white-space: nowrap; /* Забороняє перенос тексту на новий рядок */
+}
+
+.text{
+margin: 0;
+font-size: 15px;
+overflow: hidden;
+text-overflow: ellipsis; /* Додає трохи місця для завершення тексту (...) */
+white-space: nowrap; /* Забороняє перенос тексту на новий рядок */
+}
