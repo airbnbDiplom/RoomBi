@@ -18,6 +18,7 @@
 
  .cardBody{
      background-color: var(--gainsboro);  
+     border: none !important;
  }
 
   .choiceGuests {
@@ -31,13 +32,7 @@
     border: none;
     border-radius: 15px;
     cursor: pointer; 
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none;   /* Chrome/Safari/Opera */
-    -khtml-user-select: none;    /* Konqueror */
-    -moz-user-select: none;      /* Firefox */
-    -ms-user-select: none;       /* Internet Explorer/Edge */
-    user-select: none;           /* Non-prefixed version, currently
-                                    not supported by any browser */
+
 }
 
 .thisRating{
@@ -61,4 +56,13 @@ font-size: 15px;
 overflow: hidden;
 text-overflow: ellipsis; /* Додає трохи місця для завершення тексту (...) */
 white-space: nowrap; /* Забороняє перенос тексту на новий рядок */
+}
+.copyBan, .choiceGuests,.text,.subtitle{
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently
+                                    not supported by any browser */
 }

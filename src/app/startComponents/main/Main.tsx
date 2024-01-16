@@ -1,8 +1,8 @@
 import { CardBi } from "../../components/card/CardBi";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import style from "./main.module.css";
-
+import { ButtonShowMore } from "../../ui/ButtonShowMore";
 import { cardData } from "../../tempData/data";
 
 const Main: React.FC = () => {
@@ -52,6 +52,7 @@ const Main: React.FC = () => {
           );
         })}
       </Row>
+      <ButtonShowMore />
     </div>
   );
 };
