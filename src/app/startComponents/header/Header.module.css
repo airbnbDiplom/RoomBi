@@ -12,10 +12,16 @@
 	}
 }
 .customTextCenter {
+	font-family: var(--var-Inknut_Antiqua);
+	font-size: 2rem;
 	@media (max-width: 575.98px) {
 		text-align: center !important;
 	}
 }
 .textCenter {
 	text-align: center;
+}
+.link {
+	font-size: 0.8rem;
+	color: var(--eerieBlack);
 }

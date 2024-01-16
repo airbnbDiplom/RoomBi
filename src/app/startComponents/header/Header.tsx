@@ -1,39 +1,57 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import { FC } from 'react'
 import { Col, Row } from 'react-bootstrap'
+import planet from '../../../../public/icon/planet.svg'
 import style from './Header.module.css'
 const Header: FC = () => {
 	return (
-		<div className='ps-md-5 pe-md-5 ps-sm-3 pe-sm-3'>
-			<Row xl={12} className='pt-5'>
-				<Col className='text-center' sx={12} sm={2} md={2} lg={2} xl={2}>
-					Logo
+		<div className='pt-5'>
+			<Row xl={12} className='d-flex align-items-center'>
+				<Col
+					className={style.customTextCenter}
+					sx={12}
+					sm={2}
+					md={2}
+					lg={2}
+					xl={2}
+				>
+					RoomBi
 				</Col>
-				<Col sx={12} sm={10} md={10} lg={10} xl={10}>
+				<Col sx={12} sm={10} md={10} lg={9} xl={10}>
 					<Row>
 						<Col
 							className={style.customText}
-							sx={6}
-							sm={6}
+							sx={8}
+							sm={8}
 							md={8}
 							lg={10}
 							xl={10}
 						>
-							Сдать жилье на RumBi
+							<Link className={(style.customText, style.link)} href='/#'>
+								Запропонувати помешкання на <strong>RoomBi</strong>
+							</Link>
 						</Col>
 						<Col
 							className={(style.textCenter, style.customDisplayNone)}
-							sx={1}
-							sm={1}
-							md={1}
-							lg={1}
-							xl={1}
+							sx={'auto'}
+							sm={'auto'}
+							md={'auto'}
+							lg={'auto'}
+							xl={'auto'}
 						>
-							<p className='w-100 text-center p-0 m-0'>P</p>
+							<Image
+								priority
+								src={planet}
+								alt='langviges'
+								height={12}
+								width={12}
+							/>
 						</Col>
 						<Col
 							className={(style.customTextCenter, style.customDisplayNone)}
-							sx={5}
-							sm={5}
+							sx={3}
+							sm={3}
 							md={3}
 							lg={1}
 							xl={1}
