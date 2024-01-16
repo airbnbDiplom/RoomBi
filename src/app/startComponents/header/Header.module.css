@@ -1,0 +1,21 @@
+.customText {
+	@media (max-width: 575.98px) {
+		text-align: center !important;
+	}
+	@media (min-width: 576px) {
+		text-align: end !important;
+	}
+}
+.customDisplayNone {
+	@media (max-width: 575.98px) {
+		display: none !important;
+	}
+}
+.customTextCenter {
+	@media (max-width: 575.98px) {
+		text-align: center !important;
+	}
+}
+.textCenter {
+	text-align: center;
+}
