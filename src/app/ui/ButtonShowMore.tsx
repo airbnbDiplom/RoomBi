@@ -6,7 +6,7 @@ const ButtonShowMore: React.FC = () => {
     console.log("handleClickShowMore");
   };
   return (
-    <Container>
+    <Container className="mt-5">
       <Row className="justify-content-md-center">
         <Col xs lg="2">
           <Button variant="dark" onClick={handleClickShowMore}>
