@@ -1,42 +1,53 @@
+import Link from "next/link";
 import React from "react";
-
-const Footer: React.FC = (props: React.PropsWithChildren) => {
+import style from "./Footer.module.css";
+import { SocialNetwork } from "./socialNetwork/SocialNetwork";
+import { FooterButton } from "./footerButton/FooterButton";
+const Footer: React.FC = () => {
   return (
-    <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <p className="col-md-4 mb-0 text-muted">© 2022 Company, Inc</p>
-
-      <a
-        href="/"
-        className="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
-      >
-        {/* <svg className="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg> */}
-      </a>
+    <footer className="d-flex flex-wrap justify-content-between align-items-center py-1 my-2 border-top border-dark">
+      <div className="col-md-4 mb-0 text-muted">
+        <span>© 2024 RoomBi</span>
+        <span className={style.point}></span>
+        <Link className={style.link} href="#">
+          Умови
+        </Link>
+        <span className={style.point}></span>
+        <Link className={style.link} href="#">
+          Реквізити компанії
+        </Link>
+        <span className={style.point}></span>
+        <Link className={style.link} href="#">
+          Підтримка
+        </Link>
+      </div>
 
       <ul className="nav col-md-4 justify-content-end">
-        <li className="nav-item">
-          <a href="#" className="nav-link px-2 text-muted">
-            Home
-          </a>
+        <li className="nav-item me-2">
+          <FooterButton
+            title="Українська (UA)"
+            src="/footer/language.svg"
+            event="Мова"
+          />
+        </li>
+        <li className="nav-item me-2">
+          <FooterButton
+            title="USD"
+            src="/footer/dollar.svg"
+            event="конвертер валют"
+          />
+        </li>
+        <li className="nav-item me-2">
+          <SocialNetwork src="/footer/inst.svg" />
+        </li>
+        <li className="nav-item me-2">
+          <SocialNetwork src="/footer/fb.png" />
+        </li>
+        <li className="nav-item me-2">
+          <SocialNetwork src="/footer/git.png" />
         </li>
         <li className="nav-item">
-          <a href="#" className="nav-link px-2 text-muted">
-            Features
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="#" className="nav-link px-2 text-muted">
-            Pricing
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="#" className="nav-link px-2 text-muted">
-            FAQs
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="#" className="nav-link px-2 text-muted">
-            About
-          </a>
+          <SocialNetwork src="/footer/link.png" />
         </li>
       </ul>
     </footer>
