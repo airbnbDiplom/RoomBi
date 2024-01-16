@@ -1,4 +1,4 @@
-import { CardBiProps } from "../components/card/CardBi";
+import { CardBiProps } from "../type/type";
 
 export const cardData: CardBiProps[] = [
   {
@@ -14,6 +14,8 @@ export const cardData: CardBiProps[] = [
       "/test5.webp",
     ],
     price: 50,
+    rating: 0,
+    choiceGuests: false,
   },
   {
     id: 2,
@@ -28,6 +30,8 @@ export const cardData: CardBiProps[] = [
       "/test4.webp",
     ],
     price: 60,
+    rating: 5,
+    choiceGuests: true,
   },
   {
     id: 3,
@@ -42,6 +46,8 @@ export const cardData: CardBiProps[] = [
       "/test1.webp",
     ],
     price: 70,
+    rating: 3,
+    choiceGuests: false,
   },
   {
     id: 4,
@@ -56,6 +62,8 @@ export const cardData: CardBiProps[] = [
       "/test1.webp",
     ],
     price: 70,
+    rating: 5,
+    choiceGuests: true,
   },
   {
     id: 5,
@@ -70,6 +78,8 @@ export const cardData: CardBiProps[] = [
       "/test1.webp",
     ],
     price: 70,
+    rating: 5,
+    choiceGuests: false,
   },
   {
     id: 6,
@@ -84,5 +94,7 @@ export const cardData: CardBiProps[] = [
       "/test2.webp",
     ],
     price: 70,
+    rating: 4,
+    choiceGuests: true,
   },
 ];

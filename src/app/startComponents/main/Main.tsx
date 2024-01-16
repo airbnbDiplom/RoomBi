@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Col, Row } from 'react-bootstrap'
 import { CardBi } from '../../components/card/CardBi'
-import style from './main.module.css'
-
 import { cardData } from '../../tempData/data'
+import { ButtonShowMore } from '../../ui/ButtonShowMore'
+import style from './main.module.css'
 
 const Main: React.FC = () => {
 	return (
@@ -52,8 +52,8 @@ const Main: React.FC = () => {
 					)
 				})}
 			</Row>
+			<ButtonShowMore />
 		</div>
 	)
 }
-
 export { Main }

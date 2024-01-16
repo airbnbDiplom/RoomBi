@@ -1,17 +1,20 @@
 import Image from "next/image";
 import Carousel from "react-bootstrap/Carousel";
 import style from "./carouselBi.module.css";
+import { CarouselBiProps } from "../../../type/type";
 
-interface CarouselBiProps {
-  src: string[];
-}
-const CarouselBi: React.FC<CarouselBiProps> = ({ src }) => {
+const CarouselBi: React.FC<CarouselBiProps> = ({ src, handleClick }) => {
   return (
-    <Carousel data-bs-theme="white" interval={null}>
+    <Carousel data-bs-theme="white" interval={null} className={style.border}>
       {src.map((item, index) => {
         return (
-          <Carousel.Item key={index} className={style.carouseliItem}>
+          <Carousel.Item
+            key={index}
+            className={style.carouseliItem}
+            onClick={handleClick}
+          >
             <Image
+              className={style.carouseImage}
               src={item}
               fill={true}
               alt="Picture of the author"
