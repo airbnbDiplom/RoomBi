@@ -6,7 +6,7 @@ import { FooterButton } from "./footerButton/FooterButton";
 const Footer: React.FC = () => {
   return (
     <footer className="d-flex flex-wrap justify-content-between align-items-center py-1 my-2 border-top border-dark">
-      <div className="col-md-4 mb-0 text-muted">
+      <div className="col-md-6 mb-0 text-muted">
         <span>© 2024 RoomBi</span>
         <span className={style.point}></span>
         <Link className={style.link} href="#">
