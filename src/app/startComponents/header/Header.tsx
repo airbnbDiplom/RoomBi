@@ -1,3 +1,4 @@
+import { AuthenticationBtn } from '@/app/ui/auntificationBtn/AuthenticationBtn'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
@@ -5,6 +6,8 @@ import { Col, Row } from 'react-bootstrap'
 import planet from '../../../../public/icon/planet.svg'
 import style from './Header.module.css'
 const Header: FC = () => {
+	const lickStyle = `${style.customText} ${style.link}`
+
 	return (
 		<div className='pt-5'>
 			<Row xl={12} className='d-flex align-items-center'>
@@ -19,7 +22,7 @@ const Header: FC = () => {
 					RoomBi
 				</Col>
 				<Col sx={12} sm={10} md={10} lg={9} xl={10}>
-					<Row>
+					<Row className='d-flex align-items-center'>
 						<Col
 							className={style.customText}
 							sx={8}
@@ -28,12 +31,12 @@ const Header: FC = () => {
 							lg={10}
 							xl={10}
 						>
-							<Link className={(style.customText, style.link)} href='/#'>
+							<Link className={lickStyle} href='/#'>
 								Запропонувати помешкання на <strong>RoomBi</strong>
 							</Link>
 						</Col>
 						<Col
-							className={(style.textCenter, style.customDisplayNone)}
+							className={style.planet}
 							sx={'auto'}
 							sm={'auto'}
 							md={'auto'}
@@ -43,7 +46,7 @@ const Header: FC = () => {
 							<Image
 								priority
 								src={planet}
-								alt='langviges'
+								alt='languages'
 								height={12}
 								width={12}
 							/>
@@ -56,7 +59,7 @@ const Header: FC = () => {
 							lg={1}
 							xl={1}
 						>
-							AutButton
+							<AuthenticationBtn />
 						</Col>
 					</Row>
 				</Col>

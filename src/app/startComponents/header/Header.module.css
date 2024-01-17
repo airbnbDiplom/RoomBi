@@ -24,4 +24,17 @@
 .link {
 	font-size: 0.8rem;
 	color: var(--eerieBlack);
+	@media (min-width: 1980px) {
+		font-size: 1.2rem;
+	}
+}
+.cursor {
+	cursor: pointer;
+}
+.planet {
+	text-align: center;
+	cursor: pointer;
+	@media (max-width: 575.98px) {
+		display: none !important;
+	}
 }
