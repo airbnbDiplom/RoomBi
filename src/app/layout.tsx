@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inknut_Antiqua, Nunito } from 'next/font/google'
 import './globals.css'
 import { Providers } from './redux/provider'
-
+import { Footer } from './startComponents/footer/Footer'
 const antiquda = Inknut_Antiqua({
 	subsets: ['latin'],
 	weight: '400',
@@ -20,10 +20,26 @@ export default function RootLayout({
 }: {
 	children: React.ReactNode
 }) {
+	const fonts = `${antiquda.variable} ${nunito.variable} ms-lg-5 me-lg-5 ms-sm-3 me-sm-3 ms-sx-3 me-sx-3`
 	return (
 		<html lang='en'>
-			<body className={(antiquda.variable, nunito.variable)}>
+			<head>
+				<link
+					rel='stylesheet'
+					href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css'
+					integrity='sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM'
+					crossOrigin='anonymous'
+				/>
+			</head>
+			<body
+				style={{
+					backgroundColor: 'var(--gainsboro)',
+					fontFamily: ' var(--var-nunito), sans-serif',
+				}}
+				className={fonts}
+			>
 				<Providers>{children}</Providers>
+				<Footer />
 			</body>
 		</html>
 	)

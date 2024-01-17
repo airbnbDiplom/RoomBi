@@ -1,0 +1,40 @@
+.customText {
+	@media (max-width: 575.98px) {
+		text-align: center !important;
+	}
+	@media (min-width: 576px) {
+		text-align: end !important;
+	}
+}
+.customDisplayNone {
+	@media (max-width: 575.98px) {
+		display: none !important;
+	}
+}
+.customTextCenter {
+	font-family: var(--var-Inknut_Antiqua);
+	font-size: 2rem;
+	@media (max-width: 575.98px) {
+		text-align: center !important;
+	}
+}
+.textCenter {
+	text-align: center;
+}
+.link {
+	font-size: 0.8rem;
+	color: var(--eerieBlack);
+	@media (min-width: 1980px) {
+		font-size: 1.2rem;
+	}
+}
+.cursor {
+	cursor: pointer;
+}
+.planet {
+	text-align: center;
+	cursor: pointer;
+	@media (max-width: 575.98px) {
+		display: none !important;
+	}
+}

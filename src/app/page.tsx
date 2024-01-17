@@ -1,10 +1,15 @@
-import Link from 'next/link'
+import { Header } from "./startComponents/header/Header";
+import { Main } from "./startComponents/main/Main";
+import { Naw } from "./startComponents/naw/Naw";
 
 export default function Home() {
-	return (
-		<main className='flex min-h-screen flex-col items-center justify-between p-24'>
-			<h1>AIRBNB</h1>
-			<Link href='/posts'>Posts</Link>
-		</main>
-	)
+  return (
+    <>
+      <Header />
+      <Naw />
+      <main>
+        <Main />
+      </main>
+    </>
+  );
 }
