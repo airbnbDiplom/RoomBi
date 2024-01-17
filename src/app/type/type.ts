@@ -12,3 +12,9 @@ export interface CarouselBiProps {
   src: string[];
   handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
+export interface FilterObj {
+  id: number;
+  label: string;
+  name: string;
+  src: string;
+}
