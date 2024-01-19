@@ -1,0 +1,16 @@
+.carouselItem{
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .name{
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis; /* Додає трохи місця для завершення тексту (...) */
+      white-space: nowrap; /* Забороняє перенос тексту на новий рядок */
+  }
+  

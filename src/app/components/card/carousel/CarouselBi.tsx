@@ -5,7 +5,30 @@ import { CarouselBiProps } from "../../../type/type";
 
 const CarouselBi: React.FC<CarouselBiProps> = ({ src, handleClick }) => {
   return (
-    <Carousel data-bs-theme="white" interval={null} className={style.border}>
+    <Carousel
+      data-bs-theme="dark"
+      interval={null}
+      nextIcon={
+        <div className={style.nextBtn}>
+          <Image
+            src="/filter/rightArrow.svg"
+            width={20}
+            height={20}
+            alt="next"
+          />
+        </div>
+      }
+      prevIcon={
+        <div className={style.prevBtn}>
+          <Image
+            src="/filter/leftArrow.svg"
+            width={20}
+            height={20}
+            alt="prevBtn"
+          />
+        </div>
+      }
+    >
       {src.map((item, index) => {
         return (
           <Carousel.Item
@@ -14,12 +37,13 @@ const CarouselBi: React.FC<CarouselBiProps> = ({ src, handleClick }) => {
             onClick={handleClick}
           >
             <Image
-              className={style.carouseImage}
+              className={style.border}
               src={item}
               fill={true}
               alt="Picture of the author"
               priority={true}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              loading="eager"
             />
           </Carousel.Item>
         );
