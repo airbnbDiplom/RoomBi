@@ -52,7 +52,7 @@ const Header: FC = () => {
 							/>
 						</Col>
 						<Col
-							className={(style.customTextCenter, style.customDisplayNone)}
+							className={`${style.customTextCenter} ${style.customDisplayNone}`}
 							sx={3}
 							sm={3}
 							md={3}
