@@ -1,4 +1,4 @@
-import { AuthenticationBtn } from '@/app/ui/auntificationBtn/AuthenticationBtn'
+import { AuthenticationBtn } from '@/app/ui/authenticationBtn/AuthenticationBtn'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
