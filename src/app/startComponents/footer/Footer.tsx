@@ -5,8 +5,8 @@ import { SocialNetwork } from "./socialNetwork/SocialNetwork";
 import { FooterButton } from "./footerButton/FooterButton";
 const Footer: React.FC = () => {
   return (
-    <footer className="d-flex flex-wrap justify-content-between align-items-center py-1 my-2 border-top border-dark">
-      <div className="col-md-6 mb-0 text-muted">
+    <footer className={style.container + " border-top border-dark"}>
+      <div className={style.left}>
         <span>© 2024 RoomBi</span>
         <span className={style.point}></span>
         <Link className={style.link} href="#">
@@ -22,34 +22,22 @@ const Footer: React.FC = () => {
         </Link>
       </div>
 
-      <ul className="nav col-md-4 justify-content-end">
-        <li className="nav-item me-2">
-          <FooterButton
-            title="Українська (UA)"
-            src="/footer/language.svg"
-            event="Мова"
-          />
-        </li>
-        <li className="nav-item me-2">
-          <FooterButton
-            title="USD"
-            src="/footer/dollar.svg"
-            event="конвертер валют"
-          />
-        </li>
-        <li className="nav-item me-2">
-          <SocialNetwork src="/footer/inst.svg" />
-        </li>
-        <li className="nav-item me-2">
-          <SocialNetwork src="/footer/fb.png" />
-        </li>
-        <li className="nav-item me-2">
-          <SocialNetwork src="/footer/git.png" />
-        </li>
-        <li className="nav-item">
-          <SocialNetwork src="/footer/link.png" />
-        </li>
-      </ul>
+      <div className={style.right}>
+        <FooterButton
+          title="Українська (UA)"
+          src="/footer/language.svg"
+          event="Мова"
+        />
+        <FooterButton
+          title="USD"
+          src="/footer/dollar.svg"
+          event="конвертер валют"
+        />
+        <SocialNetwork src="/footer/inst.svg" />
+        <SocialNetwork src="/footer/fb.png" />
+        <SocialNetwork src="/footer/git.png" />
+        <SocialNetwork src="/footer/link.png" />
+      </div>
     </footer>
   );
 };

@@ -1,10 +1,16 @@
-.btn {
-	position: absolute;
-	z-index: 2;
+.cardHeader{
+display: flex;
+justify-content: space-between;
+position: relative;
+top: 50px;
+left: 10px;
+z-index: 2;
+width: 90%;
+}
+
+.btnHeart {
 	width: 25px;
 	height: 25px;
-	top: 10px;
-	right: 10px;
 	background-color: rgba(240, 248, 255, 0);
 	background-position: center;
 	background-image: url('/heart.png');
@@ -12,22 +18,15 @@
 	border: none;
 }
 
-.card {
-	z-index: 0;
-}
-
-.cardBody {
-	background-color: var(--gainsboro);
-	border: none !important;
-}
+@media (min-width: 450px) {
+	.visibility{
+        display: block;
+        }
+	}
 
 .choiceGuests {
 	font-size: 15px;
-	position: absolute;
-	z-index: 0;
 	padding: 2px 7px;
-	top: 10px;
-	left: 10px;
 	background: rgb(255, 255, 255);
 	border: none;
 	border-radius: 15px;
@@ -41,25 +40,18 @@
 }
 
 .subtitle {
-	margin: 0;
-	font-size: 15px;
 	font-weight: bold;
-	overflow: hidden;
-	text-overflow: ellipsis; /* Додає трохи місця для завершення тексту (...) */
-	white-space: nowrap; /* Забороняє перенос тексту на новий рядок */
 }
 
-.text {
-	margin: 0;
-	font-size: 15px;
-	overflow: hidden;
-	text-overflow: ellipsis; /* Додає трохи місця для завершення тексту (...) */
-	white-space: nowrap; /* Забороняє перенос тексту на новий рядок */
-}
-.copyBan,
+
 .choiceGuests,
 .text,
 .subtitle {
+	margin: 0;
+	font-size: 15px;
+	overflow: hidden;
+	text-overflow: ellipsis; /* Додає трохи місця для завершення тексту (...) */
+	white-space: nowrap; /* Забороняє перенос тексту на новий рядок */
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Chrome/Safari/Opera */
 	-khtml-user-select: none; /* Konqueror */
@@ -69,3 +61,29 @@
                                     not supported by any browser */
 }
 
+
+
+.card{
+	background-color: var(--gainsboro);
+	width: 80%;
+	margin-bottom: 20px;
+	margin-left: 10%;
+	}
+	.caruselContainer{
+		min-width:130px;
+		min-height: 130px;
+		max-width:500px;
+		max-height: 500px;
+	}
+	@media (min-width: 576px) {
+		.card{
+	
+			width: 100%;
+			margin-left: 0%;
+			}
+		}
+		
+	.carusel{
+	position: 'relative';
+	aspect-ratio: 1/1;
+	}
