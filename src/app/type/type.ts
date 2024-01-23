@@ -1,7 +1,7 @@
 export interface CardBiProps {
   id: number;
   title: string;
-  name: string;
+  country: string;
   date: string;
   src: string[];
   price: number;
@@ -17,4 +17,5 @@ export interface FilterObj {
   label: string;
   name: string;
   src: string;
+  type: string;
 }

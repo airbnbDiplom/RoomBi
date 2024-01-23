@@ -4,7 +4,7 @@ export const cardData: CardBiProps[] = [
   {
     id: 1,
     title: "Nooks by AdyBeca",
-    name: "Домик целиком, Bălnaca, Румыния",
+    country: "Домик целиком, Bălnaca, Румыния",
     date: "25фев - 1мар",
     src: [
       "/test1.webp",
@@ -20,7 +20,7 @@ export const cardData: CardBiProps[] = [
   {
     id: 2,
     title: "Korcula Diamond",
-    name: "Роскошная вилла Korcula Diamond",
+    country: "Роскошная вилла Korcula Diamond",
     date: "1 - 8мар",
     src: [
       "/test2.webp",
@@ -36,7 +36,7 @@ export const cardData: CardBiProps[] = [
   {
     id: 3,
     title: "Râșnov",
-    name: "Дом на дереве, Râșnov, Румыния",
+    country: "Дом на дереве, Râșnov, Румыния",
     date: "25-30янв",
     src: [
       "/test5.webp",
@@ -52,7 +52,7 @@ export const cardData: CardBiProps[] = [
   {
     id: 4,
     title: "Роскошная квартира",
-    name: "Жилье целиком, Львов, Украина",
+    country: "Жилье целиком, Львов, Украина",
     date: "26-31янв",
     src: [
       "/test3.webp",
@@ -68,7 +68,7 @@ export const cardData: CardBiProps[] = [
   {
     id: 5,
     title: "двухуровневая квартира",
-    name: "Жилье целиком, Киев, Украина",
+    country: "Жилье целиком, Киев, Украина",
     date: "31янв-5фев",
     src: [
       "/test4.webp",
@@ -84,7 +84,7 @@ export const cardData: CardBiProps[] = [
   {
     id: 6,
     title: "Cătunu' lui Victor",
-    name: "Старый деревянный амбар, Cătunu' lui Victor",
+    country: "Старый деревянный амбар, Cătunu' lui Victor",
     date: "31янв-5фев",
     src: [
       "/test1.webp",

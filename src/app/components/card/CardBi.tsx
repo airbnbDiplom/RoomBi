@@ -9,7 +9,7 @@ import Image from "next/image";
 const CardBi: React.FC<CardBiProps> = ({
   src,
   title,
-  name,
+  country,
   date,
   price,
   rating,
@@ -75,7 +75,7 @@ const CardBi: React.FC<CardBiProps> = ({
             </Col>
           )}
         </Row>
-        <p className={style.text}> {name}</p>
+        <p className={style.text}> {country}</p>
         <p className={style.text}> {date}</p>
         <p className={style.subtitle}> {price}р ночь</p>
       </div>
