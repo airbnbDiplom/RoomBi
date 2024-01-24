@@ -83,7 +83,7 @@ const Naw: React.FC = () => {
           Фільтри
         </button>
       </div>
-      <div>
+      <div className={style.filterBtnContainer}>
         <ShowMapBtn />
       </div>
     </div>
