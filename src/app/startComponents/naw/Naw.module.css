@@ -19,7 +19,7 @@
 .carousel{
     width: 80%;
     display: none;
-    @media (min-width: 450px) {
+    @media (min-width: 600px) {
             display: block;
         }
     }

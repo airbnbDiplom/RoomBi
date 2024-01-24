@@ -8,9 +8,7 @@ import { CarouselItem } from "./carouselItem/CarouselItem";
 import { FilterObj } from "@/app/type/type";
 
 const numberOfObjects = (sizeWindow: number): number => {
-  if (sizeWindow < 400) return 1;
-  else if (sizeWindow > 400 && sizeWindow < 576) return 2;
-  else if (sizeWindow > 576 && sizeWindow < 1000) return 4;
+  if (sizeWindow < 1000) return 4;
   else if (sizeWindow > 1000 && sizeWindow < 1200) return 6;
   else return 8;
 };
@@ -33,7 +31,9 @@ const DataObjects = (data: FilterObj[], sizeWindow: number): FilterObj[][] => {
   }, [] as FilterObj[][]);
 };
 const Naw: React.FC = () => {
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenWidth, setScreenWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
   const [dataObjects, setDataObjects] = useState<FilterObj[][] | never>([]);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const Naw: React.FC = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [screenWidth]);
 
   return (
     <div className={style.container}>
