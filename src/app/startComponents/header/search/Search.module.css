@@ -1,0 +1,46 @@
+.main {
+	display: flex;
+	align-items: center;
+	border: 1px solid var(--eerieBlack);
+	border-radius: 50px;
+	font-size: 0.75rem;
+	text-wrap: nowrap;
+}
+
+.colorOne {
+	font-weight: 600;
+	font-size: 1, 2dvh;
+	color: var(--eerieBlack);
+}
+.colorTwo {
+	color: #8a8278;
+	font-size: 1.5dvh;
+}
+.cursor {
+	cursor: pointer;
+}
+.border {
+	border-right: 1px solid;
+	border-color: var(--eerieBlack);
+}
+.border:hover {
+	border: none;
+}
+.search {
+	width: 32px !important;
+	height: 32px;
+	background-color: var(--eerieBlack);
+	border-radius: 25px;
+}
+.resetButton {
+	background: none;
+	border: none;
+	width: 100%;
+	height: 100%;
+}
+
+.btnStyle:hover {
+	border: none;
+	border-radius: 30px 30px 30px 30px;
+	background-color: rgba(186, 185, 185, 0.561);
+}

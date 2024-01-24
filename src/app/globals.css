@@ -20,3 +20,9 @@ body {
 	font-family: var(--var-nunito), sans-serif;
 	background-color: var(--boyRed);
 }
+.headerBackground {
+	background-color: var(--gainsboro);
+}
+.custom-dropdown-toggle::after {
+	display: none !important;
+}

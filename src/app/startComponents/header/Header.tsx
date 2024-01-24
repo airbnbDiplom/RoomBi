@@ -1,47 +1,82 @@
-import { AuthenticationBtn } from '@/app/ui/auntificationBtn/AuthenticationBtn'
+'use client'
+
+import { AuthenticationBtn } from '@/app/ui/authenticationBtn/AuthenticationBtn'
+import { ShowMapBtn } from '@/app/ui/showMap/showMapBtn'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FC } from 'react'
-import { Col, Row } from 'react-bootstrap'
-import planet from '../../../../public/icon/planet.svg'
+import { FC, useState } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+//import planet from '../../../../public/icon/planet.svg'
 import style from './Header.module.css'
+import SmallSearch from './smallSearch/SmallSearch'
+import Search from './search/Search'
 const Header: FC = () => {
 	const lickStyle = `${style.customText} ${style.link}`
+	const [scroll, setScroll] = useState(0)
 
+	//проверка scroll для замены поля поиска
+	const handlerScroll = () => {
+		setScroll(window.scrollY)
+	}
+	window.addEventListener('scroll', handlerScroll)
 	return (
-		<div className='pt-5'>
-			<Row xl={12} className='d-flex align-items-center'>
+		<Container fluid className='pt-5 position-sticky'>
+			<Row className='d-flex align-items-center'>
 				<Col
 					className={style.customTextCenter}
-					sx={12}
-					sm={2}
+					// sm={2}
 					md={2}
-					lg={2}
-					xl={2}
+					lg={4}
+					xl={3}
 				>
-					RoomBi
+					<Link href={'/'} className={style.logo}>
+						RoomBi
+					</Link>
 				</Col>
-				<Col sx={12} sm={10} md={10} lg={9} xl={10}>
-					<Row className='d-flex align-items-center'>
+				<Col
+					className={`${scroll ? style.Visibility : style.VisibilityNone} ${
+						style.customDisplayNone
+					} `}
+				>
+					<SmallSearch />
+				</Col>
+				<Col
+					className={` ${scroll ? style.VisibilityNone : style.Visibility} ${
+						style.customDisplayNone
+					}  `}
+				>
+					<Search />
+				</Col>
+				<Col
+					//sx={12} sm={10}
+					md={4}
+					lg={4}
+					xl={3}
+				>
+					<Row className='d-flex align-items-center justify-content-end'>
 						<Col
-							className={style.customText}
-							sx={8}
-							sm={8}
-							md={8}
-							lg={10}
-							xl={10}
+							className={`ms-3 ${style.customText}`}
+							// sx={8}
+							// sm={8}
+							// md={8}
+							// lg={10}
+							//xl={4}
 						>
-							<Link className={lickStyle} href='/#'>
+							<Link
+								className={`${style.customText} ${style.link}
+							${scroll ? style.VisibilityNone : style.Visibility}`}
+								href='/#'
+							>
 								Запропонувати помешкання на <strong>RoomBi</strong>
 							</Link>
 						</Col>
-						<Col
+						{/* <Col
 							className={style.planet}
-							sx={'auto'}
-							sm={'auto'}
-							md={'auto'}
-							lg={'auto'}
-							xl={'auto'}
+							// sx={'auto'}
+							// sm={'auto'}
+							// md={'auto'}
+							// lg={'auto'}
+							// xl={'auto'}
 						>
 							<Image
 								priority
@@ -50,26 +85,21 @@ const Header: FC = () => {
 								height={12}
 								width={12}
 							/>
-						</Col>
+						</Col> */}
 						<Col
-							className={(style.customTextCenter, style.customDisplayNone)}
-							sx={3}
-							sm={3}
-							md={3}
-							lg={1}
-							xl={1}
+							className={`${style.customTextCenter} ${style.customDisplayNone} `}
+							// sx={3}
+							// sm={3}
+							// md={3}
+							// lg={1}
+							// xl={1}
 						>
 							<AuthenticationBtn />
 						</Col>
 					</Row>
 				</Col>
 			</Row>
-			<Row className='pt-5 pb-5 '>
-				<Col xs={12} className='text-center'>
-					Search
-				</Col>
-			</Row>
-		</div>
+		</Container>
 	)
 }
 export { Header }

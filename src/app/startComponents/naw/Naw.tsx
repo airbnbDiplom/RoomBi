@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { CarouselItem } from "./carouselItem/CarouselItem";
 import { FilterObj } from "@/app/type/type";
+import { ShowMapBtn } from "@/app/ui/showMap/showMapBtn";
 
 const numberOfObjects = (sizeWindow: number): number => {
   if (sizeWindow < 1000) return 4;
@@ -81,6 +82,9 @@ const Naw: React.FC = () => {
           />
           Фільтри
         </button>
+      </div>
+      <div>
+        <ShowMapBtn />
       </div>
     </div>
   );

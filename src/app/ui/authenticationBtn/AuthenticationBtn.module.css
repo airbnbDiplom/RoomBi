@@ -1,6 +1,6 @@
 .btnWhite {
 	width: 75px;
-	height: 40px;
+	height: 100%;
 	border-radius: 20px 20px 20px 20px;
 	border: 1px solid var(--eerieBlack);
 	background-color: var(--gainsboro);
@@ -14,4 +14,7 @@
 	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
 	-webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
 	-moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+}
+.itemFont {
+	font-family: var(--var-nunito), sans-serif;
 }
