@@ -3,18 +3,18 @@ import style from './SmallSearch.module.css'
 import { Col, Row } from 'react-bootstrap'
 const SmallSearch: React.FC = () => {
 	return (
-		<Row className={` ${style.main} text-end p-0`}>
+		<Row className={` ${style.main}  p-0`}>
 			<Col
 				className={` 
 				d-flex align-items-center justify-content-center p-0`}
 			>
 				<button className={`p-0 ${style.resetButton}`}>
-					<div className={`mt-3 mb-3 p-0 ${style.border}`}>Будь куди</div>
+					<div className={`mt-3 mb-3 me-1 p-0 ${style.border}`}>Будь куди</div>
 				</button>
 			</Col>
 			<Col className={`d-flex align-items-center justify-content-center p-0`}>
 				<button className={`p-0 ${style.resetButton}`}>
-					<div className={`mt-3 mb-3 p-0 ${style.border}`}>
+					<div className={`mt-3 mb-3 me-1 pe-1 p-0 ${style.border}`}>
 						Будь-який тиждень
 					</div>
 				</button>

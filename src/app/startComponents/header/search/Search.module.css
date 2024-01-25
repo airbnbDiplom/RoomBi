@@ -1,4 +1,5 @@
 .main {
+	position: relative;
 	display: flex;
 	align-items: center;
 	border: 1px solid var(--eerieBlack);
@@ -43,4 +44,23 @@
 	border: none;
 	border-radius: 30px 30px 30px 30px;
 	background-color: rgba(186, 185, 185, 0.561);
+}
+.inputReset {
+	appearance: none;
+	-webkit-appearance: none; /* For older versions of WebKit browsers */
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+	box-shadow: none;
+	background-color: var(--gainsboro);
+}
+.action {
+	position: absolute;
+	background-color: var(--gainsboro);
+	border: 1px solid var(--eerieBlack);
+	border-radius: 15px;
+	top: 80px;
+	left: 0;
+	z-index: 999;
 }

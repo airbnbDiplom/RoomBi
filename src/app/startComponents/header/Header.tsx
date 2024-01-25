@@ -36,14 +36,14 @@ const Header: FC = () => {
 				<Col
 					className={`${scroll ? style.Visibility : style.VisibilityNone} ${
 						style.customDisplayNone
-					} `}
+					} ${style.flexCenter}`}
 				>
 					<SmallSearch />
 				</Col>
 				<Col
 					className={` ${scroll ? style.VisibilityNone : style.Visibility} ${
 						style.customDisplayNone
-					}  `}
+					} `}
 				>
 					<Search />
 				</Col>
