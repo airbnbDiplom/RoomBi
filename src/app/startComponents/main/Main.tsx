@@ -7,7 +7,7 @@ import style from "./main.module.css";
 
 const Main: React.FC = () => {
   return (
-    <div className={style.container}>
+    <div>
       <Row>
         {cardData.map((item, index) => {
           return (

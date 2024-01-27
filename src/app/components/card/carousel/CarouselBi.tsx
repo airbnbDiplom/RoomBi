@@ -12,8 +12,8 @@ const CarouselBi: React.FC<CarouselBiProps> = ({ src, handleClick }) => {
         <div className={style.nextBtn}>
           <Image
             src="/filter/rightArrow.svg"
-            width={20}
-            height={20}
+            width={15}
+            height={15}
             alt="next"
           />
         </div>
@@ -22,8 +22,8 @@ const CarouselBi: React.FC<CarouselBiProps> = ({ src, handleClick }) => {
         <div className={style.prevBtn}>
           <Image
             src="/filter/leftArrow.svg"
-            width={20}
-            height={20}
+            width={15}
+            height={15}
             alt="prevBtn"
           />
         </div>

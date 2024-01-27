@@ -1,6 +1,6 @@
 .container {
 	display: flex;
-    height: 60px;
+    height: 80px;
     padding-top: 5px;
     margin-top: 20px;
     border-top: 1px solid black;
@@ -36,25 +36,20 @@
 }
 
 
-.nextBtn {
-	margin-left: -10px;
-	background-position: center;
-	background-image: url('/filter/rightArrow.svg');
-	background-size: 80%;
-}
-.prevBtn {
-	margin-right: -10px;
-	background-position: center;
-	background-image: url('/filter/leftArrow.svg');
-	background-size: 80%;
-}
-
 .nextBtn,
 .prevBtn {
-	width: 30px;
-	height: 30px;
 	border: 1px solid black;
 	border-radius: 50%;
+}
+.nextBtn{
+    padding-bottom: 4px;
+	padding-left: 14px;
+	padding-right: 6px;
+}
+.prevBtn{
+    padding-bottom: 4px;
+	padding-left: 6px;
+	padding-right: 14px;
 }
 .filterBtn {
 	border: 1px solid black;

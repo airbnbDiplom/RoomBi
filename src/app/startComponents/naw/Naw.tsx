@@ -55,8 +55,26 @@ const Naw: React.FC = () => {
           data-bs-theme="dark"
           interval={null}
           indicators={false}
-          nextIcon={<div className={style.nextBtn}></div>}
-          prevIcon={<div className={style.prevBtn}></div>}
+          nextIcon={
+            <div className={style.nextBtn}>
+              <Image
+                src="/filter/rightArrow.svg"
+                width={15}
+                height={15}
+                alt="next"
+              />
+            </div>
+          }
+          prevIcon={
+            <div className={style.prevBtn}>
+              <Image
+                src="/filter/leftArrow.svg"
+                width={15}
+                height={15}
+                alt="prevBtn"
+              />
+            </div>
+          }
         >
           {dataObjects.map((item, index) => {
             return (
