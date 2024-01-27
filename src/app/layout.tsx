@@ -20,7 +20,7 @@ export default function RootLayout({
 }: {
 	children: React.ReactNode
 }) {
-	const fonts = `${antiquda.variable} ${nunito.variable} ms-lg-5 me-lg-5 ms-sm-3 me-sm-3 ms-sx-3 me-sx-3`
+	const fonts = `${antiquda.variable} ${nunito.variable} `
 	return (
 		<html lang='en'>
 			<head>

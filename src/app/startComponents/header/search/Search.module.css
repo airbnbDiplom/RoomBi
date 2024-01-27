@@ -1,4 +1,5 @@
 .main {
+	position: relative;
 	display: flex;
 	align-items: center;
 	border: 1px solid var(--eerieBlack);
@@ -43,4 +44,43 @@
 	border: none;
 	border-radius: 30px 30px 30px 30px;
 	background-color: rgba(186, 185, 185, 0.561);
+}
+.inputReset {
+	appearance: none;
+	-webkit-appearance: none; /* For older versions of WebKit browsers */
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+	box-shadow: none;
+	background-color: transparent;
+	color: var(--eerieBlack);
+}
+.dNone {
+	display: none;
+}
+.action {
+	position: absolute;
+	background-color: var(--gainsboro);
+	border: 1px solid var(--eerieBlack);
+	border-radius: 15px;
+	top: 80px;
+	left: 0;
+	z-index: 999;
+	padding: 15px;
+	text-align: start;
+	background-color: white;
+	font-weight: 600;
+	font-size: 12px;
+}
+.imageDis {
+	margin-top: 5px;
+}
+.imgDiv {
+	border: 1px solid white;
+	border-radius: 15px;
+	overflow: hidden;
+}
+.imgDiv:hover {
+	border: 1px solid black;
 }

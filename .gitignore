@@ -2,10 +2,11 @@
 
 # dependencies
 /node_modules
+/.vscode
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-
+launch.json
 # testing
 /coverage
 
