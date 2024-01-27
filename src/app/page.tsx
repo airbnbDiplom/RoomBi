@@ -5,9 +5,12 @@ import { Naw } from './startComponents/naw/Naw'
 export default function Home() {
 	return (
 		<>
-			<div className='headerBackground sticky-top '>
+			<div
+				className='headerBackgroundWhite  sticky-top ps-lg-5 pe-lg-5 ps-sm-3 pe-sm-3 ps-sx-3 pe-sx-3'
+				id='header'
+			>
 				<Header />
-				<Naw />
+				<Naw/>
 			</div>
 			<main>
 				<Main />

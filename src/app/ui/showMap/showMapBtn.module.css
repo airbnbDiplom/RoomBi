@@ -1,5 +1,4 @@
 .btnStyle {
-	position: relative;
 	text-wrap: nowrap;
 	border: 1px solid var(--eerieBlack);
 	background-color: var(--boyRed);

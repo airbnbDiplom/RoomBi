@@ -20,8 +20,12 @@ body {
 	font-family: var(--var-nunito), sans-serif;
 	background-color: var(--boyRed);
 }
-.headerBackground {
+.headerBackgroundWhite {
 	background-color: var(--gainsboro);
+}
+.headerBackgroundBra {
+	background-color: var(--darkLava);
+	color: white !important ;
 }
 .custom-dropdown-toggle::after {
 	display: none !important;
