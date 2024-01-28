@@ -3,7 +3,7 @@ import { CardBiProps } from "../type/type";
 export const cardData: CardBiProps[] = [
   {
     id: 1,
-    title: "Nooks by AdyBeca",
+    title: "123Nooks by AdyBeca",
     country: "Домик целиком, Bălnaca, Румыния",
     date: "25фев - 1мар",
     src: [
