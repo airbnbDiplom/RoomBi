@@ -1,9 +1,7 @@
 'use client'
 
 import { AuthenticationBtn } from '@/app/ui/authenticationBtn/AuthenticationBtn'
-import { ShowMapBtn } from '@/app/ui/showMap/showMapBtn'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { FC, useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
@@ -12,7 +10,6 @@ import style from './Header.module.css'
 import SmallSearch from './smallSearch/SmallSearch'
 import Search from './search/Search'
 import { tree } from 'next/dist/build/templates/app-page'
-
 const Header: FC = () => {
 	//переключение между видами поика
 	const [isSmallSearchOn, setSmallSearchOn] = useState(false)
@@ -22,93 +19,25 @@ const Header: FC = () => {
 	const [isWhereDropOn, setWhereDrop] = useState(false)
 	const [isWhenDropOn, setWhenDrop] = useState(false)
 	const [isWhoDropOn, setWhoDrop] = useState(false)
-	const [scroll, setScroll] = useState(Number)
+	const [scrollTransfer, setScrollTransfer] = useState(Number)
 	// const [dropDawnBigScrollWithSearch, setDropDawnBigScrollWithSearch] =
 	// 	useState(false)
-
+	const [scrolled, setScrolled] = useState(false)
 	const header = document.getElementById('header')
 	const filterNaw = document.getElementById('filter')
-	//проверка scroll для замены поля поиска
-	const handlerScroll = () => {
-		console.log('1212')
-		if (window.scrollY === 0) {
-			setBigSearchOn(true)
-			setSmallSearchOn(false)
-			setBigSearchOnBySmall(false)
-		} else if (window.scrollY != 0 && isBigSearchOnBySmall) {
-			setBigSearchOn(true)
-			setSmallSearchOn(false)
-			setBigSearchOnBySmall(false)
-		} else if (window.scrollY != 0 && !isBigSearchOnBySmall) {
-			setBigSearchOn(false)
-			setSmallSearchOn(true)
-			setWhereDrop(false)
-			setWhenDrop(false)
-			setWhoDrop(false)
-		} else {
-			setBigSearchOn(false)
-			setSmallSearchOn(true)
-			setWhereDrop(false)
-			setWhenDrop(false)
-			setWhoDrop(false)
-		}
 
-		//else if (dropDawnBigScrollWithSearch) setScroll(false)
-		//else setScroll(true)
-
-		//
-		// if (
-		// 	window.scrollY != 0 &&
-		// 	header?.classList.contains('headerBackgroundBra')
-		// )
-		// 	header?.classList.replace('headerBackgroundBra', 'headerBackgroundWhite')
-		// if (filterNaw) filterNaw.style.display = 'flex'
-		// if (header) header.style.paddingBottom = '0px'
-	}
-
-	function throttle<F extends (...args: any[]) => any>(
-		func: F,
-		limit: number
-	): (...args: Parameters<F>) => void {
-		let inThrottle: boolean
-		return function (this: ThisParameterType<F>, ...args: Parameters<F>) {
-			if (!inThrottle) {
-				func.apply(this, args)
-				inThrottle = true
-				setTimeout(() => (inThrottle = false), limit)
-			}
-		}
-	}
-
-	// function debounce<F extends (...args: any[]) => void>(
-	// 	func: F,
-	// 	delay: number
-	// ): (...args: Parameters<F>) => void {
-	// 	let inDebounce: ReturnType<typeof setTimeout> | undefined
-
-	// 	return function (this: ThisParameterType<F>, ...args: Parameters<F>) {
-	// 		clearTimeout(inDebounce)
-	// 		inDebounce = setTimeout(() => func.apply(this, args), delay)
+	// const handler = () => {
+	// 	console.log('scroled handler')
+	// 	if (!scrolled) {
+	// 		console.log(`scroll changed ${window.screenY}`)
+	// 		setScroll(window.screenY)
 	// 	}
 	// }
-	// // const debouncedHandleScroll = debounce(handlerScroll, 200)
-	// // window.addEventListener('scrollend', debouncedHandleScroll)
+	// window.addEventListener('scroll', handler)
 
-	const throttleHandleScroll = throttle(handlerScroll, 500)
-	window.addEventListener('scrollend', handlerScroll)
-
-	// useEffect(() => {
-	// 	if (isSmallSearchOn) {
-	// 		//start animation big to small
-	// 	}
-	// }, [isSmallSearchOn, isBigSearchOn])
-
-	// useEffect(() => {
-	// window.addEventListener('scroll', handlerScroll)	return () => {
-	// 	window.removeEventListener('scroll', handlerScroll)
-	// 	}
-	// 	setScroll(scroll)
-	// 	}, [scroll])
+	useEffect(() => {
+		console.log('useEffect on header')
+	}, [isSmallSearchOn, isBigSearchOn, isBigSearchOnBySmall])
 
 	return (
 		<Container fluid className='pt-5 position-sticky' id='header'>
@@ -124,54 +53,56 @@ const Header: FC = () => {
 						RoomBi
 					</Link>
 				</Col>
-				<Col
-					className={`${
-						isSmallSearchOn ? style.Visibility : style.VisibilityNone
-					} ${style.customDisplayNone} ${style.flexCenter}`}
-				>
-					<SmallSearch
-						propsBigSearch={{
-							isWhereDropOn,
-							isWhenDropOn,
-							isWhoDropOn,
-							setWhereDrop,
-							setWhenDrop,
-							setWhoDrop,
-						}}
-						propsKindSwitch={{
-							isSmallSearchOn,
-							isBigSearchOn,
-							isBigSearchOnBySmall,
-							setSmallSearchOn,
-							serBigSearchOn: setBigSearchOn,
-							setBigSearchOnBySmall,
-						}}
-					/>
-				</Col>
-				<Col
-					className={` ${
-						isBigSearchOn ? style.Visibility : style.VisibilityNone
-					} ${style.customDisplayNone} `}
-				>
-					<Search
-						propsBigSearch={{
-							isWhereDropOn,
-							isWhenDropOn,
-							isWhoDropOn,
-							setWhereDrop,
-							setWhenDrop,
-							setWhoDrop,
-						}}
-						propsKindSwitch={{
-							isSmallSearchOn,
-							isBigSearchOn,
-							isBigSearchOnBySmall,
-							setSmallSearchOn,
-							serBigSearchOn: setBigSearchOn,
-							setBigSearchOnBySmall,
-						}}
-					/>
-				</Col>
+				{isSmallSearchOn && (
+					<Col className={` ${style.customDisplayNone} ${style.flexCenter}`}>
+						<SmallSearch
+							setScrollTransfer={setScrollTransfer}
+							propsBigSearch={{
+								isWhereDropOn,
+								isWhenDropOn,
+								isWhoDropOn,
+								setWhereDrop,
+								setWhenDrop,
+								setWhoDrop,
+							}}
+							propsKindSwitch={{
+								isSmallSearchOn,
+								isBigSearchOn,
+								isBigSearchOnBySmall,
+								setSmallSearchOn,
+								setBigSearchOn: setBigSearchOn,
+								setBigSearchOnBySmall,
+							}}
+						/>
+					</Col>
+				)}
+				{isBigSearchOn && (
+					<Col
+						className={` ${
+							isBigSearchOn ? style.Visibility : style.VisibilityNone
+						} ${style.customDisplayNone} `}
+					>
+						<Search
+							scrollTransfer={scrollTransfer}
+							propsBigSearch={{
+								isWhereDropOn,
+								isWhenDropOn,
+								isWhoDropOn,
+								setWhereDrop,
+								setWhenDrop,
+								setWhoDrop,
+							}}
+							propsKindSwitch={{
+								isSmallSearchOn,
+								isBigSearchOn,
+								isBigSearchOnBySmall,
+								setSmallSearchOn,
+								setBigSearchOn: setBigSearchOn,
+								setBigSearchOnBySmall,
+							}}
+						/>
+					</Col>
+				)}
 				<Col
 					//sx={12} sm={10}
 					md={4}

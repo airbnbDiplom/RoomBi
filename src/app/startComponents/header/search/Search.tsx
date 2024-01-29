@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import style from './Search.module.css'
 import { Col, Row } from 'react-bootstrap'
-import { FocusEvent, MouseEvent, useEffect, useRef, useState } from 'react'
+import { FocusEvent, MouseEvent, use, useEffect, useRef, useState } from 'react'
 import { ButtonOnBigDSearch, SearchKindSwitch } from '@/app/type/type'
 import Where from './buttonOnBigSerch/Where'
 // interface buttonFromSmallSearch {
@@ -14,7 +14,14 @@ interface propsButtonOnBigDSearch {
 interface propsSearchKindSwitchP {
 	propsKindSwitch: SearchKindSwitch
 }
-const Search: React.FC<propsButtonOnBigDSearch & propsSearchKindSwitchP> = ({
+interface ScrollTransf {
+	scrollTransfer: number
+}
+
+const Search: React.FC<
+	propsButtonOnBigDSearch & propsSearchKindSwitchP & ScrollTransf
+> = ({
+	scrollTransfer,
 	propsBigSearch: propsBigSearchBtn,
 	propsKindSwitch: propsKindSwitch,
 }) => {
@@ -31,22 +38,15 @@ const Search: React.FC<propsButtonOnBigDSearch & propsSearchKindSwitchP> = ({
 		isBigSearchOn,
 		isBigSearchOnBySmall,
 		setSmallSearchOn,
-		serBigSearchOn,
+		setBigSearchOn,
 		setBigSearchOnBySmall,
 	} = propsKindSwitch
+
+	const [scroll, setScroll] = useState(Number)
+	const [scrollAfterSmallSearch, setScrollAfterSmallSearch] = useState(-1)
+
 	const dropdownWhereRef = useRef<HTMLDivElement>(null)
 	const header = document.getElementById('header')
-
-	// const toggleNaw = () => {
-	// 	const filterNaw = document.getElementById('filter')
-	// 	if (filterNaw && whereDrop) {
-	// 		filterNaw.style.display = 'none'
-	// 		if (header) header.style.paddingBottom = '70px'
-	// 	} else if (filterNaw && !whereDrop) {
-	// 		filterNaw.style.display = 'flex'
-	// 		if (header) header.style.paddingBottom = '0px'
-	// 	}
-	// }
 
 	const openDropDawn = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault()
@@ -56,6 +56,17 @@ const Search: React.FC<propsButtonOnBigDSearch & propsSearchKindSwitchP> = ({
 				break
 		}
 	}
+	useEffect(() => {
+		const handler = () => {
+			setScroll(window.scrollY)
+			window.removeEventListener('scroll', handler)
+		}
+
+		window.addEventListener('scroll', handler)
+		return () => {
+			window.removeEventListener('scroll', handler)
+		}
+	}, [])
 
 	useEffect(() => {
 		const handleClickOutside = (event: any) => {
@@ -63,55 +74,44 @@ const Search: React.FC<propsButtonOnBigDSearch & propsSearchKindSwitchP> = ({
 				dropdownWhereRef.current &&
 				!dropdownWhereRef.current.contains(event.target as Node)
 			) {
-				console.log(`here`)
 				document.removeEventListener('click', handleClickOutside)
 				setWhereDrop(false)
-				//	setDropDawnBigScrollWithSearch(false)
 			}
 		}
 		document.addEventListener('click', handleClickOutside)
+		return () => {
+			document.removeEventListener('click', handleClickOutside)
+		}
 	}, [isWhereDropOn])
 
-	// useEffect(() => {
-	// 	// обработчик для сброса цвета Header при нажатии за приделы
-	// 	//выпадающего окна
-	// 	const handleClickOutside = (event: any) => {
-	// 		if (
-	// 			dropdownWhereRef.current &&
-	// 			!dropdownWhereRef.current.contains(event.target as Node)
-	// 		) {
-	// 			console.log(`here`)
-	// 			document.removeEventListener('click', handleClickOutside)
-	// 			setWhereDrop(false)
-	// 			//	setDropDawnBigScrollWithSearch(false)
-	// 		}
-	// 	}
-	// 	if (whereDrop) document.addEventListener('click', handleClickOutside)
-	// 	//Изменение цвета в Header
+	const handelScrollFromSmall = () => {
+		console.log('Scrolll', scrollAfterSmallSearch)
 
-	// 	changeTeam()
-	// 	//скрытие фильтров
-	// 	toggleNaw()
-	// 	// Return cleanup function
-	// }, [whereDrop, whenDrop, WhoDrop])
-	// const changeTeam = () => {
-	// 	if (
-	// 		(whereDrop || whenDrop || WhoDrop) &&
-	// 		header?.classList.contains('headerBackgroundWhite')
-	// 	)
-	// 		header?.classList.replace('headerBackgroundWhite', 'headerBackgroundBra')
-	// 	else if (
-	// 		!whereDrop &&
-	// 		!whenDrop &&
-	// 		!WhoDrop &&
-	// 		header?.classList.contains('headerBackgroundBra')
-	// 	)
-	// 		header?.classList.replace('headerBackgroundBra', 'headerBackgroundWhite')
-	// }
-
-	function searchInFocus(event: React.MouseEvent<HTMLButtonElement>) {
-		openDropDawn(event)
+		setScrollAfterSmallSearch(window.scrollY)
+		console.log('setScrolllHandler', window.scrollY)
 	}
+
+	useEffect(() => {
+		if (scrollAfterSmallSearch !== -1) {
+			window.removeEventListener('scroll', handelScrollFromSmall)
+			setSmallSearchOn(true)
+			setBigSearchOn(false)
+		}
+	}, [scrollAfterSmallSearch])
+
+	useEffect(() => {
+		if (!isBigSearchOnBySmall && scroll !== 0) {
+			setSmallSearchOn(true)
+			setBigSearchOn(false)
+		} else if (isBigSearchOnBySmall) {
+			window.addEventListener('scroll', handelScrollFromSmall)
+			setSmallSearchOn(false)
+			setBigSearchOn(true)
+		}
+		return () => {
+			window.removeEventListener('scroll', handelScrollFromSmall)
+		}
+	}, [scroll])
 
 	return (
 		<Row className={` ${style.main} text-end `} ref={dropdownWhereRef}>

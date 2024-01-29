@@ -2,6 +2,7 @@ import Image from 'next/image'
 import style from './SmallSearch.module.css'
 import { Col, Row } from 'react-bootstrap'
 import { ButtonOnBigDSearch, SearchKindSwitch } from '@/app/type/type'
+import { useEffect, useState } from 'react'
 interface HederComponentProps {
 	setScroll: (setScroll: boolean) => void
 	setDropDawnScroll: (setDropDawnScroll: boolean) => void
@@ -13,10 +14,13 @@ interface propsButtonOnBigDSearch {
 interface propsSearchKindSwitchP {
 	propsKindSwitch: SearchKindSwitch
 }
-
+interface SetterScroll {
+	setScrollTransfer: React.Dispatch<React.SetStateAction<number>>
+}
 const SmallSearch: React.FC<
-	propsButtonOnBigDSearch & propsSearchKindSwitchP
+	propsButtonOnBigDSearch & propsSearchKindSwitchP & SetterScroll
 > = ({
+	setScrollTransfer,
 	propsBigSearch: propsBigSearchBtn,
 	propsKindSwitch: propsKindSwitch,
 }) => {
@@ -33,9 +37,31 @@ const SmallSearch: React.FC<
 		isBigSearchOn,
 		isBigSearchOnBySmall,
 		setSmallSearchOn,
-		serBigSearchOn,
+		setBigSearchOn,
 		setBigSearchOnBySmall,
 	} = propsKindSwitch
+
+	const [scroll, setScroll] = useState(window.scrollY)
+
+	const handler = () => {
+		setScroll(window.scrollY)
+	}
+	useEffect(() => {
+		window.addEventListener('scroll', handler)
+		return () => {
+			setScrollTransfer(window.scrollY)
+			window.removeEventListener('scroll', handler)
+		}
+	}, [])
+
+	useEffect(() => {
+		if (scroll === 0) {
+			window.removeEventListener('scroll', handler)
+			console.log(`smaoll toggle ${scroll}`)
+			setSmallSearchOn(false)
+			setBigSearchOn(true)
+		}
+	}, [scroll])
 
 	return (
 		<Row className={` ${style.main}  p-0`}>
@@ -51,7 +77,7 @@ const SmallSearch: React.FC<
 						setWhoDrop(false)
 						setWhereDrop(true)
 						setSmallSearchOn(false)
-						serBigSearchOn(true)
+						setBigSearchOn(true)
 						setBigSearchOnBySmall(true)
 						if (document.getElementById('where'))
 							document.getElementById('where')?.click()

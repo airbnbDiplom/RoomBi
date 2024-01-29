@@ -31,7 +31,7 @@ export interface SearchKindSwitch {
 	isSmallSearchOn: boolean
 	isBigSearchOn: boolean
 	isBigSearchOnBySmall: boolean
-	setSmallSearchOn: (setWhereDrop: boolean) => void
-	serBigSearchOn: (setWhenDrop: boolean) => void
-	setBigSearchOnBySmall: (setWhoDrop: boolean) => void
+	setSmallSearchOn: (setSmallSearchOn: boolean) => void
+	setBigSearchOn: (serBigSearchOn: boolean) => void
+	setBigSearchOnBySmall: (setBigSearchOnBySmall: boolean) => void
 }
