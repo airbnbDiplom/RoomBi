@@ -1,3 +1,7 @@
+.header {
+	min-height: 140px;
+}
+
 .customText {
 	@media (max-width: 575.98px) {
 		text-align: center !important;
@@ -24,9 +28,14 @@
 .link {
 	font-size: 0.8rem;
 	color: var(--eerieBlack);
+	text-wrap: nowrap;
 	@media (min-width: 1980px) {
 		font-size: 1.2rem;
 	}
+}
+.logo {
+	text-decoration: none;
+	color: var(--eerieBlack);
 }
 .cursor {
 	cursor: pointer;
@@ -36,5 +45,33 @@
 	cursor: pointer;
 	@media (max-width: 575.98px) {
 		display: none !important;
+	}
+}
+.VisibilityNone {
+	display: none !important;
+}
+.Visibility {
+	display: block;
+}
+.flexCenter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#flexHider {
+	min-height: 70px;
+}
+.animate__animated {
+	background-color: red;
+	animation: searchToSmall 300ms ease;
+}
+@keyframes searchToSmall {
+	from {
+		margin: 3px;
+		opacity: 1;
+	}
+	to {
+		margin: 10px;
+		opacity: 0;
 	}
 }

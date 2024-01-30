@@ -2,12 +2,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Col, Row } from 'react-bootstrap'
 import { CardBi } from '../../components/card/CardBi'
 import { cardData } from '../../tempData/data'
-import { ButtonShowMore } from '../../ui/ButtonShowMore'
+import { ButtonShowMore } from '../../ui/buttonShowMore/ButtonShowMore'
 import style from './main.module.css'
 
 const Main: React.FC = () => {
 	return (
-		<div className={style.container}>
+		<div
+			className={`${style.container} ms-lg-5 me-lg-5 ms-sm-3 me-sm-3 ms-sx-3 me-sx-3`}
+		>
 			<Row>
 				{cardData.map((item, index) => {
 					return (

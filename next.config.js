@@ -4,6 +4,6 @@ const nextConfig = {};
 module.exports = nextConfig;
 module.exports = {
   images: {
-    domains: ["picsum.photos"],
+    domains: ["picsum.photos", "a0.muscache.com"],
   },
 };

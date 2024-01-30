@@ -1,46 +1,50 @@
-import React from "react";
+import Link from 'next/link'
+import React from 'react'
+import style from './Footer.module.css'
+import { SocialNetwork } from './socialNetwork/SocialNetwork'
+import { FooterButton } from './footerButton/FooterButton'
+const Footer: React.FC = () => {
+	return (
+		<footer
+			className={
+				style.container +
+				' border-top border-dark ms-lg-5 me-lg-5 ms-sm-3 me-sm-3 ms-sx-3 me-sx-3'
+			}
+		>
+			<div className={style.left}>
+				<span>© 2024 RoomBi</span>
+				<span className={style.point}></span>
+				<Link className={style.link} href='#'>
+					Умови
+				</Link>
+				<span className={style.point}></span>
+				<Link className={style.link} href='#'>
+					Реквізити компанії
+				</Link>
+				<span className={style.point}></span>
+				<Link className={style.link} href='#'>
+					Підтримка
+				</Link>
+			</div>
 
-const Footer: React.FC = (props: React.PropsWithChildren) => {
-  return (
-    <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <p className="col-md-4 mb-0 text-muted">© 2022 Company, Inc</p>
+			<div className={style.right}>
+				<FooterButton
+					title='Українська (UA)'
+					src='/footer/language.svg'
+					event='Мова'
+				/>
+				<FooterButton
+					title='USD'
+					src='/footer/dollar.svg'
+					event='конвертер валют'
+				/>
+				<SocialNetwork src='/footer/inst.svg' />
+				<SocialNetwork src='/footer/fb.png' />
+				<SocialNetwork src='/footer/git.png' />
+				<SocialNetwork src='/footer/link.png' />
+			</div>
+		</footer>
+	)
+}
 
-      <a
-        href="/"
-        className="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
-      >
-        {/* <svg className="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg> */}
-      </a>
-
-      <ul className="nav col-md-4 justify-content-end">
-        <li className="nav-item">
-          <a href="#" className="nav-link px-2 text-muted">
-            Home
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="#" className="nav-link px-2 text-muted">
-            Features
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="#" className="nav-link px-2 text-muted">
-            Pricing
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="#" className="nav-link px-2 text-muted">
-            FAQs
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="#" className="nav-link px-2 text-muted">
-            About
-          </a>
-        </li>
-      </ul>
-    </footer>
-  );
-};
-
-export { Footer };
+export { Footer }
