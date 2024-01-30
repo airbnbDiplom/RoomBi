@@ -1,15 +1,21 @@
+export interface ImgBi {
+	id: number
+	pictureName: string
+	pictureUrl: string
+	rentalApartmentId: string
+}
 export interface CardBiProps {
 	id: number
 	title: string
 	country: string
-	date: string
-	src: string[]
-	price: number
-	rating: number
+	bookingFree: string
+	pictures: ImgBi[]
+	pricePerNight: number
+	objectRating: number
 	choiceGuests: boolean
 }
 export interface CarouselBiProps {
-	src: string[]
+	pictures: ImgBi[]
 	handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 export interface FilterObj {
@@ -31,7 +37,7 @@ export interface SearchKindSwitch {
 	isSmallSearchOn: boolean
 	isBigSearchOn: boolean
 	isBigSearchOnBySmall: boolean
-	setSmallSearchOn: (setSmallSearchOn: boolean) => void
-	setBigSearchOn: (serBigSearchOn: boolean) => void
-	setBigSearchOnBySmall: (setBigSearchOnBySmall: boolean) => void
+	setSmallSearchOn: (setWhereDrop: boolean) => void
+	setBigSearchOn: (setWhenDrop: boolean) => void
+	setBigSearchOnBySmall: (setWhoDrop: boolean) => void
 }

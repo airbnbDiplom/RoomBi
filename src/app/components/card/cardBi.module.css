@@ -66,8 +66,9 @@ width: 90%;
 .card{
 	background-color: var(--gainsboro);
 	width: 80%;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	margin-left: 10%;
+	cursor: pointer;
 	}
 	.caruselContainer{
 		min-width:130px;

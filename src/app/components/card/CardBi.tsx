@@ -1,45 +1,49 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import style from "./cardBi.module.css";
 import { CarouselBi } from "./carousel/CarouselBi";
 import { Col, Row } from "react-bootstrap";
 import { CardBiProps } from "../../type/type";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const CardBi: React.FC<CardBiProps> = ({
-  src,
+  id,
+  pictures,
   title,
   country,
-  date,
-  price,
-  rating,
+  bookingFree,
+  pricePerNight,
+  objectRating,
   choiceGuests,
 }) => {
-  const [thisRating, setThisRating] = useState(0);
-  const [thisChoiceGuests, setThisChoiceGuests] = useState(false);
-  useEffect(() => {
-    setThisRating(rating);
-    setThisChoiceGuests(choiceGuests);
-  }, [choiceGuests, rating]);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("Button clicked!", event.target);
+  const router = useRouter();
+
+  // const handleClickRouter = () => {
+  //   router.push(`/${id}`);
+  // };
+
+  const handleClickRouter = () => {
+    const newTabUrl = `/${id}`;
+
+    // Відкриваємо нову вкладку з новим URL
+    window.open(newTabUrl, "_blank");
+
+    // Опціонально, переходимо на новий URL в поточній вкладці
+    router.push(newTabUrl);
   };
-  const handleClickHeart = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation(); // Зупинити випливання події
+  const handleClickHeart = () => {
     console.log("Button Heart!");
   };
-  const handleClickHeader = () => {
-    console.log("Button handleClickHeader!");
-  };
-  const handleClickFooter = () => {
-    console.log("handleClickFooter!");
-  };
+
   return (
     <div className={style.card}>
-      <div className={style.cardHeader} onClick={handleClickHeader}>
+      <div className={style.cardHeader}>
         <div>
-          {thisChoiceGuests && (
-            <span className={style.choiceGuests}>вибір гостей</span>
+          {choiceGuests && (
+            <span onClick={handleClickRouter} className={style.choiceGuests}>
+              вибір гостей
+            </span>
           )}
         </div>
         <div>
@@ -51,16 +55,18 @@ const CardBi: React.FC<CardBiProps> = ({
       </div>
       <div className={style.caruselContainer}>
         <div className={style.carusel}>
-          <CarouselBi src={src} handleClick={(event) => handleClick(event)} />
+          <CarouselBi
+            pictures={pictures}
+            handleClick={(event) => handleClickRouter()}
+          />
         </div>
       </div>
-
-      <div className={style.textContainet} onClick={handleClickFooter}>
+      <div className={style.textContainet} onClick={handleClickRouter}>
         <Row>
           <Col xs={{ span: 8 }}>
             <p className={style.subtitle}>{title}</p>
           </Col>
-          {thisRating !== 0 && (
+          {objectRating !== 0 && (
             <Col xs={{ span: 4 }}>
               <div className={style.thisRating}>
                 <Image
@@ -70,14 +76,14 @@ const CardBi: React.FC<CardBiProps> = ({
                   alt="Picture of the author"
                   sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 />
-                <span> {thisRating}</span>
+                <span> {objectRating}</span>
               </div>
             </Col>
           )}
         </Row>
         <p className={style.text}> {country}</p>
-        <p className={style.text}> {date}</p>
-        <p className={style.subtitle}> {price}р ночь</p>
+        <p className={style.text}> {bookingFree}</p>
+        <p className={style.subtitle}> {pricePerNight}$ ночь</p>
       </div>
     </div>
   );
