@@ -43,13 +43,13 @@
 	border-radius: 50%;
 }
 .nextBtn{
-    padding-bottom: 4px;
+    padding-bottom: 2px;
 	padding-left: 10px;
-	padding-right: 6px;
+	padding-right: 4px;
 }
 .prevBtn{
-    padding-bottom: 4px;
-	padding-left: 6px;
+    padding-bottom: 2px;
+	padding-left: 4px;
 	padding-right: 10px;
 }
 .filterBtn {

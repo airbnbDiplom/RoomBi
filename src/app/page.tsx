@@ -1,4 +1,4 @@
-import { getAllHouses } from "./services/housesServices";
+import { getAllHouses, getHousesBySearch } from "./services/housesServices";
 import { Header } from "./startComponents/header/Header";
 import { Main } from "./startComponents/main/Main";
 import { Naw } from "./startComponents/naw/Naw";

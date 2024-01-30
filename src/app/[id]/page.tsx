@@ -8,13 +8,13 @@ type Props = {
   };
 };
 
-export async function generateMetadata({ params: { id } }: Props) {
-  const hous = await getHousId(id);
+// export async function generateMetadata({ params: { id } }: Props) {
+//   const hous = await getHousId(id);
 
-  return {
-    title: hous[0].title,
-  };
-}
+//   return {
+//     title: hous[0].title,
+//   };
+// }
 
 export default async function Hous({ params: { id } }: Props) {
   const hous = await getHousId(id);
