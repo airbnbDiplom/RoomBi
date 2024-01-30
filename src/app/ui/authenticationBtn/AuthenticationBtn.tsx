@@ -14,7 +14,7 @@ const AuthenticationBtn: React.FC = () => {
 				style={{ border: 'none', paddingRight: '0', background: 'none' }}
 				className={`custom-dropdown-toggle w-100 d-flex justify-content-end`}
 			>
-				<button className={`${style.btnWhite} m-0 `}>
+				<div className={`${style.btnWhite} m-0 `}>
 					<Image
 						priority
 						src='./icon/burger.svg'
@@ -29,7 +29,7 @@ const AuthenticationBtn: React.FC = () => {
 						height={22}
 						alt='person icon'
 					/>
-				</button>
+				</div>
 			</Dropdown.Toggle>
 			<Dropdown.Menu className={style.itemFont}>
 				<Dropdown.Item href='#'>

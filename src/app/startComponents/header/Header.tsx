@@ -20,28 +20,10 @@ const Header: FC = () => {
 	const [isWhenDropOn, setWhenDrop] = useState(false)
 	const [isWhoDropOn, setWhoDrop] = useState(false)
 	const [scrollTransfer, setScrollTransfer] = useState(Number)
-	// const [dropDawnBigScrollWithSearch, setDropDawnBigScrollWithSearch] =
-	// 	useState(false)
-	const [scrolled, setScrolled] = useState(false)
-	const header = document.getElementById('header')
-	const filterNaw = document.getElementById('filter')
-
-	// const handler = () => {
-	// 	console.log('scroled handler')
-	// 	if (!scrolled) {
-	// 		console.log(`scroll changed ${window.screenY}`)
-	// 		setScroll(window.screenY)
-	// 	}
-	// }
-	// window.addEventListener('scroll', handler)
-
-	useEffect(() => {
-		console.log('useEffect on header')
-	}, [isSmallSearchOn, isBigSearchOn, isBigSearchOnBySmall])
 
 	return (
-		<Container fluid className='pt-5 position-sticky' id='header'>
-			<Row className='d-flex align-items-center'>
+		<Container fluid className={`pt-5 pb-3 position-sticky ${style.header}`}>
+			<Row className={'d-flex align-items-center '} style={{ height: '75px' }}>
 				<Col
 					className={style.customTextCenter}
 					// sm={2}

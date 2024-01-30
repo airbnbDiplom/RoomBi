@@ -1,3 +1,7 @@
+.header {
+	min-height: 140px;
+}
+
 .customText {
 	@media (max-width: 575.98px) {
 		text-align: center !important;
@@ -53,4 +57,21 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+#flexHider {
+	min-height: 70px;
+}
+.animate__animated {
+	background-color: red;
+	animation: searchToSmall 300ms ease;
+}
+@keyframes searchToSmall {
+	from {
+		margin: 3px;
+		opacity: 1;
+	}
+	to {
+		margin: 10px;
+		opacity: 0;
+	}
 }

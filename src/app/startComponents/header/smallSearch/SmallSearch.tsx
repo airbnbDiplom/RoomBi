@@ -2,7 +2,7 @@ import Image from 'next/image'
 import style from './SmallSearch.module.css'
 import { Col, Row } from 'react-bootstrap'
 import { ButtonOnBigDSearch, SearchKindSwitch } from '@/app/type/type'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 interface HederComponentProps {
 	setScroll: (setScroll: boolean) => void
 	setDropDawnScroll: (setDropDawnScroll: boolean) => void
@@ -48,8 +48,11 @@ const SmallSearch: React.FC<
 	}
 	useEffect(() => {
 		window.addEventListener('scroll', handler)
+		console.log(
+			`isSmallSearchOn ${isSmallSearchOn}, isBigSearchOn ${isBigSearchOn}, isBigSearchOnBySmall${isBigSearchOnBySmall} `
+		)
 		return () => {
-			setScrollTransfer(window.scrollY)
+			//setScrollTransfer(window.scrollY)
 			window.removeEventListener('scroll', handler)
 		}
 	}, [])
@@ -57,14 +60,20 @@ const SmallSearch: React.FC<
 	useEffect(() => {
 		if (scroll === 0) {
 			window.removeEventListener('scroll', handler)
-			console.log(`smaoll toggle ${scroll}`)
-			setSmallSearchOn(false)
-			setBigSearchOn(true)
+
+			if (smallSearch.current)
+				smallSearch.current.classList.add(style.animateSmallToBig)
+			setTimeout(() => {
+				setSmallSearchOn(false)
+				setBigSearchOn(true)
+				setBigSearchOnBySmall(false)
+			}, 150)
 		}
 	}, [scroll])
 
+	const smallSearch = useRef<HTMLDivElement>(null)
 	return (
-		<Row className={` ${style.main}  p-0`}>
+		<Row className={` ${style.main}  p-0`} ref={smallSearch}>
 			<Col
 				className={` 
 				d-flex align-items-center justify-content-center p-0`}
@@ -73,12 +82,17 @@ const SmallSearch: React.FC<
 					className={`p-0 ${style.resetButton}`}
 					onClick={event => {
 						event.preventDefault()
-						setWhenDrop(false)
-						setWhoDrop(false)
-						setWhereDrop(true)
-						setSmallSearchOn(false)
-						setBigSearchOn(true)
-						setBigSearchOnBySmall(true)
+						if (smallSearch.current)
+							smallSearch.current.classList.add(style.animateSmallToBig)
+						setTimeout(() => {
+							setSmallSearchOn(false)
+							setBigSearchOnBySmall(true)
+							setBigSearchOn(true)
+							setWhenDrop(false)
+							setWhoDrop(false)
+							setWhereDrop(true)
+						}, 150)
+
 						if (document.getElementById('where'))
 							document.getElementById('where')?.click()
 					}}

@@ -84,3 +84,23 @@
 .imgDiv:hover {
 	border: 1px solid black;
 }
+.animateBigToSmall {
+	animation: searchToSmall 150ms ease;
+}
+@keyframes searchToSmall {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Example of adding box-shadow */
+	}
+	50% {
+		transform: scale(0.75); /* Intermediate scale step */
+		opacity: 0.5;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reducing box-shadow */
+	}
+	100% {
+		transform: scale(0.5);
+		opacity: 0;
+		box-shadow: none; /* Removing box-shadow */
+	}
+}
