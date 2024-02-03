@@ -2,7 +2,7 @@
 import { Dropdown } from 'react-bootstrap'
 import Image from 'next/image'
 import style from './AuthenticationBtn.module.css'
-import { ThemProps } from '@/types/props'
+import { ThemProps } from '@/app/type/type'
 
 const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	return (
