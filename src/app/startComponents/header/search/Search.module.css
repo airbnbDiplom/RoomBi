@@ -2,16 +2,29 @@
 	position: relative;
 	display: flex;
 	align-items: center;
-	border: 1px solid var(--eerieBlack);
-	border-radius: 50px;
+	border-radius: 25px;
 	font-size: 0.75rem;
 	text-wrap: nowrap;
 }
-
-.colorOne {
+.colorMainTextWhite {
+	color: var(--gainsboro);
+}
+.colorMainTextBlack {
+	color: var(--eerieBlack) !important;
+}
+.borderBlack {
+	border: 1px solid var(--eerieBlack);
+}
+.borderWhite {
+	border: 1px solid var(--gainsboro);
+}
+.pText {
+	color: var(--eerieBlack);
 	font-weight: 600;
 	font-size: 1, 2dvh;
-	color: var(--eerieBlack);
+}
+.colorTextBlackThem {
+	color: var(--gainsboro);
 }
 .colorTwo {
 	color: #8a8278;
@@ -20,30 +33,53 @@
 .cursor {
 	cursor: pointer;
 }
-.border {
-	border-right: 1px solid;
-	border-color: var(--eerieBlack);
-}
-.border:hover {
+.borderRightBlack:hover,
+.borderRightWhite:hover {
 	border: none;
 }
+.borderRightBlack {
+	border-right: 1px solid var(--eerieBlack);
+}
+.borderRightWhite {
+	border-right: 1px solid var(--gainsboro);
+}
+
 .search {
-	width: 32px !important;
-	height: 32px;
-	background-color: var(--eerieBlack);
-	border-radius: 25px;
+	width: 55px !important;
+	height: 55px;
+	background-color: var(--boyRed);
+	border-radius: 50px;
 }
 .resetButton {
 	background: none;
 	border: none;
 	width: 100%;
 	height: 100%;
+	border-radius: 25px 25px 25px 25px;
 }
-
+.counterBtn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 24px;
+	height: 24px;
+	border: 1px solid var(--boyRed);
+}
+.btnStyle {
+	background: none;
+}
 .btnStyle:hover {
 	border: none;
-	border-radius: 30px 30px 30px 30px;
-	background-color: rgba(186, 185, 185, 0.561);
+	border-radius: 25px 25px 25px 25px;
+	background-color: rgba(135, 135, 135, 0.561);
+}
+.btnBlackBacActive {
+	color: black;
+	background: var(--gainsboro);
+}
+.btnBlackBac {
+	color: var(--gainsboro);
+	background: none;
 }
 .inputReset {
 	appearance: none;
@@ -59,20 +95,27 @@
 .dNone {
 	display: none;
 }
-.action {
+.actionWhereDropDawnOn,
+.actionWhoDropDawnOn {
 	position: absolute;
-	background-color: var(--gainsboro);
 	border: 1px solid var(--eerieBlack);
 	border-radius: 15px;
-	top: 80px;
-	left: 0;
+	top: 90px;
 	z-index: 999;
 	padding: 15px;
 	text-align: start;
 	background-color: white;
 	font-weight: 600;
 	font-size: 12px;
+	color: var(--eerieBlack);
 }
+.actionWhereDropDawnOn {
+	left: 0;
+}
+.actionWhoDropDawnOn {
+	right: 0;
+}
+
 .imageDis {
 	margin-top: 5px;
 }

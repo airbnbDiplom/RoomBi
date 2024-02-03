@@ -16,17 +16,18 @@
 	}
 }
 body {
-	color: rgb(var(--eerieBlack));
+	color: var(--eerieBlack);
 	font-family: var(--var-nunito), sans-serif;
 	background-color: var(--boyRed);
 }
-.headerBackgroundWhite {
+.header-Main {
 	background-color: var(--gainsboro);
 }
-.headerBackgroundBra {
-	background-color: var(--darkLava);
-	color: white !important ;
-}
+
 .custom-dropdown-toggle::after {
 	display: none !important;
+}
+.link-Reset {
+	text-decoration: none;
+	color: var(--eerieBlack);
 }

@@ -2,29 +2,32 @@
 import { Dropdown } from 'react-bootstrap'
 import Image from 'next/image'
 import style from './AuthenticationBtn.module.css'
+import { ThemProps } from '@/types/props'
 
-interface IAuthenticationBtn {}
-
-const AuthenticationBtn: React.FC = () => {
+const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	return (
-		<Dropdown className='d-flex align-item-center'>
+		<Dropdown className={`d-flex align-item-center ${style.btn}`}>
 			<Dropdown.Toggle
 				variant='none'
 				id='dropdown-basic'
 				style={{ border: 'none', paddingRight: '0', background: 'none' }}
 				className={`custom-dropdown-toggle w-100 d-flex justify-content-end`}
 			>
-				<div className={`${style.btnWhite} m-0 `}>
+				<div
+					className={`${style.btn} ${
+						isTeamBlack ? style.btnBlack : style.btnWhite
+					} m-0 `}
+				>
 					<Image
 						priority
-						src='./icon/burger.svg'
+						src={isTeamBlack ? './icon/burgerW.svg' : './icon/burger.svg'}
 						width={22}
 						height={22}
 						alt='List icon'
 					/>
 					<Image
 						priority
-						src='./icon/person.svg'
+						src={isTeamBlack ? './icon/personW.svg' : './icon/person.svg'}
 						width={22}
 						height={22}
 						alt='person icon'

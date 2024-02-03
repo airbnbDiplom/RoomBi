@@ -1,9 +1,17 @@
 import Image from 'next/image'
 import style from './Search.module.css'
 import { Col, Row } from 'react-bootstrap'
-import { FocusEvent, MouseEvent, use, useEffect, useRef, useState } from 'react'
-import { ButtonOnBigDSearch, SearchKindSwitch } from '@/app/type/type'
-import Where from './buttonOnBigSerch/Where'
+import { useEffect, useRef, useState } from 'react'
+import {
+	SearchDataState,
+	ButtonOnBigDSearch,
+	SearchKindSwitch,
+	ThemProps,
+} from '@/app/type/type'
+import Where from './buttonOnBigSearch/Where'
+import Who from './buttonOnBigSearch/Who'
+import WhenCome from './buttonOnBigSearch/WhenCome'
+import WhenDeparture from './buttonOnBigSearch/WhenDeparture'
 
 interface propsButtonOnBigDSearch {
 	propsBigSearch: ButtonOnBigDSearch
@@ -11,24 +19,36 @@ interface propsButtonOnBigDSearch {
 interface propsSearchKindSwitchP {
 	propsKindSwitch: SearchKindSwitch
 }
-interface ScrollTransf {
-	scrollTransfer: number
+interface SearchDataProps {
+	searchData: SearchDataState
+	setSearchData: React.Dispatch<React.SetStateAction<SearchDataState>>
+}
+interface TeamSetter {
+	setTeamBlack: (setTeamBlack: boolean) => void
 }
 
 const Search: React.FC<
-	propsButtonOnBigDSearch & propsSearchKindSwitchP & ScrollTransf
+	SearchDataProps &
+		TeamSetter &
+		propsButtonOnBigDSearch &
+		propsSearchKindSwitchP &
+		ThemProps
 > = ({
-	scrollTransfer,
+	searchData,
+	setSearchData,
 	propsBigSearch: propsBigSearchBtn,
 	propsKindSwitch: propsKindSwitch,
+	isTeamBlack,
 }) => {
 	const {
 		isWhereDropOn,
 		isWhenDropOn,
 		isWhoDropOn,
+		isWhenDDropOn,
 		setWhereDrop,
 		setWhenDrop,
 		setWhoDrop,
+		setWhenDDrop,
 	} = propsBigSearchBtn
 	const {
 		isSmallSearchOn,
@@ -39,18 +59,45 @@ const Search: React.FC<
 		setBigSearchOnBySmall,
 	} = propsKindSwitch
 
+	// const [whoObj, setWho] = useState({
+	// 	gestsCount: 0,
+	// 	childrenCount: 0,
+	// 	babyCount: 0,
+	// 	animalsCount: 0,
+	// })
 	const [scroll, setScroll] = useState(Number)
 	const [scrollAfterSmallSearch, setScrollAfterSmallSearch] = useState(-1)
 	const [flag, setFlag] = useState(false)
 
-	//const dropdownWhereRef = useRef<HTMLDivElement>(null)
 	const searchBig = useRef<HTMLDivElement>(null)
 
 	const openDropDawn = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault()
+		console.log(`${event.target} currentTarget = ${event.currentTarget.id}`)
 		switch (event.currentTarget.id) {
 			case 'where':
 				setWhereDrop(!isWhereDropOn)
+				setWhoDrop(false)
+				setWhenDrop(false)
+				setWhenDDrop!(false)
+				break
+			case 'who':
+				setWhoDrop(!isWhoDropOn)
+				setWhereDrop(false)
+				setWhenDrop(false)
+				setWhenDDrop!(false)
+				break
+			case 'when':
+				setWhenDrop(!isWhenDropOn)
+				setWhereDrop(false)
+				setWhoDrop(false)
+				setWhenDDrop!(false)
+				break
+			case 'whenD':
+				setWhenDDrop!(!isWhenDDropOn)
+				setWhereDrop(false)
+				setWhoDrop(false)
+				setWhenDrop(false)
 				break
 		}
 	}
@@ -77,10 +124,12 @@ const Search: React.FC<
 					setWhereDrop(false)
 					setWhenDrop(false)
 					setWhoDrop(false)
+					setWhenDDrop!(false)
 				} else if (isBigSearchOnBySmall) {
 					setWhereDrop(false)
 					setWhenDrop(false)
 					setWhoDrop(false)
+					setWhenDDrop!(false)
 					searchBig?.current.classList.add(style.animateBigToSmall)
 					setTimeout(() => {
 						setBigSearchOn(false)
@@ -90,11 +139,12 @@ const Search: React.FC<
 				}
 			}
 		}
-		if (isWhereDropOn) document.addEventListener('click', handleClickOutside)
+		if (isWhereDropOn || isWhoDropOn || isWhenDropOn || isWhenDDropOn)
+			document.addEventListener('click', handleClickOutside)
 		return () => {
 			document.removeEventListener('click', handleClickOutside)
 		}
-	}, [isWhereDropOn])
+	}, [isWhereDropOn, isWhoDropOn, isWhenDropOn, isWhenDDropOn])
 
 	const handelScrollFromSmall = () => {
 		if (flag) setScrollAfterSmallSearch(window.scrollY)
@@ -109,6 +159,7 @@ const Search: React.FC<
 			setWhereDrop(false)
 			setWhenDrop(false)
 			setWhoDrop(false)
+			setWhenDDrop!(false)
 			setTimeout(() => {
 				setSmallSearchOn(true)
 				setBigSearchOn(false)
@@ -124,6 +175,7 @@ const Search: React.FC<
 			setWhereDrop(false)
 			setWhenDrop(false)
 			setWhoDrop(false)
+			setWhenDDrop!(false)
 			setTimeout(() => {
 				setSmallSearchOn(true)
 				setBigSearchOn(false)
@@ -137,49 +189,58 @@ const Search: React.FC<
 	}, [scroll])
 
 	return (
-		<Row className={` ${style.main} text-end `} ref={searchBig}>
+		<Row
+			className={` ${style.main}  ${
+				isTeamBlack ? style.borderWhite : style.borderBlack
+			} text-end `}
+			ref={searchBig}
+		>
 			<Col
 				className={` 
 					d-flex align-items-start justify-content-center p-0 `}
 			>
-				<Where isWhereDropOn={isWhereDropOn} openDropDawn={openDropDawn} />
+				<Where
+					isWhereDropOn={isWhereDropOn}
+					openDropDawn={openDropDawn}
+					isTeamBlack={isTeamBlack}
+				/>
 			</Col>
 			<Col className={`d-flex align-items-center justify-content-center p-0`}>
-				<button className={`p-0 ${style.resetButton} text-start`} id='whenOn'>
-					<div className={`mt-1 mb-1 ps-4 ${style.border}`}>
-						<p className={`${style.colorOne}  m-0`}>Прибуття</p>
-						<p className={`${style.colorTwo} m-0`}>Додайте дату</p>
-					</div>
-				</button>
+				<WhenCome
+					isWhenDropOn={isWhenDropOn}
+					openDropDawn={openDropDawn}
+					isTeamBlack={isTeamBlack}
+				/>
 			</Col>
 			<Col className={`d-flex align-items-center justify-content-center p-0`}>
-				<button className={`p-0 ${style.resetButton} text-start`} id='whenOf'>
-					<div className={`mt-1 mb-1 ps-4 ${style.border}`}>
-						<p className={`${style.colorOne} m-0`}>Виїзд</p>
-						<p className={`${style.colorTwo}  m-0`}>Додайте дату</p>
-					</div>
-				</button>
+				<WhenDeparture
+					isWhenDDropOn={isWhenDDropOn}
+					isWhenDropOn={isWhenDropOn}
+					openDropDawn={openDropDawn}
+					isTeamBlack={isTeamBlack}
+				/>
 			</Col>
 			<Col className={`d-flex align-items-center justify-content-center p-0`}>
-				<button className={`p-0 ${style.resetButton} text-start`} id='who'>
-					<div className={`mt-1 mb-1 ps-4`}>
-						<p className={`${style.colorOne}  m-0`}>Хто</p>
-						<p className={`${style.colorTwo}  m-0`}>Додайте гостей</p>
-					</div>
-				</button>
+				<Who
+					searchData={searchData}
+					setSearchData={setSearchData}
+					isWhoDropOn={isWhoDropOn}
+					openDropDawn={openDropDawn}
+					isTeamBlack={isTeamBlack}
+				/>
 			</Col>
 			<Col
-				xs={'auto'}
-				sm={'auto'}
-				md={'auto'}
-				lg={'auto'}
-				xl={'auto'}
+				xs={1}
+				sm={1}
+				md={1}
+				lg={1}
+				xl={1}
 				className={` ${style.cursor}  ${style.search} d-flex align-items-center justify-content-center m-1 p-0 '`}
 			>
 				<Image
 					src={'/icon/search.svg'}
-					width={20}
-					height={20}
+					width={30}
+					height={30}
 					alt='search icon'
 				/>
 			</Col>

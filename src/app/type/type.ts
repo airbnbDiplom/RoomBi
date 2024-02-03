@@ -26,12 +26,15 @@ export interface FilterObj {
 	type: string
 }
 export interface ButtonOnBigDSearch {
-	isWhereDropOn: boolean
-	isWhenDropOn: boolean
-	isWhoDropOn: boolean
+	isWhereDropOn?: boolean
+	isWhenDropOn?: boolean
+	isWhoDropOn?: boolean
+	isWhenDDropOn?: boolean
+
 	setWhereDrop: (setWhereDrop: boolean) => void
 	setWhenDrop: (setWhenDrop: boolean) => void
 	setWhoDrop: (setWhoDrop: boolean) => void
+	setWhenDDrop?: (setWhenDDrop: boolean) => void
 }
 export interface SearchKindSwitch {
 	isSmallSearchOn: boolean
@@ -40,4 +43,16 @@ export interface SearchKindSwitch {
 	setSmallSearchOn: (setWhereDrop: boolean) => void
 	setBigSearchOn: (setWhenDrop: boolean) => void
 	setBigSearchOnBySmall: (setWhoDrop: boolean) => void
+}
+export interface ThemProps {
+	isTeamBlack: boolean
+}
+export interface WhoState {
+	gestsCount: number
+	childrenCount: number
+	babyCount: number
+	animalsCount: number
+}
+export interface SearchDataState {
+	whoObj: WhoState
 }
