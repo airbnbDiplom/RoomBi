@@ -138,7 +138,7 @@ export const filterData: FilterObj[] = [
     id: 20,
     type: "House",
     label: "Rooms",
-    name: "Кімнати",
+    name: "Апартаменти",
     src: "https://a0.muscache.com/pictures/7630c83f-96a8-4232-9a10-0398661e2e6f.jpg",
   },
   {

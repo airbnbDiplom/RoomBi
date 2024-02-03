@@ -6,7 +6,9 @@
     flex-direction: column;
     cursor: pointer;
   }
-  
+  .carouselItem:hover{
+    z-index: 0;
+  }
   .name{
       font-size: 12px;
       overflow: hidden;

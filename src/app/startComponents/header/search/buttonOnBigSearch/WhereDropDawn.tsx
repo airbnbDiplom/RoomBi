@@ -1,12 +1,15 @@
 import { Col, Row } from 'react-bootstrap'
 import Image from 'next/image'
 import style from '../Search.module.css'
-import { useEffect } from 'react'
 
-const WhereDropDawn = ({ isWhereDropOn }: { isWhereDropOn: boolean }) => {
+const WhereDropDawn = ({ isWhereDropOn }: { isWhereDropOn?: boolean }) => {
 	return (
-		<div className={isWhereDropOn ? `${style.action}` : `${style.dNone}`}>
-			<p className='h5 mt-2 text-center fw-bold'>Пошук напрямку</p>
+		<div
+			className={
+				isWhereDropOn ? `${style.actionWhereDropDawnOn}` : `${style.dNone}`
+			}
+		>
+			<p className={`h5 mt-2 text-center fw-bold `}>Пошук напрямку</p>
 			<Row>
 				<Col>
 					<div className={style.imgDiv}>

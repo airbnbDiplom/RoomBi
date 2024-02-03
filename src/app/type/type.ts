@@ -1,15 +1,21 @@
+export interface ImgBi {
+	id: number
+	pictureName: string
+	pictureUrl: string
+	rentalApartmentId: string
+}
 export interface CardBiProps {
 	id: number
 	title: string
 	country: string
-	date: string
-	src: string[]
-	price: number
-	rating: number
+	bookingFree: string
+	pictures: ImgBi[]
+	pricePerNight: number
+	objectRating: number
 	choiceGuests: boolean
 }
 export interface CarouselBiProps {
-	src: string[]
+	pictures: ImgBi[]
 	handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 export interface FilterObj {
@@ -20,18 +26,33 @@ export interface FilterObj {
 	type: string
 }
 export interface ButtonOnBigDSearch {
-	isWhereDropOn: boolean
-	isWhenDropOn: boolean
-	isWhoDropOn: boolean
+	isWhereDropOn?: boolean
+	isWhenDropOn?: boolean
+	isWhoDropOn?: boolean
+	isWhenDDropOn?: boolean
+
 	setWhereDrop: (setWhereDrop: boolean) => void
 	setWhenDrop: (setWhenDrop: boolean) => void
 	setWhoDrop: (setWhoDrop: boolean) => void
+	setWhenDDrop?: (setWhenDDrop: boolean) => void
 }
 export interface SearchKindSwitch {
 	isSmallSearchOn: boolean
 	isBigSearchOn: boolean
 	isBigSearchOnBySmall: boolean
-	setSmallSearchOn: (setSmallSearchOn: boolean) => void
-	setBigSearchOn: (serBigSearchOn: boolean) => void
-	setBigSearchOnBySmall: (setBigSearchOnBySmall: boolean) => void
+	setSmallSearchOn: (setWhereDrop: boolean) => void
+	setBigSearchOn: (setWhenDrop: boolean) => void
+	setBigSearchOnBySmall: (setWhoDrop: boolean) => void
+}
+export interface ThemProps {
+	isTeamBlack: boolean
+}
+export interface WhoState {
+	gestsCount: number
+	childrenCount: number
+	babyCount: number
+	animalsCount: number
+}
+export interface SearchDataState {
+	whoObj: WhoState
 }

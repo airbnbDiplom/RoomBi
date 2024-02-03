@@ -9,6 +9,9 @@
 	@media (min-width: 576px) {
 		text-align: end !important;
 	}
+	@media (min-width: 1200px) {
+		text-wrap: wrap;
+	}
 }
 .customDisplayNone {
 	@media (max-width: 575.98px) {
@@ -26,16 +29,30 @@
 	text-align: center;
 }
 .link {
+	text-decoration: none;
 	font-size: 0.8rem;
 	color: var(--eerieBlack);
 	text-wrap: nowrap;
 	@media (min-width: 1980px) {
 		font-size: 1.2rem;
 	}
+	@media (max-width: 1200px) {
+		text-wrap: wrap;
+	}
+}
+.colorW {
+	color: var(--gainsboro);
 }
 .logo {
 	text-decoration: none;
 	color: var(--eerieBlack);
+	@media (max-width: 1200px) {
+		font-size: 2rem;
+	}
+}
+.logoBlack {
+	text-decoration: none;
+	color: var(--gainsboro);
 }
 .cursor {
 	cursor: pointer;
@@ -74,4 +91,13 @@
 		margin: 10px;
 		opacity: 0;
 	}
+}
+/* изменение цвета для хедер */
+.headerBlaCk {
+	background-color: var(--darkLava);
+	color: var(--gainsboro);
+}
+.headerWhite {
+	background-color: var(--gainsboro);
+	color: var(--eerieBlack);
 }

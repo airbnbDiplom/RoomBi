@@ -49,14 +49,34 @@ const Naw: React.FC = () => {
 	}, [screenWidth])
 
 	return (
-		<div className={style.container} id='filter'>
-			<div className={style.carousel} >
+		<div
+			className={`${style.container}  ps-lg-5 pe-lg-5 ps-sm-3 pe-sm-3 ps-sx-3 pe-sx-3`}
+		>
+			<div className={style.carousel}>
 				<Carousel
 					data-bs-theme='dark'
 					interval={null}
 					indicators={false}
-					nextIcon={<div className={style.nextBtn}></div>}
-					prevIcon={<div className={style.prevBtn}></div>}
+					nextIcon={
+						<div className={style.nextBtn}>
+							<Image
+								src='/filter/rightArrow.svg'
+								width={15}
+								height={15}
+								alt='next'
+							/>
+						</div>
+					}
+					prevIcon={
+						<div className={style.prevBtn}>
+							<Image
+								src='/filter/leftArrow.svg'
+								width={15}
+								height={15}
+								alt='prevBtn'
+							/>
+						</div>
+					}
 				>
 					{dataObjects.map((item, index) => {
 						return (

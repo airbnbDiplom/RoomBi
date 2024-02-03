@@ -14,24 +14,13 @@ interface propsButtonOnBigDSearch {
 interface propsSearchKindSwitchP {
 	propsKindSwitch: SearchKindSwitch
 }
-interface SetterScroll {
-	setScrollTransfer: React.Dispatch<React.SetStateAction<number>>
-}
 const SmallSearch: React.FC<
-	propsButtonOnBigDSearch & propsSearchKindSwitchP & SetterScroll
+	propsButtonOnBigDSearch & propsSearchKindSwitchP
 > = ({
-	setScrollTransfer,
 	propsBigSearch: propsBigSearchBtn,
 	propsKindSwitch: propsKindSwitch,
 }) => {
-	const {
-		isWhereDropOn,
-		isWhenDropOn,
-		isWhoDropOn,
-		setWhereDrop,
-		setWhenDrop,
-		setWhoDrop,
-	} = propsBigSearchBtn
+	const { setWhereDrop, setWhenDrop, setWhoDrop } = propsBigSearchBtn
 	const {
 		isSmallSearchOn,
 		isBigSearchOn,
@@ -52,7 +41,6 @@ const SmallSearch: React.FC<
 			`isSmallSearchOn ${isSmallSearchOn}, isBigSearchOn ${isBigSearchOn}, isBigSearchOnBySmall${isBigSearchOnBySmall} `
 		)
 		return () => {
-			//setScrollTransfer(window.scrollY)
 			window.removeEventListener('scroll', handler)
 		}
 	}, [])
@@ -71,6 +59,44 @@ const SmallSearch: React.FC<
 		}
 	}, [scroll])
 
+	const clickOpenDropDawnInBigSearch = (
+		event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+		options: string
+	) => {
+		event.preventDefault()
+		if (smallSearch.current)
+			smallSearch.current.classList.add(style.animateSmallToBig)
+		setTimeout(() => {
+			setSmallSearchOn(false)
+			setBigSearchOnBySmall(true)
+			setBigSearchOn(true)
+			console.log(options)
+			switch (options) {
+				case 'whereSmall':
+					setWhenDrop(false)
+					setWhoDrop(false)
+					setWhereDrop(true)
+					if (document.getElementById('where'))
+						document.getElementById('where')?.click()
+					break
+				case 'whenSmall':
+					setWhenDrop(true)
+					setWhoDrop(false)
+					setWhereDrop(false)
+					if (document.getElementById('when'))
+						document.getElementById('when')?.click()
+					break
+				case 'whoSmall':
+					setWhenDrop(false)
+					setWhoDrop(true)
+					setWhereDrop(false)
+					if (document.getElementById('who'))
+						document.getElementById('who')?.click()
+					break
+			}
+		}, 150)
+	}
+
 	const smallSearch = useRef<HTMLDivElement>(null)
 	return (
 		<Row className={` ${style.main}  p-0`} ref={smallSearch}>
@@ -81,34 +107,31 @@ const SmallSearch: React.FC<
 				<button
 					className={`p-0 ${style.resetButton}`}
 					onClick={event => {
-						event.preventDefault()
-						if (smallSearch.current)
-							smallSearch.current.classList.add(style.animateSmallToBig)
-						setTimeout(() => {
-							setSmallSearchOn(false)
-							setBigSearchOnBySmall(true)
-							setBigSearchOn(true)
-							setWhenDrop(false)
-							setWhoDrop(false)
-							setWhereDrop(true)
-						}, 150)
-
-						if (document.getElementById('where'))
-							document.getElementById('where')?.click()
+						clickOpenDropDawnInBigSearch(event, `whereSmall`)
 					}}
 				>
 					<div className={`mt-3 mb-3 me-1 p-0 ${style.border}`}>Будь куди</div>
 				</button>
 			</Col>
 			<Col className={`d-flex align-items-center justify-content-center p-0`}>
-				<button className={`p-0 ${style.resetButton}`}>
+				<button
+					onClick={event => {
+						clickOpenDropDawnInBigSearch(event, `whenSmall`)
+					}}
+					className={`p-0 ${style.resetButton}`}
+				>
 					<div className={`mt-3 mb-3 me-1 pe-1 p-0 ${style.border}`}>
 						Будь-який тиждень
 					</div>
 				</button>
 			</Col>
 			<Col className={`d-flex align-items-center justify-content-center p-0`}>
-				<button className={`p-0 ${style.resetButton}`}>
+				<button
+					className={`p-0 ${style.resetButton}`}
+					onClick={event => {
+						clickOpenDropDawnInBigSearch(event, `whoSmall`)
+					}}
+				>
 					<div className={`mt-3 mb-3 p-0`}>Додаты гостей</div>
 				</button>
 			</Col>

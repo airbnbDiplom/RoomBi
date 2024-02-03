@@ -3,7 +3,7 @@ import Carousel from "react-bootstrap/Carousel";
 import style from "./carouselBi.module.css";
 import { CarouselBiProps } from "../../../type/type";
 
-const CarouselBi: React.FC<CarouselBiProps> = ({ src, handleClick }) => {
+const CarouselBi: React.FC<CarouselBiProps> = ({ pictures, handleClick }) => {
   return (
     <Carousel
       data-bs-theme="dark"
@@ -12,8 +12,8 @@ const CarouselBi: React.FC<CarouselBiProps> = ({ src, handleClick }) => {
         <div className={style.nextBtn}>
           <Image
             src="/filter/rightArrow.svg"
-            width={20}
-            height={20}
+            width={15}
+            height={15}
             alt="next"
           />
         </div>
@@ -22,14 +22,14 @@ const CarouselBi: React.FC<CarouselBiProps> = ({ src, handleClick }) => {
         <div className={style.prevBtn}>
           <Image
             src="/filter/leftArrow.svg"
-            width={20}
-            height={20}
+            width={15}
+            height={15}
             alt="prevBtn"
           />
         </div>
       }
     >
-      {src.map((item, index) => {
+      {pictures.map((item, index) => {
         return (
           <Carousel.Item
             key={index}
@@ -38,9 +38,9 @@ const CarouselBi: React.FC<CarouselBiProps> = ({ src, handleClick }) => {
           >
             <Image
               className={style.border}
-              src={item}
+              src={`https://roombi.space/Car/${item.pictureUrl}`}
               fill={true}
-              alt="Picture of the author"
+              alt={item.pictureName}
               priority={true}
               sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw"
               loading="eager"
