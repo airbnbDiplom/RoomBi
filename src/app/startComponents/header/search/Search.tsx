@@ -34,6 +34,7 @@ const Search: React.FC<
 		propsSearchKindSwitchP &
 		ThemProps
 > = ({
+	setTeamBlack,
 	searchData,
 	setSearchData,
 	propsBigSearch: propsBigSearchBtn,
@@ -59,12 +60,6 @@ const Search: React.FC<
 		setBigSearchOnBySmall,
 	} = propsKindSwitch
 
-	// const [whoObj, setWho] = useState({
-	// 	gestsCount: 0,
-	// 	childrenCount: 0,
-	// 	babyCount: 0,
-	// 	animalsCount: 0,
-	// })
 	const [scroll, setScroll] = useState(Number)
 	const [scrollAfterSmallSearch, setScrollAfterSmallSearch] = useState(-1)
 	const [flag, setFlag] = useState(false)
@@ -73,9 +68,10 @@ const Search: React.FC<
 
 	const openDropDawn = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault()
-		console.log(`${event.target} currentTarget = ${event.currentTarget.id}`)
+
 		switch (event.currentTarget.id) {
 			case 'where':
+				console.log('event.currentTarget', event.currentTarget.id)
 				setWhereDrop(!isWhereDropOn)
 				setWhoDrop(false)
 				setWhenDrop(false)
@@ -200,6 +196,11 @@ const Search: React.FC<
 					d-flex align-items-start justify-content-center p-0 `}
 			>
 				<Where
+					setTeamBlack={setTeamBlack}
+					setWhenDrop={setWhenDrop}
+					setWhereDrop={setWhereDrop}
+					whereObj={searchData.whereObj}
+					setSearchData={setSearchData}
 					isWhereDropOn={isWhereDropOn}
 					openDropDawn={openDropDawn}
 					isTeamBlack={isTeamBlack}

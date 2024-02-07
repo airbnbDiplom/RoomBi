@@ -23,7 +23,7 @@ const WhenDeparture: React.FC<WhenComeProps & ThemProps> = ({
 			onClick={event => openDropDawn(event)}
 		>
 			<div
-				className={`mt-3 mb-3 ps-md-2 ps-4  ${
+				className={`mt-3 mb-3 ps-lg-4 ps-xs-2  ${
 					isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
 				}`}
 			>

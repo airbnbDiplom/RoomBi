@@ -16,6 +16,14 @@ const Header: FC = () => {
 			babyCount: 0,
 			animalsCount: 0,
 		},
+		whereObj: {
+			// TODO: сделать объект по приходящим данным
+			continent: '',
+			country: '',
+			city: '',
+			district: '',
+			street: '',
+		},
 	})
 	//переключение между видами поика
 	const [isSmallSearchOn, setSmallSearchOn] = useState(false)
@@ -108,11 +116,13 @@ const Header: FC = () => {
 				)}
 				<Col md={3} lg={3} xl={3}>
 					<Row>
-						<Col className={`ms-md-1 ms-3 ${style.customText}`}>
+						<Col
+							className={`ms-md-3 ms-xs-1 p-0 ${style.customText} d-flex justify-content-center align-item-center`}
+						>
 							<Link
 								className={`${style.customText} ${style.link} ${
 									isTeamBlack && style.colorW
-								}`}
+								} d-flex justify-content-center align-item-center`}
 								href='/#'
 							>
 								Запропонувати помешкання на <strong>RoomBi</strong>

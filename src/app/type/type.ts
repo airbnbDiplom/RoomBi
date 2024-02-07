@@ -53,6 +53,15 @@ export interface WhoState {
 	babyCount: number
 	animalsCount: number
 }
+export interface WhereState {
+	// TODO: сделать объект по приходящим данным
+	continent: string
+	country: string
+	city: string
+	district: string
+	street: string
+}
 export interface SearchDataState {
 	whoObj: WhoState
+	whereObj: WhereState
 }
