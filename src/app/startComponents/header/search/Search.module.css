@@ -124,6 +124,8 @@
 .whenDropDawn {
 	left: 0;
 	right: 0;
+	display: grid;
+	place-content: center;
 }
 .imageDis {
 	margin-top: 5px;
