@@ -1,8 +1,8 @@
 'use client'
-import { Dropdown } from 'react-bootstrap'
+import { ThemProps } from '@/app/type/type'
 import Image from 'next/image'
+import { Dropdown } from 'react-bootstrap'
 import style from './AuthenticationBtn.module.css'
-import { ThemProps } from '@/types/props'
 
 const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	return (
