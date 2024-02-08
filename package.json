@@ -8,7 +8,7 @@
 
   "scripts": {
 
-    "dev": "next dev --turbo",
+    "dev": "next dev",
 
     "build": "next build",
 
@@ -35,6 +35,8 @@
     "googleapis": "^131.0.0",
 
     "leaflet": "^1.9.4",
+
+    "leaflet-defaulticon-compatibility": "^0.1.2",
 
     "multer": "^1.4.5-lts.1",
 
