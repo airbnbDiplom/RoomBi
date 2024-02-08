@@ -9,7 +9,7 @@ export default async function Home() {
 	const cardData = await getAllHouses()
 	return (
 		<>
-			<div className='sticky-top header-Main' id='header'>
+			<div className='sticky-top header-Main'>
 				<Header />
 				<Naw />
 			</div>
