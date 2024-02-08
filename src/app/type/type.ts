@@ -13,6 +13,8 @@ export interface CardBiProps {
 	pricePerNight: number
 	objectRating: number
 	choiceGuests: boolean
+	ingMap: string
+	latMap: string
 }
 export interface CarouselBiProps {
 	pictures: ImgBi[]

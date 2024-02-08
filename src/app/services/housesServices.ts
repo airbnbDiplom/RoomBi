@@ -7,7 +7,7 @@ const getHouses = async () => {
   }
   const response = await fetch(url, {
     next: {
-      revalidate: 300,
+      revalidate: 500,
     },
   });
   if (!response.ok) throw new Error("Unable to fetch houses.");

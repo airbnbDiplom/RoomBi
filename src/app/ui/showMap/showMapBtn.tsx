@@ -1,10 +1,14 @@
 "use client";
 import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+import { isMap } from "@/app/redux/appState/appSlice";
 import style from "./showMapBtn.module.css";
 
 const ShowMapBtn: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const isShowMap = useAppSelector((state) => state.appReducer.isMapPage);
   const click = () => {
-    console.log("Показати мапу");
+    dispatch(isMap(!isShowMap));
   };
   return (
     <button onClick={click} className={style.btnStyle}>
