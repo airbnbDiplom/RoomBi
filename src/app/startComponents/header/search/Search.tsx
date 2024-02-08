@@ -71,7 +71,6 @@ const Search: React.FC<
 
 		switch (event.currentTarget.id) {
 			case 'where':
-				console.log('event.currentTarget', event.currentTarget.id)
 				setWhereDrop(!isWhereDropOn)
 				setWhoDrop(false)
 				setWhenDrop(false)
@@ -90,6 +89,7 @@ const Search: React.FC<
 				setWhenDDrop!(false)
 				break
 			case 'whenD':
+				console.log('event.currentTarget', event.currentTarget.id)
 				setWhenDDrop!(!isWhenDDropOn)
 				setWhereDrop(false)
 				setWhoDrop(false)

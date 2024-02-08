@@ -1,4 +1,3 @@
-import { Image } from 'react-bootstrap'
 import { getAllHouses } from './services/housesServices'
 import { Header } from './startComponents/header/Header'
 import { Main } from './startComponents/main/Main'

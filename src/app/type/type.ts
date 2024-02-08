@@ -28,12 +28,15 @@ export interface FilterObj {
 	type: string
 }
 export interface ButtonOnBigDSearch {
-	isWhereDropOn: boolean
-	isWhenDropOn: boolean
-	isWhoDropOn: boolean
+	isWhereDropOn?: boolean
+	isWhenDropOn?: boolean
+	isWhoDropOn?: boolean
+	isWhenDDropOn?: boolean
+
 	setWhereDrop: (setWhereDrop: boolean) => void
 	setWhenDrop: (setWhenDrop: boolean) => void
 	setWhoDrop: (setWhoDrop: boolean) => void
+	setWhenDDrop?: (setWhenDDrop: boolean) => void
 }
 export interface SearchKindSwitch {
 	isSmallSearchOn: boolean
