@@ -1,50 +1,60 @@
 import { Modal, Form, Button } from 'react-bootstrap';
 import Image from 'next/image';
 import React, { useState } from 'react';
+import styles from './AuthenticationBtn.module.css';
 
-const ModalForm: React.FC = () => {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [isEmailValid, setIsEmailValid] = useState(true);
-	const [isPasswordValid, setIsPasswordValid] = useState(true);
+interface ModalFormProps {
+  show: boolean;
+  handleClose: () => void;
+  isRegistration: boolean;
+}
 
-	const validatePassword = (password: string) => {
-		return password.length >= 5;
-	};
+const ModalForm: React.FC<ModalFormProps> = ({ show, handleClose, isRegistration }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [isRepeatPasswordValid, setIsRepeatPasswordValid] = useState(true);
 
-	const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setPassword(event.target.value);
-		setIsPasswordValid(validatePassword(event.target.value));
-	};
+  const validatePassword = (password: string) => {
+    return password.length >= 5;
+  };
 
-	const validateEmail = (email: string) => {
-		const re = /\S+@\S+\.\S+/;
-		return re.test(email);
-	};
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+    setIsPasswordValid(validatePassword(event.target.value));
+  };
 
-	const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setEmail(event.target.value);
-		setIsEmailValid(validateEmail(event.target.value));
-	};
+  const handleRepeatPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRepeatPassword(event.target.value);
+    setIsRepeatPasswordValid(event.target.value === password);
+  };
 
-	const [show, setShow] = useState(false);
+  const validateEmail = (email: string) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
 
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+    setIsEmailValid(validateEmail(event.target.value));
+  };
 
   return (
    
     <Modal show={show} onHide={handleClose} centered
     animation>
     <Modal.Header closeButton>
-      <Modal.Title>Увійдіть або зареєструйтеся</Modal.Title>
+      <Modal.Title className={styles.modalTitle}>Увійдіть або зареєструйтеся</Modal.Title>
     </Modal.Header>
     <Modal.Body>
       <>
-        <h2>Ласкаво просимо до RoomBi</h2>
+        <h2  className={styles.welcomeMessage}>Ласкаво просимо до RoomBi</h2>
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Control
+              className={styles.formControl}
               type="email"
               placeholder="Email"
               value={email}
@@ -68,7 +78,21 @@ const ModalForm: React.FC = () => {
               Пароль повинен складатися принаймні з 5 символів.
             </Form.Control.Feedback>
           </Form.Group>
-          <Button className="d-grid gap-2" variant="danger" type="submit" style={{ width: '100%', marginTop: '20px', marginBottom: '10px' }}>
+          {isRegistration && (
+  <Form.Group controlId="formBasicRepeatPassword">
+    <Form.Control
+      type="password"
+      placeholder="Повторити пароль"
+      value={repeatPassword}
+      isInvalid={!isRepeatPasswordValid}
+      onChange={handleRepeatPasswordChange}
+    />
+    <Form.Control.Feedback type="invalid">
+      Паролі не співпадають.
+    </Form.Control.Feedback>
+  </Form.Group>
+)}
+          <Button className={`d-grid gap-2 ${styles.submitButton}`} variant="danger" type="submit" >
             Продовжити
           </Button>
         </Form>
@@ -79,13 +103,7 @@ const ModalForm: React.FC = () => {
         </div>
         <Button
           variant="outline-dark"
-          style={{
-            justifyContent: 'center',
-            width: '100%',
-            marginTop: '10px',
-            marginBottom: '10px'
-          }}
-          className="google-button"
+          className={`google-button ${styles.googleButton}`}
         >
           <Image
             priority
