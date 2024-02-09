@@ -1,16 +1,27 @@
-import { Col, Row } from 'react-bootstrap'
+import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import style from '../Search.module.css'
 import Calendar from 'react-calendar'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import 'react-calendar/dist/Calendar.css'
 import PrevArrow from '../../../../ui/arrow/PrevArrow'
 import NextArrow from '../../../../ui/arrow/NextArrow'
+import { setWhenObjDateCome } from '@/app/redux/searchInHeader/SearchSlice'
 
 const WhenDropDawn = () => {
+	const dispatch = useAppDispatch()
+	const calendarValue = useAppSelector(
+		state => state.searchReducer.DataSearchObj.whenObj.dateCome
+	)
+	useEffect(() => {
+		console.log('calendarValue', calendarValue)
+	}, [calendarValue])
 	return (
 		<div className={`d-grid  ${style.whenDropDawn}`}>
 			<Calendar
-				onClickDay={value => alert('Clicked day: ' + value)}
+				onClickDay={value => {
+					dispatch(setWhenObjDateCome(value.toString()))
+					console.log(calendarValue)
+				}}
 				locale='uk-UA'
 				showDoubleView={true}
 				showNeighboringMonth={false}

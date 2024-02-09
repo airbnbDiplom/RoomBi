@@ -67,3 +67,7 @@ export interface SearchDataState {
 	whoObj: WhoState
 	whereObj: WhereState
 }
+export interface WhenState {
+	dateCome: string
+	dateOut: string
+}
