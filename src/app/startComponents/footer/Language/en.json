@@ -1,0 +1,17 @@
+{
+    "welcomeMessage": "Welcome to RoomBi",
+    "enterOrRegister": "Enter or register",
+    "enterEmail": "Eemail",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "enterValidEmail": "Please enter a valid email address.",
+    "passwordMustBeAtLeast5": "Password must be at least 5 characters.",
+    "passwordsDoNotMatch": "Passwords do not match.",
+    "continue": "Continue",
+    "or": "or",
+    "continueWithGoogle": "Continue with Google",
+    "helpcenter": "Help Center",
+    "createAccount": "Register",
+    "entertoaccount": "Log In",
+    "offerroom": "Offer Accommodation on RoomBi"
+  }

@@ -2,6 +2,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import styles from './AuthenticationBtn.module.css';
+import intl from 'react-intl-universal';
 
 interface ModalFormProps {
   show: boolean;
@@ -46,59 +47,59 @@ const ModalForm: React.FC<ModalFormProps> = ({ show, handleClose, isRegistration
     <Modal show={show} onHide={handleClose} centered
     animation>
     <Modal.Header closeButton>
-      <Modal.Title className={styles.modalTitle}>Увійдіть або зареєструйтеся</Modal.Title>
+      <Modal.Title className={styles.modalTitle}>{intl.get('enterOrRegister')}</Modal.Title>
     </Modal.Header>
     <Modal.Body>
       <>
-        <h2  className={styles.welcomeMessage}>Ласкаво просимо до RoomBi</h2>
+        <h2 className={styles.welcomeMessage}>{intl.get('welcomeMessage')}</h2>
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Control
               className={styles.formControl}
               type="email"
-              placeholder="Email"
+              placeholder={intl.get('email')}
               value={email}
               isInvalid={!isEmailValid}
               onChange={handleEmailChange}
             />
             <Form.Control.Feedback type="invalid">
-              Будь ласка, введіть дійсну електронну адресу.
+              {intl.get('enterValidEmail')}
             </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
             <Form.Control
               type="password"
-              placeholder="Пароль"
+              placeholder={intl.get('password')}
               value={password}
               isInvalid={!isPasswordValid}
               onChange={handlePasswordChange}
             />
             <Form.Control.Feedback type="invalid">
-              Пароль повинен складатися принаймні з 5 символів.
+              {intl.get('passwordMustBeAtLeast5')}
             </Form.Control.Feedback>
           </Form.Group>
           {isRegistration && (
   <Form.Group controlId="formBasicRepeatPassword">
     <Form.Control
       type="password"
-      placeholder="Повторити пароль"
+      placeholder={intl.get('confirmPassword')}
       value={repeatPassword}
       isInvalid={!isRepeatPasswordValid}
       onChange={handleRepeatPasswordChange}
     />
     <Form.Control.Feedback type="invalid">
-      Паролі не співпадають.
+      {intl.get('passwordsDoNotMatch')}
     </Form.Control.Feedback>
   </Form.Group>
 )}
           <Button className={`d-grid gap-2 ${styles.submitButton}`} variant="danger" type="submit" >
-            Продовжити
+          {intl.get('continue')}
           </Button>
         </Form>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <hr style={{ flex: 1 }} />
-          <p style={{ margin: '0 10px' }}>або</p>
+          <p style={{ margin: '0 10px' }}>{intl.get('or')}</p>
           <hr style={{ flex: 1 }} />
         </div>
         <Button
@@ -112,7 +113,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ show, handleClose, isRegistration
             height={18}
             alt='google icon'
           />
-          Продовжити через Google
+          {intl.get('continueWithGoogle')}
         </Button>
       </>
     </Modal.Body>

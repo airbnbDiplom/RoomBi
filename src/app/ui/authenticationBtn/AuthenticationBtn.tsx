@@ -5,6 +5,7 @@ import { Dropdown, Button } from 'react-bootstrap'
 import style from './AuthenticationBtn.module.css'
 import React, { useState } from 'react';
 import ModalForm from './ModalForm';
+import intl from 'react-intl-universal';
 
 const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const [showRegister, setShowRegister] = useState(false);
@@ -57,7 +58,7 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 						onClick={handleShowRegister}
 						style={{ textDecoration: 'none', color: 'inherit', paddingLeft: '0' }}
 					>
-						Зареєструватися
+						{intl.get('createAccount')}
 					</Button>
 					<ModalForm show={showRegister} handleClose={handleCloseRegister} isRegistration={true} />
 				</Dropdown.Item>
@@ -67,15 +68,16 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 						onClick={handleShowLogin}
 						style={{ textDecoration: 'none', color: 'inherit', paddingLeft: '0' }}
 					>
-						Увійти
+						{intl.get('entertoaccount')}
 					</Button>
 					<ModalForm show={showLogin} handleClose={handleCloseLogin} isRegistration={false} />
 				</Dropdown.Item>
 				<Dropdown.Divider />
 				<Dropdown.Item href='#'>
-					Запропонувати помешкання на RoomBi
+					{intl.get('offerroom')}
 				</Dropdown.Item>
-				<Dropdown.Item href='#'>Центр допомоги</Dropdown.Item>
+				<Dropdown.Item href='#'>{intl.get('helpcenter')}</Dropdown.Item>
+			
 			</Dropdown.Menu>
 		</Dropdown>
 	)
