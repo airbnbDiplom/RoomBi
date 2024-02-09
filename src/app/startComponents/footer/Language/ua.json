@@ -1,0 +1,17 @@
+{
+    "welcomeMessage": "Ласкаво просимо до RoomBi",
+    "enterOrRegister": "Увійдіть або зареєструйтеся",
+    "email": "Електронна адреса",
+    "password": "Пароль",
+    "confirmPassword": "Підтвердіть пароль",
+    "enterValidEmail": "Будь ласка, введіть дійсну електронну адресу.",
+    "passwordMustBeAtLeast5": "Пароль повинен складатися принаймні з 5 символів.",
+    "passwordsDoNotMatch": "Паролі не співпадають.",
+    "continue": "Продовжити",
+    "or": "або",
+    "continueWithGoogle": "Продовжити через Google",
+    "helpcenter": "Центр допомоги",
+    "createAccount": "Зареєструватися",
+    "entertoaccount": "Увійти",
+    "offerroom": "Запропонувати помешкання на RoomBi"
+  }
