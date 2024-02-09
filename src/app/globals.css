@@ -167,3 +167,83 @@ a.leaflet-popup-close-button span:active {
 	margin-left: 5px;
 	margin-right: 5px;
 }
+/* Calendar on Search */
+abbr[title] {
+	text-decoration: none !important;
+	cursor: default !important;
+}
+.react-calendar {
+	border: none !important;
+}
+.react-calendar--doubleView {
+	width: 100% !important;
+}
+.react-calendar__navigation__label {
+	text-transform: uppercase;
+	font-weight: 700;
+}
+.react-calendar__navigation__arrow {
+	border-radius: 25px;
+}
+
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next2-button {
+	display: none;
+}
+.react-calendar__month-view__weekdays {
+	text-transform: capitalize !important;
+	color: #a0a0a0;
+}
+.react-calendar__navigation__label:disabled {
+	background-color: white !important;
+}
+.react-calendar__navigation__label {
+	color: black;
+	font-size: 1.3em !important;
+	font-family: var(--var-nunito), sans-serif;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+	visibility: hidden !important;
+}
+.react-calendar__month-view__days__day:disabled {
+	background-color: white !important;
+}
+.react-calendar__month-view__days__day--weekend {
+	color: black !important;
+}
+.react-calendar__tile {
+	border-radius: 20px;
+	padding: 10px 0 10px 0 !important;
+	border: 1px solid white !important;
+	font: inherit !important;
+	font-size: 1.2em !important;
+}
+.react-calendar__tile:hover .react-calendar__tile:focus {
+	border: 1px solid black !important;
+	background-color: transparent !important ;
+}
+.react-calendar__tile--active {
+	background: black !important;
+	color: white !important;
+}
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+	background: black !important;
+}
+.react-calendar__viewContainer {
+	padding: 0 5% 0 5% !important;
+}
+.react-calendar__tile--now {
+	background: transparent !important;
+	color: black !important;
+}
+.react-calendar__tile--now:hover {
+	background: black !important;
+	color: white !important;
+}
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+	background: black !important;
+	color: white !important;
+}
