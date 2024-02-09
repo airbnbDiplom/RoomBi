@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CardBiProps } from "@/app/type/type";
 
 type Apartments = {
+  apartmentsMain: CardBiProps[];
   apartments: CardBiProps[];
 };
 
 const initialState: Apartments = {
+  apartmentsMain: [],
   apartments: [],
 };
 
@@ -14,15 +16,23 @@ const apartmentsSlice = createSlice({
   initialState,
   reducers: {
     setApartments(state, action: PayloadAction<CardBiProps[]>) {
-      console.log("K7777");
       if (!Array.isArray(action.payload)) {
-        // Обробка помилки, якщо `payload` не є масивом
         return state;
       }
-      return { ...state, apartments: action.payload };
+      return {
+        ...state,
+        apartmentsMain: action.payload,
+        apartments: action.payload,
+      };
+    },
+    navFilter(state, action: PayloadAction<{ name: string; type: string }>) {
+      const { name, type } = action.payload;
+      state.apartments = state.apartmentsMain.filter((item) => {
+        return item[type as keyof CardBiProps] === name;
+      });
     },
   },
 });
 
-export const { setApartments } = apartmentsSlice.actions;
+export const { setApartments, navFilter } = apartmentsSlice.actions;
 export default apartmentsSlice.reducer;

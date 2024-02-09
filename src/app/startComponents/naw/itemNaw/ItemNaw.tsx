@@ -2,10 +2,20 @@
 import Image from "next/image";
 import { FilterObj } from "../../../type/type";
 import style from "./itemNaw.module.css";
-
-const ItemNaw: React.FC<FilterObj> = ({ label, src, name }) => {
+import { useAppDispatch } from "@/app/redux/hook";
+import { navFilter } from "@/app/redux/apartmentsState/apartmentsSlice";
+// export interface FilterObj {
+// 	id: number
+// 	label: string
+// 	name: string
+// 	src: string
+// 	type: string
+// }
+const ItemNaw: React.FC<FilterObj> = ({ label, src, name, type }) => {
+  const dispatch = useAppDispatch();
   const handleClick = () => {
-    console.log("FilterObj", name);
+    dispatch(navFilter({ name, type }));
+    console.log("FilterObj", name, type);
   };
   return (
     <div className={style.carouselItem} onClick={handleClick}>
