@@ -41,9 +41,8 @@ const CarouselBi: React.FC<CarouselBiProps> = ({ pictures, handleClick }) => {
               src={`https://roombi.space/Car/${item.pictureUrl}`}
               fill={true}
               alt={item.pictureName}
-              priority={true}
               sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw"
-              loading="eager"
+              loading="lazy"
             />
           </Carousel.Item>
         );

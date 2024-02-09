@@ -49,6 +49,7 @@ width: 90%;
 .subtitle {
 	margin: 0;
 	font-size: 15px;
+	margin-left: 5px;
 	overflow: hidden;
 	text-overflow: ellipsis; /* Додає трохи місця для завершення тексту (...) */
 	white-space: nowrap; /* Забороняє перенос тексту на новий рядок */
