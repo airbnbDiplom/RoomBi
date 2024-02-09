@@ -1,10 +1,26 @@
 'use client'
 import { ThemProps } from '@/app/type/type'
 import Image from 'next/image'
-import { Dropdown } from 'react-bootstrap'
+import { Dropdown, Button } from 'react-bootstrap'
 import style from './AuthenticationBtn.module.css'
+import React, { useState } from 'react';
+import ModalForm from './ModalForm';
 
 const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
+	const [showRegister, setShowRegister] = useState(false);
+	const [showLogin, setShowLogin] = useState(false);
+
+	const handleShowRegister = () => setShowRegister(true);
+	const handleCloseRegister = () => setShowRegister(false);
+
+	const handleShowLogin = () => setShowLogin(true);
+	const handleCloseLogin = () => setShowLogin(false);
+
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+
 	return (
 		<Dropdown className={`d-flex align-item-center ${style.btn}`}>
 			<Dropdown.Toggle
@@ -36,9 +52,25 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			</Dropdown.Toggle>
 			<Dropdown.Menu className={style.itemFont}>
 				<Dropdown.Item href='#'>
-					<strong>Зареєструватися</strong>
+					<Button
+						variant="link"
+						onClick={handleShowRegister}
+						style={{ textDecoration: 'none', color: 'inherit', paddingLeft: '0' }}
+					>
+						Зареєструватися
+					</Button>
+					<ModalForm show={showRegister} handleClose={handleCloseRegister} isRegistration={true} />
 				</Dropdown.Item>
-				<Dropdown.Item href='#'>Увійти</Dropdown.Item>
+				<Dropdown.Item href='#'>
+					<Button
+						variant="link"
+						onClick={handleShowLogin}
+						style={{ textDecoration: 'none', color: 'inherit', paddingLeft: '0' }}
+					>
+						Увійти
+					</Button>
+					<ModalForm show={showLogin} handleClose={handleCloseLogin} isRegistration={false} />
+				</Dropdown.Item>
 				<Dropdown.Divider />
 				<Dropdown.Item href='#'>
 					Запропонувати помешкання на RoomBi
