@@ -3,6 +3,11 @@ import React from 'react'
 import style from './Footer.module.css'
 import { SocialNetwork } from './socialNetwork/SocialNetwork'
 import { FooterButton } from './footerButton/FooterButton'
+import LanguageDropdown from './Language/dropdownList'
+
+
+
+
 const Footer: React.FC = () => {
 	return (
 		<footer
@@ -33,6 +38,7 @@ const Footer: React.FC = () => {
 					src='/footer/language.svg'
 					event='Мова'
 				/>
+				<LanguageDropdown />
 				<FooterButton
 					title='USD'
 					src='/footer/dollar.svg'

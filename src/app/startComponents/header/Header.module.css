@@ -6,9 +6,7 @@
 	@media (max-width: 575.98px) {
 		text-align: center !important;
 	}
-	@media (min-width: 576px) {
-		text-align: end !important;
-	}
+
 	@media (min-width: 1200px) {
 		text-wrap: wrap;
 	}
@@ -33,9 +31,6 @@
 	font-size: 0.8rem;
 	color: var(--eerieBlack);
 	text-wrap: nowrap;
-	@media (min-width: 1980px) {
-		font-size: 1.2rem;
-	}
 	@media (max-width: 1200px) {
 		text-wrap: wrap;
 	}

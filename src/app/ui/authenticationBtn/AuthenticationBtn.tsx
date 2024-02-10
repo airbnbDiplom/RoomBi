@@ -1,10 +1,27 @@
 'use client'
-import { Dropdown } from 'react-bootstrap'
-import Image from 'next/image'
-import style from './AuthenticationBtn.module.css'
 import { ThemProps } from '@/app/type/type'
+import Image from 'next/image'
+import { Dropdown, Button } from 'react-bootstrap'
+import style from './AuthenticationBtn.module.css'
+import React, { useState } from 'react'
+import ModalForm from './ModalForm'
+import intl from 'react-intl-universal'
 
 const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
+	const [showRegister, setShowRegister] = useState(false)
+	const [showLogin, setShowLogin] = useState(false)
+
+	const handleShowRegister = () => setShowRegister(true)
+	const handleCloseRegister = () => setShowRegister(false)
+
+	const handleShowLogin = () => setShowLogin(true)
+	const handleCloseLogin = () => setShowLogin(false)
+
+	const [show, setShow] = useState(false)
+
+	const handleClose = () => setShow(false)
+	const handleShow = () => setShow(true)
+
 	return (
 		<Dropdown className={`d-flex align-item-center ${style.btn}`}>
 			<Dropdown.Toggle
@@ -36,14 +53,44 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			</Dropdown.Toggle>
 			<Dropdown.Menu className={style.itemFont}>
 				<Dropdown.Item href='#'>
-					<strong>Зареєструватися</strong>
+					<Button
+						variant='link'
+						onClick={handleShowRegister}
+						style={{
+							textDecoration: 'none',
+							color: 'inherit',
+							paddingLeft: '0',
+						}}
+					>
+						{intl.get('createAccount')}
+					</Button>
+					<ModalForm
+						show={showRegister}
+						handleClose={handleCloseRegister}
+						isRegistration={true}
+					/>
 				</Dropdown.Item>
-				<Dropdown.Item href='#'>Увійти</Dropdown.Item>
-				<Dropdown.Divider />
 				<Dropdown.Item href='#'>
-					Запропонувати помешкання на RoomBi
+					<Button
+						variant='link'
+						onClick={handleShowLogin}
+						style={{
+							textDecoration: 'none',
+							color: 'inherit',
+							paddingLeft: '0',
+						}}
+					>
+						{intl.get('entertoaccount')}
+					</Button>
+					<ModalForm
+						show={showLogin}
+						handleClose={handleCloseLogin}
+						isRegistration={false}
+					/>
 				</Dropdown.Item>
-				<Dropdown.Item href='#'>Центр допомоги</Dropdown.Item>
+				<Dropdown.Divider />
+				<Dropdown.Item href='#'>{intl.get('offerroom')}</Dropdown.Item>
+				<Dropdown.Item href='#'>{intl.get('helpcenter')}</Dropdown.Item>
 			</Dropdown.Menu>
 		</Dropdown>
 	)

@@ -51,6 +51,7 @@
 	border-radius: 50px;
 }
 .resetButton {
+	position: relative;
 	background: none;
 	border: none;
 	width: 100%;
@@ -96,7 +97,9 @@
 	display: none;
 }
 .actionWhereDropDawnOn,
-.actionWhoDropDawnOn {
+.actionWhoDropDawnOn,
+.whereOptionDropDawnBlok,
+.whenDropDawn {
 	position: absolute;
 	border: 1px solid var(--eerieBlack);
 	border-radius: 15px;
@@ -115,7 +118,16 @@
 .actionWhoDropDawnOn {
 	right: 0;
 }
-
+.whereOptionDropDawnBlok {
+	left: 0;
+	width: 25%;
+}
+.whenDropDawn {
+	left: 0;
+	right: 0;
+	display: grid;
+	place-content: center;
+}
 .imageDis {
 	margin-top: 5px;
 }
@@ -126,6 +138,20 @@
 }
 .imgDiv:hover {
 	border: 1px solid black;
+}
+
+.dropDawnImgClickAnimation {
+	animation: smallAnim 150ms ease;
+}
+@keyframes smallAnim {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(0.8);
+		opacity: 0;
+	}
 }
 .animateBigToSmall {
 	animation: searchToSmall 150ms ease;

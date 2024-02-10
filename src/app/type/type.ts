@@ -13,6 +13,11 @@ export interface CardBiProps {
 	pricePerNight: number
 	objectRating: number
 	choiceGuests: boolean
+	ingMap: string
+	latMap: string
+	house: string
+	sport: string
+	location: string
 }
 export interface CarouselBiProps {
 	pictures: ImgBi[]
@@ -36,6 +41,14 @@ export interface ButtonOnBigDSearch {
 	setWhoDrop: (setWhoDrop: boolean) => void
 	setWhenDDrop?: (setWhenDDrop: boolean) => void
 }
+export enum SearchBtnSwitcherEnum {
+	DisableAll = 0,
+	Where = 1,
+	WhenCome = 2,
+	WhenDeparture = 3,
+	Why = 4,
+}
+
 export interface SearchKindSwitch {
 	isSmallSearchOn: boolean
 	isBigSearchOn: boolean
@@ -53,6 +66,19 @@ export interface WhoState {
 	babyCount: number
 	animalsCount: number
 }
+export interface WhereState {
+	// TODO: сделать объект по приходящим данным
+	continent: string
+	country: string
+	city: string
+	district: string
+	street: string
+}
 export interface SearchDataState {
 	whoObj: WhoState
+	whereObj: WhereState
+}
+export interface WhenState {
+	dateCome: string
+	dateOut: string
 }

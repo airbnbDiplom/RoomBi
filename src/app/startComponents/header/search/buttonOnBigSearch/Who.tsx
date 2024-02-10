@@ -80,7 +80,7 @@ const Who: React.FC<WhoProps> = ({
 				onClick={event => openDropDawn(event)}
 			>
 				<div
-					className={`mt-3 mb-3 ps-4 ps-md-2 position-relative`}
+					className={`mt-3 mb-3 ps-lg-4 ps-xs-2 position-relative`}
 					style={{ maxWidth: '170px', minWidth: '135px' }}
 				>
 					<p className={`${style.colorOne}  m-0`}>Хто</p>
@@ -94,8 +94,8 @@ const Who: React.FC<WhoProps> = ({
 					>
 						{gestString}
 					</p>
-					{isClearActive && <ClearInputBtn clearInput={clearWhoInput} />}
 				</div>
+				{isClearActive && <ClearInputBtn clearInput={clearWhoInput} />}
 			</button>
 			<WhoDropDawn
 				whoArr={searchData.whoObj}
