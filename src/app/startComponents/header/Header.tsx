@@ -35,6 +35,7 @@ const Header: FC = () => {
 	const [isWhoDropOn, setWhoDrop] = useState(false)
 	const [isWhenDDropOn, setWhenDDrop] = useState(false)
 	const [isTeamBlack, setTeamBlack] = useState(false)
+
 	useEffect(() => {
 		setTeamBlack(
 			isWhereDropOn || isWhenDropOn || isWhoDropOn || isWhenDDropOn

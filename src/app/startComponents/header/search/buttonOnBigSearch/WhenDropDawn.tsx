@@ -22,6 +22,9 @@ const WhenDropDawn = () => {
 					dispatch(setWhenObjDateCome(value.toString()))
 					console.log(calendarValue)
 				}}
+				defaultValue={
+					calendarValue === '' ? undefined : new Date(calendarValue)
+				}
 				locale='uk-UA'
 				showDoubleView={true}
 				showNeighboringMonth={false}

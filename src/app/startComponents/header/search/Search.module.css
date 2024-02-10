@@ -51,6 +51,7 @@
 	border-radius: 50px;
 }
 .resetButton {
+	position: relative;
 	background: none;
 	border: none;
 	width: 100%;

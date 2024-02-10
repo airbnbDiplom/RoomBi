@@ -94,8 +94,8 @@ const Who: React.FC<WhoProps> = ({
 					>
 						{gestString}
 					</p>
-					{isClearActive && <ClearInputBtn clearInput={clearWhoInput} />}
 				</div>
+				{isClearActive && <ClearInputBtn clearInput={clearWhoInput} />}
 			</button>
 			<WhoDropDawn
 				whoArr={searchData.whoObj}

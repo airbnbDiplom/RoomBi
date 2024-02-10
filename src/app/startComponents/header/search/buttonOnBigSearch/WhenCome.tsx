@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react'
 import style from '../Search.module.css'
 import { ThemProps } from '@/app/type/type'
 import WhenDropDawn from './WhenDropDawn'
-import { useAppSelector } from '@/app/redux/hook'
+import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import intl from 'react-intl-universal'
+import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
+import { setWhenObjDateCome } from '@/app/redux/searchInHeader/SearchSlice'
 interface WhenComeProps {
 	isWhenDropOn?: boolean
 	openDropDawn: (event: React.MouseEvent<HTMLButtonElement>) => void
@@ -13,8 +16,11 @@ const WhenCome: React.FC<WhenComeProps & ThemProps> = ({
 	openDropDawn,
 	isTeamBlack,
 }) => {
-	const [dateVieOnButtonSearch, setDateVieOnButtonSearch] =
-		useState('Додайте дату')
+	const [dateVieOnButtonSearch, setDateVieOnButtonSearch] = useState(
+		//intl.get('addDate')
+		'Додайте дату'
+	)
+	const dispatch = useAppDispatch()
 	const calendarDate = useAppSelector(
 		state => state.searchReducer.DataSearchObj.whenObj.dateCome
 	)
@@ -33,9 +39,20 @@ const WhenCome: React.FC<WhenComeProps & ThemProps> = ({
 			const formattedDate = formatter.format(date)
 			setDateVieOnButtonSearch(formattedDate)
 		} else {
-			setDateVieOnButtonSearch('Додайте дату')
+			setDateVieOnButtonSearch(
+				//intl.get('addDate')
+				'Додайте дату'
+			)
 		}
 	}, [calendarDate])
+
+	const clearDateOnButton = (event: any) => {
+		if (dateVieOnButtonSearch !== 'Додайте дату') {
+			event.preventDefault()
+			dispatch(setWhenObjDateCome(''))
+		}
+		console.log('cleare')
+	}
 	return (
 		<>
 			<button
@@ -53,7 +70,9 @@ const WhenCome: React.FC<WhenComeProps & ThemProps> = ({
 					<p className={`m-0 ${style.colorOne}`}>Прибуття</p>
 					<p className={`${style.colorTwo} m-0`}>{dateVieOnButtonSearch}</p>
 				</div>
-				{dateVieOnButtonSearch !== "" && }
+				{dateVieOnButtonSearch !==
+					//intl.get('addDate')
+					'Додайте дату' && <ClearInputBtn clearInput={clearDateOnButton} />}
 			</button>
 			{isWhenDropOn && <WhenDropDawn />}
 		</>

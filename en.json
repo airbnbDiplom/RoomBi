@@ -1,10 +1,11 @@
 {
-    "welcomeMessage": "Welcome to RoomBi",
-    "enterOrRegister": "Enter or register",
-    "enterValidEmail": "Please enter a valid email address.",
-    "passwordMustBeAtLeast5": "Password must be at least 5 characters.",
-    "passwordsDoNotMatch": "Passwords do not match.",
-    "continue": "Continue",
-    "or": "or",
-    "continueWithGoogle": "Continue with Google"
-  }
+	"welcomeMessage": "Welcome to RoomBi",
+	"enterOrRegister": "Enter or register",
+	"enterValidEmail": "Please enter a valid email address.",
+	"passwordMustBeAtLeast5": "Password must be at least 5 characters.",
+	"passwordsDoNotMatch": "Passwords do not match.",
+	"continue": "Continue",
+	"or": "or",
+	"continueWithGoogle": "Continue with Google",
+	"addDate": "Add Date"
+}
