@@ -15,6 +15,7 @@ const Main: React.FC<{ cardData: CardBiProps[] }> = ({
 
   useEffect(() => {
     dispatch(setApartments(cardData));
+    console.log("cardData", cardData);
   });
   const isShowMap = useAppSelector((state) => state.appReducer.isMapPage);
 

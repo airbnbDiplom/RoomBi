@@ -15,7 +15,6 @@ const CardBi: React.FC<CardBiProps> = ({
   bookingFree,
   pricePerNight,
   objectRating,
-  choiceGuests,
 }) => {
   const router = useRouter();
 
@@ -25,12 +24,7 @@ const CardBi: React.FC<CardBiProps> = ({
 
   const handleClickRouter = () => {
     const newTabUrl = `/${id}`;
-
-    // Відкриваємо нову вкладку з новим URL
     window.open(newTabUrl, "_blank");
-
-    // Опціонально, переходимо на новий URL в поточній вкладці
-    router.push(newTabUrl);
   };
   const handleClickHeart = () => {
     console.log("Button Heart!");
@@ -40,7 +34,7 @@ const CardBi: React.FC<CardBiProps> = ({
     <div className={style.card}>
       <div className={style.cardHeader}>
         <div>
-          {choiceGuests && (
+          {objectRating >= 5 && (
             <span onClick={handleClickRouter} className={style.choiceGuests}>
               вибір гостей
             </span>

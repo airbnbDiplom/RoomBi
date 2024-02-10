@@ -43,10 +43,9 @@ const CarouselMapCard: React.FC<CarouselBiProps> = ({
               className={style.border}
               src={`https://roombi.space/Car/${item.pictureUrl}`}
               alt={item.pictureName}
-              priority={true}
               width={250}
               height={250}
-              loading="eager"
+              loading="lazy"
             />
           </Carousel.Item>
         );
