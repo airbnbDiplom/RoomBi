@@ -12,12 +12,7 @@ import {
 	setWhoObjGestCount,
 } from '@/app/redux/searchInHeader/SearchSlice'
 
-interface WhoStateProps {
-	whoArr: WhoState
-	setSearchData: React.Dispatch<React.SetStateAction<SearchDataState>>
-}
-
-const WhoDropDawn: React.FC<WhoStateProps> = ({ whoArr, setSearchData }) => {
+const WhoDropDawn: React.FC = () => {
 	const why = useAppSelector(state => state.searchReducer.DataSearchObj.whoObj)
 	const dispatch = useAppDispatch()
 

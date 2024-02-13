@@ -17,6 +17,31 @@ const Where: React.FC<whereProps & ThemProps> = ({
 	isTeamBlack,
 }) => {
 	const inputRef = useRef(null)
+	const [autoList, setAutoList] = useState<AutoCompleteList>(
+		{} as AutoCompleteList
+	)
+
+	const [drop, setWhenDropDawn] = useState(false)
+	const dispatch = useAppDispatch()
+	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
+	const stateString = useAppSelector(state =>
+		state.searchReducer.DataSearchObj.whereObj?.properties?.display_name ===
+		undefined
+			? ''
+			: state.searchReducer.DataSearchObj.whereObj?.properties?.display_name
+	)
+
+	const [stringInput, setStringInput] = useState(
+		stateString !== '' ? stateString : ''
+	)
+
+	const [whereOptionBlack, setWhereOptionBlack] = useState(false)
+	useEffect(() => {
+		btnState === SearchBtnEnum.Where
+			? setWhenDropDawn(true)
+			: setWhenDropDawn(false)
+		console.log(btnState)
+	}, [btnState])
 
 	const clearDateOnButton = (event: any) => {
 		event.preventDefault()
@@ -43,21 +68,6 @@ const Where: React.FC<whereProps & ThemProps> = ({
 
 		setTeamBlack(true)
 	}
-	const [autoList, setAutoList] = useState<AutoCompleteList>(
-		{} as AutoCompleteList
-	)
-	const [stringInput, setStringInput] = useState('')
-	const [whereOptionBlack, setWhereOptionBlack] = useState(false)
-
-	const [drop, setWhenDropDawn] = useState(false)
-	const dispatch = useAppDispatch()
-	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
-	useEffect(() => {
-		btnState === SearchBtnEnum.Where
-			? setWhenDropDawn(true)
-			: setWhenDropDawn(false)
-		console.log(btnState)
-	}, [btnState])
 
 	return (
 		<>
@@ -88,11 +98,11 @@ const Where: React.FC<whereProps & ThemProps> = ({
 						onChange={handleInputChange}
 					/>
 				</div>
-				{stringInput.length > 0 && (
+				{stringInput !== undefined && stringInput.length > 0 && (
 					<ClearInputBtn clearInput={clearDateOnButton} />
 				)}
 			</button>
-			{drop && stringInput.length === 0 && (
+			{drop && stringInput !== undefined && stringInput.length === 0 && (
 				<WhereDropDawn setStringInput={setStringInput} />
 			)}
 

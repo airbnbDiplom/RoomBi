@@ -18,21 +18,7 @@ import {
 	setWhoObjGestCount,
 } from '@/app/redux/searchInHeader/SearchSlice'
 
-interface WhoProps {
-	openDropDawn: (event: React.MouseEvent<HTMLButtonElement>) => void
-	searchData: SearchDataState
-	setSearchData: React.Dispatch<React.SetStateAction<SearchDataState>>
-	isWhoDropOn?: boolean
-	isTeamBlack: boolean
-}
-
-const Who: React.FC<WhoProps> = ({
-	searchData,
-	setSearchData,
-	isWhoDropOn,
-	openDropDawn,
-	isTeamBlack,
-}) => {
+const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const [gestString, SetGestString] = useState('Додайте гостей')
 	const [isClearActive, setIsClearActive] = useState(false)
 	const [drop, setWhenDropDawn] = useState(false)
@@ -121,9 +107,7 @@ const Who: React.FC<WhoProps> = ({
 				</div>
 				{isClearActive && <ClearInputBtn clearInput={clearWhoInput} />}
 			</button>
-			{drop && (
-				<WhoDropDawn whoArr={searchData.whoObj} setSearchData={setSearchData} />
-			)}
+			{drop && <WhoDropDawn />}
 		</>
 	)
 }

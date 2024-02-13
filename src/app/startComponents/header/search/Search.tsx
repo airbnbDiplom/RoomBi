@@ -4,7 +4,6 @@ import { Col, Row } from 'react-bootstrap'
 import { useEffect, useRef, useState } from 'react'
 import {
 	SearchDataState,
-	ButtonOnBigDSearch,
 	SearchKindSwitch,
 	ThemProps,
 	SearchBtnEnum,
@@ -16,47 +15,19 @@ import WhenDeparture from './buttonOnBigSearch/WhenDeparture'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 
-interface propsButtonOnBigDSearch {
-	propsBigSearch: ButtonOnBigDSearch
-}
 interface propsSearchKindSwitchP {
 	propsKindSwitch: SearchKindSwitch
-}
-interface SearchDataProps {
-	searchData: SearchDataState
-	setSearchData: React.Dispatch<React.SetStateAction<SearchDataState>>
 }
 interface TeamSetter {
 	setTeamBlack: (setTeamBlack: boolean) => void
 }
-
-const Search: React.FC<
-	SearchDataProps &
-		TeamSetter &
-		propsButtonOnBigDSearch &
-		propsSearchKindSwitchP &
-		ThemProps
-> = ({
+const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 	setTeamBlack,
-	searchData,
-	setSearchData,
-	propsBigSearch: propsBigSearchBtn,
+
 	propsKindSwitch: propsKindSwitch,
 	isTeamBlack,
 }) => {
 	const {
-		isWhereDropOn,
-		isWhenDropOn,
-		isWhoDropOn,
-		isWhenDDropOn,
-		setWhereDrop,
-		setWhenDrop,
-		setWhoDrop,
-		setWhenDDrop,
-	} = propsBigSearchBtn
-	const {
-		isSmallSearchOn,
-		isBigSearchOn,
 		isBigSearchOnBySmall,
 		setSmallSearchOn,
 		setBigSearchOn,
@@ -72,42 +43,6 @@ const Search: React.FC<
 
 	const searchBig = useRef<HTMLDivElement>(null)
 
-	// const setBtnStateEvent = (state: number) => {
-	// 	if (btnState === state) state = SearchBtnSwitcherEnum.DisableAll
-	// 	dispatch(setBtnState(state))
-	// }
-
-	const openDropDawn = (event: React.MouseEvent<HTMLButtonElement>) => {
-		event.preventDefault()
-
-		switch (event.currentTarget.id) {
-			case 'where':
-				setWhereDrop(!isWhereDropOn)
-				setWhoDrop(false)
-				setWhenDrop(false)
-				setWhenDDrop!(false)
-				break
-			case 'who':
-				setWhoDrop(!isWhoDropOn)
-				setWhereDrop(false)
-				setWhenDrop(false)
-				setWhenDDrop!(false)
-				break
-			case 'when':
-				setWhenDrop(!isWhenDropOn)
-				setWhereDrop(false)
-				setWhoDrop(false)
-				setWhenDDrop!(false)
-				break
-			case 'whenD':
-				console.log('event.currentTarget', event.currentTarget.id)
-				setWhenDDrop!(!isWhenDDropOn)
-				setWhereDrop(false)
-				setWhoDrop(false)
-				setWhenDrop(false)
-				break
-		}
-	}
 	useEffect(() => {
 		const handler = () => {
 			setScroll(window.scrollY)
@@ -128,15 +63,9 @@ const Search: React.FC<
 			) {
 				if (!isBigSearchOnBySmall) {
 					document.removeEventListener('click', handleClickOutside)
-					setWhereDrop(false)
-					setWhenDrop(false)
-					setWhoDrop(false)
-					setWhenDDrop!(false)
+					dispatch(setBtnState(SearchBtnEnum.DisableAll))
 				} else if (isBigSearchOnBySmall) {
-					setWhereDrop(false)
-					setWhenDrop(false)
-					setWhoDrop(false)
-					setWhenDDrop!(false)
+					dispatch(setBtnState(SearchBtnEnum.DisableAll))
 					searchBig?.current.classList.add(style.animateBigToSmall)
 					setTimeout(() => {
 						setBigSearchOn(false)
@@ -146,12 +75,12 @@ const Search: React.FC<
 				}
 			}
 		}
-		if (isWhereDropOn || isWhoDropOn || isWhenDropOn || isWhenDDropOn)
+		if (btnState !== SearchBtnEnum.DisableAll)
 			document.addEventListener('click', handleClickOutside)
 		return () => {
 			document.removeEventListener('click', handleClickOutside)
 		}
-	}, [isWhereDropOn, isWhoDropOn, isWhenDropOn, isWhenDDropOn])
+	}, [dispatch, btnState])
 
 	const handelScrollFromSmall = () => {
 		if (flag) setScrollAfterSmallSearch(window.scrollY)
@@ -163,10 +92,7 @@ const Search: React.FC<
 			window.removeEventListener('scroll', handelScrollFromSmall)
 			if (searchBig.current)
 				searchBig.current.classList.add(style.animateBigToSmall)
-			setWhereDrop(false)
-			setWhenDrop(false)
-			setWhoDrop(false)
-			setWhenDDrop!(false)
+			dispatch(setBtnState(SearchBtnEnum.DisableAll))
 			setTimeout(() => {
 				setSmallSearchOn(true)
 				setBigSearchOn(false)
@@ -179,10 +105,7 @@ const Search: React.FC<
 			//анимация старт
 			if (searchBig.current)
 				searchBig?.current.classList.add(style.animateBigToSmall)
-			setWhereDrop(false)
-			setWhenDrop(false)
-			setWhoDrop(false)
-			setWhenDDrop!(false)
+			dispatch(setBtnState(SearchBtnEnum.DisableAll))
 			setTimeout(() => {
 				setSmallSearchOn(true)
 				setBigSearchOn(false)
@@ -212,21 +135,10 @@ const Search: React.FC<
 				<WhenCome isTeamBlack={isTeamBlack} />
 			</Col>
 			<Col className={`d-flex align-items-center justify-content-center p-0`}>
-				<WhenDeparture
-					isWhenDDropOn={isWhenDDropOn}
-					isWhenDropOn={isWhenDropOn}
-					openDropDawn={openDropDawn}
-					isTeamBlack={isTeamBlack}
-				/>
+				<WhenDeparture isTeamBlack={isTeamBlack} />
 			</Col>
 			<Col className={`d-flex align-items-center justify-content-center p-0`}>
-				<Who
-					searchData={searchData}
-					setSearchData={setSearchData}
-					isWhoDropOn={isWhoDropOn}
-					openDropDawn={openDropDawn}
-					isTeamBlack={isTeamBlack}
-				/>
+				<Who isTeamBlack={isTeamBlack} />
 			</Col>
 			<Col
 				xs={1}

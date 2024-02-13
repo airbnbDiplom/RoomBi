@@ -45,7 +45,7 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				dispatch(setWhenObjDateOut(calendarDateComStr))
 			} else {
 				setDateVieOnButtonSearch(formatted(calendarDate))
-				dispatch(setBtnState(SearchBtnEnum.Who))
+				dispatch(setBtnState(SearchBtnEnum.WhenDeparture))
 			}
 		} else {
 			setDateVieOnButtonSearch(
@@ -79,10 +79,7 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				className={`p-0 ${style.resetButton} text-start  ${style.pText} ${
 					isTeamBlack && drop ? style.btnBlackBacActive : style.btnStyle
 				} ${isTeamBlack && !drop && style.btnBlackBac}`}
-				onClick={
-					event => dispatch(setBtnState(SearchBtnEnum.WhenCome))
-					// openDropDawn(event)
-				}
+				onClick={() => dispatch(setBtnState(SearchBtnEnum.WhenCome))}
 			>
 				<div
 					className={`mt-3 mb-3 ps-lg-4 ps-xs-2 ${

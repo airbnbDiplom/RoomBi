@@ -9,19 +9,8 @@ import {
 	setWhenObjDateOut,
 } from '@/app/redux/searchInHeader/SearchSlice'
 import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
-interface WhenComeProps {
-	isWhenDDropOn?: boolean
-	isWhenDropOn?: boolean
-	openDropDawn: (event: React.MouseEvent<HTMLButtonElement>) => void
-}
 
-//TODO: как-то включать и  выключать кнопку
-const WhenDeparture: React.FC<WhenComeProps & ThemProps> = ({
-	isWhenDDropOn,
-	isWhenDropOn,
-	openDropDawn,
-	isTeamBlack,
-}) => {
+const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const dispatch = useAppDispatch()
 	const calendarDateComStr = useAppSelector(
 		state => state.searchReducer.DataSearchObj.whenObj.dateCome
@@ -55,10 +44,7 @@ const WhenDeparture: React.FC<WhenComeProps & ThemProps> = ({
 				dispatch(setBtnState(SearchBtnEnum.Who))
 			}
 		} else {
-			setDateVieOnButtonSearch(
-				//intl.get('addDate')
-				'Додайте дату'
-			)
+			setDateVieOnButtonSearch('Додайте дату')
 		}
 	}, [calendarDateDStr])
 	const clearDateOnButton = (event: any) => {
@@ -95,9 +81,9 @@ const WhenDeparture: React.FC<WhenComeProps & ThemProps> = ({
 					<p className={`${style.colorOne} m-0`}>Виїзд</p>
 					<p className={`${style.colorTwo}  m-0`}>{dateVieOnButtonSearch}</p>
 				</div>
-				{dateVieOnButtonSearch !==
-					//intl.get('addDate')
-					'Додайте дату' && <ClearInputBtn clearInput={clearDateOnButton} />}
+				{dateVieOnButtonSearch !== 'Додайте дату' && (
+					<ClearInputBtn clearInput={clearDateOnButton} />
+				)}
 			</button>
 			{drop && <WhenDropDawn setWhenObjDate={setWhenObjDateOut} />}
 		</>
