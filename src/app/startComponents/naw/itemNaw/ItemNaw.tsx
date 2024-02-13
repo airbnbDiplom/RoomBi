@@ -4,13 +4,7 @@ import { FilterObj } from "../../../type/type";
 import style from "./itemNaw.module.css";
 import { useAppDispatch } from "@/app/redux/hook";
 import { navFilter } from "@/app/redux/apartmentsState/apartmentsSlice";
-// export interface FilterObj {
-// 	id: number
-// 	label: string
-// 	name: string
-// 	src: string
-// 	type: string
-// }
+
 const ItemNaw: React.FC<FilterObj> = ({ label, src, name, type }) => {
   const dispatch = useAppDispatch();
   const handleClick = () => {

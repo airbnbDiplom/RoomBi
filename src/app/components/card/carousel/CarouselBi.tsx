@@ -42,7 +42,7 @@ const CarouselBi: React.FC<CarouselBiProps> = ({ pictures, handleClick }) => {
               fill={true}
               alt={item.pictureName}
               sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw"
-              loading="lazy"
+              priority
             />
           </Carousel.Item>
         );

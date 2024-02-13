@@ -3,20 +3,29 @@ import { CardBiProps } from "@/app/type/type";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { setApartments } from "../../redux/apartmentsState/apartmentsSlice";
 import { CatdList } from "@/app/components/card-list-main/CatdList";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import dynamic from "next/dynamic";
-
+import { signOut, useSession } from "next-auth/react";
 const Main: React.FC<{ cardData: CardBiProps[] }> = ({
   cardData,
 }: {
   cardData: CardBiProps[];
 }) => {
+  const session = useSession();
+  // console.log("session", session);
   const dispatch = useAppDispatch();
 
+  const apartments = useRef(false);
+
   useEffect(() => {
-    dispatch(setApartments(cardData));
-    console.log("cardData", cardData);
-  });
+    if (apartments.current === false) {
+      dispatch(setApartments(cardData));
+    }
+
+    return () => {
+      apartments.current = true;
+    };
+  }, [cardData, dispatch]);
   const isShowMap = useAppSelector((state) => state.appReducer.isMapPage);
 
   const Map = useMemo(
@@ -35,7 +44,21 @@ const Main: React.FC<{ cardData: CardBiProps[] }> = ({
   );
 
   if (!isShowMap) {
-    return <CatdList />;
+    return (
+      <CatdList />
+
+      // <div>
+      //   <CatdList />
+      //   {session?.data && (
+      //     <div style={{ width: "100vw" }}>
+      //       <Link href="#" onClick={() => signOut({ callbackUrl: "/" })}>
+      //         Sing Out
+      //       </Link>
+      //     </div>
+      //   )}
+      //   :{<Link href="/api/auth/signin">signin</Link>}
+      // </div>
+    );
   }
   return <Map />;
 };
