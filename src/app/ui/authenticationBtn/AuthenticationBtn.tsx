@@ -1,26 +1,26 @@
 'use client'
 import { ThemProps } from '@/app/type/type'
 import Image from 'next/image'
-import { Dropdown, Button } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Button, Dropdown } from 'react-bootstrap'
+import intl from 'react-intl-universal'
 import style from './AuthenticationBtn.module.css'
-import React, { useState } from 'react';
-import ModalForm from './ModalForm';
-import intl from 'react-intl-universal';
+import ModalForm from './ModalForm'
 
 const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
-	const [showRegister, setShowRegister] = useState(false);
-	const [showLogin, setShowLogin] = useState(false);
+	const [showRegister, setShowRegister] = useState(false)
+	const [showLogin, setShowLogin] = useState(false)
 
-	const handleShowRegister = () => setShowRegister(true);
-	const handleCloseRegister = () => setShowRegister(false);
+	const handleShowRegister = () => setShowRegister(true)
+	const handleCloseRegister = () => setShowRegister(false)
 
-	const handleShowLogin = () => setShowLogin(true);
-	const handleCloseLogin = () => setShowLogin(false);
+	const handleShowLogin = () => setShowLogin(true)
+	const handleCloseLogin = () => setShowLogin(false)
 
-	const [show, setShow] = useState(false);
+	const [show, setShow] = useState(false)
 
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+	const handleClose = () => setShow(false)
+	const handleShow = () => setShow(true)
 
 	return (
 		<Dropdown className={`d-flex align-item-center ${style.btn}`}>
@@ -54,30 +54,43 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			<Dropdown.Menu className={style.itemFont}>
 				<Dropdown.Item href='#'>
 					<Button
-						variant="link"
+						variant='link'
 						onClick={handleShowRegister}
-						style={{ textDecoration: 'none', color: 'inherit', paddingLeft: '0' }}
+						style={{
+							textDecoration: 'none',
+							color: 'inherit',
+							paddingLeft: '0',
+						}}
 					>
 						{intl.get('createAccount')}
 					</Button>
-					<ModalForm show={showRegister} handleClose={handleCloseRegister} isRegistration={true} />
+					<ModalForm
+						show={showRegister}
+						handleClose={handleCloseRegister}
+						isRegistration={true}
+					/>
 				</Dropdown.Item>
 				<Dropdown.Item href='#'>
 					<Button
-						variant="link"
+						variant='link'
 						onClick={handleShowLogin}
-						style={{ textDecoration: 'none', color: 'inherit', paddingLeft: '0' }}
+						style={{
+							textDecoration: 'none',
+							color: 'inherit',
+							paddingLeft: '0',
+						}}
 					>
 						{intl.get('entertoaccount')}
 					</Button>
-					<ModalForm show={showLogin} handleClose={handleCloseLogin} isRegistration={false} />
+					<ModalForm
+						show={showLogin}
+						handleClose={handleCloseLogin}
+						isRegistration={false}
+					/>
 				</Dropdown.Item>
 				<Dropdown.Divider />
-				<Dropdown.Item href='#'>
-					{intl.get('offerroom')}
-				</Dropdown.Item>
+				<Dropdown.Item href='#'>{intl.get('offerroom')}</Dropdown.Item>
 				<Dropdown.Item href='#'>{intl.get('helpcenter')}</Dropdown.Item>
-			
 			</Dropdown.Menu>
 		</Dropdown>
 	)
