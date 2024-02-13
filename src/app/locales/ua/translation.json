@@ -13,5 +13,14 @@
     "helpcenter": "Центр допомоги",
     "createAccount": "Зареєструватися",
     "entertoaccount": "Увійти",
-    "offerroom": "Запропонувати помешкання на RoomBi"
+    "offerroom": "Запропонувати помешкання на RoomBi",
+    "languageBtn":"Українська (UA)",
+    "footerConditions":"Умови",
+    "footerDetails":"Реквізити компанії",
+    "footerSupport":"Підтримка",
+    "showMap":"Показати мапу",
+    "showBtnFilters":"Фільтри",
+    "showMoreBtn":"Показати більше",
+    "choiceOfGuestsCard":"вибір гостей",
+    "nightCard":"ніч"
   }

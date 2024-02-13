@@ -6,7 +6,7 @@ import { Col, Row } from "react-bootstrap";
 import { CardBiProps } from "../../type/type";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
+import { useTranslation } from "next-i18next";
 const CardBi: React.FC<CardBiProps> = ({
   id,
   pictures,
@@ -17,11 +17,7 @@ const CardBi: React.FC<CardBiProps> = ({
   objectRating,
 }) => {
   const router = useRouter();
-
-  // const handleClickRouter = () => {
-  //   router.push(`/${id}`);
-  // };
-
+  const { t } = useTranslation();
   const handleClickRouter = () => {
     const newTabUrl = `/${id}`;
     window.open(newTabUrl, "_blank");
@@ -36,7 +32,7 @@ const CardBi: React.FC<CardBiProps> = ({
         <div>
           {objectRating >= 5 && (
             <span onClick={handleClickRouter} className={style.choiceGuests}>
-              вибір гостей
+              {t("choiceOfGuestsCard")}
             </span>
           )}
         </div>
@@ -77,7 +73,10 @@ const CardBi: React.FC<CardBiProps> = ({
         </Row>
         <p className={style.text}> {country}</p>
         <p className={style.text}> {bookingFree}</p>
-        <p className={style.subtitle}> {pricePerNight}$ ночь</p>
+        <p className={style.subtitle}>
+          {" "}
+          {pricePerNight}$ {t("nightCard")}
+        </p>
       </div>
     </div>
   );

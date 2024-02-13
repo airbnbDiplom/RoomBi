@@ -4,7 +4,7 @@ import style from "./catdList.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Row } from "react-bootstrap";
 import { CardBi } from "@/app/components/card/CardBi";
-import Loading from "@/app/loading";
+import { useTranslation } from "next-i18next";
 import { ButtonShowMore } from "@/app/ui/buttonShowMore/ButtonShowMore";
 
 import { useAppSelector } from "@/app/redux/hook";
@@ -40,11 +40,7 @@ const CatdList: React.FC = () => {
       </div>
     );
   }
-  return (
-    <div>
-      <Loading />
-    </div>
-  );
+  return <div>{/* <Loading /> */}</div>;
 };
 
 export { CatdList };

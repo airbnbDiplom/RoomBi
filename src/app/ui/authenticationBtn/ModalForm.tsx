@@ -1,22 +1,41 @@
-import { Modal, Form, Button } from 'react-bootstrap';
-import Image from 'next/image';
-import React, { useState } from 'react';
-import styles from './AuthenticationBtn.module.css';
-import intl from 'react-intl-universal';
-
+import { Modal, Form, Button } from "react-bootstrap";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
+import React, { useState } from "react";
+import styles from "./AuthenticationBtn.module.css";
+import { useSearchParams } from "next/navigation";
+import { useTranslation } from "next-i18next";
+// import "@/app/configs/i18next";
 interface ModalFormProps {
   show: boolean;
-  handleClose: () => void;
   isRegistration: boolean;
+  handleClose: () => void;
 }
 
-const ModalForm: React.FC<ModalFormProps> = ({ show, handleClose, isRegistration }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
+const ModalForm: React.FC<ModalFormProps> = ({
+  show,
+  isRegistration,
+  handleClose,
+}) => {
+  const { t } = useTranslation();
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isRepeatPasswordValid, setIsRepeatPasswordValid] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "";
+  const session = useSession();
+
+  const handleSignIn = () => {
+    signIn("google", { callbackUrl });
+    console.log("ModalForm - ");
+    if (session) {
+      console.log("ModalForm - ", session);
+    }
+  };
 
   const validatePassword = (password: string) => {
     return password.length >= 5;
@@ -27,7 +46,9 @@ const ModalForm: React.FC<ModalFormProps> = ({ show, handleClose, isRegistration
     setIsPasswordValid(validatePassword(event.target.value));
   };
 
-  const handleRepeatPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRepeatPasswordChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRepeatPassword(event.target.value);
     setIsRepeatPasswordValid(event.target.value === password);
   };
@@ -42,82 +63,151 @@ const ModalForm: React.FC<ModalFormProps> = ({ show, handleClose, isRegistration
     setIsEmailValid(validateEmail(event.target.value));
   };
 
-  return (
-   
-    <Modal show={show} onHide={handleClose} centered
-    animation>
-    <Modal.Header closeButton>
-      <Modal.Title className={styles.modalTitle}>{intl.get('enterOrRegister')}</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-      <>
-        <h2 className={styles.welcomeMessage}>{intl.get('welcomeMessage')}</h2>
-        <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Control
-              className={styles.formControl}
-              type="email"
-              placeholder={intl.get('email')}
-              value={email}
-              isInvalid={!isEmailValid}
-              onChange={handleEmailChange}
-            />
-            <Form.Control.Feedback type="invalid">
-              {intl.get('enterValidEmail')}
-            </Form.Control.Feedback>
-          </Form.Group>
+  const touch = () => {
+    if (!isRegistration) {
+      if (password == "") {
+        setIsPasswordValid(false);
+        return false;
+      }
+      if (email == "") {
+        setIsEmailValid(false);
+        return false;
+      }
+    } else if (isRegistration) {
+      if (password == "") {
+        setIsPasswordValid(false);
+        return false;
+      }
+      if (email == "") {
+        setIsEmailValid(false);
+        return false;
+      }
+      if (repeatPassword == "" || repeatPassword != password) {
+        setIsRepeatPasswordValid(false);
+        return false;
+      }
+    }
+    return true;
+  };
+  const cleaning = () => {
+    setEmail("");
+    setPassword("");
+    setRepeatPassword("");
+  };
 
-          <Form.Group controlId="formBasicPassword">
-            <Form.Control
-              type="password"
-              placeholder={intl.get('password')}
-              value={password}
-              isInvalid={!isPasswordValid}
-              onChange={handlePasswordChange}
+  const handleSubmit = async () => {
+    if (!touch()) return null;
+
+    if (!isRegistration) {
+      console.log("handleLogin");
+      cleaning();
+      handleClose();
+    } else if (isRegistration) {
+      console.log("handleRegister");
+      cleaning();
+      handleClose();
+    }
+
+    const res = await signIn("credentials", {
+      email: email,
+      password: password,
+      redirect: false,
+    });
+    if (res && !res.error) {
+      console.log("Login OK - ");
+    } else {
+      console.log("Login error ");
+    }
+  };
+
+  return (
+    <Modal show={show} onHide={handleClose} centered animation>
+      <Modal.Header closeButton>
+        <Modal.Title className={styles.modalTitle}>
+          {t("enterOrRegister")}
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <>
+          <h2 className={styles.welcomeMessage}>{t("welcomeMessage")}</h2>
+          <Form>
+            <Form.Group controlId="formBasicEmail" className="my-3">
+              <Form.Control
+                className={styles.formControl}
+                type="email"
+                placeholder={t("email")}
+                value={email}
+                isInvalid={!isEmailValid}
+                onChange={handleEmailChange}
+              />
+              <Form.Control.Feedback type="invalid">
+                {t("enterValidEmail")}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword" className="my-3">
+              <Form.Control
+                type="password"
+                placeholder={t("password")}
+                value={password}
+                isInvalid={!isPasswordValid}
+                onChange={handlePasswordChange}
+              />
+              <Form.Control.Feedback type="invalid">
+                {t("passwordMustBeAtLeast5")}
+              </Form.Control.Feedback>
+            </Form.Group>
+            {isRegistration && (
+              <Form.Group controlId="formBasicRepeatPassword" className="my-3">
+                <Form.Control
+                  type="password"
+                  placeholder={t("confirmPassword")}
+                  value={repeatPassword}
+                  isInvalid={!isRepeatPasswordValid}
+                  onChange={handleRepeatPasswordChange}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {t("passwordsDoNotMatch")}
+                </Form.Control.Feedback>
+              </Form.Group>
+            )}
+            <Button
+              className={`d-grid gap-2 ${styles.submitButton}`}
+              variant="danger"
+              type="submit"
+              onClick={handleSubmit}
+            >
+              {t("continue")}
+            </Button>
+          </Form>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <hr style={{ flex: 1 }} />
+            <p style={{ margin: "0 10px" }}>{t("or")}</p>
+            <hr style={{ flex: 1 }} />
+          </div>
+          <Button
+            variant="outline-dark"
+            className={`google-button ${styles.googleButton}`}
+            onClick={handleSignIn}
+          >
+            <Image
+              priority
+              src="./icon/google.svg"
+              width={18}
+              height={18}
+              alt="google icon"
             />
-            <Form.Control.Feedback type="invalid">
-              {intl.get('passwordMustBeAtLeast5')}
-            </Form.Control.Feedback>
-          </Form.Group>
-          {isRegistration && (
-  <Form.Group controlId="formBasicRepeatPassword">
-    <Form.Control
-      type="password"
-      placeholder={intl.get('confirmPassword')}
-      value={repeatPassword}
-      isInvalid={!isRepeatPasswordValid}
-      onChange={handleRepeatPasswordChange}
-    />
-    <Form.Control.Feedback type="invalid">
-      {intl.get('passwordsDoNotMatch')}
-    </Form.Control.Feedback>
-  </Form.Group>
-)}
-          <Button className={`d-grid gap-2 ${styles.submitButton}`} variant="danger" type="submit" >
-          {intl.get('continue')}
+            {t("continueWithGoogle")}
           </Button>
-        </Form>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <hr style={{ flex: 1 }} />
-          <p style={{ margin: '0 10px' }}>{intl.get('or')}</p>
-          <hr style={{ flex: 1 }} />
-        </div>
-        <Button
-          variant="outline-dark"
-          className={`google-button ${styles.googleButton}`}
-        >
-          <Image
-            priority
-            src='./icon/google.svg'
-            width={18}
-            height={18}
-            alt='google icon'
-          />
-          {intl.get('continueWithGoogle')}
-        </Button>
-      </>
-    </Modal.Body>
-  </Modal>
+        </>
+      </Modal.Body>
+    </Modal>
   );
 };
 

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getHousId } from "../services/housesServices";
+import { getHousId } from "@/app/services/housesServices";
 import Link from "next/link";
 
 type Props = {

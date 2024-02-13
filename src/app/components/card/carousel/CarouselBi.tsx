@@ -14,7 +14,7 @@ const CarouselBi: React.FC<CarouselBiProps> = ({ pictures, handleClick }) => {
 						src='/filter/rightArrow.svg'
 						width={15}
 						height={15}
-						alt='nextBtn'
+						alt='next'
 					/>
 				</div>
 			}
@@ -42,7 +42,7 @@ const CarouselBi: React.FC<CarouselBiProps> = ({ pictures, handleClick }) => {
 							fill={true}
 							alt={item.pictureName}
 							sizes='(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw'
-							loading='lazy'
+							priority
 						/>
 					</Carousel.Item>
 				)

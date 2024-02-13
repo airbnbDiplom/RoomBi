@@ -5,8 +5,8 @@ import { FC, useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 //import planet from '../../../../public/icon/planet.svg'
 import style from './Header.module.css'
-import SmallSearch from './smallSearch/SmallSearch'
 import Search from './search/Search'
+import SmallSearch from './smallSearch/SmallSearch'
 const Header: FC = () => {
 	//данные с поиска
 	const [searchData, setSearchData] = useState({

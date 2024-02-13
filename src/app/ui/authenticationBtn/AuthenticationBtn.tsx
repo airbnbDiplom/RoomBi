@@ -3,25 +3,15 @@ import { ThemProps } from '@/app/type/type'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { Button, Dropdown } from 'react-bootstrap'
-import intl from 'react-intl-universal'
 import style from './AuthenticationBtn.module.css'
 import ModalForm from './ModalForm'
 
+import { useTranslation } from 'react-i18next'
+// import "@/app/configs/i18next";
 const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const [showRegister, setShowRegister] = useState(false)
 	const [showLogin, setShowLogin] = useState(false)
-
-	const handleShowRegister = () => setShowRegister(true)
-	const handleCloseRegister = () => setShowRegister(false)
-
-	const handleShowLogin = () => setShowLogin(true)
-	const handleCloseLogin = () => setShowLogin(false)
-
-	const [show, setShow] = useState(false)
-
-	const handleClose = () => setShow(false)
-	const handleShow = () => setShow(true)
-
+	const { t } = useTranslation()
 	return (
 		<Dropdown className={`d-flex align-item-center ${style.btn}`}>
 			<Dropdown.Toggle
@@ -55,42 +45,42 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				<Dropdown.Item href='#'>
 					<Button
 						variant='link'
-						onClick={handleShowRegister}
+						onClick={() => setShowRegister(true)}
 						style={{
 							textDecoration: 'none',
 							color: 'inherit',
 							paddingLeft: '0',
 						}}
 					>
-						{intl.get('createAccount')}
+						{t('createAccount')}
 					</Button>
 					<ModalForm
 						show={showRegister}
-						handleClose={handleCloseRegister}
+						handleClose={() => setShowRegister(false)}
 						isRegistration={true}
 					/>
 				</Dropdown.Item>
 				<Dropdown.Item href='#'>
 					<Button
 						variant='link'
-						onClick={handleShowLogin}
+						onClick={() => setShowLogin(true)}
 						style={{
 							textDecoration: 'none',
 							color: 'inherit',
 							paddingLeft: '0',
 						}}
 					>
-						{intl.get('entertoaccount')}
+						{t('entertoaccount')}
 					</Button>
 					<ModalForm
 						show={showLogin}
-						handleClose={handleCloseLogin}
+						handleClose={() => setShowLogin(false)}
 						isRegistration={false}
 					/>
 				</Dropdown.Item>
 				<Dropdown.Divider />
-				<Dropdown.Item href='#'>{intl.get('offerroom')}</Dropdown.Item>
-				<Dropdown.Item href='#'>{intl.get('helpcenter')}</Dropdown.Item>
+				<Dropdown.Item href='#'>{t('offerroom')}</Dropdown.Item>
+				<Dropdown.Item href='#'>{t('helpcenter')}</Dropdown.Item>
 			</Dropdown.Menu>
 		</Dropdown>
 	)

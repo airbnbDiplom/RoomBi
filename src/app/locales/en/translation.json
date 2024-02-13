@@ -13,5 +13,14 @@
     "helpcenter": "Help Center",
     "createAccount": "Register",
     "entertoaccount": "Log In",
-    "offerroom": "Offer Accommodation on RoomBi"
+    "offerroom": "Offer Accommodation on RoomBi",
+    "languageBtn":"English (EN)",
+    "footerConditions":"Conditions",
+    "footerDetails":"Details of the company",
+    "footerSupport":"Support",
+    "showMap":"Show map",
+    "showBtnFilters":"Filters",
+    "showMoreBtn":"Show more",
+    "choiceOfGuestsCard":"choice of guests",
+    "nightCard":"night"
   }

@@ -24,14 +24,7 @@ width: 90%;
         }
 	}
 
-.choiceGuests {
-	font-size: 15px;
-	padding: 2px 7px;
-	background: rgb(255, 255, 255);
-	border: none;
-	border-radius: 15px;
-	cursor: pointer;
-}
+
 
 .thisRating {
 	display: flex;
@@ -62,7 +55,18 @@ width: 90%;
                                     not supported by any browser */
 }
 
-
+.choiceGuests {
+	font-size: 15px;
+	font-weight: 900;
+	padding: 3px 10px;
+	background: rgb(255, 255, 255);
+	border: none;
+	border-radius: 15px;
+	cursor: pointer;
+	position: relative;
+	top: 5px;
+	left: 5px;
+}
 
 .card{
 	background-color: var(--gainsboro);
