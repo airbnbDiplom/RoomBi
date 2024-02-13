@@ -1,66 +1,88 @@
 import React, { useEffect, useState } from 'react'
 import style from '../Search.module.css'
-import { ThemProps } from '@/app/type/type'
+import { SearchBtnEnum, ThemProps } from '@/app/type/type'
 import WhenDropDawn from './WhenDropDawn'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import intl from 'react-intl-universal'
 import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
-import { setWhenObjDateCome } from '@/app/redux/searchInHeader/SearchSlice'
-interface WhenComeProps {
-	isWhenDropOn?: boolean
-	openDropDawn: (event: React.MouseEvent<HTMLButtonElement>) => void
-}
+import {
+	setWhenObjDateCome,
+	setWhenObjDateOut,
+} from '@/app/redux/searchInHeader/SearchSlice'
+import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 
-const WhenCome: React.FC<WhenComeProps & ThemProps> = ({
-	isWhenDropOn,
-	openDropDawn,
-	isTeamBlack,
-}) => {
+const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const [dateVieOnButtonSearch, setDateVieOnButtonSearch] = useState(
 		//intl.get('addDate')
 		'Додайте дату'
 	)
+	const [drop, setWhenDropDawn] = useState(false)
+
 	const dispatch = useAppDispatch()
-	const calendarDate = useAppSelector(
+	const calendarDateComStr = useAppSelector(
 		state => state.searchReducer.DataSearchObj.whenObj.dateCome
 	)
+	const calendarDateDStr = useAppSelector(
+		state => state.searchReducer.DataSearchObj.whenObj.dateOut
+	)
+	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
+	useEffect(() => {
+		btnState === SearchBtnEnum.WhenCome
+			? setWhenDropDawn(true)
+			: setWhenDropDawn(false)
+		console.log(btnState)
+	}, [btnState])
 
 	useEffect(() => {
-		if (calendarDate !== '') {
-			const date = new Date(calendarDate)
-			const formatter = new Intl.DateTimeFormat(
-				'uk', //TODO: заменить на нужный локаль	язык отображения даты
-				{
-					day: 'numeric',
-					month: 'long',
-					year: 'numeric',
-				}
-			)
-			const formattedDate = formatter.format(date)
-			setDateVieOnButtonSearch(formattedDate)
+		if (calendarDateComStr !== '') {
+			const calendarDate = new Date(calendarDateComStr)
+
+			if (
+				calendarDateDStr !== '' &&
+				calendarDate > new Date(calendarDateDStr)
+			) {
+				dispatch(setWhenObjDateCome(calendarDateDStr))
+				dispatch(setWhenObjDateOut(calendarDateComStr))
+			} else {
+				setDateVieOnButtonSearch(formatted(calendarDate))
+				dispatch(setBtnState(SearchBtnEnum.Who))
+			}
 		} else {
 			setDateVieOnButtonSearch(
 				//intl.get('addDate')
 				'Додайте дату'
 			)
 		}
-	}, [calendarDate])
+	}, [calendarDateComStr])
 
 	const clearDateOnButton = (event: any) => {
 		if (dateVieOnButtonSearch !== 'Додайте дату') {
 			event.preventDefault()
 			dispatch(setWhenObjDateCome(''))
 		}
-		console.log('cleare')
+	}
+	const formatted = (date: Date): string => {
+		const formatter = new Intl.DateTimeFormat(
+			'uk', //TODO: заменить на нужный локаль	язык отображения даты
+			{
+				day: 'numeric',
+				month: 'long',
+				year: 'numeric',
+			}
+		)
+		return formatter.format(date)
 	}
 	return (
 		<>
 			<button
 				id='when'
 				className={`p-0 ${style.resetButton} text-start  ${style.pText} ${
-					isTeamBlack && isWhenDropOn ? style.btnBlackBacActive : style.btnStyle
-				} ${isTeamBlack && !isWhenDropOn && style.btnBlackBac}`}
-				onClick={event => openDropDawn(event)}
+					isTeamBlack && drop ? style.btnBlackBacActive : style.btnStyle
+				} ${isTeamBlack && !drop && style.btnBlackBac}`}
+				onClick={
+					event => dispatch(setBtnState(SearchBtnEnum.WhenCome))
+					// openDropDawn(event)
+				}
 			>
 				<div
 					className={`mt-3 mb-3 ps-lg-4 ps-xs-2 ${
@@ -74,7 +96,7 @@ const WhenCome: React.FC<WhenComeProps & ThemProps> = ({
 					//intl.get('addDate')
 					'Додайте дату' && <ClearInputBtn clearInput={clearDateOnButton} />}
 			</button>
-			{isWhenDropOn && <WhenDropDawn />}
+			{drop && <WhenDropDawn setWhenObjDate={setWhenObjDateCome} />}
 		</>
 	)
 }

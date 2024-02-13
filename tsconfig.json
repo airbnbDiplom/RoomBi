@@ -22,6 +22,16 @@
 			"@/*": ["./src/*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/ui/TestGoogle/TestGoogle.js", "src/app/ui/TestGoogle/TestGoogle.js", "src/app/redux/provider.js", "src/app/components/map-main/MapMain.js"],
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"src/app/ui/TestGoogle/TestGoogle.js",
+		"src/app/ui/TestGoogle/TestGoogle.js",
+		"src/app/redux/provider.js",
+		"src/app/components/map-main/MapMain.js",
+		"src/app/startComponents/header/search/buttonOnBigSearch/btnWhere"
+	],
 	"exclude": ["node_modules"]
 }

@@ -41,12 +41,12 @@ export interface ButtonOnBigDSearch {
 	setWhoDrop: (setWhoDrop: boolean) => void
 	setWhenDDrop?: (setWhenDDrop: boolean) => void
 }
-export enum SearchBtnSwitcherEnum {
+export enum SearchBtnEnum {
 	DisableAll = 0,
 	Where = 1,
 	WhenCome = 2,
 	WhenDeparture = 3,
-	Why = 4,
+	Who = 4,
 }
 
 export interface SearchKindSwitch {
@@ -82,3 +82,33 @@ export interface WhenState {
 	dateCome: string
 	dateOut: string
 }
+// ---autoComplete---
+export interface AutoCompleteList {
+	type: 'AutoCompleteList'
+	licence: string
+	features: AutoCompleteItem[]
+}
+
+export interface AutoCompleteItem {
+	type: 'AutoCompleteItem'
+	properties: Properties
+	bbox: number[]
+	geometry: Geometry
+}
+
+interface Properties {
+	place_id: string
+	osm_type: string
+	osm_id: string
+	display_name: string
+	place_rank: string
+	category: string
+	type: string
+	importance: number
+}
+
+interface Geometry {
+	type: 'Point'
+	coordinates: [number, number]
+}
+// end  ---autoComplete---

@@ -1,9 +1,4 @@
-import {
-	SearchBtnSwitcherEnum,
-	WhenState,
-	WhereState,
-	WhoState,
-} from '@/app/type/type'
+import { SearchBtnEnum } from '@/app/type/type'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type SearchBtnSwitcherState = {
@@ -11,16 +6,21 @@ type SearchBtnSwitcherState = {
 }
 
 const initialState: SearchBtnSwitcherState = {
-	bntState: SearchBtnSwitcherEnum.DisableAll,
+	bntState: SearchBtnEnum.DisableAll,
 }
 
-const searchSlice = createSlice({
+const searchBtnStateSlice = createSlice({
 	name: 'btnSearchState',
 	initialState,
 	reducers: {
 		setBtnState(state, action: PayloadAction<number>) {
+			if (state.bntState === action.payload)
+				action.payload = SearchBtnEnum.DisableAll
+
 			state.bntState = action.payload
 		},
 	},
 })
-export default searchSlice.reducer
+export const { setBtnState } = searchBtnStateSlice.actions
+
+export default searchBtnStateSlice.reducer

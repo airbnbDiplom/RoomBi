@@ -1,9 +1,22 @@
 import { Col } from 'react-bootstrap'
 import style from '../Search.module.css'
-import { SearchDataState, ThemProps, WhoState } from '@/app/type/type'
+import {
+	SearchBtnEnum,
+	SearchDataState,
+	ThemProps,
+	WhoState,
+} from '@/app/type/type'
 import WhoDropDawn from './WhoDropDawn'
 import { useEffect, useRef, useState } from 'react'
 import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
+import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
+import {
+	setWhoObjAnimalsCount,
+	setWhoObjBabyCount,
+	setWhoObjChildrenCount,
+	setWhoObjGestCount,
+} from '@/app/redux/searchInHeader/SearchSlice'
 
 interface WhoProps {
 	openDropDawn: (event: React.MouseEvent<HTMLButtonElement>) => void
@@ -22,23 +35,31 @@ const Who: React.FC<WhoProps> = ({
 }) => {
 	const [gestString, SetGestString] = useState('Додайте гостей')
 	const [isClearActive, setIsClearActive] = useState(false)
+	const [drop, setWhenDropDawn] = useState(false)
+	const dispatch = useAppDispatch()
+	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
+	const whoObj = useAppSelector(
+		state => state.searchReducer.DataSearchObj.whoObj
+	)
 	const clearWhoInput = (event: any) => {
 		event.preventDefault()
 		event.stopPropagation()
 
-		setSearchData(prevState => ({
-			...prevState,
-			whoObj: {
-				...prevState.whoObj,
-				gestsCount: 0,
-			},
-		}))
+		dispatch(setWhoObjGestCount(0))
+		dispatch(setWhoObjChildrenCount(0))
+		dispatch(setWhoObjBabyCount(0))
+		dispatch(setWhoObjAnimalsCount(0))
+		// setSearchData(prevState => ({
+		// 	...prevState,
+		// 	whoObj: {
+		// 		...prevState.whoObj,
+		// 		gestsCount: 0,
+		// 	},
+		// }))
 	}
 
 	useEffect(() => {
-		let str = `${
-			searchData.whoObj.gestsCount + searchData.whoObj.childrenCount
-		}`
+		let str = `${whoObj.gestsCount + whoObj.childrenCount}`
 		switch (str) {
 			case '0':
 				str = 'Додайте гостей'
@@ -54,30 +75,33 @@ const Who: React.FC<WhoProps> = ({
 				str = `${str} гостів`
 				break
 		}
-		if (searchData.whoObj.babyCount > 0) {
-			str = `${str}, ${searchData.whoObj.babyCount} Немов. `
+		if (whoObj.babyCount > 0) {
+			str = `${str}, ${whoObj.babyCount} Немов. `
 		}
-		if (searchData.whoObj.animalsCount > 0) {
-			str = `${str}, ${searchData.whoObj.animalsCount} Твары. `
+		if (whoObj.animalsCount > 0) {
+			str = `${str}, ${whoObj.animalsCount} Твары. `
 		}
 		setIsClearActive(str !== 'Додайте гостей' ? true : false)
 		SetGestString(() => {
 			return str
 		})
-	}, [
-		searchData.whoObj.animalsCount,
-		searchData.whoObj.babyCount,
-		searchData.whoObj.childrenCount,
-		searchData.whoObj.gestsCount,
-	])
+	}, [whoObj])
+
+	useEffect(() => {
+		btnState === SearchBtnEnum.Who
+			? setWhenDropDawn(true)
+			: setWhenDropDawn(false)
+		console.log(btnState)
+	}, [btnState])
+
 	return (
 		<>
 			<button
 				id='who'
 				className={`p-0 ${style.resetButton} text-start  ${style.pText} ${
-					isTeamBlack && isWhoDropOn ? style.btnBlackBacActive : style.btnStyle
-				} ${isTeamBlack && !isWhoDropOn && style.btnBlackBac}`}
-				onClick={event => openDropDawn(event)}
+					isTeamBlack && drop ? style.btnBlackBacActive : style.btnStyle
+				} ${isTeamBlack && !drop && style.btnBlackBac}`}
+				onClick={() => dispatch(setBtnState(SearchBtnEnum.Who))}
 			>
 				<div
 					className={`mt-3 mb-3 ps-lg-4 ps-xs-2 position-relative`}
@@ -97,11 +121,9 @@ const Who: React.FC<WhoProps> = ({
 				</div>
 				{isClearActive && <ClearInputBtn clearInput={clearWhoInput} />}
 			</button>
-			<WhoDropDawn
-				whoArr={searchData.whoObj}
-				setSearchData={setSearchData}
-				isWhoDropOn={isWhoDropOn!}
-			/>
+			{drop && (
+				<WhoDropDawn whoArr={searchData.whoObj} setSearchData={setSearchData} />
+			)}
 		</>
 	)
 }

@@ -6,24 +6,50 @@ import 'react-calendar/dist/Calendar.css'
 import PrevArrow from '../../../../ui/arrow/PrevArrow'
 import NextArrow from '../../../../ui/arrow/NextArrow'
 import { setWhenObjDateCome } from '@/app/redux/searchInHeader/SearchSlice'
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 
-const WhenDropDawn = () => {
+interface SetWhenObjDate {
+	setWhenObjDate: ActionCreatorWithPayload<string, string>
+}
+
+const WhenDropDawn: React.FC<SetWhenObjDate> = ({ setWhenObjDate }) => {
 	const dispatch = useAppDispatch()
-	const calendarValue = useAppSelector(
+	const calendarValueDataCome = useAppSelector(
 		state => state.searchReducer.DataSearchObj.whenObj.dateCome
 	)
+	const calendarValueDataD = useAppSelector(
+		state => state.searchReducer.DataSearchObj.whenObj.dateOut
+	)
+	const [DateArr, setDataArr] = useState<Date | [Date, Date]>()
+
 	useEffect(() => {
-		console.log('calendarValue', calendarValue)
-	}, [calendarValue])
+		if (calendarValueDataCome !== '') {
+			const startDate = new Date(calendarValueDataCome)
+			if (calendarValueDataD !== '') {
+				const endDate = new Date(calendarValueDataD)
+				console.log('startDate', startDate)
+				console.log('endDate', endDate)
+				setDataArr([startDate, endDate])
+			} else {
+				setDataArr(startDate)
+			}
+		}
+	}, [calendarValueDataCome, calendarValueDataD])
 	return (
 		<div className={`d-grid  ${style.whenDropDawn}`}>
 			<Calendar
 				onClickDay={value => {
-					dispatch(setWhenObjDateCome(value.toString()))
-					console.log(calendarValue)
+					dispatch(setWhenObjDate(value.toString()))
 				}}
+				//	{defaultValue={ calendarValueDataCome !== "" ? new Date(calendarValueDataCome):undefined}}
 				defaultValue={
-					calendarValue === '' ? undefined : new Date(calendarValue)
+					calendarValueDataCome !== '' && calendarValueDataD !== ''
+						? [new Date(calendarValueDataCome), new Date(calendarValueDataD)]
+						: calendarValueDataCome !== ''
+						? new Date(calendarValueDataCome)
+						: calendarValueDataD !== ''
+						? new Date(calendarValueDataD)
+						: null
 				}
 				locale='uk-UA'
 				showDoubleView={true}

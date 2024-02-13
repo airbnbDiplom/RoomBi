@@ -1,50 +1,76 @@
-import { SearchDataState, ThemProps, WhereState } from '@/app/type/type'
+import { ThemProps, SearchBtnEnum, AutoCompleteList } from '@/app/type/type'
+import autoCompleteService from '@/app/services/autoCompleteService'
 import style from '../Search.module.css'
 import WhereDropDawn from './WhereDropDawn'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import WhereOptionDropDawn from './WhereOptionDropDawn'
+import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
+import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
+import { setWhereEmptyObj } from '@/app/redux/searchInHeader/SearchSlice'
 
 interface whereProps {
 	setTeamBlack: (setWhenDrop: boolean) => void
-	setWhenDrop: (setWhenDrop: boolean) => void
-	setWhereDrop: (setWhereDrop: boolean) => void
-	whereObj: WhereState
-	setSearchData: React.Dispatch<React.SetStateAction<SearchDataState>>
-	isWhereDropOn?: boolean
-	openDropDawn: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 const Where: React.FC<whereProps & ThemProps> = ({
 	setTeamBlack,
-	setWhenDrop,
-	setWhereDrop,
-	whereObj,
-	setSearchData,
-	isWhereDropOn,
-	openDropDawn,
 	isTeamBlack,
 }) => {
 	const inputRef = useRef(null)
+
+	const clearDateOnButton = (event: any) => {
+		event.preventDefault()
+		event.stopPropagation()
+		setStringInput('')
+		dispatch(setWhereEmptyObj())
+	}
+
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (event.target.value.length > 2) {
+			autoCompleteService(event.target.value).then(
+				(data: AutoCompleteList | null) => {
+					if (data) {
+						setAutoList(data)
+					} else {
+						console.log('Where handleInputChange No data fetched.')
+					}
+				}
+			)
+		}
 		setStringInput(event.target.value)
+
 		setWhereOptionBlack(true)
 
 		setTeamBlack(true)
-		console.log(event.target.value)
-		//	setSearchData(event.target.value)
 	}
+	const [autoList, setAutoList] = useState<AutoCompleteList>(
+		{} as AutoCompleteList
+	)
 	const [stringInput, setStringInput] = useState('')
 	const [whereOptionBlack, setWhereOptionBlack] = useState(false)
+
+	const [drop, setWhenDropDawn] = useState(false)
+	const dispatch = useAppDispatch()
+	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
+	useEffect(() => {
+		btnState === SearchBtnEnum.Where
+			? setWhenDropDawn(true)
+			: setWhenDropDawn(false)
+		console.log(btnState)
+	}, [btnState])
 
 	return (
 		<>
 			<button
 				id='where'
-				onClick={event => openDropDawn(event)}
+				onClick={() => {
+					dispatch(setBtnState(SearchBtnEnum.Where))
+				}}
 				className={`p-0 ${style.resetButton} ${style.pText} ${
-					(isTeamBlack && isWhereDropOn) || whereOptionBlack
+					(isTeamBlack && drop) || whereOptionBlack
 						? style.btnBlackBacActive
 						: style.btnStyle
-				} ${isTeamBlack && !isWhereDropOn && style.btnBlackBac} text-start`}
+				} ${isTeamBlack && !drop && style.btnBlackBac} text-start`}
 			>
 				<div
 					className={` mt-3 mb-3 ps-lg-4 ps-xs-2 ${
@@ -57,22 +83,26 @@ const Where: React.FC<whereProps & ThemProps> = ({
 						ref={inputRef}
 						type='text'
 						placeholder='Пошук напрямку'
-						className={`${style.colorTwo} ${style.inputReset}  m-0`}
+						className={`${style.colorTwo} ${style.inputReset} m-0`}
 						value={stringInput}
 						onChange={handleInputChange}
 					/>
 				</div>
+				{stringInput.length > 0 && (
+					<ClearInputBtn clearInput={clearDateOnButton} />
+				)}
 			</button>
-			<WhereDropDawn
-				setWhenDrop={setWhenDrop}
-				setWhereDrop={setWhereDrop}
-				stringInput={stringInput}
-				setStringInput={setStringInput}
-				isWhereDropOn={isWhereDropOn}
-				setSearchData={setSearchData}
-			/>
+			{drop && stringInput.length === 0 && (
+				<WhereDropDawn setStringInput={setStringInput} />
+			)}
 
-			{whereOptionBlack && stringInput.length > 0 && <WhereOptionDropDawn />}
+			{whereOptionBlack && stringInput.length > 2 && (
+				<WhereOptionDropDawn
+					setWhereOptionBlack={setWhereOptionBlack}
+					autoList={autoList}
+					setStringInput={setStringInput}
+				/>
+			)}
 		</>
 	)
 }

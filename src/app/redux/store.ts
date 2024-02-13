@@ -1,4 +1,5 @@
 import searchReducer from './searchInHeader/SearchSlice'
+import searchBtnStateReducer from './searchInHeader/SearchBtnStateSlice'
 import { configureStore } from '@reduxjs/toolkit'
 import appReducer from './appState/appSlice'
 import apartmentsReducer from './apartmentsState/apartmentsSlice'
@@ -8,6 +9,7 @@ const store = configureStore({
 		appReducer,
 		apartmentsReducer,
 		searchReducer,
+		searchBtnStateReducer,
 	},
 })
 

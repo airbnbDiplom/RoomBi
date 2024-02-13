@@ -120,7 +120,13 @@
 }
 .whereOptionDropDawnBlok {
 	left: 0;
-	width: 25%;
+	width: 50;
+	text-wrap: wrap;
+}
+.whereOptionDropDawnBlokItem {
+}
+.whereOptionDropDawnBlokItem:hover {
+	background-color: red;
 }
 .whenDropDawn {
 	left: 0;
@@ -141,7 +147,7 @@
 }
 
 .dropDawnImgClickAnimation {
-	animation: smallAnim 150ms ease;
+	animation: smallAnim 250ms ease;
 }
 @keyframes smallAnim {
 	0% {

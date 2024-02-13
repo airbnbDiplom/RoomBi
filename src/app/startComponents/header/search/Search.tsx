@@ -7,11 +7,14 @@ import {
 	ButtonOnBigDSearch,
 	SearchKindSwitch,
 	ThemProps,
+	SearchBtnEnum,
 } from '@/app/type/type'
 import Where from './buttonOnBigSearch/Where'
 import Who from './buttonOnBigSearch/Who'
 import WhenCome from './buttonOnBigSearch/WhenCome'
 import WhenDeparture from './buttonOnBigSearch/WhenDeparture'
+import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 
 interface propsButtonOnBigDSearch {
 	propsBigSearch: ButtonOnBigDSearch
@@ -60,11 +63,19 @@ const Search: React.FC<
 		setBigSearchOnBySmall,
 	} = propsKindSwitch
 
+	const dispatch = useAppDispatch()
+	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
+
 	const [scroll, setScroll] = useState(Number)
 	const [scrollAfterSmallSearch, setScrollAfterSmallSearch] = useState(-1)
 	const [flag, setFlag] = useState(false)
 
 	const searchBig = useRef<HTMLDivElement>(null)
+
+	// const setBtnStateEvent = (state: number) => {
+	// 	if (btnState === state) state = SearchBtnSwitcherEnum.DisableAll
+	// 	dispatch(setBtnState(state))
+	// }
 
 	const openDropDawn = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault()
@@ -195,23 +206,10 @@ const Search: React.FC<
 				className={` 
 					d-flex align-items-start justify-content-center p-0 `}
 			>
-				<Where
-					setTeamBlack={setTeamBlack}
-					setWhenDrop={setWhenDrop}
-					setWhereDrop={setWhereDrop}
-					whereObj={searchData.whereObj}
-					setSearchData={setSearchData}
-					isWhereDropOn={isWhereDropOn}
-					openDropDawn={openDropDawn}
-					isTeamBlack={isTeamBlack}
-				/>
+				<Where setTeamBlack={setTeamBlack} isTeamBlack={isTeamBlack} />
 			</Col>
 			<Col className={`d-flex align-items-center justify-content-center p-0`}>
-				<WhenCome
-					isWhenDropOn={isWhenDropOn}
-					openDropDawn={openDropDawn}
-					isTeamBlack={isTeamBlack}
-				/>
+				<WhenCome isTeamBlack={isTeamBlack} />
 			</Col>
 			<Col className={`d-flex align-items-center justify-content-center p-0`}>
 				<WhenDeparture
