@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Carousel from "react-bootstrap/Carousel";
-import style from "./carouselBi.module.css";
 import { CarouselBiProps } from "../../../type/type";
+import style from "./carouselBi.module.css";
 
 const CarouselBi: React.FC<CarouselBiProps> = ({ pictures, handleClick }) => {
   return (
@@ -14,7 +14,7 @@ const CarouselBi: React.FC<CarouselBiProps> = ({ pictures, handleClick }) => {
             src="/filter/rightArrow.svg"
             width={15}
             height={15}
-            alt="next"
+            alt="nextBtn"
           />
         </div>
       }
