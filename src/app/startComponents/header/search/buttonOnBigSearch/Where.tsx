@@ -96,13 +96,16 @@ const Where: React.FC<whereProps & ThemProps> = ({
 				<WhereDropDawn setStringInput={setStringInput} />
 			)}
 
-			{whereOptionBlack && stringInput.length > 2 && (
-				<WhereOptionDropDawn
-					setWhereOptionBlack={setWhereOptionBlack}
-					autoList={autoList}
-					setStringInput={setStringInput}
-				/>
-			)}
+			{whereOptionBlack &&
+				stringInput.length > 2 &&
+				autoList.features !== undefined &&
+				autoList.features.length > 0 && (
+					<WhereOptionDropDawn
+						setWhereOptionBlack={setWhereOptionBlack}
+						autoList={autoList}
+						setStringInput={setStringInput}
+					/>
+				)}
 		</>
 	)
 }
