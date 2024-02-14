@@ -86,12 +86,17 @@
 	appearance: none;
 	-webkit-appearance: none; /* For older versions of WebKit browsers */
 	margin: 0;
-	padding: 0;
+	padding: 0 0 0 5px;
 	border: none;
 	outline: none;
 	box-shadow: none;
 	background-color: transparent;
 	color: var(--eerieBlack);
+	width: 90%;
+	border-radius: 5px;
+}
+.inputReset:focus {
+	background-color: rgb(176, 180, 184);
 }
 .dNone {
 	display: none;

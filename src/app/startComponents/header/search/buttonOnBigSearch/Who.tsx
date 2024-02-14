@@ -82,7 +82,7 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 
 	return (
 		<>
-			<button
+			<div
 				id='who'
 				className={`p-0 ${style.resetButton} text-start  ${style.pText} ${
 					isTeamBlack && drop ? style.btnBlackBacActive : style.btnStyle
@@ -106,7 +106,7 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 					</p>
 				</div>
 				{isClearActive && <ClearInputBtn clearInput={clearWhoInput} />}
-			</button>
+			</div>
 			{drop && <WhoDropDawn />}
 		</>
 	)

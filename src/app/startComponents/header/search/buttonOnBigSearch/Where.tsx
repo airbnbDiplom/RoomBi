@@ -16,7 +16,7 @@ const Where: React.FC<whereProps & ThemProps> = ({
 	setTeamBlack,
 	isTeamBlack,
 }) => {
-	const inputRef = useRef(null)
+	const inputRef = useRef<HTMLInputElement>(null)
 	const [autoList, setAutoList] = useState<AutoCompleteList>(
 		{} as AutoCompleteList
 	)
@@ -40,9 +40,11 @@ const Where: React.FC<whereProps & ThemProps> = ({
 		btnState === SearchBtnEnum.Where
 			? setWhenDropDawn(true)
 			: setWhenDropDawn(false)
-		console.log(btnState)
-	}, [btnState])
-
+	}, [btnState, isTeamBlack])
+	useEffect(() => {
+		if (inputRef.current && isTeamBlack) inputRef.current.focus()
+		if (inputRef.current && !isTeamBlack) inputRef.current.blur()
+	}, [isTeamBlack])
 	const clearDateOnButton = (event: any) => {
 		event.preventDefault()
 		event.stopPropagation()
@@ -71,9 +73,12 @@ const Where: React.FC<whereProps & ThemProps> = ({
 
 	return (
 		<>
-			<button
+			<div
 				id='where'
-				onClick={() => {
+				onClick={(event: React.MouseEvent<HTMLDivElement>) => {
+					if ((event.target as HTMLElement).tagName === 'INPUT') {
+						return
+					}
 					dispatch(setBtnState(SearchBtnEnum.Where))
 				}}
 				className={`p-0 ${style.resetButton} ${style.pText} ${
@@ -92,6 +97,13 @@ const Where: React.FC<whereProps & ThemProps> = ({
 						id='inputWhere'
 						ref={inputRef}
 						type='text'
+						autoComplete='off'
+						onFocus={() => {
+							if (!isTeamBlack) {
+								setTeamBlack(true)
+								dispatch(setBtnState(SearchBtnEnum.Where))
+							}
+						}}
 						placeholder='Пошук напрямку'
 						className={`${style.colorTwo} ${style.inputReset} m-0`}
 						value={stringInput}
@@ -101,7 +113,7 @@ const Where: React.FC<whereProps & ThemProps> = ({
 				{stringInput !== undefined && stringInput.length > 0 && (
 					<ClearInputBtn clearInput={clearDateOnButton} />
 				)}
-			</button>
+			</div>
 			{drop && stringInput !== undefined && stringInput.length === 0 && (
 				<WhereDropDawn setStringInput={setStringInput} />
 			)}

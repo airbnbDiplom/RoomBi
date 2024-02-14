@@ -66,7 +66,7 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	}
 	return (
 		<>
-			<button
+			<div
 				className={`p-0 ${style.resetButton} text-start  ${style.pText} ${
 					isTeamBlack && drop ? style.btnBlackBacActive : style.btnStyle
 				} ${isTeamBlack && !drop && style.btnBlackBac}`}
@@ -84,7 +84,7 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				{dateVieOnButtonSearch !== 'Додайте дату' && (
 					<ClearInputBtn clearInput={clearDateOnButton} />
 				)}
-			</button>
+			</div>
 			{drop && <WhenDropDawn setWhenObjDate={setWhenObjDateOut} />}
 		</>
 	)

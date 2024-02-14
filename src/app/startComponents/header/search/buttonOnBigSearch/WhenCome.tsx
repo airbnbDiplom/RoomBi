@@ -74,7 +74,7 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	}
 	return (
 		<>
-			<button
+			<div
 				id='when'
 				className={`p-0 ${style.resetButton} text-start  ${style.pText} ${
 					isTeamBlack && drop ? style.btnBlackBacActive : style.btnStyle
@@ -92,7 +92,7 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				{dateVieOnButtonSearch !==
 					//intl.get('addDate')
 					'Додайте дату' && <ClearInputBtn clearInput={clearDateOnButton} />}
-			</button>
+			</div>
 			{drop && <WhenDropDawn setWhenObjDate={setWhenObjDateCome} />}
 		</>
 	)
