@@ -21,7 +21,7 @@ export default async function Home({
   const session = await getServerSession(authConfig);
   console.log("Home session", session);
 
-  const firstPage = await getFirstPage();
+  // const firstPage = await getFirstPage();
 
   return (
     <TranslationsProvider
@@ -32,7 +32,7 @@ export default async function Home({
       <>
         <div className="sticky-top header-Main">
           {/* <Header /> */}
-          <Naw />
+          {/* <Naw /> */}
         </div>
         {/* {firstPage ? (
           <main className={styles.main}>
@@ -42,7 +42,7 @@ export default async function Home({
           <></>
           // <Loading />
         )} */}
-        <Footer />
+        {/* <Footer /> */}
       </>
     </TranslationsProvider>
   );
