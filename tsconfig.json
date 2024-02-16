@@ -32,6 +32,6 @@
 		"src/app/redux/provider.js",
 		"src/app/components/map-main/MapMain.js",
 		"src/app/startComponents/header/search/buttonOnBigSearch/btnWhere"
-	],
+, "src/app/configs/auth.js"	],
 	"exclude": ["node_modules"]
 }
