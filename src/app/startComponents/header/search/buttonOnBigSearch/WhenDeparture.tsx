@@ -9,19 +9,10 @@ import {
 	setWhenObjDateOut,
 } from '@/app/redux/searchInHeader/SearchSlice'
 import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
-interface WhenComeProps {
-	isWhenDDropOn?: boolean
-	isWhenDropOn?: boolean
-	openDropDawn: (event: React.MouseEvent<HTMLButtonElement>) => void
-}
+import { useTranslation } from 'react-i18next'
 
-//TODO: как-то включать и  выключать кнопку
-const WhenDeparture: React.FC<WhenComeProps & ThemProps> = ({
-	isWhenDDropOn,
-	isWhenDropOn,
-	openDropDawn,
-	isTeamBlack,
-}) => {
+const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
+	const { t } = useTranslation()
 	const dispatch = useAppDispatch()
 	const calendarDateComStr = useAppSelector(
 		state => state.searchReducer.DataSearchObj.whenObj.dateCome
@@ -30,8 +21,9 @@ const WhenDeparture: React.FC<WhenComeProps & ThemProps> = ({
 		state => state.searchReducer.DataSearchObj.whenObj.dateOut
 	)
 
-	const [dateVieOnButtonSearch, setDateVieOnButtonSearch] =
-		useState('Додайт дату')
+	const [dateVieOnButtonSearch, setDateVieOnButtonSearch] = useState(
+		t('AddADate')
+	)
 	const [drop, setWhenDropDawn] = useState(false)
 	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
 	useEffect(() => {
@@ -55,32 +47,26 @@ const WhenDeparture: React.FC<WhenComeProps & ThemProps> = ({
 				dispatch(setBtnState(SearchBtnEnum.Who))
 			}
 		} else {
-			setDateVieOnButtonSearch(
-				//intl.get('addDate')
-				'Додайте дату'
-			)
+			setDateVieOnButtonSearch(t('AddADate'))
 		}
-	}, [calendarDateDStr])
+	}, [dispatch, calendarDateDStr, calendarDateComStr])
 	const clearDateOnButton = (event: any) => {
-		if (dateVieOnButtonSearch !== 'Додайте дату') {
+		if (dateVieOnButtonSearch !== t('AddADate')) {
 			event.preventDefault()
 			dispatch(setWhenObjDateOut(''))
 		}
 	}
 	const formatted = (date: Date): string => {
-		const formatter = new Intl.DateTimeFormat(
-			'uk', //TODO: заменить на нужный локаль	язык отображения даты
-			{
-				day: 'numeric',
-				month: 'long',
-				year: 'numeric',
-			}
-		)
+		const formatter = new Intl.DateTimeFormat(t('locale'), {
+			day: 'numeric',
+			month: 'long',
+			year: 'numeric',
+		})
 		return formatter.format(date)
 	}
 	return (
 		<>
-			<button
+			<div
 				className={`p-0 ${style.resetButton} text-start  ${style.pText} ${
 					isTeamBlack && drop ? style.btnBlackBacActive : style.btnStyle
 				} ${isTeamBlack && !drop && style.btnBlackBac}`}
@@ -88,17 +74,17 @@ const WhenDeparture: React.FC<WhenComeProps & ThemProps> = ({
 				onClick={() => dispatch(setBtnState(SearchBtnEnum.WhenDeparture))}
 			>
 				<div
-					className={`mt-3 mb-3 ps-lg-4 ps-xs-2  ${
+					className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2  ${
 						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
 					}`}
 				>
-					<p className={`${style.colorOne} m-0`}>Виїзд</p>
+					<p className={`${style.colorOne} m-0`}>{t('Departure')}</p>
 					<p className={`${style.colorTwo}  m-0`}>{dateVieOnButtonSearch}</p>
 				</div>
-				{dateVieOnButtonSearch !==
-					//intl.get('addDate')
-					'Додайте дату' && <ClearInputBtn clearInput={clearDateOnButton} />}
-			</button>
+				{dateVieOnButtonSearch !== t('AddADate') && (
+					<ClearInputBtn clearInput={clearDateOnButton} />
+				)}
+			</div>
 			{drop && <WhenDropDawn setWhenObjDate={setWhenObjDateOut} />}
 		</>
 	)

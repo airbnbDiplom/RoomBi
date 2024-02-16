@@ -41,17 +41,7 @@ export interface FilterLngObj {
 	src: string
 	type: string
 }
-export interface ButtonOnBigDSearch {
-	isWhereDropOn?: boolean
-	isWhenDropOn?: boolean
-	isWhoDropOn?: boolean
-	isWhenDDropOn?: boolean
 
-	setWhereDrop: (setWhereDrop: boolean) => void
-	setWhenDrop: (setWhenDrop: boolean) => void
-	setWhoDrop: (setWhoDrop: boolean) => void
-	setWhenDDrop?: (setWhenDDrop: boolean) => void
-}
 export enum SearchBtnEnum {
 	DisableAll = 0,
 	Where = 1,
@@ -61,12 +51,12 @@ export enum SearchBtnEnum {
 }
 
 export interface SearchKindSwitch {
-	isSmallSearchOn: boolean
-	isBigSearchOn: boolean
-	isBigSearchOnBySmall: boolean
-	setSmallSearchOn: (setWhereDrop: boolean) => void
-	setBigSearchOn: (setWhenDrop: boolean) => void
-	setBigSearchOnBySmall: (setWhoDrop: boolean) => void
+	isSmallSearchOn?: boolean
+	isBigSearchOn?: boolean
+	isBigSearchOnBySmall?: boolean
+	setSmallSearchOn: React.Dispatch<React.SetStateAction<boolean>>
+	setBigSearchOn: React.Dispatch<React.SetStateAction<boolean>>
+	setBigSearchOnBySmall: React.Dispatch<React.SetStateAction<boolean>>
 }
 export interface ThemProps {
 	isTeamBlack: boolean
@@ -89,40 +79,6 @@ export interface SearchDataState {
 	whoObj: WhoState
 	whereObj: WhereState
 }
-export interface WhenState {
-	dateCome: string
-	dateOut: string
-}
-// ---autoComplete---
-export interface AutoCompleteList {
-	type: 'AutoCompleteList'
-	licence: string
-	features: AutoCompleteItem[]
-}
-
-export interface AutoCompleteItem {
-	type: 'AutoCompleteItem'
-	properties: Properties
-	bbox: number[]
-	geometry: Geometry
-}
-
-interface Properties {
-	place_id: string
-	osm_type: string
-	osm_id: string
-	display_name: string
-	place_rank: string
-	category: string
-	type: string
-	importance: number
-}
-
-interface Geometry {
-	type: 'Point'
-	coordinates: [number, number]
-}
-// end  ---autoComplete---
 
 export interface GuestCommentsForRentalItem {
 	Id: number
@@ -214,3 +170,37 @@ export interface MarkerBi {
 	ingMap: string
 	latMap: string
 }
+export interface WhenState {
+	dateCome: string
+	dateOut: string
+}
+// ---autoComplete---
+export interface AutoCompleteList {
+	type: 'AutoCompleteList'
+	licence: string
+	features: AutoCompleteItem[]
+}
+
+export interface AutoCompleteItem {
+	type: 'AutoCompleteItem'
+	properties: Properties
+	bbox: number[]
+	geometry: Geometry
+}
+
+interface Properties {
+	place_id: string
+	osm_type: string
+	osm_id: string
+	display_name: string
+	place_rank: string
+	category: string
+	type: string
+	importance: number
+}
+
+interface Geometry {
+	type: 'Point'
+	coordinates: [number, number]
+}
+// end  ---autoComplete---

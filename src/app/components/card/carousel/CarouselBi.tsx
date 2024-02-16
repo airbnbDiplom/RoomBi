@@ -14,7 +14,7 @@ const CarouselBi: React.FC<CarouselBiProps> = ({ pictures, handleClick }) => {
 						src='/filter/rightArrow.svg'
 						width={15}
 						height={15}
-						alt='next'
+						alt='nextBtn'
 					/>
 				</div>
 			}

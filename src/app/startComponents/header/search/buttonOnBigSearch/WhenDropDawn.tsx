@@ -1,18 +1,19 @@
-import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { useAppDispatch, useAppSelector, useWindowSize } from '@/app/redux/hook'
 import style from '../Search.module.css'
 import Calendar from 'react-calendar'
-import { useEffect, useState } from 'react'
 import 'react-calendar/dist/Calendar.css'
 import PrevArrow from '../../../../ui/arrow/PrevArrow'
 import NextArrow from '../../../../ui/arrow/NextArrow'
-import { setWhenObjDateCome } from '@/app/redux/searchInHeader/SearchSlice'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
+import { useTranslation } from 'react-i18next'
 
 interface SetWhenObjDate {
 	setWhenObjDate: ActionCreatorWithPayload<string, string>
 }
 
 const WhenDropDawn: React.FC<SetWhenObjDate> = ({ setWhenObjDate }) => {
+	const [width, height] = useWindowSize()
+	const { t } = useTranslation()
 	const dispatch = useAppDispatch()
 	const calendarValueDataCome = useAppSelector(
 		state => state.searchReducer.DataSearchObj.whenObj.dateCome
@@ -20,21 +21,6 @@ const WhenDropDawn: React.FC<SetWhenObjDate> = ({ setWhenObjDate }) => {
 	const calendarValueDataD = useAppSelector(
 		state => state.searchReducer.DataSearchObj.whenObj.dateOut
 	)
-	const [DateArr, setDataArr] = useState<Date | [Date, Date]>()
-
-	useEffect(() => {
-		if (calendarValueDataCome !== '') {
-			const startDate = new Date(calendarValueDataCome)
-			if (calendarValueDataD !== '') {
-				const endDate = new Date(calendarValueDataD)
-				console.log('startDate', startDate)
-				console.log('endDate', endDate)
-				setDataArr([startDate, endDate])
-			} else {
-				setDataArr(startDate)
-			}
-		}
-	}, [calendarValueDataCome, calendarValueDataD])
 	return (
 		<div className={`d-grid  ${style.whenDropDawn}`}>
 			<Calendar
@@ -51,8 +37,8 @@ const WhenDropDawn: React.FC<SetWhenObjDate> = ({ setWhenObjDate }) => {
 						? new Date(calendarValueDataD)
 						: null
 				}
-				locale='uk-UA'
-				showDoubleView={true}
+				locale={t('ISOLocale')}
+				showDoubleView={width > 900 ? true : false}
 				showNeighboringMonth={false}
 				minDetail='month'
 				prevLabel={<PrevArrow />}

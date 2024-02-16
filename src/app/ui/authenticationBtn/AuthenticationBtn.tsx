@@ -3,10 +3,9 @@ import { ThemProps } from '@/app/type/type'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { Button, Dropdown } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 import style from './AuthenticationBtn.module.css'
 import ModalForm from './ModalForm'
-
-import { useTranslation } from 'react-i18next'
 // import "@/app/configs/i18next";
 const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const [showRegister, setShowRegister] = useState(false)
