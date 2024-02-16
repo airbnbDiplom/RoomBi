@@ -58,7 +58,7 @@ const MapMain = () => {
             icon={marker.customIcon}
           >
             <Popup>
-              <CardMap id={marker.apartment.id} />
+              <CardMap {...marker.apartment} />
             </Popup>
           </Marker>
         ))}

@@ -1,31 +1,22 @@
 "use client";
 import Image from "next/image";
 import style from "./resetFilter.module.css";
-import { getAllMarkers } from "@/app/services/markerServices";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import {
-  setApartmentsMap,
-  setApartments,
-} from "@/app/redux/apartmentsState/apartmentsSlice";
-import { getAllHouses } from "@/app/services/housesServices";
+import { showCard, showMap } from "@/app/redux/apartmentsState/apartmentsSlice";
 const ResetFilter: React.FC = () => {
   const dispatch = useAppDispatch();
   const isShowMap = useAppSelector((state) => state.appReducer.isMapPage);
 
-  const onReset = async () => {
-    if (!isShowMap) {
-      const housesData = await getAllHouses();
-      dispatch(setApartments(housesData));
-      console.log("not isShowMap");
+  const click = async () => {
+    if (isShowMap) {
+      dispatch(showMap());
     } else {
-      const marcerData = await getAllMarkers();
-      dispatch(setApartmentsMap(marcerData));
-      console.log("isShowMap");
+      dispatch(showCard());
     }
   };
 
   return (
-    <button onClick={onReset} className={style.btnStyle}>
+    <button onClick={click} className={style.btnStyle}>
       <Image
         priority
         src="./filter/filterOff.svg"

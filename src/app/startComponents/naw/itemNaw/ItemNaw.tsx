@@ -5,11 +5,10 @@ import style from "./itemNaw.module.css";
 import { useAppDispatch } from "@/app/redux/hook";
 import { navFilter } from "@/app/redux/apartmentsState/apartmentsSlice";
 
-const ItemNaw: React.FC<FilterObj> = ({ label, src, name, type }) => {
+const ItemNaw: React.FC<FilterObj> = ({ label, src, name, type, name2 }) => {
   const dispatch = useAppDispatch();
   const handleClick = () => {
-    dispatch(navFilter({ name, type }));
-    console.log("FilterObj", name, type);
+    dispatch(navFilter({ name, name2, type }));
   };
   return (
     <div className={style.carouselItem} onClick={handleClick}>

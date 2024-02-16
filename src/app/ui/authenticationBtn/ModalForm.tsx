@@ -1,11 +1,11 @@
+"use client";
 import { Modal, Form, Button } from "react-bootstrap";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import React, { useState } from "react";
 import styles from "./AuthenticationBtn.module.css";
 import { useSearchParams } from "next/navigation";
 import { useTranslation } from "next-i18next";
-// import "@/app/configs/i18next";
 interface ModalFormProps {
   show: boolean;
   isRegistration: boolean;
@@ -24,19 +24,19 @@ const ModalForm: React.FC<ModalFormProps> = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "";
-  const session = useSession();
+  undefined;
 
-  const handleSignIn = () => {
-    signIn("google", { callbackUrl });
-    console.log("ModalForm - ");
-    if (session) {
-      console.log("ModalForm - ", session);
+  const handleSignIn = async () => {
+    try {
+      const res = await signIn("google", { callbackUrl });
+      console.log("---handleSignIn---", res);
+      handleClose();
+    } catch (error) {
+      console.error("Помилка входу через Google:", error);
     }
   };
-
   const validatePassword = (password: string) => {
     return password.length >= 5;
   };
@@ -89,34 +89,44 @@ const ModalForm: React.FC<ModalFormProps> = ({
     }
     return true;
   };
+
   const cleaning = () => {
     setEmail("");
     setPassword("");
     setRepeatPassword("");
   };
 
+  const signinType = async (type: string) => {
+    try {
+      const res = await signIn("credentials", {
+        email: email,
+        password: password,
+        type: type,
+        redirect: false,
+      });
+      if (res && res.error) {
+        console.log("Authentication error: ", res);
+        // Опрацювання помилки тут
+      } else {
+        console.log("OK - ", res);
+      }
+    } catch (error) {
+      console.error("Error: ", error);
+      // Опрацювання помилки тут
+    }
+  };
+
   const handleSubmit = async () => {
     if (!touch()) return null;
 
     if (!isRegistration) {
-      console.log("handleLogin");
       cleaning();
       handleClose();
+      signinType("login");
     } else if (isRegistration) {
-      console.log("handleRegister");
       cleaning();
       handleClose();
-    }
-
-    const res = await signIn("credentials", {
-      email: email,
-      password: password,
-      redirect: false,
-    });
-    if (res && !res.error) {
-      console.log("Login OK - ");
-    } else {
-      console.log("Login error ");
+      signinType("register");
     }
   };
 
@@ -205,6 +215,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
             />
             {t("continueWithGoogle")}
           </Button>
+          <button onClick={() => signOut()}>signOut</button>
         </>
       </Modal.Body>
     </Modal>
