@@ -34,14 +34,14 @@ export default async function Home({
           {/* <Header /> */}
           <Naw />
         </div>
-        {firstPage ? (
+        {/* {firstPage ? (
           <main className={styles.main}>
             <Main cardData={firstPage} />
           </main>
         ) : (
           <></>
           // <Loading />
-        )}
+        )} */}
         <Footer />
       </>
     </TranslationsProvider>
