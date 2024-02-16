@@ -21,7 +21,7 @@ export default async function Home({
   const session = await getServerSession(authConfig);
   console.log("Home session", session);
 
-  // const firstPage = await getFirstPage();
+  const firstPage = await getFirstPage();
 
   return (
     <TranslationsProvider
