@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getHousId } from "@/app/services/housesServices";
+// import { getHousId } from "@/app/services/housesServices";
 import Link from "next/link";
 
 type Props = {
@@ -17,12 +17,12 @@ type Props = {
 // }
 
 export default async function Hous({ params: { id } }: Props) {
-  const hous = await getHousId(id);
+  // const hous = await getHousId(id);
   return (
     <>
       <Link href="/">asd</Link>
-      <h1>{hous[0].country}</h1>
-      <h1>{hous[0].title}</h1>
+      {/* <h1>{hous[0].country}</h1>
+      <h1>{hous[0].title}</h1> */}
     </>
   );
 }

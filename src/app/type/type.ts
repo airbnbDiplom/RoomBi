@@ -30,6 +30,7 @@ export interface FilterObj {
   id: number;
   label: string;
   name: string;
+  name2: string;
   src: string;
   type: string;
 }

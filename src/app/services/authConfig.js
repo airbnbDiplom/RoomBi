@@ -1,16 +1,18 @@
 "use server";
-export const authLogin = async (phone, password) => {
+export const authLogin = async (email, password, type) => {
   try {
-    const url = process.env.NEXTAUTH_URL;
+    const url = process.env.NEXT_URL_LOGIN;
 
     const res = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        // Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        phone: phone,
+        email: email,
         password: password,
+        type: type,
       }),
     });
     return res;

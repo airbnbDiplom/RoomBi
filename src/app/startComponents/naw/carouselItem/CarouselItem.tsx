@@ -24,6 +24,7 @@ const CarouselItem: React.FC<CarouselItemProps> = ({ filterData }) => {
             id={item.id}
             label={item.label}
             name={len === "ua" ? item.nameUa : item.nameEn}
+            name2={len === "en" ? item.nameEn : item.nameUa}
             src={item.src}
             type={item.type}
           />

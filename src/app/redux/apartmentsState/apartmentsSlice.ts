@@ -2,50 +2,84 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CardBiProps, FullRentalItem, MarkerBi } from "@/app/type/type";
 
 type Apartments = {
-  apartmentsMain: CardBiProps[];
+  apartmentsAll: CardBiProps[];
   apartments: CardBiProps[];
-  apartmentsMap: MarkerBi[];
-  fullRentalItem: FullRentalItem[];
+  apartmentsMap: CardBiProps[];
+  countPage: number;
 };
 
 const initialState: Apartments = {
-  apartmentsMain: [],
+  apartmentsAll: [],
   apartments: [],
   apartmentsMap: [],
-  fullRentalItem: [],
+  countPage: 1,
 };
 
 const apartmentsSlice = createSlice({
   name: "apartments",
   initialState,
   reducers: {
-    setApartments(state, action: PayloadAction<CardBiProps[]>) {
-      if (!Array.isArray(action.payload)) {
-        return state;
-      }
-      state.apartmentsMain = action.payload;
-      state.apartments = action.payload;
-    },
-    setApartmentsMap(state, action: PayloadAction<MarkerBi[]>) {
+    setApartmentsAll(state, action: PayloadAction<CardBiProps[]>) {
+      state.apartmentsAll = action.payload;
       state.apartmentsMap = action.payload;
     },
-    pushFullRentalItem(state, action: PayloadAction<FullRentalItem>) {
-      state.fullRentalItem.push(action.payload);
-      console.log("state.fullRentalItem", { ...state.fullRentalItem });
+    setApartments(state, action: PayloadAction<CardBiProps[]>) {
+      state.apartments = action.payload;
     },
-    navFilter(state, action: PayloadAction<{ name: string; type: string }>) {
-      const { name, type } = action.payload;
-      state.apartments = state.apartmentsMain.filter((item) => {
-        return item[type as keyof CardBiProps] === name;
+    showMap(state) {
+      state.apartmentsMap = [...state.apartmentsAll];
+    },
+    showCard(state) {
+      state.apartments = [...state.apartmentsAll.slice(0, 24)];
+    },
+    pushPushOnePage(state) {
+      let startIndex;
+      if (state.countPage === 1) {
+        startIndex = state.countPage * 24;
+      } else {
+        startIndex = state.countPage * 6 + 24;
+      }
+
+      let tempArr;
+      if (startIndex + 6 >= state.apartmentsAll.length) {
+        tempArr = state.apartmentsAll.slice(state.apartments.length);
+        state.apartments = [...state.apartments, ...tempArr];
+      } else {
+        tempArr = state.apartmentsAll.slice(startIndex, startIndex + 6);
+        state.apartments = [...state.apartments, ...tempArr];
+      }
+      console.log("length", state.apartments.length);
+      console.log("state.countPage", state.countPage);
+      console.log("startIndex", startIndex);
+
+      state.countPage++;
+    },
+    navFilter(
+      state,
+      action: PayloadAction<{ name: string; name2: string; type: string }>
+    ) {
+      const { name, name2, type } = action.payload;
+
+      const result = state.apartmentsAll.filter((item) => {
+        if (
+          item[type as keyof CardBiProps] === name ||
+          item[type as keyof CardBiProps] === name2
+        ) {
+          return item;
+        }
       });
+      state.apartments = result;
+      state.apartmentsMap = result;
     },
   },
 });
 
 export const {
-  setApartments,
+  setApartmentsAll,
   navFilter,
-  setApartmentsMap,
-  pushFullRentalItem,
+  setApartments,
+  pushPushOnePage,
+  showMap,
+  showCard,
 } = apartmentsSlice.actions;
 export default apartmentsSlice.reducer;
