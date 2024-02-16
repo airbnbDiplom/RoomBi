@@ -51,9 +51,10 @@ const apartmentsSlice = createSlice({
       console.log("length", state.apartments.length);
       console.log("state.countPage", state.countPage);
       console.log("startIndex", startIndex);
-
+      console.log("hi");
       state.countPage++;
     },
+
     navFilter(
       state,
       action: PayloadAction<{ name: string; name2: string; type: string }>
