@@ -85,7 +85,7 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				onClick={() => dispatch(setBtnState(SearchBtnEnum.Who))}
 			>
 				<div
-					className={`mt-3 mb-3 ps-lg-4 ps-xs-2 position-relative`}
+					className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2 position-relative`}
 					style={{ maxWidth: '170px', minWidth: '135px' }}
 				>
 					<p className={`${style.colorOne}  m-0`}>{t('Why')}</p>

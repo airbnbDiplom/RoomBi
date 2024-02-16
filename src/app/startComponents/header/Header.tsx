@@ -36,7 +36,7 @@ const Header: FC = () => {
 				<Col className={style.customTextCenter} md={2} lg={2} xl={2} xxl={3}>
 					<Link
 						href={'/'}
-						className={isTeamBlack ? style.logoBlack : style.logo}
+						className={`${isTeamBlack && style.logoBlack} ${style.logo}`}
 					>
 						RoomBi
 					</Link>
@@ -52,7 +52,7 @@ const Header: FC = () => {
 				)}
 				{isBigSearchOn && (
 					<Col
-						md={7}
+						md={6}
 						lg={7}
 						xl={7}
 						xxl={6}
@@ -74,7 +74,7 @@ const Header: FC = () => {
 						/>
 					</Col>
 				)}
-				<Col md={3} lg={3} xl={3}>
+				<Col md={4} lg={3} xl={3}>
 					<Row>
 						<Col className={`ms-md-3 ms-xs-1 p-0 ${style.customText}`}>
 							<Link

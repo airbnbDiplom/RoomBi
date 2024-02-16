@@ -1,7 +1,7 @@
 import { Col, Row } from 'react-bootstrap'
 import style from '../Search.module.css'
 import { AutoCompleteList, SearchBtnEnum } from '@/app/type/type'
-import { useAppDispatch } from '@/app/redux/hook'
+import { useAppDispatch, useWindowSize } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 import BtnWhereTile from './btn/btnWhere'
 import { setWhereObj } from '@/app/redux/searchInHeader/SearchSlice'
@@ -14,6 +14,7 @@ const WhereDropDawn = ({
 }: {
 	setStringInput: React.Dispatch<React.SetStateAction<string>>
 }) => {
+	const [width, height] = useWindowSize()
 	const dispatch = useAppDispatch()
 	const { t } = useTranslation()
 	const clickImgEvent = (e: any, value?: string) => {
@@ -47,7 +48,7 @@ const WhereDropDawn = ({
 		return results
 	}
 
-	const rows = chunkArray([...btnDataArray], 3)
+	const rows = chunkArray([...btnDataArray], width > 992 ? 3 : 2)
 	return (
 		<div className={`${style.actionWhereDropDawnOn}`}>
 			<p className={`h5 mt-2 text-center fw-bold `}>{t('SearchDirection')}</p>

@@ -57,14 +57,11 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 		}
 	}
 	const formatted = (date: Date): string => {
-		const formatter = new Intl.DateTimeFormat(
-			t('locale'), //TODO: заменить на нужный локаль	язык отображения даты
-			{
-				day: 'numeric',
-				month: 'long',
-				year: 'numeric',
-			}
-		)
+		const formatter = new Intl.DateTimeFormat(t('locale'), {
+			day: 'numeric',
+			month: 'long',
+			year: 'numeric',
+		})
 		return formatter.format(date)
 	}
 	return (
@@ -77,7 +74,7 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				onClick={() => dispatch(setBtnState(SearchBtnEnum.WhenDeparture))}
 			>
 				<div
-					className={`mt-3 mb-3 ps-lg-4 ps-xs-2  ${
+					className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2  ${
 						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
 					}`}
 				>

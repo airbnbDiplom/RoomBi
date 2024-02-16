@@ -1,7 +1,6 @@
-import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { useAppDispatch, useAppSelector, useWindowSize } from '@/app/redux/hook'
 import style from '../Search.module.css'
 import Calendar from 'react-calendar'
-import { useEffect, useState } from 'react'
 import 'react-calendar/dist/Calendar.css'
 import PrevArrow from '../../../../ui/arrow/PrevArrow'
 import NextArrow from '../../../../ui/arrow/NextArrow'
@@ -13,6 +12,7 @@ interface SetWhenObjDate {
 }
 
 const WhenDropDawn: React.FC<SetWhenObjDate> = ({ setWhenObjDate }) => {
+	const [width, height] = useWindowSize()
 	const { t } = useTranslation()
 	const dispatch = useAppDispatch()
 	const calendarValueDataCome = useAppSelector(
@@ -38,7 +38,7 @@ const WhenDropDawn: React.FC<SetWhenObjDate> = ({ setWhenObjDate }) => {
 						: null
 				}
 				locale={t('ISOLocale')}
-				showDoubleView={true}
+				showDoubleView={width > 900 ? true : false}
 				showNeighboringMonth={false}
 				minDetail='month'
 				prevLabel={<PrevArrow />}

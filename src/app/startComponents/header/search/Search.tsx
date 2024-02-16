@@ -119,31 +119,26 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 	}, [scroll])
 
 	return (
-		<Row
-			className={` ${style.main}  ${
-				isTeamBlack ? style.borderWhite : style.borderBlack
-			} text-end `}
+		<div
 			ref={searchBig}
+			className={`  ${style.main}  ${
+				isTeamBlack ? style.borderWhite : style.borderBlack
+			} ${style.searchAllContainer} text-end`}
 		>
-			<Col className={`${style.searchStyleBtn} p-0`}>
+			<div className={`${style.item} ${style.item_1} ${style.searchStyleBtn} `}>
 				<Where setTeamBlack={setTeamBlack} isTeamBlack={isTeamBlack} />
-			</Col>
-			<Col className={`${style.searchStyleBtn} p-0`}>
+			</div>
+			<div className={`${style.item} ${style.item_2} ${style.searchStyleBtn} `}>
 				<WhenCome isTeamBlack={isTeamBlack} />
-			</Col>
-			<Col className={`${style.searchStyleBtn} p-0`}>
+			</div>
+			<div className={`${style.item} ${style.item_3} ${style.searchStyleBtn}`}>
 				<WhenDeparture isTeamBlack={isTeamBlack} />
-			</Col>
-			<Col className={`${style.searchStyleBtn} p-0`}>
+			</div>
+			<div className={`${style.item} ${style.item_4} ${style.searchStyleBtn}`}>
 				<Who isTeamBlack={isTeamBlack} />
-			</Col>
-			<Col
-				xs={1}
-				sm={1}
-				md={1}
-				lg={1}
-				xl={1}
-				className={` ${style.cursor}  ${style.search} d-flex align-items-center justify-content-center m-1 p-0 '`}
+			</div>
+			<div
+				className={`${style.item} ${style.item_5}  ${style.cursor}  ${style.search}`}
 			>
 				<Image
 					src={'/icon/search.svg'}
@@ -151,16 +146,8 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 					height={30}
 					alt='search icon'
 				/>
-			</Col>
-			<div className={`${style.drop}${style.dNone} `}></div>
-		</Row>
-		// <div className={style.searchAllContainer}>
-		// 	<div className={`${style.item} ${style.item_1}`}>1</div>
-		// 	<div className={`${style.item} ${style.item_2}`}>2</div>
-		// 	<div className={`${style.item} ${style.item_3}`}>3</div>
-		// 	<div className={`${style.item} ${style.item_4}`}>4</div>
-		// 	<div className={`${style.item} ${style.item_5}`}>5</div>
-		// </div>
+			</div>
+		</div>
 	)
 }
 

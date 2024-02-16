@@ -10,6 +10,7 @@
 	display: grid;
 	grid-template-columns: repeat(4, 22.5%) 10%;
 }
+
 .searchStyleBtn {
 	display: flex;
 	align-items: start;
@@ -55,6 +56,8 @@
 }
 
 .search {
+	display: grid;
+	place-content: center;
 	width: 55px !important;
 	height: 55px;
 	background-color: var(--boyRed);
@@ -119,7 +122,7 @@
 	border: 1px solid var(--eerieBlack);
 	border-radius: 15px;
 	top: 90px;
-	z-index: 999;
+	z-index: 5;
 	padding: 15px;
 	text-align: start;
 	background-color: white;
@@ -214,5 +217,38 @@
 		transform: scale(0.5);
 		opacity: 0;
 		box-shadow: none; /* Removing box-shadow */
+	}
+}
+@media (max-width: 992px) {
+	.searchAllContainer {
+		grid-template-columns: repeat(2, 40%) 20%;
+		grid-template-rows: repeat(2, 1fr);
+	}
+
+	.item_2 {
+		grid-row-start: 2;
+		grid-column-start: 1;
+	}
+	.item_3 {
+		grid-row-start: 2;
+		grid-column-start: 2;
+	}
+	.item_5 {
+		margin: 0 auto;
+		display: grid;
+		align-items: center;
+		justify-content: center;
+		place-content: center;
+		grid-column: 3;
+		grid-row: 1/-1;
+	}
+	.actionWhereDropDawnOn,
+	.actionWhoDropDawnOn,
+	.whereOptionDropDawnBlok,
+	.whenDropDawn {
+		top: 150px;
+	}
+	.whereOptionDropDawnBlok {
+		width: 100%;
 	}
 }

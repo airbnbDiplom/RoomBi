@@ -80,7 +80,7 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				onClick={() => dispatch(setBtnState(SearchBtnEnum.WhenCome))}
 			>
 				<div
-					className={`mt-3 mb-3 ps-lg-4 ps-xs-2 ${
+					className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2 ${
 						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
 					}`}
 				>

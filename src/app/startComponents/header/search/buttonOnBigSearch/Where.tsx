@@ -86,7 +86,7 @@ const Where: React.FC<whereProps & ThemProps> = ({
 				} ${isTeamBlack && !drop && style.btnBlackBac} text-start`}
 			>
 				<div
-					className={` mt-3 mb-3 ps-lg-4 ps-xs-5 ${
+					className={` mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-5 ${
 						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
 					}`}
 				>
