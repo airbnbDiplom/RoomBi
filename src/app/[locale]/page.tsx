@@ -31,7 +31,7 @@ export default async function Home({
     >
       <>
         <div className="sticky-top header-Main">
-          {/* <Header /> */}
+          <Header />
           {/* <Naw /> */}
         </div>
         {/* {firstPage ? (
@@ -42,7 +42,7 @@ export default async function Home({
           <></>
           // <Loading />
         )} */}
-        {/* <Footer /> */}
+        <Footer />
       </>
     </TranslationsProvider>
   );
