@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import style from '../Search.module.css'
-import { SearchBtnEnum, ThemProps } from '@/app/type/type'
-import WhenDropDawn from './WhenDropDawn'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 import {
 	setWhenObjDateCome,
 	setWhenObjDateOut,
 } from '@/app/redux/searchInHeader/SearchSlice'
+import { SearchBtnEnum, ThemProps } from '@/app/type/type'
 import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import style from '../Search.module.css'
+import WhenDropDawn from './WhenDropDawn'
 
 const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const { t } = useTranslation()
@@ -30,7 +30,6 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 		btnState === SearchBtnEnum.WhenDeparture
 			? setWhenDropDawn(true)
 			: setWhenDropDawn(false)
-		console.log(btnState)
 	}, [btnState])
 	useEffect(() => {
 		if (calendarDateDStr !== '') {

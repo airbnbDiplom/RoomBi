@@ -1,14 +1,3 @@
-import { Col } from 'react-bootstrap'
-import style from '../Search.module.css'
-import {
-	SearchBtnEnum,
-	SearchDataState,
-	ThemProps,
-	WhoState,
-} from '@/app/type/type'
-import WhoDropDawn from './WhoDropDawn'
-import { useEffect, useRef, useState } from 'react'
-import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 import {
@@ -17,7 +6,12 @@ import {
 	setWhoObjChildrenCount,
 	setWhoObjGestCount,
 } from '@/app/redux/searchInHeader/SearchSlice'
+import { SearchBtnEnum, ThemProps } from '@/app/type/type'
+import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import style from '../Search.module.css'
+import WhoDropDawn from './WhoDropDawn'
 
 const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const { t } = useTranslation()
@@ -72,7 +66,6 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 		btnState === SearchBtnEnum.Who
 			? setWhenDropDawn(true)
 			: setWhenDropDawn(false)
-		console.log(btnState)
 	}, [btnState])
 
 	return (

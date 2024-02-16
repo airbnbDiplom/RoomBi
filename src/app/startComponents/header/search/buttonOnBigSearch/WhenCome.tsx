@@ -1,15 +1,15 @@
+import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { SearchBtnEnum, ThemProps } from '@/app/type/type'
 import React, { useEffect, useState } from 'react'
 import style from '../Search.module.css'
-import { SearchBtnEnum, ThemProps } from '@/app/type/type'
 import WhenDropDawn from './WhenDropDawn'
-import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
-import intl from 'react-intl-universal'
-import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
+
+import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 import {
 	setWhenObjDateCome,
 	setWhenObjDateOut,
 } from '@/app/redux/searchInHeader/SearchSlice'
-import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
+import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
 import { useTranslation } from 'react-i18next'
 
 const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
@@ -31,7 +31,6 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 		btnState === SearchBtnEnum.WhenCome
 			? setWhenDropDawn(true)
 			: setWhenDropDawn(false)
-		console.log(btnState)
 	}, [btnState])
 
 	useEffect(() => {
