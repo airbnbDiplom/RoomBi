@@ -1,10 +1,18 @@
 .header {
+	display: grid;
+	align-items: center;
+	width: 100%;
+	grid-template-columns: 3fr 7fr 2fr 1fr;
 	min-height: 140px;
+
 	@media (max-width: 992px) {
 		min-height: 200px !important;
 	}
 }
-
+.searchBar {
+	display: flex;
+	justify-content: center;
+}
 .customText {
 	display: grid;
 	place-content: center;
@@ -48,9 +56,8 @@
 .logo {
 	text-decoration: none;
 	color: var(--eerieBlack);
-	@media (max-width: 1200px) {
-		font-size: 2rem;
-	}
+	font-size: 2rem;
+	font-family: var(--var-Inknut_Antiqua);
 	@media (max-width: 992px) {
 		font-size: 1.5rem;
 	}
