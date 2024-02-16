@@ -6,12 +6,13 @@ import { Col, Container, Row } from 'react-bootstrap'
 import style from './Header.module.css'
 import SmallSearch from './smallSearch/SmallSearch'
 import Search from './search/Search'
-import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { useAppDispatch, useAppSelector, useWindowSize } from '@/app/redux/hook'
 import { SearchBtnEnum } from '@/app/type/type'
 import { useTranslation } from 'react-i18next'
 
 const Header: FC = () => {
 	const { t } = useTranslation()
+	const [width, height] = useWindowSize()
 	//переключение между видами поика
 	const [isSmallSearchOn, setSmallSearchOn] = useState(false)
 	const [isBigSearchOn, setBigSearchOn] = useState(true)
@@ -26,40 +27,101 @@ const Header: FC = () => {
 	}, [btnState])
 
 	return (
-		<Container
-			fluid
-			className={`pt-5 pb-3  ps-md-3 pe-md-3 ps-lg-3 pe-lg-3 sticky-top' ${
+		// <Container
+		// 	fluid
+		// 	className={`pt-5 pb-3  ps-md-3 pe-md-3 ps-lg-3 pe-lg-3 sticky-top' ${
+		// 		style.header
+		// 	} ${isTeamBlack ? style.headerBlaCk : style.headerWhite} `}
+		// >
+		// 	<Row className={'d-flex align-items-center '} style={{ height: '75px' }}>
+		// 		<Col className={style.customTextCenter} md={2} lg={2} xl={2} xxl={3}>
+		// 			<Link
+		// 				href={'/'}
+		// 				className={`${isTeamBlack && style.logoBlack} ${style.logo}`}
+		// 			>
+		// 				RoomBi
+		// 			</Link>
+		// 		</Col>
+		// 		{isSmallSearchOn && (
+		// 			<Col className={` ${style.customDisplayNone} ${style.flexCenter}`}>
+		// 				<SmallSearch
+		// 					setSmallSearchOn={setSmallSearchOn}
+		// 					setBigSearchOn={setBigSearchOn}
+		// 					setBigSearchOnBySmall={setBigSearchOnBySmall}
+		// 				/>
+		// 			</Col>
+		// 		)}
+		// 		{isBigSearchOn && (
+		// 			<Col
+		// 				md={6}
+		// 				lg={7}
+		// 				xl={7}
+		// 				xxl={6}
+		// 				className={` ${
+		// 					isBigSearchOn ? style.Visibility : style.VisibilityNone
+		// 				} ${style.customDisplayNone} `}
+		// 			>
+		// 				<Search
+		// 					setTeamBlack={setTeamBlack}
+		// 					isTeamBlack={isTeamBlack}
+		// 					propsKindSwitch={{
+		// 						isSmallSearchOn,
+		// 						isBigSearchOn,
+		// 						isBigSearchOnBySmall,
+		// 						setSmallSearchOn,
+		// 						setBigSearchOn: setBigSearchOn,
+		// 						setBigSearchOnBySmall,
+		// 					}}
+		// 				/>
+		// 			</Col>
+		// 		)}
+		// 		<Col md={4} lg={3} xl={3}>
+		// 			<Row>
+		// 				<Col className={`ms-md-3 ms-xs-1 p-0 ${style.customText}`}>
+		// 					<Link
+		// 						className={`${style.customText} ${style.link} ${
+		// 							isTeamBlack && style.colorW
+		// 						} `}
+		// 						href='/#'
+		// 					>
+		// 						{t('OfferApartment')}
+		// 						<strong> &nbsp;RoomBi</strong>
+		// 					</Link>
+		// 				</Col>
+		// 				<Col
+		// 					className={`${style.customTextCenter} ${style.customDisplayNone} d-flex justify-content-end`}
+		// 				>
+		// 					<AuthenticationBtn isTeamBlack={isTeamBlack} />
+		// 				</Col>
+		// 			</Row>
+		// 		</Col>
+		// 	</Row>
+		// </Container>
+		<div
+			className={` pt-5 pb-3  ps-md-3 pe-md-3 ps-lg-3 pe-lg-3 pe-xl-4 ps-xl-4 sticky-top' ${
 				style.header
 			} ${isTeamBlack ? style.headerBlaCk : style.headerWhite} `}
 		>
-			<Row className={'d-flex align-items-center '} style={{ height: '75px' }}>
-				<Col className={style.customTextCenter} md={2} lg={2} xl={2} xxl={3}>
-					<Link
-						href={'/'}
-						className={`${isTeamBlack && style.logoBlack} ${style.logo}`}
-					>
-						RoomBi
-					</Link>
-				</Col>
-				{isSmallSearchOn && (
-					<Col className={` ${style.customDisplayNone} ${style.flexCenter}`}>
-						<SmallSearch
-							setSmallSearchOn={setSmallSearchOn}
-							setBigSearchOn={setBigSearchOn}
-							setBigSearchOnBySmall={setBigSearchOnBySmall}
-						/>
-					</Col>
-				)}
-				{isBigSearchOn && (
-					<Col
-						md={6}
-						lg={7}
-						xl={7}
-						xxl={6}
-						className={` ${
-							isBigSearchOn ? style.Visibility : style.VisibilityNone
-						} ${style.customDisplayNone} `}
-					>
+			<div>
+				<Link
+					href={'/'}
+					className={`${isTeamBlack && style.logoBlack} ${style.logo}`}
+				>
+					RoomBi
+				</Link>
+			</div>
+			<div className={style.searchBar}>
+				{width > 412
+					? isSmallSearchOn && (
+							<SmallSearch
+								setSmallSearchOn={setSmallSearchOn}
+								setBigSearchOn={setBigSearchOn}
+								setBigSearchOnBySmall={setBigSearchOnBySmall}
+							/>
+					  )
+					: null}
+				{width > 412 ? (
+					isBigSearchOn && (
 						<Search
 							setTeamBlack={setTeamBlack}
 							isTeamBlack={isTeamBlack}
@@ -72,30 +134,37 @@ const Header: FC = () => {
 								setBigSearchOnBySmall,
 							}}
 						/>
-					</Col>
+					)
+				) : (
+					<Search
+						setTeamBlack={setTeamBlack}
+						isTeamBlack={isTeamBlack}
+						propsKindSwitch={{
+							isSmallSearchOn,
+							isBigSearchOn,
+							isBigSearchOnBySmall,
+							setSmallSearchOn,
+							setBigSearchOn: setBigSearchOn,
+							setBigSearchOnBySmall,
+						}}
+					/>
 				)}
-				<Col md={4} lg={3} xl={3}>
-					<Row>
-						<Col className={`ms-md-3 ms-xs-1 p-0 ${style.customText}`}>
-							<Link
-								className={`${style.customText} ${style.link} ${
-									isTeamBlack && style.colorW
-								} `}
-								href='/#'
-							>
-								{t('OfferApartment')}
-								<strong> &nbsp;RoomBi</strong>
-							</Link>
-						</Col>
-						<Col
-							className={`${style.customTextCenter} ${style.customDisplayNone} d-flex justify-content-end`}
-						>
-							<AuthenticationBtn isTeamBlack={isTeamBlack} />
-						</Col>
-					</Row>
-				</Col>
-			</Row>
-		</Container>
+			</div>
+			<div>
+				<Link
+					className={`${style.customText} ${style.link} ${
+						isTeamBlack && style.colorW
+					} `}
+					href='/#'
+				>
+					{t('OfferApartment')}
+					<strong> &nbsp;RoomBi</strong>
+				</Link>
+			</div>
+			<div>
+				<AuthenticationBtn isTeamBlack={isTeamBlack} />
+			</div>
+		</div>
 	)
 }
 export { Header }

@@ -5,6 +5,7 @@
 	border-radius: 25px;
 	font-size: 0.75rem;
 	text-wrap: nowrap;
+	width: 100%;
 }
 .searchAllContainer {
 	display: grid;
