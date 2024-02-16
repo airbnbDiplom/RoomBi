@@ -125,19 +125,16 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 			} text-end `}
 			ref={searchBig}
 		>
-			<Col
-				className={` 
-					d-flex align-items-start justify-content-center p-0 `}
-			>
+			<Col className={`${style.searchStyleBtn} p-0`}>
 				<Where setTeamBlack={setTeamBlack} isTeamBlack={isTeamBlack} />
 			</Col>
-			<Col className={`d-flex align-items-center justify-content-center p-0`}>
+			<Col className={`${style.searchStyleBtn} p-0`}>
 				<WhenCome isTeamBlack={isTeamBlack} />
 			</Col>
-			<Col className={`d-flex align-items-center justify-content-center p-0`}>
+			<Col className={`${style.searchStyleBtn} p-0`}>
 				<WhenDeparture isTeamBlack={isTeamBlack} />
 			</Col>
-			<Col className={`d-flex align-items-center justify-content-center p-0`}>
+			<Col className={`${style.searchStyleBtn} p-0`}>
 				<Who isTeamBlack={isTeamBlack} />
 			</Col>
 			<Col
@@ -157,6 +154,13 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 			</Col>
 			<div className={`${style.drop}${style.dNone} `}></div>
 		</Row>
+		// <div className={style.searchAllContainer}>
+		// 	<div className={`${style.item} ${style.item_1}`}>1</div>
+		// 	<div className={`${style.item} ${style.item_2}`}>2</div>
+		// 	<div className={`${style.item} ${style.item_3}`}>3</div>
+		// 	<div className={`${style.item} ${style.item_4}`}>4</div>
+		// 	<div className={`${style.item} ${style.item_5}`}>5</div>
+		// </div>
 	)
 }
 

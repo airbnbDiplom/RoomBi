@@ -10,14 +10,15 @@ import {
 	setWhenObjDateOut,
 } from '@/app/redux/searchInHeader/SearchSlice'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
+import { useTranslation } from 'react-i18next'
 
 const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
+	const { t } = useTranslation()
+
 	const [dateVieOnButtonSearch, setDateVieOnButtonSearch] = useState(
-		//intl.get('addDate')
-		'Додайте дату'
+		t('AddADate')
 	)
 	const [drop, setWhenDropDawn] = useState(false)
-
 	const dispatch = useAppDispatch()
 	const calendarDateComStr = useAppSelector(
 		state => state.searchReducer.DataSearchObj.whenObj.dateCome
@@ -48,22 +49,19 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				dispatch(setBtnState(SearchBtnEnum.WhenDeparture))
 			}
 		} else {
-			setDateVieOnButtonSearch(
-				//intl.get('addDate')
-				'Додайте дату'
-			)
+			setDateVieOnButtonSearch(t('AddADate'))
 		}
 	}, [calendarDateComStr])
 
 	const clearDateOnButton = (event: any) => {
-		if (dateVieOnButtonSearch !== 'Додайте дату') {
+		if (dateVieOnButtonSearch !== t('AddADate')) {
 			event.preventDefault()
 			dispatch(setWhenObjDateCome(''))
 		}
 	}
 	const formatted = (date: Date): string => {
 		const formatter = new Intl.DateTimeFormat(
-			'uk', //TODO: заменить на нужный локаль	язык отображения даты
+			t('locale'), //TODO: заменить на нужный локаль	язык отображения даты
 			{
 				day: 'numeric',
 				month: 'long',
@@ -86,12 +84,12 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
 					}`}
 				>
-					<p className={`m-0 ${style.colorOne}`}>Прибуття</p>
+					<p className={`m-0 ${style.colorOne}`}>{t('Arrival')}</p>
 					<p className={`${style.colorTwo} m-0`}>{dateVieOnButtonSearch}</p>
 				</div>
-				{dateVieOnButtonSearch !==
-					//intl.get('addDate')
-					'Додайте дату' && <ClearInputBtn clearInput={clearDateOnButton} />}
+				{dateVieOnButtonSearch !== t('AddADate') && (
+					<ClearInputBtn clearInput={clearDateOnButton} />
+				)}
 			</div>
 			{drop && <WhenDropDawn setWhenObjDate={setWhenObjDateCome} />}
 		</>

@@ -8,8 +8,10 @@ import SmallSearch from './smallSearch/SmallSearch'
 import Search from './search/Search'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import { SearchBtnEnum } from '@/app/type/type'
+import { useTranslation } from 'react-i18next'
 
 const Header: FC = () => {
+	const { t } = useTranslation()
 	//переключение между видами поика
 	const [isSmallSearchOn, setSmallSearchOn] = useState(false)
 	const [isBigSearchOn, setBigSearchOn] = useState(true)
@@ -74,16 +76,15 @@ const Header: FC = () => {
 				)}
 				<Col md={3} lg={3} xl={3}>
 					<Row>
-						<Col
-							className={`ms-md-3 ms-xs-1 p-0 ${style.customText} d-flex justify-content-center align-item-center`}
-						>
+						<Col className={`ms-md-3 ms-xs-1 p-0 ${style.customText}`}>
 							<Link
 								className={`${style.customText} ${style.link} ${
 									isTeamBlack && style.colorW
-								} d-flex justify-content-center align-item-center`}
+								} `}
 								href='/#'
 							>
-								Запропонувати помешкання на <strong>RoomBi</strong>
+								{t('OfferApartment')}
+								<strong> &nbsp;RoomBi</strong>
 							</Link>
 						</Col>
 						<Col

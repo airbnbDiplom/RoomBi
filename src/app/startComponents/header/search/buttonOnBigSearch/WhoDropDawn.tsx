@@ -11,8 +11,10 @@ import {
 	setWhoObjChildrenCount,
 	setWhoObjGestCount,
 } from '@/app/redux/searchInHeader/SearchSlice'
+import { useTranslation } from 'react-i18next'
 
 const WhoDropDawn: React.FC = () => {
+	const { t } = useTranslation()
 	const why = useAppSelector(state => state.searchReducer.DataSearchObj.whoObj)
 	const dispatch = useAppDispatch()
 
@@ -28,8 +30,8 @@ const WhoDropDawn: React.FC = () => {
 		<div className={style.actionWhoDropDawnOn}>
 			<Row className='d-flex align-items-center border-bottom pb-3 '>
 				<Col sm={6}>
-					<h2 className='h6 mb-1'>Дорослі</h2>
-					<p className='m-0'>Від 13 років</p>
+					<h2 className='h6 mb-1'>{t('Adults')}</h2>
+					<p className='m-0'>{t('FromOld')}</p>
 				</Col>
 				<Col sm={6} className='d-flex align-items-center justify-content-end'>
 					<Row>
@@ -76,8 +78,8 @@ const WhoDropDawn: React.FC = () => {
 			</Row>
 			<Row className='d-flex align-items-center border-bottom pb-3 pt-3 '>
 				<Col sm={6}>
-					<h2 className='h6 mb-1'>Діти</h2>
-					<p className='m-0'>2-12 років</p>
+					<h2 className='h6 mb-1'>{t('Children')}</h2>
+					<p className='m-0'>2-12&nbsp;{t('Years')}</p>
 				</Col>
 				<Col sm={6} className='d-flex align-items-center justify-content-end'>
 					<Row>
@@ -125,8 +127,8 @@ const WhoDropDawn: React.FC = () => {
 			</Row>
 			<Row className='d-flex align-items-center border-bottom pb-3 pt-3 '>
 				<Col sm={6}>
-					<h2 className='h6 mb-1'>Немовлята</h2>
-					<p className='m-0'>Молодше 2</p>
+					<h2 className='h6 mb-1'>{t('Babies')}</h2>
+					<p className='m-0'>{t('Younger')}&nbsp;2</p>
 				</Col>
 				<Col sm={6} className='d-flex align-items-center justify-content-end'>
 					<Row>
@@ -174,12 +176,12 @@ const WhoDropDawn: React.FC = () => {
 			</Row>
 			<Row className='d-flex align-items-center   pt-3 '>
 				<Col sm={6}>
-					<h2 className='h6 mb-1'>Домашні тварини</h2>
+					<h2 className='h6 mb-1'>{t('Pets')}</h2>
 					{/* TODO: додати модальное окно тварини-помічника с пояснениям 
 					взять с AIRBNB */}
 					<p className='m-0'>
 						<Link className='link-Reset' href={'#'}>
-							Подорожуєте із твариною-помічником?
+							{t('TravelingWith')}
 						</Link>
 					</p>
 				</Col>

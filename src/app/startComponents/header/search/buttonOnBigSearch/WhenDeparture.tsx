@@ -9,8 +9,10 @@ import {
 	setWhenObjDateOut,
 } from '@/app/redux/searchInHeader/SearchSlice'
 import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
+import { useTranslation } from 'react-i18next'
 
 const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
+	const { t } = useTranslation()
 	const dispatch = useAppDispatch()
 	const calendarDateComStr = useAppSelector(
 		state => state.searchReducer.DataSearchObj.whenObj.dateCome
@@ -19,8 +21,9 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 		state => state.searchReducer.DataSearchObj.whenObj.dateOut
 	)
 
-	const [dateVieOnButtonSearch, setDateVieOnButtonSearch] =
-		useState('Додайт дату')
+	const [dateVieOnButtonSearch, setDateVieOnButtonSearch] = useState(
+		t('AddADate')
+	)
 	const [drop, setWhenDropDawn] = useState(false)
 	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
 	useEffect(() => {
@@ -44,18 +47,18 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				dispatch(setBtnState(SearchBtnEnum.Who))
 			}
 		} else {
-			setDateVieOnButtonSearch('Додайте дату')
+			setDateVieOnButtonSearch(t('AddADate'))
 		}
-	}, [calendarDateDStr])
+	}, [dispatch, calendarDateDStr, calendarDateComStr])
 	const clearDateOnButton = (event: any) => {
-		if (dateVieOnButtonSearch !== 'Додайте дату') {
+		if (dateVieOnButtonSearch !== t('AddADate')) {
 			event.preventDefault()
 			dispatch(setWhenObjDateOut(''))
 		}
 	}
 	const formatted = (date: Date): string => {
 		const formatter = new Intl.DateTimeFormat(
-			'uk', //TODO: заменить на нужный локаль	язык отображения даты
+			t('locale'), //TODO: заменить на нужный локаль	язык отображения даты
 			{
 				day: 'numeric',
 				month: 'long',
@@ -78,10 +81,10 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
 					}`}
 				>
-					<p className={`${style.colorOne} m-0`}>Виїзд</p>
+					<p className={`${style.colorOne} m-0`}>{t('Departure')}</p>
 					<p className={`${style.colorTwo}  m-0`}>{dateVieOnButtonSearch}</p>
 				</div>
-				{dateVieOnButtonSearch !== 'Додайте дату' && (
+				{dateVieOnButtonSearch !== t('AddADate') && (
 					<ClearInputBtn clearInput={clearDateOnButton} />
 				)}
 			</div>

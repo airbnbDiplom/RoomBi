@@ -3,6 +3,9 @@
 }
 
 .customText {
+	display: grid;
+	place-content: center;
+
 	@media (max-width: 575.98px) {
 		text-align: center !important;
 	}

@@ -17,9 +17,11 @@ import {
 	setWhoObjChildrenCount,
 	setWhoObjGestCount,
 } from '@/app/redux/searchInHeader/SearchSlice'
+import { useTranslation } from 'react-i18next'
 
 const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
-	const [gestString, SetGestString] = useState('Додайте гостей')
+	const { t } = useTranslation()
+	const [gestString, SetGestString] = useState(t('AddGuests'))
 	const [isClearActive, setIsClearActive] = useState(false)
 	const [drop, setWhenDropDawn] = useState(false)
 	const dispatch = useAppDispatch()
@@ -35,39 +37,32 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 		dispatch(setWhoObjChildrenCount(0))
 		dispatch(setWhoObjBabyCount(0))
 		dispatch(setWhoObjAnimalsCount(0))
-		// setSearchData(prevState => ({
-		// 	...prevState,
-		// 	whoObj: {
-		// 		...prevState.whoObj,
-		// 		gestsCount: 0,
-		// 	},
-		// }))
 	}
 
 	useEffect(() => {
 		let str = `${whoObj.gestsCount + whoObj.childrenCount}`
 		switch (str) {
 			case '0':
-				str = 'Додайте гостей'
+				str = t('AddGuests')
 				break
 			case '1':
-				str = `1 гість`
+				str = t('Guest')
 				break
 			case '2':
 			case '3':
-				str = `${str} гостя`
+				str = `${str} ${t('AGuests')}`
 				break
 			default:
-				str = `${str} гостів`
+				str = `${str} ${t('Guests')}`
 				break
 		}
 		if (whoObj.babyCount > 0) {
-			str = `${str}, ${whoObj.babyCount} Немов. `
+			str = `${str}, ${whoObj.babyCount} ${t('Babies')} `
 		}
 		if (whoObj.animalsCount > 0) {
-			str = `${str}, ${whoObj.animalsCount} Твары. `
+			str = `${str}, ${whoObj.animalsCount} ${t('Animals')} `
 		}
-		setIsClearActive(str !== 'Додайте гостей' ? true : false)
+		setIsClearActive(str !== t('AddGuests') ? true : false)
 		SetGestString(() => {
 			return str
 		})
@@ -93,10 +88,10 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 					className={`mt-3 mb-3 ps-lg-4 ps-xs-2 position-relative`}
 					style={{ maxWidth: '170px', minWidth: '135px' }}
 				>
-					<p className={`${style.colorOne}  m-0`}>Хто</p>
+					<p className={`${style.colorOne}  m-0`}>{t('Why')}</p>
 					<p
 						className={
-							gestString === 'Додайте гостей'
+							gestString === t('AddGuests')
 								? `${style.colorTwo} text-truncate`
 								: `${style.colorOne} m-0 text-truncate`
 						}

@@ -8,6 +8,8 @@ import React, { MouseEventHandler } from 'react'
 import { useAppDispatch } from '@/app/redux/hook'
 import { setWhereObj } from '@/app/redux/searchInHeader/SearchSlice'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
+import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
 
 interface WhereOptionDropDawnProps {
 	setWhereOptionBlack: React.Dispatch<React.SetStateAction<boolean>>
@@ -43,7 +45,19 @@ const WhereOptionDropDawn: React.FC<WhereOptionDropDawnProps> = ({
 						className={`${style.whereOptionDropDawnBlokItem}`}
 						key={item.properties.place_id}
 					>
-						{item.properties.display_name}
+						<div>
+							<div className={`${style.imagePoint}`}>
+								<Image
+									src={'/icon/pointOnMap.svg'}
+									width={38}
+									height={38}
+									alt='point on map icon'
+								/>
+							</div>
+							<div className={`${style.whereOptionDropDawnBlokItemText}`}>
+								{item.properties.display_name}
+							</div>
+						</div>
 					</div>
 				))}
 		</div>
