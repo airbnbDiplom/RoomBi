@@ -27,9 +27,9 @@ const Main: React.FC<{ cardData: CardBiProps[] }> = ({
     const fetchData = async () => {
       if (apartments.current === false) {
         dispatch(setApartments(cardData));
-        // const allHouses = await getAllHouses();
-        // console.log("allHouses", allHouses);
-        // dispatch(setApartmentsAll(allHouses));
+        const allHouses = await getAllHouses();
+        console.log("allHouses", allHouses);
+        dispatch(setApartmentsAll(allHouses));
       }
     };
 

@@ -9,7 +9,7 @@ import { Naw } from "@/app/startComponents/naw/Naw";
 import { HomeParams } from "@/app/type/type";
 import { Main } from "@/app/startComponents/main/Main";
 import { Footer } from "../startComponents/footer/Footer";
-// import Loading from "./loading";
+import Loading from "./loading";
 
 const i18nNamespaces = ["translation"];
 export default async function Home({
@@ -20,15 +20,7 @@ export default async function Home({
   const { resources } = await initTranslations(locale, ["translation"]);
   const session = await getServerSession(authConfig);
   console.log("Home session", session);
-  // let firstPage;
 
-  // const test = async () => {
-  //   firstPage = await getFirstPage();
-  // };
-
-  // setTimeout(() => {
-  //   test();
-  // }, 5000);
   const firstPage = await getFirstPage();
   return (
     <TranslationsProvider
@@ -46,8 +38,7 @@ export default async function Home({
             <Main cardData={firstPage} />
           </main>
         ) : (
-          <></>
-          // <Loading />
+          <Loading />
         )}
         <Footer />
       </>
