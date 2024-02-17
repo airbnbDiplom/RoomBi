@@ -37,7 +37,7 @@ const WhenDropDawn: React.FC<SetWhenObjDate> = ({ setWhenObjDate }) => {
 						: null
 				}
 				locale={t('ISOLocale')}
-				showDoubleView={width > 900 ? true : false}
+				showDoubleView={width > 900 || width === undefined ? true : false}
 				showNeighboringMonth={false}
 				minDetail='month'
 				prevLabel={<PrevArrow />}

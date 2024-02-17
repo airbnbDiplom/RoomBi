@@ -81,7 +81,9 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				<div
 					className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2 position-relative
 				${
-					width < 992 && isTeamBlack
+					width > 992 || width < 576
+						? null
+						: isTeamBlack
 						? `${style.borderRightWhite} `
 						: style.borderRightBlack
 				}`}

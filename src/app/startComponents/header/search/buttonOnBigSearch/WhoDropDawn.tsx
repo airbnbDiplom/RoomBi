@@ -29,13 +29,13 @@ const WhoDropDawn: React.FC = () => {
 	return (
 		<div className={style.actionWhoDropDawnOn}>
 			<Row className='d-flex align-items-center border-bottom pb-3 '>
-				<Col sm={6}>
+				<Col xs={6}>
 					<h2 className='h6 mb-1'>{t('Adults')}</h2>
 					<p className='m-0'>{t('FromOld')}</p>
 				</Col>
-				<Col sm={6} className='d-flex align-items-center justify-content-end'>
+				<Col xs={6} className='d-flex align-items-center justify-content-end'>
 					<Row>
-						<Col sm={4}>
+						<Col xs={4}>
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
@@ -53,10 +53,10 @@ const WhoDropDawn: React.FC = () => {
 								</span>
 							</button>
 						</Col>
-						<Col sm={2}>
+						<Col xs={2}>
 							<span className='text-center fs-6'>{why.gestsCount}</span>
 						</Col>
-						<Col sm={4}>
+						<Col xs={4}>
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
@@ -77,13 +77,13 @@ const WhoDropDawn: React.FC = () => {
 				</Col>
 			</Row>
 			<Row className='d-flex align-items-center border-bottom pb-3 pt-3 '>
-				<Col sm={6}>
+				<Col xs={6}>
 					<h2 className='h6 mb-1'>{t('Children')}</h2>
 					<p className='m-0'>2-12&nbsp;{t('Years')}</p>
 				</Col>
-				<Col sm={6} className='d-flex align-items-center justify-content-end'>
+				<Col xs={6} className='d-flex align-items-center justify-content-end'>
 					<Row>
-						<Col sm={4}>
+						<Col xs={4}>
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
@@ -101,10 +101,10 @@ const WhoDropDawn: React.FC = () => {
 								</span>
 							</button>
 						</Col>
-						<Col sm={2}>
+						<Col xs={2}>
 							<span className='text-center fs-6'>{why.childrenCount}</span>
 						</Col>
-						<Col sm={4}>
+						<Col xs={4}>
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
@@ -126,13 +126,13 @@ const WhoDropDawn: React.FC = () => {
 				</Col>
 			</Row>
 			<Row className='d-flex align-items-center border-bottom pb-3 pt-3 '>
-				<Col sm={6}>
+				<Col xs={6}>
 					<h2 className='h6 mb-1'>{t('Babies')}</h2>
 					<p className='m-0'>{t('Younger')}&nbsp;2</p>
 				</Col>
-				<Col sm={6} className='d-flex align-items-center justify-content-end'>
+				<Col xs={6} className='d-flex align-items-center justify-content-end'>
 					<Row>
-						<Col sm={4}>
+						<Col xs={4}>
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
@@ -150,10 +150,10 @@ const WhoDropDawn: React.FC = () => {
 								</span>
 							</button>
 						</Col>
-						<Col sm={2}>
+						<Col xs={2}>
 							<span className='text-center fs-6'>{why.babyCount}</span>
 						</Col>
-						<Col sm={4}>
+						<Col xs={4}>
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
@@ -175,19 +175,12 @@ const WhoDropDawn: React.FC = () => {
 				</Col>
 			</Row>
 			<Row className='d-flex align-items-center   pt-3 '>
-				<Col sm={6}>
+				<Col xs={6}>
 					<h2 className='h6 mb-1'>{t('Pets')}</h2>
-					{/* TODO: додати модальное окно тварини-помічника с пояснениям 
-					взять с AIRBNB */}
-					<p className='m-0'>
-						<Link className='link-Reset' href={'#'}>
-							{t('TravelingWith')}
-						</Link>
-					</p>
 				</Col>
-				<Col sm={6} className='d-flex align-items-center justify-content-end'>
+				<Col xs={6} className='d-flex align-items-center justify-content-end'>
 					<Row>
-						<Col sm={4}>
+						<Col xs={4}>
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
@@ -205,10 +198,10 @@ const WhoDropDawn: React.FC = () => {
 								</span>
 							</button>
 						</Col>
-						<Col sm={2}>
+						<Col xs={2}>
 							<span className='text-center fs-6'>{why.animalsCount}</span>
 						</Col>
-						<Col sm={4}>
+						<Col xs={4}>
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
@@ -228,6 +221,15 @@ const WhoDropDawn: React.FC = () => {
 						</Col>
 					</Row>
 				</Col>
+				<Row>
+					{/* TODO: додати модальное окно тварини-помічника с пояснениям 
+					взять с AIRBNB */}
+					<p className='m-0 pt-1'>
+						<Link className='link-Reset' href={'#'}>
+							{t('TravelingWith')}
+						</Link>
+					</p>
+				</Row>
 			</Row>
 		</div>
 	)

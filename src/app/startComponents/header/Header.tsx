@@ -98,11 +98,11 @@ const Header: FC = () => {
 		// 	</Row>
 		// </Container>
 		<div
-			className={` pt-5 pb-3  ps-md-3 pe-md-3 ps-lg-3 pe-lg-3 pe-xl-4 ps-xl-4 sticky-top' ${
+			className={` pt-xs-1 pt-sm-2 pt-md-4  pb-3   ps-md-3 pe-md-3 ps-lg-3 pe-lg-3 pe-xl-4 ps-xl-4 sticky-top' ${
 				style.header
 			} ${isTeamBlack ? style.headerBlaCk : style.headerWhite} `}
 		>
-			<div>
+			<div className={style.LogoContainer}>
 				<Link
 					href={'/'}
 					className={`${isTeamBlack && style.logoBlack} ${style.logo}`}
@@ -111,7 +111,7 @@ const Header: FC = () => {
 				</Link>
 			</div>
 			<div className={style.searchBar}>
-				{width > 412
+				{width > 576
 					? isSmallSearchOn && (
 							<SmallSearch
 								setSmallSearchOn={setSmallSearchOn}
@@ -120,7 +120,7 @@ const Header: FC = () => {
 							/>
 					  )
 					: null}
-				{width > 412 ? (
+				{width > 576 ? (
 					isBigSearchOn && (
 						<Search
 							setTeamBlack={setTeamBlack}
@@ -150,7 +150,7 @@ const Header: FC = () => {
 					/>
 				)}
 			</div>
-			<div>
+			<div className={style.linkContainer}>
 				<Link
 					className={`${style.customText} ${style.link} ${
 						isTeamBlack && style.colorW
@@ -161,7 +161,7 @@ const Header: FC = () => {
 					<strong> &nbsp;RoomBi</strong>
 				</Link>
 			</div>
-			<div>
+			<div className={style.authBtn}>
 				<AuthenticationBtn isTeamBlack={isTeamBlack} />
 			</div>
 		</div>

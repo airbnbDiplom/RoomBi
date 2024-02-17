@@ -275,3 +275,33 @@
 		height: 100px;
 	}
 }
+@media (max-width: 576px) {
+	.searchAllContainer {
+		grid-template-columns: repeat(2, 50%);
+		grid-template-rows: repeat(3, 1fr);
+		margin: 0 20px;
+	}
+	.item_5 {
+		margin: 0 auto;
+		display: grid;
+		align-items: center;
+		justify-content: center;
+		place-content: center;
+		grid-area: 3/1/3/-1;
+	}
+	.search {
+		width: 80% !important;
+		height: 42px;
+		background-color: var(--boyRed);
+		border-radius: 25px;
+	}
+	.search:active {
+		background-color: var(--eerieBlack);
+	}
+	.actionWhereDropDawnOn,
+	.actionWhoDropDawnOn,
+	.whereOptionDropDawnBlok,
+	.whenDropDawn {
+		top: 210px;
+	}
+}

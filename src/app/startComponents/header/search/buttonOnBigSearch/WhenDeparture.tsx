@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { useAppDispatch, useAppSelector, useWindowSize } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 import {
 	setWhenObjDateCome,
@@ -12,6 +12,8 @@ import style from '../Search.module.css'
 import WhenDropDawn from './WhenDropDawn'
 
 const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
+	const [width, hight] = useWindowSize()
+
 	const { t } = useTranslation()
 	const dispatch = useAppDispatch()
 	const calendarDateComStr = useAppSelector(
@@ -74,7 +76,11 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			>
 				<div
 					className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2  ${
-						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
+						width < 576
+							? null
+							: isTeamBlack
+							? `${style.borderRightWhite} `
+							: style.borderRightBlack
 					}`}
 				>
 					<p className={`${style.head} m-0`}>{t('Departure')}</p>
