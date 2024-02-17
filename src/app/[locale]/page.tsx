@@ -20,8 +20,15 @@ export default async function Home({
   const { resources } = await initTranslations(locale, ["translation"]);
   const session = await getServerSession(authConfig);
   console.log("Home session", session);
+  let firstPage;
 
-  const firstPage = await getFirstPage();
+  const test = async () => {
+    firstPage = await getFirstPage();
+  };
+
+  setTimeout(() => {
+    test();
+  }, 5000);
 
   return (
     <TranslationsProvider
@@ -32,16 +39,16 @@ export default async function Home({
       <>
         <div className="sticky-top header-Main">
           <Header />
-          {/* <Naw /> */}
+          <Naw />
         </div>
-        {/* {firstPage ? (
+        {firstPage ? (
           <main className={styles.main}>
             <Main cardData={firstPage} />
           </main>
         ) : (
           <></>
           // <Loading />
-        )} */}
+        )}
         <Footer />
       </>
     </TranslationsProvider>
