@@ -7,6 +7,7 @@
 	text-wrap: nowrap;
 	width: 100%;
 }
+
 .searchAllContainer {
 	display: grid;
 	grid-template-columns: repeat(4, 22.5%) 10%;
@@ -251,5 +252,26 @@
 	}
 	.whereOptionDropDawnBlok {
 		width: 100%;
+	}
+}
+@media (max-width: 768px) {
+	.searchStyleBtn {
+		font-size: 0.7rem;
+	}
+	.head {
+		text-align: center;
+	}
+	.colorTwo {
+		text-align: center;
+	}
+	.inputReset {
+		margin-left: 5px;
+		text-align: start !important;
+	}
+	.imgDiv {
+		display: grid;
+		place-content: center;
+		width: 100px;
+		height: 100px;
 	}
 }

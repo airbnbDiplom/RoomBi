@@ -4,10 +4,6 @@
 	width: 100%;
 	grid-template-columns: 3fr 7fr 2fr 1fr;
 	min-height: 140px;
-
-	@media (max-width: 992px) {
-		min-height: 200px !important;
-	}
 }
 .searchBar {
 	display: flex;
@@ -41,7 +37,9 @@
 	text-align: center;
 }
 .link {
+	padding: 0 5px 0 5px;
 	text-decoration: none;
+	text-align: center;
 	font-size: 0.8rem;
 	color: var(--eerieBlack);
 	text-wrap: nowrap;
@@ -75,12 +73,7 @@
 		display: none !important;
 	}
 }
-.VisibilityNone {
-	display: none !important;
-}
-.Visibility {
-	display: block;
-}
+
 .flexCenter {
 	width: 100%;
 	display: flex;
@@ -112,4 +105,9 @@
 .headerWhite {
 	background-color: var(--gainsboro);
 	color: var(--eerieBlack);
+}
+@media (max-width: 992px) {
+	.header {
+		min-height: auto !important;
+	}
 }

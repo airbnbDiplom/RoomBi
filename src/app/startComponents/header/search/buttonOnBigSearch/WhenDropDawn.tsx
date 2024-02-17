@@ -27,7 +27,6 @@ const WhenDropDawn: React.FC<SetWhenObjDate> = ({ setWhenObjDate }) => {
 				onClickDay={value => {
 					dispatch(setWhenObjDate(value.toString()))
 				}}
-				//	{defaultValue={ calendarValueDataCome !== "" ? new Date(calendarValueDataCome):undefined}}
 				defaultValue={
 					calendarValueDataCome !== '' && calendarValueDataD !== ''
 						? [new Date(calendarValueDataCome), new Date(calendarValueDataD)]

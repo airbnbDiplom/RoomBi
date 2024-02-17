@@ -77,7 +77,7 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
 					}`}
 				>
-					<p className={`${style.colorOne} m-0`}>{t('Departure')}</p>
+					<p className={`${style.head} m-0`}>{t('Departure')}</p>
 					<p className={`${style.colorTwo}  m-0`}>{dateVieOnButtonSearch}</p>
 				</div>
 				{dateVieOnButtonSearch !== t('AddADate') && (

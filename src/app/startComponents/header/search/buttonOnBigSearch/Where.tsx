@@ -90,7 +90,7 @@ const Where: React.FC<whereProps & ThemProps> = ({
 						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
 					}`}
 				>
-					<p className={`m-0 ${style.colorOne}`}>{t('Where')}</p>
+					<p className={`m-0 ${style.head}`}>{t('Where')}</p>
 					<input
 						id='inputWhere'
 						ref={inputRef}
