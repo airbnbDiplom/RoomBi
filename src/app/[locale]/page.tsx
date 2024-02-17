@@ -20,16 +20,16 @@ export default async function Home({
   const { resources } = await initTranslations(locale, ["translation"]);
   const session = await getServerSession(authConfig);
   console.log("Home session", session);
-  let firstPage;
+  // let firstPage;
 
-  const test = async () => {
-    firstPage = await getFirstPage();
-  };
+  // const test = async () => {
+  //   firstPage = await getFirstPage();
+  // };
 
-  setTimeout(() => {
-    test();
-  }, 5000);
-
+  // setTimeout(() => {
+  //   test();
+  // }, 5000);
+  const firstPage = await getFirstPage();
   return (
     <TranslationsProvider
       namespaces={i18nNamespaces}
