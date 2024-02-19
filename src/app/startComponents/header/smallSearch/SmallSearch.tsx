@@ -85,7 +85,9 @@ const SmallSearch: React.FC<SearchKindSwitch> = ({
 						clickOpenDropDawnInBigSearch(event, `whereSmall`)
 					}}
 				>
-					<div className={`mt-3 mb-3 me-1 p-0 ${style.border}`}>
+					<div
+						className={`mt-3 mb-3 me-1 p-0 ${style.border} ${style.textWrap}`}
+					>
 						{t('Anywhere')}
 					</div>
 				</button>
@@ -97,7 +99,9 @@ const SmallSearch: React.FC<SearchKindSwitch> = ({
 					}}
 					className={`p-0 ${style.resetButton}`}
 				>
-					<div className={`mt-3 mb-3 me-1 pe-1 p-0 ${style.border}`}>
+					<div
+						className={`mt-3 mb-3 me-1 pe-1 p-0 ${style.border} ${style.textWrap}`}
+					>
 						{t('AnyWeek')}
 					</div>
 				</button>
@@ -109,7 +113,9 @@ const SmallSearch: React.FC<SearchKindSwitch> = ({
 						clickOpenDropDawnInBigSearch(event, `whoSmall`)
 					}}
 				>
-					<div className={`mt-3 mb-3 p-0`}>{t('AddedGuests')}</div>
+					<div className={`mt-3 mb-3 p-0 ${style.textWrap}`}>
+						{t('AddedGuests')}
+					</div>
 				</button>
 			</Col>
 			<Col

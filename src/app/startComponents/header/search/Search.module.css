@@ -64,6 +64,7 @@
 	height: 55px;
 	background-color: var(--boyRed);
 	border-radius: 50px;
+	transition: box-shadow 300ms;
 }
 .resetButton {
 	position: relative;
@@ -303,5 +304,20 @@
 	.whereOptionDropDawnBlok,
 	.whenDropDawn {
 		top: 210px;
+	}
+}
+@media (hover: hover) {
+	.search:hover {
+		box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+		-webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+		-moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+	}
+}
+@media (hover: none) {
+	.search:active {
+		background-color: rgb(126, 115, 115);
+		box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+		-webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+		-moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
 	}
 }

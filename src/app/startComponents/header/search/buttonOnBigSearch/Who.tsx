@@ -62,7 +62,6 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			return str
 		})
 	}, [whoObj])
-
 	useEffect(() => {
 		btnState === SearchBtnEnum.Who
 			? setWhenDropDawn(true)
@@ -82,9 +81,9 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 					className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2 position-relative
 				${
 					width > 992 || width < 576
-						? null
+						? ''
 						: isTeamBlack
-						? `${style.borderRightWhite} `
+						? style.borderRightWhite
 						: style.borderRightBlack
 				}`}
 				>
