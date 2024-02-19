@@ -4,10 +4,9 @@ import style from "./catdList.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Row } from "react-bootstrap";
 import { CardBi } from "@/app/components/card/CardBi";
-import Loading from "@/app/loading";
 import { ButtonShowMore } from "@/app/ui/buttonShowMore/ButtonShowMore";
-
 import { useAppSelector } from "@/app/redux/hook";
+// import Loading from "@/app/[locale]/loading";
 
 const CatdList: React.FC = () => {
   const apartments = useAppSelector(
@@ -24,7 +23,7 @@ const CatdList: React.FC = () => {
           {apartments.map((item) => {
             return (
               <Col
-                key={item.id}
+                key={item.id + item.bookingFree + item.ingMap}
                 xs={{ span: 12 }}
                 sm={{ span: 6 }}
                 md={{ span: 4 }}
@@ -40,11 +39,7 @@ const CatdList: React.FC = () => {
       </div>
     );
   }
-  return (
-    <div>
-      <Loading />
-    </div>
-  );
+  return <div>{/* <Loading /> */}</div>;
 };
 
 export { CatdList };

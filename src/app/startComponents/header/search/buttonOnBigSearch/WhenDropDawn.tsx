@@ -1,32 +1,44 @@
-import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { useAppDispatch, useAppSelector, useWindowSize } from '@/app/redux/hook'
 import style from '../Search.module.css'
 import Calendar from 'react-calendar'
-import { useEffect, useState } from 'react'
 import 'react-calendar/dist/Calendar.css'
 import PrevArrow from '../../../../ui/arrow/PrevArrow'
 import NextArrow from '../../../../ui/arrow/NextArrow'
-import { setWhenObjDateCome } from '@/app/redux/searchInHeader/SearchSlice'
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
+import { useTranslation } from 'react-i18next'
 
-const WhenDropDawn = () => {
+interface SetWhenObjDate {
+	setWhenObjDate: ActionCreatorWithPayload<string, string>
+}
+
+const WhenDropDawn: React.FC<SetWhenObjDate> = ({ setWhenObjDate }) => {
+	const [width, height] = useWindowSize()
+	const { t } = useTranslation()
 	const dispatch = useAppDispatch()
-	const calendarValue = useAppSelector(
+	const calendarValueDataCome = useAppSelector(
 		state => state.searchReducer.DataSearchObj.whenObj.dateCome
 	)
-	useEffect(() => {
-		console.log('calendarValue', calendarValue)
-	}, [calendarValue])
+	const calendarValueDataD = useAppSelector(
+		state => state.searchReducer.DataSearchObj.whenObj.dateOut
+	)
 	return (
 		<div className={`d-grid  ${style.whenDropDawn}`}>
 			<Calendar
 				onClickDay={value => {
-					dispatch(setWhenObjDateCome(value.toString()))
-					console.log(calendarValue)
+					dispatch(setWhenObjDate(value.toString()))
 				}}
+				//	{defaultValue={ calendarValueDataCome !== "" ? new Date(calendarValueDataCome):undefined}}
 				defaultValue={
-					calendarValue === '' ? undefined : new Date(calendarValue)
+					calendarValueDataCome !== '' && calendarValueDataD !== ''
+						? [new Date(calendarValueDataCome), new Date(calendarValueDataD)]
+						: calendarValueDataCome !== ''
+						? new Date(calendarValueDataCome)
+						: calendarValueDataD !== ''
+						? new Date(calendarValueDataD)
+						: null
 				}
-				locale='uk-UA'
-				showDoubleView={true}
+				locale={t('ISOLocale')}
+				showDoubleView={width > 900 ? true : false}
 				showNeighboringMonth={false}
 				minDetail='month'
 				prevLabel={<PrevArrow />}

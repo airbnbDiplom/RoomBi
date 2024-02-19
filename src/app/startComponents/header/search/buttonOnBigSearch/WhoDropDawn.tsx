@@ -4,37 +4,34 @@ import { SearchDataState, ThemProps, WhoState } from '@/app/type/type'
 import { Col, Row } from 'react-bootstrap'
 import Link from 'next/link'
 import { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import {
+	setWhoObjAnimalsCount,
+	setWhoObjBabyCount,
+	setWhoObjChildrenCount,
+	setWhoObjGestCount,
+} from '@/app/redux/searchInHeader/SearchSlice'
+import { useTranslation } from 'react-i18next'
 
-interface WhoStateProps {
-	whoArr: WhoState
-	setSearchData: React.Dispatch<React.SetStateAction<SearchDataState>>
-	isWhoDropOn?: boolean
-}
+const WhoDropDawn: React.FC = () => {
+	const { t } = useTranslation()
+	const why = useAppSelector(state => state.searchReducer.DataSearchObj.whoObj)
+	const dispatch = useAppDispatch()
 
-const WhoDropDawn: React.FC<WhoStateProps> = ({
-	whoArr,
-	setSearchData,
-	isWhoDropOn,
-}) => {
 	useEffect(() => {
-		if (whoArr.gestsCount === 0) {
-			setSearchData(prevState => ({
-				...prevState,
-				whoObj: {
-					...prevState.whoObj,
-					childrenCount: 0,
-					babyCount: 0,
-					animalsCount: 0,
-				},
-			}))
+		if (why.gestsCount === 0) {
+			dispatch(setWhoObjChildrenCount(0))
+			dispatch(setWhoObjBabyCount(0))
+			dispatch(setWhoObjAnimalsCount(0))
 		}
-	}, [whoArr.gestsCount])
+	}, [dispatch, why])
+
 	return (
-		<div className={isWhoDropOn ? style.actionWhoDropDawnOn : style.dNone}>
+		<div className={style.actionWhoDropDawnOn}>
 			<Row className='d-flex align-items-center border-bottom pb-3 '>
 				<Col sm={6}>
-					<h2 className='h6 mb-1'>Дорослі</h2>
-					<p className='m-0'>Від 13 років</p>
+					<h2 className='h6 mb-1'>{t('Adults')}</h2>
+					<p className='m-0'>{t('FromOld')}</p>
 				</Col>
 				<Col sm={6} className='d-flex align-items-center justify-content-end'>
 					<Row>
@@ -42,14 +39,8 @@ const WhoDropDawn: React.FC<WhoStateProps> = ({
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
-									if (whoArr.gestsCount > 0)
-										setSearchData(prevState => ({
-											...prevState,
-											whoObj: {
-												...prevState.whoObj,
-												gestsCount: prevState.whoObj.gestsCount - 1,
-											},
-										}))
+									if (why.gestsCount > 0)
+										dispatch(setWhoObjGestCount(why.gestsCount - 1))
 								}}
 							>
 								<span>
@@ -63,19 +54,13 @@ const WhoDropDawn: React.FC<WhoStateProps> = ({
 							</button>
 						</Col>
 						<Col sm={2}>
-							<span className='text-center fs-6'>{whoArr.gestsCount}</span>
+							<span className='text-center fs-6'>{why.gestsCount}</span>
 						</Col>
 						<Col sm={4}>
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
-									setSearchData(prevState => ({
-										...prevState,
-										whoObj: {
-											...prevState.whoObj,
-											gestsCount: prevState.whoObj.gestsCount + 1,
-										},
-									}))
+									dispatch(setWhoObjGestCount(why.gestsCount + 1))
 								}}
 							>
 								<span>
@@ -93,8 +78,8 @@ const WhoDropDawn: React.FC<WhoStateProps> = ({
 			</Row>
 			<Row className='d-flex align-items-center border-bottom pb-3 pt-3 '>
 				<Col sm={6}>
-					<h2 className='h6 mb-1'>Діти</h2>
-					<p className='m-0'>2-12 років</p>
+					<h2 className='h6 mb-1'>{t('Children')}</h2>
+					<p className='m-0'>2-12&nbsp;{t('Years')}</p>
 				</Col>
 				<Col sm={6} className='d-flex align-items-center justify-content-end'>
 					<Row>
@@ -102,19 +87,8 @@ const WhoDropDawn: React.FC<WhoStateProps> = ({
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
-									if (whoArr.childrenCount > 0)
-										setSearchData(prevState => ({
-											...prevState,
-											whoObj: {
-												...prevState.whoObj,
-												childrenCount: prevState.whoObj.childrenCount - 1,
-												gestsCount:
-													prevState.whoObj.gestsCount === 1 &&
-													prevState.whoObj.childrenCount === 1
-														? prevState.whoObj.gestsCount - 1
-														: prevState.whoObj.gestsCount,
-											},
-										}))
+									if (why.childrenCount > 0)
+										dispatch(setWhoObjChildrenCount(why.childrenCount - 1))
 								}}
 							>
 								<span>
@@ -128,23 +102,14 @@ const WhoDropDawn: React.FC<WhoStateProps> = ({
 							</button>
 						</Col>
 						<Col sm={2}>
-							<span className='text-center fs-6'>{whoArr.childrenCount}</span>
+							<span className='text-center fs-6'>{why.childrenCount}</span>
 						</Col>
 						<Col sm={4}>
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
-									setSearchData(prevState => ({
-										...prevState,
-										whoObj: {
-											...prevState.whoObj,
-											childrenCount: prevState.whoObj.childrenCount + 1,
-											gestsCount:
-												prevState.whoObj.gestsCount === 0
-													? prevState.whoObj.gestsCount + 1
-													: prevState.whoObj.gestsCount,
-										},
-									}))
+									dispatch(setWhoObjChildrenCount(why.childrenCount + 1))
+									if (why.gestsCount === 0) dispatch(setWhoObjGestCount(1))
 								}}
 							>
 								<span>
@@ -162,8 +127,8 @@ const WhoDropDawn: React.FC<WhoStateProps> = ({
 			</Row>
 			<Row className='d-flex align-items-center border-bottom pb-3 pt-3 '>
 				<Col sm={6}>
-					<h2 className='h6 mb-1'>Немовлята</h2>
-					<p className='m-0'>Молодше 2</p>
+					<h2 className='h6 mb-1'>{t('Babies')}</h2>
+					<p className='m-0'>{t('Younger')}&nbsp;2</p>
 				</Col>
 				<Col sm={6} className='d-flex align-items-center justify-content-end'>
 					<Row>
@@ -171,19 +136,8 @@ const WhoDropDawn: React.FC<WhoStateProps> = ({
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
-									if (whoArr.babyCount > 0)
-										setSearchData(prevState => ({
-											...prevState,
-											whoObj: {
-												...prevState.whoObj,
-												babyCount: prevState.whoObj.babyCount - 1,
-												gestsCount:
-													prevState.whoObj.gestsCount === 1 &&
-													prevState.whoObj.babyCount === 1
-														? prevState.whoObj.gestsCount - 1
-														: prevState.whoObj.gestsCount,
-											},
-										}))
+									if (why.babyCount > 0)
+										dispatch(setWhoObjBabyCount(why.babyCount - 1))
 								}}
 							>
 								<span>
@@ -197,23 +151,14 @@ const WhoDropDawn: React.FC<WhoStateProps> = ({
 							</button>
 						</Col>
 						<Col sm={2}>
-							<span className='text-center fs-6'>{whoArr.babyCount}</span>
+							<span className='text-center fs-6'>{why.babyCount}</span>
 						</Col>
 						<Col sm={4}>
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
-									setSearchData(prevState => ({
-										...prevState,
-										whoObj: {
-											...prevState.whoObj,
-											babyCount: prevState.whoObj.babyCount + 1,
-											gestsCount:
-												prevState.whoObj.gestsCount === 0
-													? prevState.whoObj.gestsCount + 1
-													: prevState.whoObj.gestsCount,
-										},
-									}))
+									dispatch(setWhoObjBabyCount(why.babyCount + 1))
+									if (why.gestsCount === 0) dispatch(setWhoObjGestCount(1))
 								}}
 							>
 								<span>
@@ -231,12 +176,12 @@ const WhoDropDawn: React.FC<WhoStateProps> = ({
 			</Row>
 			<Row className='d-flex align-items-center   pt-3 '>
 				<Col sm={6}>
-					<h2 className='h6 mb-1'>Домашні тварини</h2>
+					<h2 className='h6 mb-1'>{t('Pets')}</h2>
 					{/* TODO: додати модальное окно тварини-помічника с пояснениям 
 					взять с AIRBNB */}
 					<p className='m-0'>
 						<Link className='link-Reset' href={'#'}>
-							Подорожуєте із твариною-помічником?
+							{t('TravelingWith')}
 						</Link>
 					</p>
 				</Col>
@@ -246,28 +191,8 @@ const WhoDropDawn: React.FC<WhoStateProps> = ({
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
-									if (whoArr.animalsCount > 0)
-										// setWho(prevState => ({
-										// 	...prevState,
-										// 	animalsCount: prevState.animalsCount - 1,
-										// 	gestsCount:
-										// 		prevState.gestsCount === 1 &&
-										// 		prevState.animalsCount === 1
-										// 			? prevState.gestsCount - 1
-										// 			: prevState.gestsCount,
-										// }))
-										setSearchData(prevState => ({
-											...prevState,
-											whoObj: {
-												...prevState.whoObj,
-												animalsCount: prevState.whoObj.animalsCount - 1,
-												gestsCount:
-													prevState.whoObj.gestsCount === 1 &&
-													prevState.whoObj.animalsCount === 1
-														? prevState.whoObj.gestsCount - 1
-														: prevState.whoObj.gestsCount,
-											},
-										}))
+									if (why.animalsCount > 0)
+										dispatch(setWhoObjAnimalsCount(why.animalsCount - 1))
 								}}
 							>
 								<span>
@@ -281,31 +206,14 @@ const WhoDropDawn: React.FC<WhoStateProps> = ({
 							</button>
 						</Col>
 						<Col sm={2}>
-							<span className='text-center fs-6'>{whoArr.animalsCount}</span>
+							<span className='text-center fs-6'>{why.animalsCount}</span>
 						</Col>
 						<Col sm={4}>
 							<button
 								className={`${style.resetButton} ${style.counterBtn}`}
 								onClick={() => {
-									// setWho(prevState => ({
-									// 	...prevState,
-									// 	animalsCount: prevState.animalsCount + 1,
-									// 	gestsCount:
-									// 		prevState.gestsCount === 0
-									// 			? prevState.gestsCount + 1
-									// 			: prevState.gestsCount,
-									// }))
-									setSearchData(prevState => ({
-										...prevState,
-										whoObj: {
-											...prevState.whoObj,
-											animalsCount: prevState.whoObj.animalsCount + 1,
-											gestsCount:
-												prevState.whoObj.gestsCount === 0
-													? prevState.whoObj.gestsCount + 1
-													: prevState.whoObj.gestsCount,
-										},
-									}))
+									dispatch(setWhoObjAnimalsCount(why.animalsCount + 1))
+									if (why.gestsCount === 0) dispatch(setWhoObjGestCount(1))
 								}}
 							>
 								<span>

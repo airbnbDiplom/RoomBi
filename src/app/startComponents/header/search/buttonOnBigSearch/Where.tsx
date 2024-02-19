@@ -1,78 +1,144 @@
-import { SearchDataState, ThemProps, WhereState } from '@/app/type/type'
+import { ThemProps, SearchBtnEnum, AutoCompleteList } from '@/app/type/type'
+import autoCompleteService from '@/app/services/autoCompleteService'
 import style from '../Search.module.css'
 import WhereDropDawn from './WhereDropDawn'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import WhereOptionDropDawn from './WhereOptionDropDawn'
+import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
+import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
+import { setWhereEmptyObj } from '@/app/redux/searchInHeader/SearchSlice'
+import { useTranslation } from 'react-i18next'
 
 interface whereProps {
 	setTeamBlack: (setWhenDrop: boolean) => void
-	setWhenDrop: (setWhenDrop: boolean) => void
-	setWhereDrop: (setWhereDrop: boolean) => void
-	whereObj: WhereState
-	setSearchData: React.Dispatch<React.SetStateAction<SearchDataState>>
-	isWhereDropOn?: boolean
-	openDropDawn: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 const Where: React.FC<whereProps & ThemProps> = ({
 	setTeamBlack,
-	setWhenDrop,
-	setWhereDrop,
-	whereObj,
-	setSearchData,
-	isWhereDropOn,
-	openDropDawn,
 	isTeamBlack,
 }) => {
-	const inputRef = useRef(null)
+	const { t } = useTranslation()
+	const inputRef = useRef<HTMLInputElement>(null)
+	const [autoList, setAutoList] = useState<AutoCompleteList>(
+		{} as AutoCompleteList
+	)
+
+	const [drop, setWhenDropDawn] = useState(false)
+	const dispatch = useAppDispatch()
+	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
+	const stateString = useAppSelector(state =>
+		state.searchReducer.DataSearchObj.whereObj?.properties?.display_name ===
+		undefined
+			? ''
+			: state.searchReducer.DataSearchObj.whereObj?.properties?.display_name
+	)
+
+	const [stringInput, setStringInput] = useState(
+		stateString !== '' ? stateString : ''
+	)
+
+	const [whereOptionBlack, setWhereOptionBlack] = useState(false)
+	useEffect(() => {
+		if (btnState === SearchBtnEnum.Where) {
+			setWhenDropDawn(true)
+			if (inputRef.current) inputRef.current.focus()
+		} else setWhenDropDawn(false)
+	}, [btnState, isTeamBlack])
+
+	const clearDateOnButton = (event: any) => {
+		event.preventDefault()
+		event.stopPropagation()
+		setStringInput('')
+		dispatch(setWhereEmptyObj())
+	}
+
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (event.target.value.length > 2) {
+			autoCompleteService(event.target.value).then(
+				(data: AutoCompleteList | null) => {
+					if (data) {
+						setAutoList(data)
+					} else {
+						console.log('Where handleInputChange No data fetched.')
+					}
+				}
+			)
+		}
 		setStringInput(event.target.value)
 		setWhereOptionBlack(true)
-
 		setTeamBlack(true)
-		console.log(event.target.value)
-		//	setSearchData(event.target.value)
 	}
-	const [stringInput, setStringInput] = useState('')
-	const [whereOptionBlack, setWhereOptionBlack] = useState(false)
 
 	return (
 		<>
-			<button
+			<div
 				id='where'
-				onClick={event => openDropDawn(event)}
+				onClick={(event: React.MouseEvent<HTMLDivElement>) => {
+					if ((event.target as HTMLElement).tagName === 'INPUT') {
+						return
+					}
+					dispatch(setBtnState(SearchBtnEnum.Where))
+				}}
 				className={`p-0 ${style.resetButton} ${style.pText} ${
-					(isTeamBlack && isWhereDropOn) || whereOptionBlack
+					(isTeamBlack && drop) || whereOptionBlack
 						? style.btnBlackBacActive
 						: style.btnStyle
-				} ${isTeamBlack && !isWhereDropOn && style.btnBlackBac} text-start`}
+				} ${isTeamBlack && !drop && style.btnBlackBac} text-start`}
 			>
 				<div
-					className={` mt-3 mb-3 ps-lg-4 ps-xs-2 ${
+					className={` mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-5 ${
 						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
 					}`}
 				>
-					<p className={`m-0 ${style.colorOne}`}>Куди</p>
+					<p className={`m-0 ${style.colorOne}`}>{t('Where')}</p>
 					<input
 						id='inputWhere'
 						ref={inputRef}
 						type='text'
-						placeholder='Пошук напрямку'
-						className={`${style.colorTwo} ${style.inputReset}  m-0`}
+						autoComplete='off'
+						onClick={() => {
+							if (!isTeamBlack) {
+								setTeamBlack(true)
+								if (btnState !== SearchBtnEnum.Where)
+									dispatch(setBtnState(SearchBtnEnum.Where))
+							} else {
+								if (btnState !== SearchBtnEnum.Where)
+									dispatch(setBtnState(SearchBtnEnum.Where))
+							}
+						}}
+						placeholder={t('DirectionSearch')}
+						className={` ${style.inputReset} m-0 ${
+							inputRef.current !== null &&
+							inputRef.current === document.activeElement
+								? style.colorTwo
+								: isTeamBlack &&
+								  btnState !== SearchBtnEnum.Where &&
+								  inputRef.current
+								? style.colorTextBlackThem
+								: style.colorTwo
+						}`}
 						value={stringInput}
 						onChange={handleInputChange}
 					/>
 				</div>
-			</button>
-			<WhereDropDawn
-				setWhenDrop={setWhenDrop}
-				setWhereDrop={setWhereDrop}
-				stringInput={stringInput}
-				setStringInput={setStringInput}
-				isWhereDropOn={isWhereDropOn}
-				setSearchData={setSearchData}
-			/>
+				{stringInput !== undefined && stringInput.length > 0 && (
+					<ClearInputBtn clearInput={clearDateOnButton} />
+				)}
+			</div>
+			{drop && stringInput !== undefined && stringInput.length === 0 && (
+				<WhereDropDawn setStringInput={setStringInput} />
+			)}
 
-			{whereOptionBlack && stringInput.length > 0 && <WhereOptionDropDawn />}
+			{whereOptionBlack &&
+				stringInput.length > 2 &&
+				autoList.features !== undefined &&
+				autoList.features.length > 0 && (
+					<WhereOptionDropDawn
+						setWhereOptionBlack={setWhereOptionBlack}
+						autoList={autoList}
+						setStringInput={setStringInput}
+					/>
+				)}
 		</>
 	)
 }

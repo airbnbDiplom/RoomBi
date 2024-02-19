@@ -1,92 +1,90 @@
-import { Col } from 'react-bootstrap'
-import style from '../Search.module.css'
-import { SearchDataState, ThemProps, WhoState } from '@/app/type/type'
-import WhoDropDawn from './WhoDropDawn'
-import { useEffect, useRef, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
+import {
+	setWhoObjAnimalsCount,
+	setWhoObjBabyCount,
+	setWhoObjChildrenCount,
+	setWhoObjGestCount,
+} from '@/app/redux/searchInHeader/SearchSlice'
+import { SearchBtnEnum, ThemProps } from '@/app/type/type'
 import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import style from '../Search.module.css'
+import WhoDropDawn from './WhoDropDawn'
 
-interface WhoProps {
-	openDropDawn: (event: React.MouseEvent<HTMLButtonElement>) => void
-	searchData: SearchDataState
-	setSearchData: React.Dispatch<React.SetStateAction<SearchDataState>>
-	isWhoDropOn?: boolean
-	isTeamBlack: boolean
-}
-
-const Who: React.FC<WhoProps> = ({
-	searchData,
-	setSearchData,
-	isWhoDropOn,
-	openDropDawn,
-	isTeamBlack,
-}) => {
-	const [gestString, SetGestString] = useState('Додайте гостей')
+const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
+	const { t } = useTranslation()
+	const [gestString, SetGestString] = useState(t('AddGuests'))
 	const [isClearActive, setIsClearActive] = useState(false)
+	const [drop, setWhenDropDawn] = useState(false)
+	const dispatch = useAppDispatch()
+	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
+	const whoObj = useAppSelector(
+		state => state.searchReducer.DataSearchObj.whoObj
+	)
 	const clearWhoInput = (event: any) => {
 		event.preventDefault()
 		event.stopPropagation()
 
-		setSearchData(prevState => ({
-			...prevState,
-			whoObj: {
-				...prevState.whoObj,
-				gestsCount: 0,
-			},
-		}))
+		dispatch(setWhoObjGestCount(0))
+		dispatch(setWhoObjChildrenCount(0))
+		dispatch(setWhoObjBabyCount(0))
+		dispatch(setWhoObjAnimalsCount(0))
 	}
 
 	useEffect(() => {
-		let str = `${
-			searchData.whoObj.gestsCount + searchData.whoObj.childrenCount
-		}`
+		let str = `${whoObj.gestsCount + whoObj.childrenCount}`
 		switch (str) {
 			case '0':
-				str = 'Додайте гостей'
+				str = t('AddGuests')
 				break
 			case '1':
-				str = `1 гість`
+				str = t('Guest')
 				break
 			case '2':
 			case '3':
-				str = `${str} гостя`
+				str = `${str} ${t('AGuests')}`
 				break
 			default:
-				str = `${str} гостів`
+				str = `${str} ${t('Guests')}`
 				break
 		}
-		if (searchData.whoObj.babyCount > 0) {
-			str = `${str}, ${searchData.whoObj.babyCount} Немов. `
+		if (whoObj.babyCount > 0) {
+			str = `${str}, ${whoObj.babyCount} ${t('Babies')} `
 		}
-		if (searchData.whoObj.animalsCount > 0) {
-			str = `${str}, ${searchData.whoObj.animalsCount} Твары. `
+		if (whoObj.animalsCount > 0) {
+			str = `${str}, ${whoObj.animalsCount} ${t('Animals')} `
 		}
-		setIsClearActive(str !== 'Додайте гостей' ? true : false)
+		setIsClearActive(str !== t('AddGuests') ? true : false)
 		SetGestString(() => {
 			return str
 		})
-	}, [
-		searchData.whoObj.animalsCount,
-		searchData.whoObj.babyCount,
-		searchData.whoObj.childrenCount,
-		searchData.whoObj.gestsCount,
-	])
+	}, [whoObj])
+
+	useEffect(() => {
+		btnState === SearchBtnEnum.Who
+			? setWhenDropDawn(true)
+			: setWhenDropDawn(false)
+	}, [btnState])
+
 	return (
 		<>
-			<button
+			<div
 				id='who'
 				className={`p-0 ${style.resetButton} text-start  ${style.pText} ${
-					isTeamBlack && isWhoDropOn ? style.btnBlackBacActive : style.btnStyle
-				} ${isTeamBlack && !isWhoDropOn && style.btnBlackBac}`}
-				onClick={event => openDropDawn(event)}
+					isTeamBlack && drop ? style.btnBlackBacActive : style.btnStyle
+				} ${isTeamBlack && !drop && style.btnBlackBac}`}
+				onClick={() => dispatch(setBtnState(SearchBtnEnum.Who))}
 			>
 				<div
-					className={`mt-3 mb-3 ps-lg-4 ps-xs-2 position-relative`}
+					className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2 position-relative`}
 					style={{ maxWidth: '170px', minWidth: '135px' }}
 				>
-					<p className={`${style.colorOne}  m-0`}>Хто</p>
+					<p className={`${style.colorOne}  m-0`}>{t('Why')}</p>
 					<p
 						className={
-							gestString === 'Додайте гостей'
+							gestString === t('AddGuests')
 								? `${style.colorTwo} text-truncate`
 								: `${style.colorOne} m-0 text-truncate`
 						}
@@ -96,12 +94,8 @@ const Who: React.FC<WhoProps> = ({
 					</p>
 				</div>
 				{isClearActive && <ClearInputBtn clearInput={clearWhoInput} />}
-			</button>
-			<WhoDropDawn
-				whoArr={searchData.whoObj}
-				setSearchData={setSearchData}
-				isWhoDropOn={isWhoDropOn!}
-			/>
+			</div>
+			{drop && <WhoDropDawn />}
 		</>
 	)
 }

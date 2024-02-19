@@ -7,7 +7,7 @@ import { CardMap } from "@/app/components/map-main/card-map/CardMap";
 
 const MapMain = () => {
   const apartments = useAppSelector(
-    (state) => state.apartmentsReducer.apartments
+    (state) => state.apartmentsReducer.apartmentsMap
   );
 
   const [userPosition, setUserPosition] = useState(null);
@@ -42,7 +42,11 @@ const MapMain = () => {
 
   return (
     <div className={style.mapContainer}>
-      <MapContainer center={userPosition} zoom={6} style={{ height: "70vh" }}>
+      <MapContainer
+        center={userPosition}
+        zoom={6}
+        style={{ height: "70vh", width: "99vw" }}
+      >
         <TileLayer
           attribution={`<p class="tileLayer" >RoomBi Map</p>`}
           url={"https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"}

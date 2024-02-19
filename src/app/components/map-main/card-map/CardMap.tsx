@@ -5,8 +5,8 @@ import { CarouselMapCard } from "./carousel/CarouselMapCard";
 import { Col, Row } from "react-bootstrap";
 import { CardBiProps } from "@/app/type/type";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
+import { useTranslation } from "next-i18next";
 const CardMap: React.FC<CardBiProps> = ({
   id,
   pictures,
@@ -16,14 +16,13 @@ const CardMap: React.FC<CardBiProps> = ({
   pricePerNight,
   objectRating,
 }) => {
-  const router = useRouter();
+  const { t } = useTranslation();
 
   const handleClickRouter = () => {
     const newTabUrl = `/${id}`;
-
-    // Відкриваємо нову вкладку з новим URL
     window.open(newTabUrl, "_blank");
   };
+
   const handleClickHeart = () => {
     console.log("Button Heart!");
   };
@@ -63,7 +62,10 @@ const CardMap: React.FC<CardBiProps> = ({
         </Row>
         <p className={style.text}> {country}</p>
         <p className={style.subtitle}>
-          <strong>{pricePerNight}$ ніч</strong> {bookingFree}
+          <strong style={{ marginRight: "8px" }}>
+            {pricePerNight}$ {t("nightCard")}
+          </strong>
+          {bookingFree}
         </p>
       </div>
     </div>

@@ -1,45 +1,25 @@
 import Image from 'next/image'
 import style from './SmallSearch.module.css'
 import { Col, Row } from 'react-bootstrap'
-import { ButtonOnBigDSearch, SearchKindSwitch } from '@/app/type/type'
-import { useEffect, useRef, useState } from 'react'
-interface HederComponentProps {
-	setScroll: (setScroll: boolean) => void
-	setDropDawnScroll: (setDropDawnScroll: boolean) => void
-}
+import { SearchBtnEnum, SearchKindSwitch } from '@/app/type/type'
+import React, { SetStateAction, useEffect, useRef, useState } from 'react'
+import { useAppDispatch } from '@/app/redux/hook'
+import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 
-interface propsButtonOnBigDSearch {
-	propsBigSearch: ButtonOnBigDSearch
-}
-interface propsSearchKindSwitchP {
-	propsKindSwitch: SearchKindSwitch
-}
-const SmallSearch: React.FC<
-	propsButtonOnBigDSearch & propsSearchKindSwitchP
-> = ({
-	propsBigSearch: propsBigSearchBtn,
-	propsKindSwitch: propsKindSwitch,
+const SmallSearch: React.FC<SearchKindSwitch> = ({
+	setSmallSearchOn,
+	setBigSearchOn,
+	setBigSearchOnBySmall,
 }) => {
-	const { setWhereDrop, setWhenDrop, setWhoDrop } = propsBigSearchBtn
-	const {
-		isSmallSearchOn,
-		isBigSearchOn,
-		isBigSearchOnBySmall,
-		setSmallSearchOn,
-		setBigSearchOn,
-		setBigSearchOnBySmall,
-	} = propsKindSwitch
-
 	const [scroll, setScroll] = useState(window.scrollY)
+	const smallSearch = useRef<HTMLDivElement>(null)
 
 	const handler = () => {
 		setScroll(window.scrollY)
 	}
+	const dispatch = useAppDispatch()
 	useEffect(() => {
 		window.addEventListener('scroll', handler)
-		console.log(
-			`isSmallSearchOn ${isSmallSearchOn}, isBigSearchOn ${isBigSearchOn}, isBigSearchOnBySmall${isBigSearchOnBySmall} `
-		)
 		return () => {
 			window.removeEventListener('scroll', handler)
 		}
@@ -73,23 +53,17 @@ const SmallSearch: React.FC<
 			console.log(options)
 			switch (options) {
 				case 'whereSmall':
-					setWhenDrop(false)
-					setWhoDrop(false)
-					setWhereDrop(true)
+					dispatch(setBtnState(SearchBtnEnum.Where))
 					if (document.getElementById('where'))
 						document.getElementById('where')?.click()
 					break
 				case 'whenSmall':
-					setWhenDrop(true)
-					setWhoDrop(false)
-					setWhereDrop(false)
+					dispatch(setBtnState(SearchBtnEnum.WhenCome))
 					if (document.getElementById('when'))
 						document.getElementById('when')?.click()
 					break
 				case 'whoSmall':
-					setWhenDrop(false)
-					setWhoDrop(true)
-					setWhereDrop(false)
+					dispatch(setBtnState(SearchBtnEnum.Who))
 					if (document.getElementById('who'))
 						document.getElementById('who')?.click()
 					break
@@ -97,7 +71,6 @@ const SmallSearch: React.FC<
 		}, 150)
 	}
 
-	const smallSearch = useRef<HTMLDivElement>(null)
 	return (
 		<Row className={` ${style.main}  p-0`} ref={smallSearch}>
 			<Col

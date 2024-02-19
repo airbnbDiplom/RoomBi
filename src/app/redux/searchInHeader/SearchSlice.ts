@@ -1,10 +1,10 @@
-import { WhenState, WhereState, WhoState } from '@/app/type/type'
+import { AutoCompleteItem, WhenState, WhoState } from '@/app/type/type'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type DataSearchType = {
 	whenObj: WhenState
 	whoObj: WhoState
-	whereObj: WhereState
+	whereObj: AutoCompleteItem
 }
 type DataSearchState = {
 	DataSearchObj: DataSearchType
@@ -21,13 +21,7 @@ const initialState: DataSearchState = {
 			babyCount: 0,
 			animalsCount: 0,
 		},
-		whereObj: {
-			continent: '',
-			country: '',
-			city: '',
-			district: '',
-			street: '',
-		},
+		whereObj: {} as AutoCompleteItem,
 	},
 }
 
@@ -41,7 +35,34 @@ const searchSlice = createSlice({
 		setWhenObjDateOut(state, action: PayloadAction<string>) {
 			state.DataSearchObj.whenObj.dateOut = action.payload
 		},
+		setWhereObj(state, action: PayloadAction<AutoCompleteItem>) {
+			state.DataSearchObj.whereObj = action.payload
+		},
+		setWhereEmptyObj(state) {
+			state.DataSearchObj.whereObj = {} as AutoCompleteItem
+		},
+		setWhoObjGestCount(state, action: PayloadAction<number>) {
+			state.DataSearchObj.whoObj.gestsCount = action.payload
+		},
+		setWhoObjChildrenCount(state, action: PayloadAction<number>) {
+			state.DataSearchObj.whoObj.childrenCount = action.payload
+		},
+		setWhoObjBabyCount(state, action: PayloadAction<number>) {
+			state.DataSearchObj.whoObj.babyCount = action.payload
+		},
+		setWhoObjAnimalsCount(state, action: PayloadAction<number>) {
+			state.DataSearchObj.whoObj.animalsCount = action.payload
+		},
 	},
 })
-export const { setWhenObjDateCome, setWhenObjDateOut } = searchSlice.actions
+export const {
+	setWhenObjDateCome,
+	setWhenObjDateOut,
+	setWhereObj,
+	setWhereEmptyObj,
+	setWhoObjGestCount,
+	setWhoObjChildrenCount,
+	setWhoObjBabyCount,
+	setWhoObjAnimalsCount,
+} = searchSlice.actions
 export default searchSlice.reducer
