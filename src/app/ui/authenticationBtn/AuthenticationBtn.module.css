@@ -29,36 +29,35 @@
 .itemFont {
 	font-family: var(--var-nunito), sans-serif;
 }
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&subset=cyrillic&display=swap');
 
 .modalTitle {
-  font-family: 'Roboto Slab', serif;
-  font-size: 15px;
-  color: #333;
-  text-align: center;
+	font-family: var(--var-Inknut_Antiqua), serif;
+	font-size: 15px;
+	color: #333;
+	text-align: center;
 }
 
 .welcomeMessage {
-	font-family: 'Roboto Slab', serif;
+	font-family: var(--var-nunito), serif;
 	font-size: 25px;
 	color: #333;
 }
-  
-  .formControl {
-	font-family: 'Arial', sans-serif;
+
+.formControl {
+	font-family: var(--var-nunito), sans-serif;
 	font-size: 16px;
 	color: #333;
-  }
-  
-  .submitButton {
+}
+
+.submitButton {
 	width: 100%;
 	margin-top: 20px;
 	margin-bottom: 10px;
-  }
-  
-  .googleButton {
+}
+
+.googleButton {
 	justify-content: center;
 	width: 100%;
 	margin-top: 10px;
 	margin-bottom: 10px;
-  }
+}

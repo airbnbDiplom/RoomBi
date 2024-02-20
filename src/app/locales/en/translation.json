@@ -51,5 +51,7 @@
 	"Anywhere": "Anywhere",
 	"AnyWeek": "Any week",
 	"AddedGuests": "Added guests",
-	"language": "language"
+	"language": "language",
+	"ServiceAnimals": "Service Animals",
+	"ServiceAnimalsInfo": "Helper creatures are not respected by their lovers, so there is no need to provide information about them here."
 }

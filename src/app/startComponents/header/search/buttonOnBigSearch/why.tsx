@@ -18,6 +18,7 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const { t } = useTranslation()
 	const [gestString, SetGestString] = useState(t('AddGuests'))
 	const [isClearActive, setIsClearActive] = useState(false)
+	const [borderStyle, setBorderStyle] = useState('')
 	const [drop, setWhenDropDawn] = useState(false)
 	const dispatch = useAppDispatch()
 	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
@@ -33,6 +34,15 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 		dispatch(setWhoObjBabyCount(0))
 		dispatch(setWhoObjAnimalsCount(0))
 	}
+	useEffect(() => {
+		setBorderStyle(
+			width > 992 || width < 576
+				? ''
+				: isTeamBlack
+				? style.borderRightWhite
+				: style.borderRightBlack
+		)
+	}, [isTeamBlack, width])
 
 	useEffect(() => {
 		let str = `${whoObj.gestsCount + whoObj.childrenCount}`
@@ -79,13 +89,7 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			>
 				<div
 					className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2 position-relative
-				${
-					width > 992 || width < 576
-						? ''
-						: isTeamBlack
-						? style.borderRightWhite
-						: style.borderRightBlack
-				}`}
+				${borderStyle}`}
 				>
 					<p className={`${style.head}  m-0`}>{t('Why')}</p>
 					<p

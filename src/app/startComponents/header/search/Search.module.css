@@ -56,7 +56,21 @@
 .borderRightWhite {
 	border-right: 1px solid var(--gainsboro);
 }
-
+.buttonReset {
+	border: none;
+	background-color: white;
+	padding: 5px;
+	border-radius: 5px;
+	transition: background-color 200ms ease-in-out;
+}
+.modalBody {
+	padding: 5px;
+	overflow-x: hidden;
+}
+.modalImg {
+	width: 100%;
+	height: auto;
+}
 .search {
 	display: grid;
 	place-content: center;
@@ -85,11 +99,7 @@
 .btnStyle {
 	background: none;
 }
-.btnStyle:hover {
-	border: none;
-	border-radius: 25px 25px 25px 25px;
-	background-color: rgba(135, 135, 135, 0.561);
-}
+
 .btnBlackBacActive {
 	color: black;
 	background: var(--gainsboro);
@@ -312,6 +322,14 @@
 		-webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
 		-moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
 	}
+	.buttonReset:hover {
+		background-color: rgb(126, 115, 115);
+	}
+	.btnStyle:hover {
+		border: none;
+		border-radius: 25px 25px 25px 25px;
+		background-color: rgba(135, 135, 135, 0.561);
+	}
 }
 @media (hover: none) {
 	.search:active {
@@ -319,5 +337,13 @@
 		box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
 		-webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
 		-moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+	}
+	.buttonReset:active {
+		background-color: rgb(126, 115, 115);
+	}
+	.btnStyle:active {
+		border: none;
+		border-radius: 25px 25px 25px 25px;
+		background-color: rgba(135, 135, 135, 0.561);
 	}
 }

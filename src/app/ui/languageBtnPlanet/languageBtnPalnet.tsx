@@ -10,6 +10,7 @@ import i18nConfig from '../../../../i18nConfig'
 
 const LanguageBtnPlanet: React.FC = () => {
 	const dropdownRef = useRef<HTMLDivElement>(null)
+	const btnRef = useRef<HTMLButtonElement>(null)
 	const { t, i18n } = useTranslation()
 	const currentLocale = i18n.language
 	const router = useRouter()
@@ -27,7 +28,8 @@ const LanguageBtnPlanet: React.FC = () => {
 		}
 	}
 
-	const handleChange = (newLocale: string) => {
+	const handleChange = (e: React.MouseEvent, newLocale: string) => {
+		e.preventDefault()
 		dispatch(setLocation(newLocale))
 		// set cookie for next-i18n-router
 		const days = 30
@@ -46,7 +48,7 @@ const LanguageBtnPlanet: React.FC = () => {
 			router.push(currentPathname.replace(`/${currentLocale}`, `/${newLocale}`))
 		}
 
-		router.refresh()
+		// router.refresh()
 	}
 
 	useEffect(() => {
@@ -54,7 +56,11 @@ const LanguageBtnPlanet: React.FC = () => {
 			// Ensure event.target is a Node before calling contains
 			const target = event.target as Node // Cast the target to a Node
 
-			if (dropdownRef.current && !dropdownRef.current.contains(target)) {
+			if (
+				dropdownRef.current &&
+				!dropdownRef.current.contains(target) &&
+				!btnRef.current
+			) {
 				setActive(false)
 			}
 		}
@@ -69,9 +75,10 @@ const LanguageBtnPlanet: React.FC = () => {
 	return (
 		<>
 			<button
+				ref={btnRef}
 				className={style.resetButton}
 				title={t('language')}
-				onClick={event => {
+				onMouseUp={event => {
 					event.preventDefault()
 					setActive(!active)
 				}}
@@ -98,7 +105,7 @@ const LanguageBtnPlanet: React.FC = () => {
 				<div ref={dropdownRef} className={style.DropDawnLanguage}>
 					<button
 						className={style.languageItem}
-						onClick={e => handleChange('en')}
+						onClick={e => handleChange(e, 'en')}
 					>
 						<Image
 							src={'/flag/en.svg'}
@@ -109,7 +116,7 @@ const LanguageBtnPlanet: React.FC = () => {
 					</button>
 					<button
 						className={style.languageItem}
-						onClick={e => handleChange('ua')}
+						onClick={e => handleChange(e, 'ua')}
 					>
 						<Image
 							src={'/flag/ua.svg'}

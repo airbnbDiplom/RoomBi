@@ -9,7 +9,7 @@ import {
 	SearchBtnEnum,
 } from '@/app/type/type'
 import Where from './buttonOnBigSearch/Where'
-import Who from './buttonOnBigSearch/Who'
+import Who from './buttonOnBigSearch/why'
 import WhenCome from './buttonOnBigSearch/WhenCome'
 import WhenDeparture from './buttonOnBigSearch/WhenDeparture'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
