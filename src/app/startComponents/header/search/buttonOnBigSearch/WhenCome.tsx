@@ -83,7 +83,7 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
 					}`}
 				>
-					<p className={`m-0 ${style.colorOne}`}>{t('Arrival')}</p>
+					<p className={`m-0 ${style.head}`}>{t('Arrival')}</p>
 					<p className={`${style.colorTwo} m-0`}>{dateVieOnButtonSearch}</p>
 				</div>
 				{dateVieOnButtonSearch !== t('AddADate') && (

@@ -89,5 +89,11 @@
 	"Younger": "Younger",
 	"Pets": "Pets",
 	"TravelingWith": "Traveling with an assistance animal?",
-	"Why": "Why"
+	"Why": "Why",
+	"Anywhere": "Anywhere",
+	"AnyWeek": "Any week",
+	"AddedGuests": "Added guests",
+	"language": "language",
+	"ServiceAnimals": "Service Animals",
+	"ServiceAnimalsInfo": "Helper creatures are not respected by their lovers, so there is no need to provide information about them here."
 }

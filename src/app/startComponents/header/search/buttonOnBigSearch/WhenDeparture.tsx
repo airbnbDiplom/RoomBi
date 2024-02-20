@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { useAppDispatch, useAppSelector, useWindowSize } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 import {
 	setWhenObjDateCome,
@@ -12,6 +12,8 @@ import style from '../Search.module.css'
 import WhenDropDawn from './WhenDropDawn'
 
 const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
+	const [width, hight] = useWindowSize()
+	const [borderStyle, setBorderStyle] = useState('')
 	const { t } = useTranslation()
 	const dispatch = useAppDispatch()
 	const calendarDateComStr = useAppSelector(
@@ -31,6 +33,17 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			? setWhenDropDawn(true)
 			: setWhenDropDawn(false)
 	}, [btnState])
+
+	useEffect(() => {
+		setBorderStyle(
+			width < 576
+				? ''
+				: isTeamBlack
+				? style.borderRightWhite
+				: style.borderRightBlack
+		)
+	}, [isTeamBlack, width])
+
 	useEffect(() => {
 		if (calendarDateDStr !== '') {
 			const calendarDateD = new Date(calendarDateDStr)
@@ -72,12 +85,8 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				id='whenD'
 				onClick={() => dispatch(setBtnState(SearchBtnEnum.WhenDeparture))}
 			>
-				<div
-					className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2  ${
-						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
-					}`}
-				>
-					<p className={`${style.colorOne} m-0`}>{t('Departure')}</p>
+				<div className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2  ${borderStyle}`}>
+					<p className={`${style.head} m-0`}>{t('Departure')}</p>
 					<p className={`${style.colorTwo}  m-0`}>{dateVieOnButtonSearch}</p>
 				</div>
 				{dateVieOnButtonSearch !== t('AddADate') && (

@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { useAppDispatch, useAppSelector, useWindowSize } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 import {
 	setWhoObjAnimalsCount,
@@ -14,9 +14,11 @@ import style from '../Search.module.css'
 import WhoDropDawn from './WhoDropDawn'
 
 const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
+	const [width, hight] = useWindowSize()
 	const { t } = useTranslation()
 	const [gestString, SetGestString] = useState(t('AddGuests'))
 	const [isClearActive, setIsClearActive] = useState(false)
+	const [borderStyle, setBorderStyle] = useState('')
 	const [drop, setWhenDropDawn] = useState(false)
 	const dispatch = useAppDispatch()
 	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
@@ -32,6 +34,15 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 		dispatch(setWhoObjBabyCount(0))
 		dispatch(setWhoObjAnimalsCount(0))
 	}
+	useEffect(() => {
+		setBorderStyle(
+			width > 992 || width < 576
+				? ''
+				: isTeamBlack
+				? style.borderRightWhite
+				: style.borderRightBlack
+		)
+	}, [isTeamBlack, width])
 
 	useEffect(() => {
 		let str = `${whoObj.gestsCount + whoObj.childrenCount}`
@@ -61,7 +72,6 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			return str
 		})
 	}, [whoObj])
-
 	useEffect(() => {
 		btnState === SearchBtnEnum.Who
 			? setWhenDropDawn(true)
@@ -78,15 +88,15 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				onClick={() => dispatch(setBtnState(SearchBtnEnum.Who))}
 			>
 				<div
-					className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2 position-relative`}
-					style={{ maxWidth: '170px', minWidth: '135px' }}
+					className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2 position-relative
+				${borderStyle}`}
 				>
-					<p className={`${style.colorOne}  m-0`}>{t('Why')}</p>
+					<p className={`${style.head}  m-0`}>{t('Why')}</p>
 					<p
 						className={
 							gestString === t('AddGuests')
 								? `${style.colorTwo} text-truncate`
-								: `${style.colorOne} m-0 text-truncate`
+								: `${style.head} m-0 text-truncate`
 						}
 						style={{ maxWidth: '95%' }}
 					>
