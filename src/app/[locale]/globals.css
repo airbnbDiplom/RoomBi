@@ -6,7 +6,7 @@
 	--eerieBlack: #211e1a;
 	--boyRed: #6f6558;
 	--darkLava: #433d35;
-	--gainsboro: #d7d9dd;
+	--gainsboro: rgb(248, 249, 250);
 }
 @media (prefers-color-scheme: dark) {
 	:root {
