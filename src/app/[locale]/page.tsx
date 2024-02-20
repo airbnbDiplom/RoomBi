@@ -1,15 +1,15 @@
-import styles from './page.module.css'
 import TranslationsProvider from '@/app/configs/TranslationsProvider'
-import initTranslations from '../i18n'
-import { getFirstPage } from '@/app/services/housesServices'
 import { authConfig } from '@/app/configs/auth'
-import { getServerSession } from 'next-auth'
+import { getFirstPage } from '@/app/services/housesServices'
 import { Header } from '@/app/startComponents/header/Header'
+import { Main } from '@/app/startComponents/main/Main'
 import { Naw } from '@/app/startComponents/naw/Naw'
 import { HomeParams } from '@/app/type/type'
-import { Main } from '@/app/startComponents/main/Main'
+import { getServerSession } from 'next-auth'
+import initTranslations from '../i18n'
 import { Footer } from '../startComponents/footer/Footer'
 import Loading from './loading'
+import styles from './page.module.css'
 
 const i18nNamespaces = ['translation']
 export default async function Home({

@@ -8,7 +8,7 @@ const getHouses = async () => {
   }
   const response = await fetch(url, {
     next: {
-      revalidate: 50000,
+      revalidate: 5000,
     },
   });
   if (!response.ok) throw new Error("Unable to fetch houses.");
@@ -21,7 +21,7 @@ const getFirstPageServer = async () => {
   }
   const response = await fetch(url, {
     next: {
-      revalidate: 50000,
+      revalidate: 5000,
     },
   });
   if (!response.ok) throw new Error("Unable to fetch houses.");

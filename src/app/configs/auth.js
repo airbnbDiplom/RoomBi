@@ -30,7 +30,7 @@ export const authConfig = {
             console.log("Error 0000", res.status);
             const error = new Error("Помилка: неправильні дані");
             error.status = 400;
-            return error;
+            throw error;
           }
           const response = await res.json();
           const { token, refreshToken } = response;

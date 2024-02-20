@@ -6,7 +6,7 @@ import { Col, Row } from "react-bootstrap";
 import { CardBi } from "@/app/components/card/CardBi";
 import { ButtonShowMore } from "@/app/ui/buttonShowMore/ButtonShowMore";
 import { useAppSelector } from "@/app/redux/hook";
-import Loading from "@/app/[locale]/loading";
+// import Loading from "@/app/[locale]/loading";
 
 const CatdList: React.FC = () => {
   const apartments = useAppSelector(
@@ -39,11 +39,7 @@ const CatdList: React.FC = () => {
       </div>
     );
   }
-  return (
-    <div>
-      <Loading />
-    </div>
-  );
+  return <div>{/* <Loading /> */}</div>;
 };
 
 export { CatdList };
