@@ -1,0 +1,41 @@
+.container{
+    display: flex;
+}
+.blockLeft{
+    width: 70%;
+    background-color: yellow;
+}
+.blockRight{
+    width: 30%;
+    height: 200px;
+    background-color: rgb(0, 255, 8);
+}
+
+.rating{
+    display: flex;
+    align-items: center;
+}
+.rating p{
+    margin: 0px;
+    margin-left:5px ;
+    margin-right: 5px;
+}
+.point{
+    display: inline-block;
+    width:  5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: black;
+    margin: 0 5px;
+    margin-bottom: 2px;
+}
+
+.br{
+    display: block;
+    width: 95%;
+    height: 1px;
+    background-color: rgb(170, 168, 168);
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}

@@ -13,7 +13,7 @@ const CatdList: React.FC = () => {
     (state) => state.apartmentsReducer.apartments
   );
 
-  if (apartments) {
+  if (Array.isArray(apartments)) {
     return (
       <div
         className={`${style.container} ms-lg-5 me-lg-5 ms-sm-3 me-sm-3 ms-sx-3 me-sx-3`}

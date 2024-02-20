@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CardBiProps, FullRentalItem, MarkerBi } from "@/app/type/type";
+import { CardBiProps, MarkerBi } from "@/app/type/type";
 
 type Apartments = {
   apartmentsAll: CardBiProps[];

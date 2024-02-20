@@ -18,13 +18,15 @@ const Main: React.FC<{ cardData: CardBiProps[] }> = ({
   cardData: CardBiProps[];
 }) => {
   const session = useSession();
-  console.log("session", session);
+  const { data } = session;
+  console.log("session", data?.user?.name);
   const dispatch = useAppDispatch();
 
   const apartments = useRef(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("cardData", cardData);
       if (apartments.current === false) {
         dispatch(setApartments(cardData));
         const allHouses = await getAllHouses();

@@ -26,12 +26,12 @@ export const authConfig = {
         if (!res) return null;
 
         try {
-          if (res.status === 400) {
-            console.log("Error 0000", res.status);
-            const error = new Error("Помилка: неправильні дані");
-            error.status = 400;
-            throw error;
-          }
+          // if (res.status === 400) {
+          //   console.log("Error 0000", res.status);
+          //   const error = new Error("Помилка: неправильні дані");
+          //   error.status = 400;
+          //   throw error;
+          // }
           const response = await res.json();
           const { token, refreshToken } = response;
           if (response && response.error) {

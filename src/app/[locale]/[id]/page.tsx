@@ -1,28 +1,41 @@
-import { Metadata } from "next";
-// import { getHousId } from "@/app/services/housesServices";
-import Link from "next/link";
-
+import { getApartamentId } from "@/app/services/housesServices";
+import TranslationsProvider from "@/app/configs/TranslationsProvider";
+import initTranslations from "../../i18n";
+import { Header } from "@/app/startComponents/header/Header";
+import { Footer } from "../../startComponents/footer/Footer";
+import Loading from "./../loading";
+import { UserInfo } from "./components/user-info/UserInfo";
 type Props = {
   params: {
     id: string;
+    locale: string;
   };
 };
+const i18nNamespaces = ["translation"];
+export default async function Hous({ params: { id, locale } }: Props) {
+  const { resources } = await initTranslations(locale, ["translation"]);
 
-// export async function generateMetadata({ params: { id } }: Props) {
-//   const hous = await getHousId(id);
+  const hous = await getApartamentId(id);
 
-//   return {
-//     title: hous[0].title,
-//   };
-// }
-
-export default async function Hous({ params: { id } }: Props) {
-  // const hous = await getHousId(id);
   return (
-    <>
-      <Link href="/">asd</Link>
-      {/* <h1>{hous[0].country}</h1>
-      <h1>{hous[0].title}</h1> */}
-    </>
+    <TranslationsProvider
+      namespaces={i18nNamespaces}
+      locale={locale}
+      resources={resources}
+    >
+      <>
+        <div className="sticky-top header-Main">
+          <Header />
+        </div>
+        {hous ? (
+          <main>
+            <UserInfo data={hous} />
+          </main>
+        ) : (
+          <Loading />
+        )}
+        <Footer />
+      </>
+    </TranslationsProvider>
   );
 }
