@@ -28,7 +28,7 @@ const Header: FC = () => {
 
 	return (
 		<div
-			className={` pt-xs-1 pt-sm-2 pt-md-4  pb-3   ps-md-3 pe-md-3 ps-lg-3 pe-lg-3 pe-xl-4 ps-xl-4 sticky-top' ${
+			className={` pt-xs-1 pt-sm-2 pt-md-4  pb-3   ps-md-3 pe-md-3 ps-lg-3 pe-lg-3 pe-xl-4 ps-xl-4' ${
 				style.header
 			} ${isTeamBlack ? style.headerBlaCk : style.headerWhite} `}
 		>

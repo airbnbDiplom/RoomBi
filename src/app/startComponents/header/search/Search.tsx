@@ -14,6 +14,7 @@ import WhenCome from './buttonOnBigSearch/WhenCome'
 import WhenDeparture from './buttonOnBigSearch/WhenDeparture'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
+import SearchBtn from './buttonOnBigSearch/searchBtn'
 
 interface propsSearchKindSwitchP {
 	propsKindSwitch: SearchKindSwitch
@@ -157,16 +158,7 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 			<div className={` ${style.item_4} ${style.searchStyleBtn}`}>
 				<Who isTeamBlack={isTeamBlack} />
 			</div>
-			<div
-				className={`${style.item} ${style.item_5}  ${style.cursor}  ${style.search}`}
-			>
-				<Image
-					src={'/icon/search.svg'}
-					width={30}
-					height={30}
-					alt='search icon'
-				/>
-			</div>
+			<SearchBtn />
 		</div>
 	)
 }

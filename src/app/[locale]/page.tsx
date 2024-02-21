@@ -30,7 +30,7 @@ export default async function Home({
 			resources={resources}
 		>
 			<>
-				<div className='header-Main'>
+				<div className={'header-Main header-Main-sticky'}>
 					<Header />
 					<Naw />
 				</div>

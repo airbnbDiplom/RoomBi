@@ -21,13 +21,15 @@ body {
 	background-color: var(--boyRed);
 }
 .header-Main {
-	position: sticky;
-	top: 0;
 	background-color: var(--gainsboro);
 	z-index: 5;
 	@media (max-width: 576px) {
 		position: relative;
 	}
+}
+.header-Main-sticky {
+	position: sticky;
+	top: 0;
 }
 
 .custom-dropdown-toggle::after {

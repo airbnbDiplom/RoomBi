@@ -17,6 +17,7 @@ const LanguageBtnPlanet: React.FC = () => {
 	const currentPathname = usePathname()
 	const dispatch = useAppDispatch()
 	const [active, setActive] = useState(false)
+
 	const flagImagePath = () => {
 		switch (currentLocale) {
 			case 'en':
@@ -53,25 +54,24 @@ const LanguageBtnPlanet: React.FC = () => {
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
-			// Ensure event.target is a Node before calling contains
-			const target = event.target as Node // Cast the target to a Node
-
+			const target = event.target as Node
 			if (
 				dropdownRef.current &&
 				!dropdownRef.current.contains(target) &&
-				!btnRef.current
+				btnRef.current &&
+				!btnRef.current.contains(target)
 			) {
 				setActive(false)
 			}
 		}
 
 		// Add event listener
-		document.addEventListener('mousedown', handleClickOutside)
+		document.addEventListener('click', handleClickOutside)
 		return () => {
 			// Remove event listener on cleanup
-			document.removeEventListener('mousedown', handleClickOutside)
+			document.removeEventListener('click', handleClickOutside)
 		}
-	}, [dropdownRef, setActive])
+	}, [dropdownRef, setActive, active])
 	return (
 		<>
 			<button
