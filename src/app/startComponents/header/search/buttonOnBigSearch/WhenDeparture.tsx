@@ -72,7 +72,7 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 		} else {
 			setDateVieOnButtonSearch(t('AddADate'))
 		}
-	}, [dispatch, calendarDateDStr, calendarDateComStr])
+	}, [dispatch, calendarDateDStr])
 	const clearDateOnButton = (event: any) => {
 		if (dateVieOnButtonSearch !== t('AddADate')) {
 			event.preventDefault()
