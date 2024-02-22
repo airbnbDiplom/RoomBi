@@ -5,7 +5,9 @@
 	border-radius: 25px;
 	font-size: 0.75rem;
 	text-wrap: nowrap;
+	width: 100%;
 }
+
 .searchAllContainer {
 	display: grid;
 	grid-template-columns: repeat(4, 22.5%) 10%;
@@ -54,7 +56,21 @@
 .borderRightWhite {
 	border-right: 1px solid var(--gainsboro);
 }
-
+.buttonReset {
+	border: none;
+	background-color: white;
+	padding: 5px;
+	border-radius: 5px;
+	transition: background-color 200ms ease-in-out;
+}
+.modalBody {
+	padding: 5px;
+	overflow-x: hidden;
+}
+.modalImg {
+	width: 100%;
+	height: auto;
+}
 .search {
 	display: grid;
 	place-content: center;
@@ -62,6 +78,7 @@
 	height: 55px;
 	background-color: var(--boyRed);
 	border-radius: 50px;
+	transition: box-shadow 300ms;
 }
 .resetButton {
 	position: relative;
@@ -82,11 +99,7 @@
 .btnStyle {
 	background: none;
 }
-.btnStyle:hover {
-	border: none;
-	border-radius: 25px 25px 25px 25px;
-	background-color: rgba(135, 135, 135, 0.561);
-}
+
 .btnBlackBacActive {
 	color: black;
 	background: var(--gainsboro);
@@ -250,5 +263,87 @@
 	}
 	.whereOptionDropDawnBlok {
 		width: 100%;
+	}
+}
+@media (max-width: 768px) {
+	.searchStyleBtn {
+		font-size: 0.7rem;
+	}
+	.head {
+		text-align: center;
+	}
+	.colorTwo {
+		text-align: center;
+	}
+	.inputReset {
+		margin-left: 5px;
+		text-align: start !important;
+	}
+	.imgDiv {
+		display: grid;
+		place-content: center;
+		width: 100px;
+		height: 100px;
+	}
+}
+@media (max-width: 576px) {
+	.searchAllContainer {
+		grid-template-columns: repeat(2, 50%);
+		grid-template-rows: repeat(3, 1fr);
+		margin: 0 20px;
+	}
+	.item_5 {
+		margin: 0 auto;
+		display: grid;
+		align-items: center;
+		justify-content: center;
+		place-content: center;
+		grid-area: 3/1/3/-1;
+	}
+	.search {
+		width: 80% !important;
+		height: 42px;
+		background-color: var(--boyRed);
+		border-radius: 25px;
+	}
+	.search:active {
+		background-color: var(--eerieBlack);
+	}
+	.actionWhereDropDawnOn,
+	.actionWhoDropDawnOn,
+	.whereOptionDropDawnBlok,
+	.whenDropDawn {
+		top: 210px;
+	}
+}
+@media (hover: hover) {
+	.search:hover {
+		box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+		-webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+		-moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+	}
+	.buttonReset:hover {
+		background-color: rgb(126, 115, 115);
+	}
+	.btnStyle:hover {
+		border: none;
+		border-radius: 25px 25px 25px 25px;
+		background-color: rgba(135, 135, 135, 0.561);
+	}
+}
+@media (hover: none) {
+	.search:active {
+		background-color: rgb(126, 115, 115);
+		box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+		-webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+		-moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+	}
+	.buttonReset:active {
+		background-color: rgb(126, 115, 115);
+	}
+	.btnStyle:active {
+		border: none;
+		border-radius: 25px 25px 25px 25px;
+		background-color: rgba(135, 135, 135, 0.561);
 	}
 }

@@ -14,7 +14,7 @@ export const btnDataArray: btnDataI[] = [
 	},
 	{
 		value: 'Румунія',
-		imgSrc: '/searchimg/7b8635b6-c877-4a2b-8fb9-84bdf81ae143.webp ',
+		imgSrc: '/searchimg/84bdf81ae143.webp ',
 	},
 	{
 		value: 'Юго-Восточная Азия',

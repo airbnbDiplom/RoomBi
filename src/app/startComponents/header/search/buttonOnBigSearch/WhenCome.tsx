@@ -43,6 +43,16 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			) {
 				dispatch(setWhenObjDateCome(calendarDateDStr))
 				dispatch(setWhenObjDateOut(calendarDateComStr))
+			} else if (
+				calendarDateDStr !== '' &&
+				calendarDate.toString() === new Date(calendarDateDStr).toString()
+			) {
+				const date = new Date(calendarDateDStr)
+				const newDate = new Date(date.setDate(date.getDate() + 1))
+
+				dispatch(setWhenObjDateCome(calendarDateComStr))
+				dispatch(setWhenObjDateOut(newDate.toString()))
+				setDateVieOnButtonSearch(formatted(calendarDate))
 			} else {
 				setDateVieOnButtonSearch(formatted(calendarDate))
 				dispatch(setBtnState(SearchBtnEnum.WhenDeparture))
@@ -59,14 +69,11 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 		}
 	}
 	const formatted = (date: Date): string => {
-		const formatter = new Intl.DateTimeFormat(
-			t('locale'), //TODO: заменить на нужный локаль	язык отображения даты
-			{
-				day: 'numeric',
-				month: 'long',
-				year: 'numeric',
-			}
-		)
+		const formatter = new Intl.DateTimeFormat(t('locale'), {
+			day: 'numeric',
+			month: 'long',
+			year: 'numeric',
+		})
 		return formatter.format(date)
 	}
 	return (
@@ -83,7 +90,7 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
 					}`}
 				>
-					<p className={`m-0 ${style.colorOne}`}>{t('Arrival')}</p>
+					<p className={`m-0 ${style.head}`}>{t('Arrival')}</p>
 					<p className={`${style.colorTwo} m-0`}>{dateVieOnButtonSearch}</p>
 				</div>
 				{dateVieOnButtonSearch !== t('AddADate') && (

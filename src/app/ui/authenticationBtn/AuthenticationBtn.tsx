@@ -27,14 +27,14 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				>
 					<Image
 						priority
-						src={isTeamBlack ? './icon/burgerW.svg' : './icon/burger.svg'}
+						src={isTeamBlack ? '/icon/burgerW.svg' : '/icon/burger.svg'}
 						width={22}
 						height={22}
 						alt='List icon'
 					/>
 					<Image
 						priority
-						src={isTeamBlack ? './icon/personW.svg' : './icon/person.svg'}
+						src={isTeamBlack ? '/icon/personW.svg' : '/icon/person.svg'}
 						width={22}
 						height={22}
 						alt='person icon'

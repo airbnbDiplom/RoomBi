@@ -2,7 +2,7 @@ import { ThemProps, SearchBtnEnum, AutoCompleteList } from '@/app/type/type'
 import autoCompleteService from '@/app/services/autoCompleteService'
 import style from '../Search.module.css'
 import WhereDropDawn from './WhereDropDawn'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import WhereOptionDropDawn from './WhereOptionDropDawn'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
@@ -11,14 +11,16 @@ import { setWhereEmptyObj } from '@/app/redux/searchInHeader/SearchSlice'
 import { useTranslation } from 'react-i18next'
 
 interface whereProps {
+	inputRef: React.RefObject<HTMLInputElement>
 	setTeamBlack: (setWhenDrop: boolean) => void
 }
 const Where: React.FC<whereProps & ThemProps> = ({
+	inputRef,
 	setTeamBlack,
 	isTeamBlack,
 }) => {
 	const { t } = useTranslation()
-	const inputRef = useRef<HTMLInputElement>(null)
+	//const inputRef = useRef<HTMLInputElement>(null)
 	const [autoList, setAutoList] = useState<AutoCompleteList>(
 		{} as AutoCompleteList
 	)
@@ -42,8 +44,11 @@ const Where: React.FC<whereProps & ThemProps> = ({
 		if (btnState === SearchBtnEnum.Where) {
 			setWhenDropDawn(true)
 			if (inputRef.current) inputRef.current.focus()
-		} else setWhenDropDawn(false)
-	}, [btnState, isTeamBlack])
+		} else {
+			setWhenDropDawn(false)
+			setWhereOptionBlack(false)
+		}
+	}, [btnState, isTeamBlack, inputRef])
 
 	const clearDateOnButton = (event: any) => {
 		event.preventDefault()
@@ -53,16 +58,15 @@ const Where: React.FC<whereProps & ThemProps> = ({
 	}
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		if (event.target.value.length > 2) {
-			autoCompleteService(event.target.value).then(
-				(data: AutoCompleteList | null) => {
-					if (data) {
-						setAutoList(data)
-					} else {
-						console.log('Where handleInputChange No data fetched.')
-					}
+		const value = event.target.value.trim()
+		if (value.length > 2) {
+			autoCompleteService(value).then((data: AutoCompleteList | null) => {
+				if (data) {
+					setAutoList(data)
+				} else {
+					console.log('Where handleInputChange No data fetched.')
 				}
-			)
+			})
 		}
 		setStringInput(event.target.value)
 		setWhereOptionBlack(true)
@@ -90,7 +94,7 @@ const Where: React.FC<whereProps & ThemProps> = ({
 						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
 					}`}
 				>
-					<p className={`m-0 ${style.colorOne}`}>{t('Where')}</p>
+					<p className={`m-0 ${style.head}`}>{t('Where')}</p>
 					<input
 						id='inputWhere'
 						ref={inputRef}

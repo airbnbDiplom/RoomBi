@@ -5,12 +5,14 @@ import { SearchBtnEnum, SearchKindSwitch } from '@/app/type/type'
 import React, { SetStateAction, useEffect, useRef, useState } from 'react'
 import { useAppDispatch } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
+import { useTranslation } from 'react-i18next'
 
 const SmallSearch: React.FC<SearchKindSwitch> = ({
 	setSmallSearchOn,
 	setBigSearchOn,
 	setBigSearchOnBySmall,
 }) => {
+	const { t } = useTranslation()
 	const [scroll, setScroll] = useState(window.scrollY)
 	const smallSearch = useRef<HTMLDivElement>(null)
 
@@ -37,7 +39,7 @@ const SmallSearch: React.FC<SearchKindSwitch> = ({
 				setBigSearchOnBySmall(false)
 			}, 150)
 		}
-	}, [scroll])
+	}, [scroll, setBigSearchOn, setBigSearchOnBySmall, setSmallSearchOn])
 
 	const clickOpenDropDawnInBigSearch = (
 		event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -83,7 +85,11 @@ const SmallSearch: React.FC<SearchKindSwitch> = ({
 						clickOpenDropDawnInBigSearch(event, `whereSmall`)
 					}}
 				>
-					<div className={`mt-3 mb-3 me-1 p-0 ${style.border}`}>Будь куди</div>
+					<div
+						className={`mt-3 mb-3 me-1 p-0 ${style.border} ${style.textWrap}`}
+					>
+						{t('Anywhere')}
+					</div>
 				</button>
 			</Col>
 			<Col className={`d-flex align-items-center justify-content-center p-0`}>
@@ -93,8 +99,10 @@ const SmallSearch: React.FC<SearchKindSwitch> = ({
 					}}
 					className={`p-0 ${style.resetButton}`}
 				>
-					<div className={`mt-3 mb-3 me-1 pe-1 p-0 ${style.border}`}>
-						Будь-який тиждень
+					<div
+						className={`mt-3 mb-3 me-1 pe-1 p-0 ${style.border} ${style.textWrap}`}
+					>
+						{t('AnyWeek')}
 					</div>
 				</button>
 			</Col>
@@ -105,7 +113,9 @@ const SmallSearch: React.FC<SearchKindSwitch> = ({
 						clickOpenDropDawnInBigSearch(event, `whoSmall`)
 					}}
 				>
-					<div className={`mt-3 mb-3 p-0`}>Додаты гостей</div>
+					<div className={`mt-3 mb-3 p-0 ${style.textWrap}`}>
+						{t('AddedGuests')}
+					</div>
 				</button>
 			</Col>
 			<Col

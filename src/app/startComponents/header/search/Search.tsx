@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import style from './Search.module.css'
 import { Col, Row } from 'react-bootstrap'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import {
 	SearchDataState,
 	SearchKindSwitch,
@@ -9,11 +9,12 @@ import {
 	SearchBtnEnum,
 } from '@/app/type/type'
 import Where from './buttonOnBigSearch/Where'
-import Who from './buttonOnBigSearch/Who'
+import Who from './buttonOnBigSearch/why'
 import WhenCome from './buttonOnBigSearch/WhenCome'
 import WhenDeparture from './buttonOnBigSearch/WhenDeparture'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
+import SearchBtn from './buttonOnBigSearch/searchBtn'
 
 interface propsSearchKindSwitchP {
 	propsKindSwitch: SearchKindSwitch
@@ -40,7 +41,7 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 	const [scroll, setScroll] = useState(Number)
 	const [scrollAfterSmallSearch, setScrollAfterSmallSearch] = useState(-1)
 	const [flag, setFlag] = useState(false)
-
+	const inputRef = useRef<HTMLInputElement>(null)
 	const searchBig = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
@@ -80,12 +81,19 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 		return () => {
 			document.removeEventListener('click', handleClickOutside)
 		}
-	}, [dispatch, btnState])
+	}, [
+		dispatch,
+		btnState,
+		isBigSearchOnBySmall,
+		setBigSearchOn,
+		setBigSearchOnBySmall,
+		setSmallSearchOn,
+	])
 
-	const handelScrollFromSmall = () => {
+	const handelScrollFromSmall = useCallback(() => {
 		if (flag) setScrollAfterSmallSearch(window.scrollY)
 		setFlag(true)
-	}
+	}, [flag, setScrollAfterSmallSearch])
 
 	useEffect(() => {
 		if (scrollAfterSmallSearch !== -1) {
@@ -98,7 +106,13 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 				setBigSearchOn(false)
 			}, 150)
 		}
-	}, [scrollAfterSmallSearch])
+	}, [
+		dispatch,
+		scrollAfterSmallSearch,
+		handelScrollFromSmall,
+		setBigSearchOn,
+		setSmallSearchOn,
+	])
 
 	useEffect(() => {
 		if (!isBigSearchOnBySmall && scroll !== 0) {
@@ -116,7 +130,14 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 		return () => {
 			window.removeEventListener('scroll', handelScrollFromSmall)
 		}
-	}, [scroll])
+	}, [
+		dispatch,
+		scroll,
+		handelScrollFromSmall,
+		isBigSearchOnBySmall,
+		setBigSearchOn,
+		setSmallSearchOn,
+	])
 
 	return (
 		<div
@@ -125,28 +146,23 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 				isTeamBlack ? style.borderWhite : style.borderBlack
 			} ${style.searchAllContainer} text-end`}
 		>
-			<div className={`${style.item} ${style.item_1} ${style.searchStyleBtn} `}>
-				<Where setTeamBlack={setTeamBlack} isTeamBlack={isTeamBlack} />
-			</div>
-			<div className={`${style.item} ${style.item_2} ${style.searchStyleBtn} `}>
-				<WhenCome isTeamBlack={isTeamBlack} />
-			</div>
-			<div className={`${style.item} ${style.item_3} ${style.searchStyleBtn}`}>
-				<WhenDeparture isTeamBlack={isTeamBlack} />
-			</div>
-			<div className={`${style.item} ${style.item_4} ${style.searchStyleBtn}`}>
-				<Who isTeamBlack={isTeamBlack} />
-			</div>
-			<div
-				className={`${style.item} ${style.item_5}  ${style.cursor}  ${style.search}`}
-			>
-				<Image
-					src={'/icon/search.svg'}
-					width={30}
-					height={30}
-					alt='search icon'
+			<div className={` ${style.item_1} ${style.searchStyleBtn} `}>
+				<Where
+					inputRef={inputRef}
+					setTeamBlack={setTeamBlack}
+					isTeamBlack={isTeamBlack}
 				/>
 			</div>
+			<div className={` ${style.item_2} ${style.searchStyleBtn} `}>
+				<WhenCome isTeamBlack={isTeamBlack} />
+			</div>
+			<div className={` ${style.item_3} ${style.searchStyleBtn}`}>
+				<WhenDeparture isTeamBlack={isTeamBlack} />
+			</div>
+			<div className={` ${style.item_4} ${style.searchStyleBtn}`}>
+				<Who isTeamBlack={isTeamBlack} />
+			</div>
+			<SearchBtn inputRef={inputRef} />
 		</div>
 	)
 }

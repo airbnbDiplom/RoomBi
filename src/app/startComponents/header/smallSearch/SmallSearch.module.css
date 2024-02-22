@@ -30,6 +30,9 @@
 	background-color: var(--eerieBlack);
 	border-radius: 25px;
 }
+.textWrap {
+	text-wrap: wrap;
+}
 .resetButton {
 	background: none;
 	border: none;
