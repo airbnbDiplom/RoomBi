@@ -41,7 +41,7 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 	const [scroll, setScroll] = useState(Number)
 	const [scrollAfterSmallSearch, setScrollAfterSmallSearch] = useState(-1)
 	const [flag, setFlag] = useState(false)
-
+	const inputRef = useRef<HTMLInputElement>(null)
 	const searchBig = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
@@ -147,7 +147,11 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 			} ${style.searchAllContainer} text-end`}
 		>
 			<div className={` ${style.item_1} ${style.searchStyleBtn} `}>
-				<Where setTeamBlack={setTeamBlack} isTeamBlack={isTeamBlack} />
+				<Where
+					inputRef={inputRef}
+					setTeamBlack={setTeamBlack}
+					isTeamBlack={isTeamBlack}
+				/>
 			</div>
 			<div className={` ${style.item_2} ${style.searchStyleBtn} `}>
 				<WhenCome isTeamBlack={isTeamBlack} />
@@ -158,7 +162,7 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 			<div className={` ${style.item_4} ${style.searchStyleBtn}`}>
 				<Who isTeamBlack={isTeamBlack} />
 			</div>
-			<SearchBtn />
+			<SearchBtn inputRef={inputRef} />
 		</div>
 	)
 }

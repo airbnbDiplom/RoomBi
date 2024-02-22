@@ -54,7 +54,18 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			) {
 				dispatch(setWhenObjDateCome(calendarDateDStr))
 				dispatch(setWhenObjDateOut(calendarDateComStr))
+			} else if (
+				calendarDateDStr !== '' &&
+				calendarDateD.toString() === new Date(calendarDateComStr).toString()
+			) {
+				const date = new Date(calendarDateD)
+				const newDate = new Date(date.setDate(date.getDate() + 1))
+
+				dispatch(setWhenObjDateCome(calendarDateComStr))
+				dispatch(setWhenObjDateOut(newDate.toString()))
+				setDateVieOnButtonSearch(formatted(calendarDateD))
 			} else {
+				console.log('calendarDateD', calendarDateD)
 				setDateVieOnButtonSearch(formatted(calendarDateD))
 				dispatch(setBtnState(SearchBtnEnum.Who))
 			}
@@ -69,11 +80,14 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 		}
 	}
 	const formatted = (date: Date): string => {
+		console.log('date', date)
 		const formatter = new Intl.DateTimeFormat(t('locale'), {
 			day: 'numeric',
 			month: 'long',
 			year: 'numeric',
 		})
+
+		//console.log('formatter.format(date)', formatter.format(date))
 		return formatter.format(date)
 	}
 	return (
