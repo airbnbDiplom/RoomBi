@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DateBi, DateBooking } from "@/app/type/type";
-
-// export interface Booking {
-//   apartmentId: number;
-//   checkInDate: DateBi;
-//   checkOutDate: DateBi;
-//   totalPrice: number;
-// }
+import { Draft } from "@reduxjs/toolkit";
 
 type reserv = {
   date: DateBooking | null;
@@ -16,6 +10,8 @@ type reserv = {
   numberOfBabies: number;
   numberOfAnimals: number;
   totalPrice: number;
+  serviceFee: number;
+  pricePerNight: number;
 };
 
 const initialState: reserv = {
@@ -26,6 +22,8 @@ const initialState: reserv = {
   numberOfBabies: 0,
   numberOfAnimals: 0,
   totalPrice: 0,
+  serviceFee: 0,
+  pricePerNight: 0,
 };
 
 const reservSlice = createSlice({
@@ -51,25 +49,46 @@ const reservSlice = createSlice({
         state.date.end = action.payload;
       }
     },
+    setPricePerNight(state, action: PayloadAction<number>) {
+      state.pricePerNight = action.payload;
+      state.serviceFee = action.payload / 10;
+      state.totalPrice = state.serviceFee + action.payload;
+    },
+    setTotalPrice(state, action: PayloadAction<number>) {
+      if (state.numberOfGuests > 3) {
+        const serviceFee = (state.numberOfGuests - 3) * 50;
+        state.totalPrice = state.serviceFee + action.payload + serviceFee;
+      } else {
+        state.totalPrice = state.serviceFee + action.payload;
+      }
+    },
     setDate(state, action: PayloadAction<DateBooking | null>) {
       state.date = action.payload;
     },
-    incremenAdultst(state) {
-      state.numberOfAdults++;
+    increment(state: Draft<reserv>, action: PayloadAction<string>) {
+      (state as any)[action.payload]++;
       state.numberOfGuests++;
       if (state.numberOfGuests > 3) {
-        state.totalPrice = state.totalPrice + 50;
+        state.totalPrice += 50;
       }
     },
-    decrementAdultst(state) {
-      state.numberOfAdults--;
-      state.numberOfGuests--;
-      if (state.numberOfGuests > 3) {
-        state.totalPrice = state.totalPrice - 50;
+    decrement(state: Draft<reserv>, action: PayloadAction<string>) {
+      if ((state as any)[action.payload] > 0) {
+        (state as any)[action.payload]--;
+        state.numberOfGuests--;
+        if (state.numberOfGuests > 3) state.totalPrice -= 50;
       }
     },
   },
 });
 
-export const { setStartDate, setEndDate, setDate } = reservSlice.actions;
+export const {
+  setStartDate,
+  setEndDate,
+  setDate,
+  increment,
+  decrement,
+  setPricePerNight,
+  setTotalPrice,
+} = reservSlice.actions;
 export default reservSlice.reducer;

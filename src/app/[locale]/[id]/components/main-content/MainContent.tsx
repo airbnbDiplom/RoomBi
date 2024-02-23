@@ -8,12 +8,19 @@ import { OfferedAmenities } from "./offered-amenities/OfferedAmenities";
 import { Rating } from "../rating/Rating";
 import { CalendarBi } from "./calendar/CalendarBi";
 import { ReservMenu } from "./reservMenu/ReservMenu";
+import { useAppDispatch } from "@/app/redux/hook";
+import { useEffect } from "react";
+import { setPricePerNight } from "@/app/redux/reservState/reservSlice";
 const MainContent: React.FC<{ data: RentalApartmentDTO }> = ({
   data,
 }: {
   data: RentalApartmentDTO;
 }) => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(setPricePerNight(data.pricePerNight));
+  }, [dispatch, data.pricePerNight]);
   console.log("getApartamentId", data);
   return (
     <div className={style.container}>
@@ -41,10 +48,10 @@ const MainContent: React.FC<{ data: RentalApartmentDTO }> = ({
 
         <span className={style.br}></span>
         <OfferedAmenities data={data.offeredAmenities} />
-        <CalendarBi />
+        <CalendarBi data={data.dateBooking} />
       </div>
       <div className={style.blockRight}>
-        <ReservMenu />
+        <ReservMenu data={data.dateBooking} />
       </div>
     </div>
   );

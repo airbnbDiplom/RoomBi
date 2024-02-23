@@ -144,7 +144,7 @@ export interface RentalApartmentDTO {
   country?: string;
   offeredAmenities: OfferedAmenitiesDTO; // Предлагаемые удобства
   master: MasterForApartmentPage; // Хозяин
-  booking: BookingForApartmentPageDTO[]; // Бронирование
+  dateBooking: DateBooking[]; // Бронирование
   guestComments: GuestCommentsForApartmentPage[]; // Комментарии гостей
   pictures: ImgBi[];
 }

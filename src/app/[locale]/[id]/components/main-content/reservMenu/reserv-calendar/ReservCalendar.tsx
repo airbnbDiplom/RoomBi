@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import style from "./calendarBi.module.css";
+import style from "./reservCalendar.module.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import PrevArrow from "@/app/ui/arrow/PrevArrow";
@@ -34,22 +34,19 @@ function getDatesInRange(startDate: Date, endDate: Date): Date[] {
 const isDateInRange = (date: Date, start: Date, end: Date) => {
   return date >= start && date <= end;
 };
-const CalendarBi: React.FC<{ data: DateBooking[] }> = ({
+const ReservCalendar: React.FC<{ data: DateBooking[] }> = ({
   data,
 }: {
   data: DateBooking[];
 }) => {
   const dispatch = useAppDispatch();
-  const [screenWidth, setScreenWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 0
-  );
-  const [showDouble, setShowDouble] = useState(true);
-  const { t } = useTranslation();
-  const [value, onChange] = useState<Value>(null);
-  const [reserv, setReserv] = useState<Date[]>([]);
   const pricePerNight = useAppSelector(
     (state) => state.reservReducer.pricePerNight
   );
+  const { t } = useTranslation();
+  const [value, onChange] = useState<Value>(null);
+  const [reserv, setReserv] = useState<Date[]>([]);
+
   const initState = (Data: DateBooking[]) => {
     for (let i = 0; i < Data.length; i++) {
       const startDate = new Date(
@@ -67,21 +64,10 @@ const CalendarBi: React.FC<{ data: DateBooking[] }> = ({
       setReserv((prevReserv) => [...prevReserv, ...reserv]);
     }
   };
+
   useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [screenWidth]);
-  useEffect(() => {
-    setShowDouble(
-      screenWidth > 900 || screenWidth === undefined ? true : false
-    );
     initState(data);
-  }, [value, screenWidth, data]);
+  }, [value, data]);
 
   const dateParts = (date: Date) => {
     console.log(date);
@@ -134,6 +120,7 @@ const CalendarBi: React.FC<{ data: DateBooking[] }> = ({
         start: startDate,
         end: endDate,
       };
+
       const timestamp1 = new Date(
         startDate.year,
         startDate.month,
@@ -164,7 +151,7 @@ const CalendarBi: React.FC<{ data: DateBooking[] }> = ({
         }}
         value={value}
         locale={t("ISOLocale")} // Встановлення локалізації календаря
-        showDoubleView={showDouble}
+        showDoubleView={false}
         showNeighboringMonth={false} // Вимкнення відображення сусідніх місяців
         minDetail="month" // Встановлення мінімального рівня деталізації календаря
         prevLabel={<PrevArrow />} // Встановлення власного компонента для попередньої стрілки
@@ -176,4 +163,4 @@ const CalendarBi: React.FC<{ data: DateBooking[] }> = ({
     </div>
   );
 };
-export { CalendarBi };
+export { ReservCalendar };

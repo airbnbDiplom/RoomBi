@@ -2,43 +2,69 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "@/app/redux/hook";
 import style from "./reservSelect.module.css";
 import Image from "next/image";
+import { GuestsBlock } from "../guests-block/reserv-select/GuestsBlock";
+import { useTranslation } from "react-i18next";
 
 const ReservSelect: React.FC = () => {
-  const date = useAppSelector((state) => state.reservReducer.date);
-  const [ifDateEnd, setIfDateEnd] = useState(false);
+  const { t } = useTranslation();
+  const adults = useAppSelector((state) => state.reservReducer.numberOfAdults);
+  const children = useAppSelector(
+    (state) => state.reservReducer.numberOfChildren
+  );
+  const babies = useAppSelector((state) => state.reservReducer.numberOfBabies);
+  const animals = useAppSelector(
+    (state) => state.reservReducer.numberOfAnimals
+  );
+
+  const [isShow, setIsShow] = useState(false);
+  const [arrow, setArrow] = useState("/userInfo/arrowDown.svg");
   useEffect(() => {
-    if (
-      date?.start.day === date?.end.day &&
-      date?.start.month === date?.end.month &&
-      date?.start.year === date?.end.year
-    ) {
-      setIfDateEnd(false);
+    if (isShow) {
+      setArrow("/userInfo/upArrow.svg");
     } else {
-      setIfDateEnd(true);
+      setArrow("/userInfo/arrowDown.svg");
     }
-  }, [date]);
+  }, [isShow]);
+  const showBlock = () => {
+    setIsShow(!isShow);
+  };
   return (
     <div className={style.containerDate}>
       <div className={style.item}>
-        <p>Гості</p>
-        <p>Додайте дату</p>
+        <p>
+          {t("adultsApartament")} {adults}
+        </p>
+        {children !== 0 && (
+          <p>
+            , {t("childrenApartament")} {children}
+          </p>
+        )}
+        {babies !== 0 && (
+          <p>
+            , {t("babiesApartament")} {babies}
+          </p>
+        )}
+        {animals !== 0 && (
+          <p>
+            , {t("animalsApartament")} {animals}
+          </p>
+        )}
       </div>
 
       <div className={style.itemLeft}>
         <Image
+          onClick={showBlock}
           className={style.mainImage}
-          src={"/userInfo/arrowDown.svg"}
+          src={arrow}
           alt={"arrow"}
-          width={35}
-          height={35}
+          width={25}
+          height={25}
           priority
         />
       </div>
+      {isShow && <GuestsBlock />}
     </div>
   );
 };
 
 export { ReservSelect };
-
-//arrowDown
-//upArrow
