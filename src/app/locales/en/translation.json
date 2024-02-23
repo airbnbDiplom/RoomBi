@@ -39,7 +39,7 @@
 	"placeSleepApartament":"A place to sleep",
 	"amenitiesTitleApartament":"What are the amenities here",
 	"wiFiApartament":"WI-FI",
-	"tVApartament":"tv",
+	"tvApartament":"tv",
 	"kitchenApartament":"Kitchen",
 	"washingMachineApartament":"Washing machine",
 	"freeParkingApartament":"Free Parking",
@@ -64,7 +64,10 @@
 	"firstAidKitApartament":"First aid kit",
 	"fireExtinguisherApartament":"Extinguisher",
 	"carbonMonoxideDetectorApartament":"Carbon monoxide detector",
-
+    "btnsHowMoreCommentsStart":"Show all",
+	"btnsHowMoreCommentsEnd":"reviews",
+	"contactHostApartament":"Contact the host",
+	
  
 	"OfferApartment": "Offer an apartment at",
 	"AddADate": "Add a date",

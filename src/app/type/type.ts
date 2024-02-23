@@ -144,8 +144,8 @@ export interface RentalApartmentDTO {
   country?: string;
   offeredAmenities: OfferedAmenitiesDTO; // Предлагаемые удобства
   master: MasterForApartmentPage; // Хозяин
-  booking?: BookingForApartmentPageDTO[]; // Бронирование
-  guestComments?: GuestCommentsForApartmentPage[]; // Комментарии гостей
+  booking: BookingForApartmentPageDTO[]; // Бронирование
+  guestComments: GuestCommentsForApartmentPage[]; // Комментарии гостей
   pictures: ImgBi[];
 }
 
@@ -201,10 +201,28 @@ export interface BookingForApartmentPageDTO {
 export interface GuestCommentsForApartmentPage {
   id: number;
   guestIdUser: number;
-  userName?: string; // Имя пользователя
-  userCountry?: string; // Страна пользователя
-  userAvatar?: string; // Аватар пользователя
-  comment?: string; // Текст комментария
+  userName: string; // Имя пользователя
+  userCountry: string; // Страна пользователя
+  userAvatar: string; // Аватар пользователя
+  comment: string; // Текст комментария
   dateTime: Date; // Дата и время комментария
   rating: number; // Рейтинг
+}
+
+export interface DateBi {
+  day: number;
+  month: number;
+  year: number;
+}
+
+export interface DateBooking {
+  start: DateBi;
+  end: DateBi;
+}
+
+export interface Booking {
+  apartmentId: number;
+  checkInDate: DateBi;
+  checkOutDate: DateBi;
+  totalPrice: number;
 }

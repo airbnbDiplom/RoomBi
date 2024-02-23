@@ -2,10 +2,12 @@
 import { RentalApartmentDTO } from "@/app/type/type";
 import style from "./mainContent.module.css";
 import { useTranslation } from "react-i18next";
-import Image from "next/image";
 import { Master } from "./master/Master";
 import { PlaceSleep } from "./place-sleep/PlaceSleep";
 import { OfferedAmenities } from "./offered-amenities/OfferedAmenities";
+import { Rating } from "../rating/Rating";
+import { CalendarBi } from "./calendar/CalendarBi";
+import { ReservMenu } from "./reservMenu/ReservMenu";
 const MainContent: React.FC<{ data: RentalApartmentDTO }> = ({
   data,
 }: {
@@ -29,36 +31,21 @@ const MainContent: React.FC<{ data: RentalApartmentDTO }> = ({
           <span className={style.point}></span>
           {data.bathrooms} {t("bathroomApartament")}
         </p>
-        <div className={style.rating}>
-          <Image
-            src="/star.svg"
-            width={15}
-            height={15}
-            alt="Picture of the author"
-            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw"
-          />
-          <p>{data.objectRating}</p>
-          <span className={style.point}></span>
-          <p>
-            {data.guestComments?.length} {t("reviewsApartament")}
-          </p>
-        </div>
+        <Rating data={data} />
         <span className={style.br}></span>
         <Master data={data.master} />
         <span className={style.br}></span>
-        <p>
-          Тонгвістий котедж у двотисячному гончарному мистецькому селі. Великий
-          монолітний будинок з триповерховою терасою Музею культури гітари
-          Serra, відомий своїм виразним фасадом у двотисячному гончарному
-          селищі, яке дуже добре поєднується з природою. Насолоджуйтеся
-          розслаблюючим емоційним цілющим святом у затишній, привітній
-        </p>
+        <p>{data.offeredAmenities.description}</p>
         <span className={style.br}></span>
         <PlaceSleep data={data.pictures} />
+
         <span className={style.br}></span>
         <OfferedAmenities data={data.offeredAmenities} />
+        <CalendarBi />
       </div>
-      <div className={style.blockRight}></div>
+      <div className={style.blockRight}>
+        <ReservMenu />
+      </div>
     </div>
   );
 };

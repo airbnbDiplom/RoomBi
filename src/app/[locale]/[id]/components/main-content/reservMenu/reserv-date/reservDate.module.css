@@ -1,0 +1,29 @@
+.containerDate{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.containerDate p{
+  margin: 0;
+  white-space: nowrap; /* Запрещаем перенос текста */
+  overflow: hidden; /* Скрываем текст, который не помещается в контейнер */
+  text-overflow: ellipsis; /* Добавляем троеточие в конце обрезанного текста */
+    
+}
+
+.containerDate:active{
+    border: 1px solid black;
+    border-radius: 12px;
+}
+.item, .itemLeft{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 50px;
+
+   
+}
+.item{
+    border-right: 1px solid black ;
+}
