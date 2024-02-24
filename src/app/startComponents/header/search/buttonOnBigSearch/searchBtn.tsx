@@ -4,7 +4,11 @@ import style from '../Search.module.css'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import autoCompleteService from '@/app/services/autoCompleteService'
 import { AutoCompleteList } from '@/app/type/type'
-import { setWhereObj } from '@/app/redux/searchInHeader/SearchSlice'
+import {
+	setWhenObjDateCome,
+	setWhenObjDateOut,
+	setWhereObj,
+} from '@/app/redux/searchInHeader/SearchSlice'
 
 interface props {
 	inputRef: React.RefObject<HTMLInputElement>
@@ -29,6 +33,28 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 					}
 				}
 			)
+		}
+		if (
+			(dataSearch.whenObj.dateCome === '' &&
+				dataSearch.whenObj.dateOut !== '') ||
+			(dataSearch.whenObj.dateCome !== '' && dataSearch.whenObj.dateOut === '')
+		) {
+			if (dataSearch.whenObj.dateCome === '') {
+				const date = new Date(dataSearch.whenObj.dateOut)
+				dispatch(setWhenObjDateCome(dataSearch.whenObj.dateOut))
+				dispatch(
+					setWhenObjDateOut(
+						new Date(date.setDate(date.getDate() + 1)).toString()
+					)
+				)
+			} else {
+				const date = new Date(dataSearch.whenObj.dateCome)
+				dispatch(
+					setWhenObjDateOut(
+						new Date(date.setDate(date.getDate() + 1)).toString()
+					)
+				)
+			}
 		}
 		console.log('dataSearch', dataSearch)
 	}

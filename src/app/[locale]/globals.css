@@ -186,6 +186,7 @@ abbr[title] {
 	border: none !important;
 }
 .react-calendar--doubleView {
+	max-width: 600px !important;
 	width: 100% !important;
 }
 .react-calendar__navigation__label {
@@ -246,20 +247,30 @@ abbr[title] {
 .react-calendar__viewContainer {
 	padding: 0 5% 0 5% !important;
 }
-.react-calendar__tile--now {
-	background: transparent !important;
-	color: black !important;
-}
+
 .react-calendar__tile--now:hover {
 	background: #e6e6e6 !important;
 	color: black !important;
 }
 
-.react-calendar__tile--now:enabled:focus {
+.react-calendar__tile--now.react-calendar__tile--now:focus {
 	background: black !important;
 	color: white !important;
 }
 
+.react-calendar__tile--active.react-calendar__tile--active,
+.react-calendar__tile--now.react-calendar__tile--active {
+	background: black !important;
+	color: white !important;
+}
+.react-calendar__tile--now {
+	background: white !important  ;
+	color: black !important;
+}
+.react-calendar__tile--rangeEnd {
+	background: black !important;
+	color: white !important;
+}
 .page_main__yiKJr {
 	min-height: 20vh !important;
 	padding: 0px !important;

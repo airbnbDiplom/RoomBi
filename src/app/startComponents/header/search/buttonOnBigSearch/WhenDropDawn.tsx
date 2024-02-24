@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector, useWindowSize } from '@/app/redux/hook'
-import style from '../Search.module.css'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
+import style from '../Search.module.css'
 import PrevArrow from '../../../../ui/arrow/PrevArrow'
 import NextArrow from '../../../../ui/arrow/NextArrow'
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
