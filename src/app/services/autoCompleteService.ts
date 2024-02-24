@@ -1,4 +1,7 @@
+'use server'
+
 import { AutoCompleteList } from '@/app/type/type'
+
 const autoCompleteService = async (inputString: string) => {
 	//const urlSearch = process.env.NEXT_AUTOCOMPLETE
 	const urlSearch = 'https://nominatim.openstreetmap.org/search?'
