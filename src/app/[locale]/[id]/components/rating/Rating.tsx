@@ -1,7 +1,6 @@
 "use client";
 import { RentalApartmentDTO } from "@/app/type/type";
 import style from "./rating.module.css";
-
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 const Rating: React.FC<{ data: RentalApartmentDTO }> = ({
