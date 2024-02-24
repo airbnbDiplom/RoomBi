@@ -10,7 +10,6 @@ const PlaceSleep: React.FC<{ data: ImgBi[] }> = ({
   data: ImgBi[];
 }) => {
   const { t } = useTranslation();
-  console.log("getApartamentId", data);
   return (
     <div>
       <h3>{t("placeSleepApartament")}</h3>

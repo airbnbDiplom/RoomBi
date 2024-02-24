@@ -7,7 +7,7 @@ type App = {
 
 const initialState: App = {
   isMapPage: false,
-  location: "Ua",
+  location: "en",
 };
 
 const appSlice = createSlice({

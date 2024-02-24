@@ -21,22 +21,22 @@ const OfferedAmenities: React.FC<{ data: OfferedAmenitiesDTO }> = ({
     }
     setState(keys);
   }, [data]);
-  console.log("state", state);
   return (
     <div>
       <h3>{t("amenitiesTitleApartament")}</h3>
       <div className={style.container}>
-        <p>{t("tV" + "Apartament")}</p>
         {state.map((item) => {
           return (
-            <Image
-              key={item}
-              src={`/userInfo/${item}.svg`}
-              width={35}
-              height={35}
-              alt={item}
-              sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw"
-            />
+            <div key={item} className={style.item}>
+              <Image
+                src={`/userInfo/${item}.svg`}
+                width={35}
+                height={35}
+                alt={item}
+                sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              />
+              <p>{t(item + "Apartament")}</p>
+            </div>
           );
         })}
       </div>

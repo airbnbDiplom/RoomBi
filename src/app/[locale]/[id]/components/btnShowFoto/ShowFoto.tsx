@@ -1,5 +1,5 @@
 "use client";
-import { ImgBi, RentalApartmentDTO } from "@/app/type/type";
+import { ImgBi } from "@/app/type/type";
 import style from "./showFoto.module.css";
 import Image from "next/image";
 import { Button, Modal } from "react-bootstrap";

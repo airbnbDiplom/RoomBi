@@ -8,15 +8,22 @@ const ButtonShowMore: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const handleClickShowMore = () => {
-    console.log("handleClickShowMore");
     dispatch(pushPushOnePage());
   };
-  return (
-    <div className={style.container}>
-      <Button variant="dark" onClick={handleClickShowMore}>
-        {t("showMoreBtn")}
-      </Button>
-    </div>
+  const apartmentsAllLength = useAppSelector(
+    (state) => state.apartmentsReducer.apartmentsAll.length
   );
+  const apartmentsLength = useAppSelector(
+    (state) => state.apartmentsReducer.apartments.length
+  );
+  if (apartmentsAllLength === 0) return <></>;
+  if (apartmentsAllLength !== apartmentsLength + 6)
+    return (
+      <div className={style.container}>
+        <Button variant="dark" onClick={handleClickShowMore}>
+          {t("showMoreBtn")}
+        </Button>
+      </div>
+    );
 };
 export { ButtonShowMore };

@@ -70,10 +70,14 @@ width: 90%;
 
 .card{
 	background-color: var(--gainsboro);
-	width: 80%;
+	width: 60%;
 	margin-bottom: 10px;
-	margin-left: 10%;
+	margin-left: 20%;
 	cursor: pointer;
+	@media (min-width: 576px) {
+			width: 100%;
+			margin-left: 0%;
+		}
 	}
 	.caruselContainer{
 		min-width:130px;
