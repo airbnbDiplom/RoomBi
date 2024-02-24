@@ -1,5 +1,5 @@
 "use client";
-import { ImgBi, RentalApartmentDTO } from "@/app/type/type";
+import { ImgBi } from "@/app/type/type";
 import style from "./foto.module.css";
 import Image from "next/image";
 import { ShowFoto } from "../btnShowFoto/ShowFoto";
@@ -21,8 +21,8 @@ const Foto: React.FC<{ data: ImgBi[] }> = ({ data }: { data: ImgBi[] }) => {
             className={style.mainImage}
             src={`https://roombi.space/Car/${mainImage.pictureUrl}`}
             alt={mainImage.pictureName}
-            width={500} // Укажите приблизительную ширину изображения здесь
-            height={300} // Укажите приблизительную высоту изображения здесь
+            width={500}
+            height={300}
             priority
           />
         </div>
@@ -32,8 +32,8 @@ const Foto: React.FC<{ data: ImgBi[] }> = ({ data }: { data: ImgBi[] }) => {
               className={style.image}
               src={`https://roombi.space/Car/${tempArr[0].pictureUrl}`}
               alt={tempArr[0].pictureName}
-              width={700} // Укажите приблизительную ширину изображения здесь
-              height={400} // Укажите приблизительную высоту изображения здесь
+              width={700}
+              height={400}
               priority
             />
 

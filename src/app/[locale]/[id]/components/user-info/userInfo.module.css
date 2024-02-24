@@ -4,3 +4,25 @@
     @media (min-width: 850px) { padding: 50px 10%; } 
     @media (min-width: 1050px) { padding: 50px 15%; } 
 }
+
+.br{
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(170, 168, 168);
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.btn{
+    display: inline-block;
+    border: 2px solid black;
+    border-radius: 9px;
+ }
+
+.footer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
