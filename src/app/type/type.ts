@@ -225,4 +225,12 @@ export interface Booking {
   checkInDate: DateBi;
   checkOutDate: DateBi;
   totalPrice: number;
+  payment: Payment;
+}
+
+export interface Payment {
+  cardNumber: string;
+  expirationDate: string;
+  cVV: string;
+  cardType: string;
 }

@@ -37,7 +37,7 @@ export const getApartamentId = async (id: string) => {
       revalidate: 5000,
     },
   });
-  if (!response.ok) throw new Error("Unable to fetch houses.");
+  if (!response.ok) throw new Error(response.statusText);
   return response.json();
 };
 

@@ -5,7 +5,7 @@ import { ReservDate } from "./reserv-date/ReservDate";
 import { ReservSelect } from "./reserv-select/ReservSelect";
 import { DateBooking } from "@/app/type/type";
 import { useTranslation } from "react-i18next";
-import { Button } from "react-bootstrap";
+import { ReservBtn } from "./reserv-btn/ReservBtn";
 
 const ReservMenu: React.FC<{ data: DateBooking[] }> = ({
   data,
@@ -72,9 +72,8 @@ const ReservMenu: React.FC<{ data: DateBooking[] }> = ({
         <p>{t("serviceFeeApartament")} RoomBi</p>
         <p>{serviceFee} $</p>
       </div>
-      <Button variant="danger" className={style.btn}>
-        {t("reserveApartament")}
-      </Button>
+      <ReservBtn />
+
       <div className={style.txtBlockMain}>
         <p>{t("allPaymentApartament")}</p>
         <p>{totalPrice}</p>

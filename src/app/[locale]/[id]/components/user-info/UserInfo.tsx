@@ -11,12 +11,16 @@ import { Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
+import { useAppDispatch } from "@/app/redux/hook";
+import { setId } from "@/app/redux/reservState/reservSlice";
 const UserInfo: React.FC<{ data: RentalApartmentDTO }> = ({
   data,
 }: {
   data: RentalApartmentDTO;
 }) => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  dispatch(setId(data.id));
   console.log("getApartamentId", data);
   const MapInf = useMemo(
     () =>

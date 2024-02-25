@@ -5,12 +5,16 @@ import { Button, Overlay, Tooltip } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { useSession } from "next-auth/react";
+import { putWishlists } from "@/app/services/wishlistsService";
 
 const MainHeader: React.FC<{ data: RentalApartmentDTO }> = ({
   data,
 }: {
   data: RentalApartmentDTO;
 }) => {
+  const session = useSession();
+  console.log("session", session.data);
   const [show, setShow] = useState(false);
   const [saveUrlImg, setSaveUrlImg] = useState("save");
   const target = useRef(null);
@@ -30,6 +34,8 @@ const MainHeader: React.FC<{ data: RentalApartmentDTO }> = ({
     }, 1000);
   };
   const save = () => {
+    if (session.data?.user?.name)
+      putWishlists(data.id, session.data?.user?.name);
     if (saveUrlImg == "save") {
       setSaveUrlImg("save2");
     } else {
@@ -41,7 +47,7 @@ const MainHeader: React.FC<{ data: RentalApartmentDTO }> = ({
     <div className={style.container}>
       <div className={style.leftBlock}>
         <h3>
-          {data.country}, {data.typeApartment}
+          {data.title}, {data.typeApartment}
         </h3>
       </div>
       <div className={style.rightBlock}>
@@ -69,18 +75,19 @@ const MainHeader: React.FC<{ data: RentalApartmentDTO }> = ({
             </Tooltip>
           )}
         </Overlay>
-        <Button variant="light" className={style.btn} onClick={save}>
-          {" "}
-          <Image
-            className={style.image}
-            src={`/userInfo/${saveUrlImg}.png`}
-            alt={"save"}
-            width={15}
-            height={15}
-            priority
-          />{" "}
-          {t("saveApartament")}
-        </Button>
+        {session.data && (
+          <Button variant="light" className={style.btn} onClick={save}>
+            <Image
+              className={style.image}
+              src={`/userInfo/${saveUrlImg}.png`}
+              alt={"save"}
+              width={15}
+              height={15}
+              priority
+            />
+            {t("saveApartament")}
+          </Button>
+        )}
       </div>
     </div>
   );
