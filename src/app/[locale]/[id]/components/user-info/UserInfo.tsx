@@ -13,6 +13,8 @@ import { useMemo } from "react";
 import dynamic from "next/dynamic";
 import { useAppDispatch } from "@/app/redux/hook";
 import { setId } from "@/app/redux/reservState/reservSlice";
+import { useSession } from "next-auth/react";
+import { ReservMenu } from "../main-content/reservMenu/ReservMenu";
 const UserInfo: React.FC<{ data: RentalApartmentDTO }> = ({
   data,
 }: {
@@ -20,6 +22,7 @@ const UserInfo: React.FC<{ data: RentalApartmentDTO }> = ({
 }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const session = useSession();
   dispatch(setId(data.id));
   console.log("getApartamentId", data);
   const MapInf = useMemo(
@@ -40,6 +43,10 @@ const UserInfo: React.FC<{ data: RentalApartmentDTO }> = ({
       <MainHeader data={data} />
       <Foto data={data.pictures} />
       <MainContent data={data} />
+      <div className={style.reservMenu}>
+        <ReservMenu data={data.dateBooking} />
+      </div>
+
       <span className={style.br}></span>
       <Rating data={data} />
       <Comments data={data.guestComments} />
@@ -56,9 +63,11 @@ const UserInfo: React.FC<{ data: RentalApartmentDTO }> = ({
           <Rating data={data} />
         </div>
         <div>
-          <span className={style.btn}>
-            <Button variant="light">{t("contactHostApartament")}</Button>
-          </span>
+          {session.data && (
+            <span className={style.btn}>
+              <Button variant="light">{t("contactHostApartament")}</Button>
+            </span>
+          )}
         </div>
       </div>
     </div>

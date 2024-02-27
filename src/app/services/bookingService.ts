@@ -1,6 +1,6 @@
 "use server";
 
-import { Booking } from "../type/type";
+import { Booking, Payment } from "../type/type";
 
 export const bookingFetch = async (booking: Booking, token: string) => {
   try {
@@ -21,9 +21,33 @@ export const bookingFetch = async (booking: Booking, token: string) => {
           payment: booking.payment,
         }),
       });
-      //   const responseData = await res.json();
-      console.log("putWishlists", res);
-      return res;
+      if (!res.ok) {
+        return null;
+      }
+      const responseData = await res.json();
+      console.log("putWishlists", responseData);
+      return responseData;
+    }
+  } catch (e) {
+    console.log("error", e);
+    return null;
+  }
+};
+
+export const bookingReserve = async (token: string) => {
+  try {
+    const url = process.env.NEXT_GET_PAYMENT_ID;
+    if (url) {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const responseData: Payment[] = await res.json();
+      console.log("bookingReserve", responseData[0]);
+      return responseData;
     }
   } catch (e) {
     console.log("error", e);

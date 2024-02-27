@@ -13,6 +13,7 @@ type reserv = {
   totalPrice: number;
   serviceFee: number;
   pricePerNight: number;
+  status: string;
 };
 
 const initialState: reserv = {
@@ -26,6 +27,7 @@ const initialState: reserv = {
   totalPrice: 0,
   serviceFee: 0,
   pricePerNight: 0,
+  status: "",
 };
 
 const reservSlice = createSlice({
@@ -35,6 +37,9 @@ const reservSlice = createSlice({
     setId(state, action: PayloadAction<number>) {
       state.id = action.payload;
     },
+    setStatus(state, action: PayloadAction<string>) {
+      state.status = action.payload;
+    },
     setStartDate(state, action: PayloadAction<DateBi>) {
       if (state.date == null) {
         const temp: DateBooking = {
@@ -43,9 +48,7 @@ const reservSlice = createSlice({
         };
         state.date = temp;
       }
-      console.log("state1", action.payload);
       if (state.date) {
-        console.log("state2");
         state.date.start = action.payload;
       }
     },
@@ -96,5 +99,6 @@ export const {
   decrement,
   setPricePerNight,
   setTotalPrice,
+  setStatus,
 } = reservSlice.actions;
 export default reservSlice.reducer;

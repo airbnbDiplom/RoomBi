@@ -33,13 +33,16 @@ const MainHeader: React.FC<{ data: RentalApartmentDTO }> = ({
       setShow(false);
     }, 1000);
   };
-  const save = () => {
-    if (session.data?.user?.name)
-      putWishlists(data.id, session.data?.user?.name);
-    if (saveUrlImg == "save") {
-      setSaveUrlImg("save2");
-    } else {
-      setSaveUrlImg("save");
+  const save = async () => {
+    if (session.data?.user?.name) {
+      const res = await putWishlists(data.id, session.data?.user?.name);
+      if (res) {
+        if (saveUrlImg == "save") {
+          setSaveUrlImg("save2");
+        } else {
+          setSaveUrlImg("save");
+        }
+      }
     }
   };
 

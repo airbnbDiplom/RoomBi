@@ -10,8 +10,9 @@
 .container{
     position: absolute;
     left: 5%;
-    width:95%;
-    /* height: 200px; */
+    width:85%;
+
+    z-index: 2;
     border: 1px solid black;
     border-radius: 12px;
     background-color: rgb(255, 252, 252);

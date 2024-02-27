@@ -14,6 +14,7 @@ const getHouses = async () => {
   if (!response.ok) throw new Error("Unable to fetch houses.");
   return response.json();
 };
+
 const getFirstPageServer = async () => {
   const url = process.env.NEXT_GET_FIRST_PAGE;
   if (!url) {
@@ -24,9 +25,14 @@ const getFirstPageServer = async () => {
       revalidate: 5000,
     },
   });
-  if (!response.ok) throw new Error("Unable to fetch houses.");
+  if (!response.ok) {
+    console.error("getFirstPageServer", response);
+    throw new Error("Unable to fetch houses.");
+  }
+
   return response.json();
 };
+
 export const getApartamentId = async (id: string) => {
   const url = process.env.NEXT_GET_APARTAMENT_ID;
   if (!url) {

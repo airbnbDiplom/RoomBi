@@ -84,6 +84,8 @@
 	"incorrectInputApartament":"incorrect input",
 	"requiredApartament":"required",
 	"chooseDateApartament":"Choose a date",
+	"paymentOkApartament":"payment was successful",
+	"paymentErrorApartament":"payment failed",
 	
 	"OfferApartment": "Offer an apartment at",
 	"AddADate": "Add a date",

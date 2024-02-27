@@ -84,6 +84,10 @@
 	"incorrectInputApartament":"Невірне введення",
 	"requiredApartament":"вимагається",
 	"chooseDateApartament":"Оберіть дату",
+	"paymentOkApartament":"оплата прошла успішно",
+	"paymentErrorApartament":"Платіж не вдалося",
+
+
 
 	"OfferApartment": "Запропонувати помешкання на",
 	"AddADate": "Додайте дату",

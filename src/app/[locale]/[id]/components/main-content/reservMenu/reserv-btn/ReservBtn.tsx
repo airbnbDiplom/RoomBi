@@ -1,11 +1,12 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useAppSelector } from "@/app/redux/hook";
 import style from "./reservBtn.module.css";
-import { Booking, DateBooking } from "@/app/type/type";
+import { Booking, DateBooking, Payment } from "@/app/type/type";
 import { useTranslation } from "react-i18next";
 import { Button, Form } from "react-bootstrap";
 import { useSession } from "next-auth/react";
-import { PaymentData } from "./tempData";
+import { useAppDispatch } from "@/app/redux/hook";
+import { setStatus } from "@/app/redux/reservState/reservSlice";
 import {
   FormControl,
   InputLabel,
@@ -14,10 +15,11 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import { bookingFetch } from "@/app/services/bookingService";
+import { bookingFetch, bookingReserve } from "@/app/services/bookingService";
 
 const ReservBtn: React.FC = () => {
   const session = useSession();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const [isShow, setIsShow] = useState(false);
   const [card, setCard] = useState("");
@@ -25,13 +27,24 @@ const ReservBtn: React.FC = () => {
   const [showValidity, setShowValidity] = useState("");
   const [showCard, setShowCard] = useState("");
   const [error, setError] = useState("");
-  const lng = useAppSelector((state) => state.appReducer.location);
+  const [paymentData, setPaymentData] = useState<Payment[] | null | undefined>(
+    null
+  );
+
   const { id, date, totalPrice } = useAppSelector(
     (state) => state.reservReducer
   );
 
-  const showBlock = () => {
-    setIsShow(!isShow);
+  const showBlock = async () => {
+    if (session.data?.user?.name) {
+      if (!isShow) {
+        const responseData: Payment[] | null | undefined = await bookingReserve(
+          session.data?.user?.name
+        );
+        setPaymentData(responseData);
+      }
+      setIsShow(!isShow);
+    }
   };
   const valid = (): boolean => {
     const dateRegex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
@@ -71,18 +84,27 @@ const ReservBtn: React.FC = () => {
     if (valid()) {
       if (card !== "") {
         const selectedIndex: number = parseInt(card);
-        if (date?.end !== undefined && date.start !== undefined) {
+        if (
+          date?.end !== undefined &&
+          date.start !== undefined &&
+          paymentData
+        ) {
           const request: Booking = {
             apartmentId: id,
             checkInDate: date?.start,
             checkOutDate: date?.end,
             totalPrice: totalPrice,
-            payment: PaymentData[selectedIndex],
+            payment: paymentData[selectedIndex],
           };
           if (session.data?.user?.name) {
             const res = await bookingFetch(request, session.data?.user?.name);
-            console.log("request", request);
-            console.log("request", res);
+            if (res) {
+              dispatch(setStatus("paymentOkApartament"));
+              setIsShow(false);
+            } else {
+              setIsShow(false);
+              dispatch(setStatus("paymentErrorApartament"));
+            }
           }
         }
       } else {
@@ -252,7 +274,7 @@ const ReservBtn: React.FC = () => {
         </Button>
         {isShow && (
           <div className={style.container}>
-            {PaymentData.length !== 0 && (
+            {paymentData && paymentData.length !== 0 && (
               <div>
                 <p className={style.title}> {t("payUsingApartament")}</p>
                 <FormControl
@@ -273,11 +295,12 @@ const ReservBtn: React.FC = () => {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    {PaymentData.map((item, index) => (
-                      <MenuItem key={item.cardNumber} value={index}>
-                        {item.cardNumber}
-                      </MenuItem>
-                    ))}
+                    {paymentData &&
+                      paymentData.map((item, index) => (
+                        <MenuItem key={item.cardNumber} value={index}>
+                          {item.cardNumber}
+                        </MenuItem>
+                      ))}
                   </Select>
                 </FormControl>
                 {card === "" && (

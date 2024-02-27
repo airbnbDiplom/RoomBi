@@ -14,7 +14,8 @@ const ReservMenu: React.FC<{ data: DateBooking[] }> = ({
 }) => {
   const { t } = useTranslation();
   const [countDay, setCountDay] = useState(1);
-  const date = useAppSelector((state) => state.reservReducer.date);
+  const { date, status } = useAppSelector((state) => state.reservReducer);
+
   const pricePerNight = useAppSelector(
     (state) => state.reservReducer.pricePerNight
   );
@@ -78,6 +79,17 @@ const ReservMenu: React.FC<{ data: DateBooking[] }> = ({
         <p>{t("allPaymentApartament")}</p>
         <p>{totalPrice}</p>
       </div>
+
+      {status !== "" && status === "paymentOkApartament" ? (
+        <span className={style.status} style={{ color: "green" }}>
+          {t(status)}
+        </span>
+      ) : null}
+      {status !== "" && status === "paymentErrorApartament" ? (
+        <span className={style.status} style={{ color: "red" }}>
+          {t(status)}
+        </span>
+      ) : null}
     </div>
   );
 };

@@ -5,7 +5,13 @@
     @media (min-width: 850px) { padding: 50px 10%; } 
     @media (min-width: 1050px) { padding: 50px 15%; } 
 }
-
+.reservMenu{
+    margin: 50px 0;
+    width: 100%;
+    @media (min-width: 750px) {
+         display: none;
+        } 
+}
 .br{
     display: block;
     width: 100%;
