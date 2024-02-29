@@ -1,4 +1,3 @@
-"use client";
 import { jwtDecode } from "jwt-decode";
 
 // Функція для розкодування токена та отримання часу закінчення (exp)
@@ -41,3 +40,16 @@ export function checkTokenExpiration(token: string): boolean {
     return false;
   }
 }
+
+// Функція для розкодування токена та отримання часу закінчення (exp)
+export const decodeTokenGetId = (token: string): number | null => {
+  try {
+    const decodedToken: any = jwtDecode(token);
+    if (decodedToken.Id) {
+      return decodedToken.Id;
+    }
+  } catch (error) {
+    console.error("Помилка розкодування токена:", error);
+  }
+  return null;
+};

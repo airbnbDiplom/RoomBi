@@ -24,7 +24,6 @@ const UserInfo: React.FC<{ data: RentalApartmentDTO }> = ({
   const dispatch = useAppDispatch();
   const session = useSession();
   dispatch(setId(data.id));
-  console.log("getApartamentId", data);
   const MapInf = useMemo(
     () =>
       dynamic(

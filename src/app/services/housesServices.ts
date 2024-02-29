@@ -33,18 +33,21 @@ const getFirstPageServer = async () => {
   return response.json();
 };
 
-export const getApartamentId = async (id: string) => {
+export const getApartamentId = async (id: string, idUser: string = "0") => {
   const url = process.env.NEXT_GET_APARTAMENT_ID;
   if (!url) {
     throw new Error("URL is undefined.");
   }
-  const response = await fetch(`${url}${id}`, {
+
+  const response = await fetch(`${url}?id=${id}&idUser=${idUser}`, {
     next: {
       revalidate: 5000,
     },
   });
   if (!response.ok) throw new Error(response.statusText);
-  return response.json();
+
+  const res = response.json();
+  return res;
 };
 
 export const getFirstPage = async () => {

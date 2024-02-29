@@ -142,6 +142,7 @@ export interface RentalApartmentDTO {
   house?: string;
   sport?: string;
   country?: string;
+  wish: boolean;
   offeredAmenities: OfferedAmenitiesDTO; // Предлагаемые удобства
   master: MasterForApartmentPage; // Хозяин
   dateBooking: DateBooking[]; // Бронирование

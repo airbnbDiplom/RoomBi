@@ -15,6 +15,7 @@ export const authLogin = async (email, password, type) => {
         type: type,
       }),
     });
+
     return res;
   } catch {
     return null;

@@ -4,7 +4,7 @@ import style from "./mainHeader.module.css";
 import { Button, Overlay, Tooltip } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import { putWishlists } from "@/app/services/wishlistsService";
 
@@ -14,12 +14,17 @@ const MainHeader: React.FC<{ data: RentalApartmentDTO }> = ({
   data: RentalApartmentDTO;
 }) => {
   const session = useSession();
-  console.log("session", session.data);
   const [show, setShow] = useState(false);
   const [saveUrlImg, setSaveUrlImg] = useState("save");
   const target = useRef(null);
   const { t } = useTranslation();
-
+  useEffect(() => {
+    if (data.wish === true) {
+      setSaveUrlImg("save2");
+    } else {
+      setSaveUrlImg("save");
+    }
+  }, [data.wish]);
   const copyCurrentUrl = () => {
     const textArea = document.createElement("textarea");
     textArea.value = window.location.href;

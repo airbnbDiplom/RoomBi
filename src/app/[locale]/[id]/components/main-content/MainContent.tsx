@@ -21,7 +21,7 @@ const MainContent: React.FC<{ data: RentalApartmentDTO }> = ({
   useEffect(() => {
     dispatch(setPricePerNight(data.pricePerNight));
   }, [dispatch, data.pricePerNight]);
-  console.log("getApartamentId", data);
+
   return (
     <div className={style.container}>
       <div className={style.blockLeft}>
