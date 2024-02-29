@@ -1,7 +1,7 @@
 {
 	"welcomeMessage": "Welcome to RoomBi",
 	"enterOrRegister": "Enter or register",
-	"enterEmail": "Eemail",
+	"email": "Email",
 	"password": "Password",
 	"confirmPassword": "Confirm password",
 	"enterValidEmail": "Please enter a valid email address.",
@@ -47,5 +47,17 @@
 	"Younger": "Younger",
 	"Pets": "Pets",
 	"TravelingWith": "Traveling with an assistance animal?",
-	"Why": "Why"
+	"Why": "Why",
+	"completeRegistration": "Complete registration",
+	"firstName": "First name",
+	"lastName": "Last name",
+	"identityData": "First and last name must match the data in the identity document.",
+	"selectCountryCode": "Select country code",
+	"phone": "Phone",
+	"birthDate": "Birth date",
+	"minAge": "Minimum age for registration is 18 years, other users will not see your birth date.",
+	"agreeAndContinue": "Agree and continue",
+	"incorrectDate": "Incorrect date",
+	"futureBirthDate": "Birth date cannot be in the future",
+	"minAgeError": "Minimum age for registration is 18 years"
 }

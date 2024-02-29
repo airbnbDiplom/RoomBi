@@ -14,6 +14,19 @@ function decodeTokenAndGetExpiration(token: string): number | null {
   return null;
 }
 
+// // Функція для розкодування токена та отримання часу закінчення (exp)
+// function decodeTokenAndGetExpiratio(token: string): number | null {
+//   try {
+//     const decodedToken: any = jwtDecode(token);
+//     if (decodedToken && decodedToken.exp) {
+//       return decodedToken.exp * 1000; // Перетворюємо секунди в мілісекунди
+//     }
+//   } catch (error) {
+//     console.error("Помилка розкодування токена:", error);
+//   }
+//   return null;
+// }
+
 // Функція для періодичної перевірки терміну дії токена
 export function checkTokenExpiration(token: string): boolean {
   const expirationTime = decodeTokenAndGetExpiration(token);

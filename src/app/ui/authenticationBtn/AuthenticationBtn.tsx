@@ -3,15 +3,18 @@ import { ThemProps } from "@/app/type/type";
 import Image from "next/image";
 import { Dropdown, Button } from "react-bootstrap";
 import style from "./AuthenticationBtn.module.css";
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
 import ModalForm from "./ModalForm";
-import intl from "react-intl-universal";
 import { useTranslation } from "react-i18next";
-// import "@/app/configs/i18next";
+import { useSession } from 'next-auth/react';
+import { signIn, signOut } from "next-auth/react";
 const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const { data: session } = useSession();
+  const user = session?.user?.name || null;
   const { t } = useTranslation();
+
   return (
     <Dropdown className={`d-flex align-item-center ${style.btn}`}>
       <Dropdown.Toggle
@@ -32,15 +35,45 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
             height={22}
             alt="List icon"
           />
-          <Image
+          {/* <Image
             priority
             src={isTeamBlack ? "./icon/personW.svg" : "./icon/person.svg"}
             width={22}
             height={22}
             alt="person icon"
-          />
+          /> */}
+           {user ? (
+        <div style={{
+          width: '22px',
+          height: '22px',
+          borderRadius: '50%',
+          backgroundColor: 'grey', // Замените на цвет фона, который вы хотите использовать
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          {user.charAt(0).toUpperCase()}
+        </div>
+      ) : (
+        <Image
+          priority
+          src={isTeamBlack ? "./icon/personW.svg" : "./icon/person.svg"}
+          width={22}
+          height={22}
+          alt="person icon"
+        />
+      )}
         </div>
       </Dropdown.Toggle>
+      {user ? (
+    <Dropdown.Menu className={style.itemFont}>
+      <Dropdown.Divider />
+      <Dropdown.Item href="#">{t("helpcenter")}</Dropdown.Item>
+      <Dropdown.Item href="#">
+        <button onClick={() => signOut()}>signOut </button>
+      </Dropdown.Item>
+    </Dropdown.Menu>
+  ) : (
       <Dropdown.Menu className={style.itemFont}>
         <Dropdown.Item href="#">
           <Button
@@ -57,6 +90,7 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
           <ModalForm
             show={showRegister}
             handleClose={() => setShowRegister(false)}
+            handleOpen={() => setShowRegister(true)} 
             isRegistration={true}
           />
         </Dropdown.Item>
@@ -75,6 +109,7 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
           <ModalForm
             show={showLogin}
             handleClose={() => setShowLogin(false)}
+            handleOpen={() => setShowRegister(true)} 
             isRegistration={false}
           />
         </Dropdown.Item>
@@ -82,6 +117,7 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
         <Dropdown.Item href="#">{t("offerroom")}</Dropdown.Item>
         <Dropdown.Item href="#">{t("helpcenter")}</Dropdown.Item>
       </Dropdown.Menu>
+  )}
     </Dropdown>
   );
 };
