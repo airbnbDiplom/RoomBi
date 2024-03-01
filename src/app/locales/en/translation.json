@@ -106,5 +106,17 @@
 	"AddedGuests": "Added guests",
 	"language": "language",
 	"ServiceAnimals": "Service Animals",
-	"ServiceAnimalsInfo": "Helper creatures are not respected by their lovers, so there is no need to provide information about them here."
+	"ServiceAnimalsInfo": "Helper creatures are not respected by their lovers, so there is no need to provide information about them here.",
+	"completeRegistration": "Complete registration",
+	"firstName": "First name",
+	"lastName": "Last name",
+	"identityData": "First and last name must match the data in the identity document.",
+	"selectCountryCode": "Select country code",
+	"phone": "Phone",
+	"birthDate": "Birth date",
+	"minAge": "Minimum age for registration is 18 years, other users will not see your birth date.",
+	"agreeAndContinue": "Agree and continue",
+	"incorrectDate": "Incorrect date",
+	"futureBirthDate": "Birth date cannot be in the future",
+	"minAgeError": "Minimum age for registration is 18 years"
 }
