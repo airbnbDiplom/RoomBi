@@ -235,3 +235,48 @@ export interface Payment {
   cVV: string;
   cardType: string;
 }
+
+///Фільтер
+
+export interface AccommodationType {
+  room: boolean; //Власна кімната
+  fullAccommodation: boolean; //Житло в цілому
+  any: boolean; //Будь-який тип
+}
+export interface TypeOfHousing {
+  house: boolean; //Будинок
+  apartment: boolean; //Квартира
+  guestHouse: boolean; //Будинок для гостей
+  hotel: boolean; //Готель
+}
+export interface TheMostNecessary {
+  wiFi: boolean; //
+  kitchen: boolean; //Кухня
+  washingMachine: boolean; //Стиральная машина
+  dryingMachine: boolean; //Сушильная машина
+  airConditioner: boolean; //Кондиционер
+  heating: boolean; //Отопление
+}
+export interface HostsLanguage {
+  english: boolean; //Англійський
+  french: boolean; //Французский
+  german: boolean; //Немецький
+  japanese: boolean; //Японский
+}
+
+export interface Filter {
+  offeredAmenitiesDTO: OfferedAmenitiesDTO; //Найнеобхідніше
+  typeAccommodation: AccommodationType;
+  typeOfHousing: TypeOfHousing; //Тип житла (Будинок,Квартира,Будинок для гостей,Готель)
+  minimumPrice: number; //мінімальна ціна
+  maximumPrice: number; //максимальна ціна
+  bedrooms: number; //Спальні
+  beds: number; //Ліжка
+  bathrooms: number; //Ванні кімнати
+  rating: boolean; //рейтинг
+  instantBooking: boolean; //Миттєве бронювання
+  independentSettlement: boolean; //Самостійне поселення
+  pets: boolean; //Можна з домашніми тваринами
+  parking: boolean; //Паркінг
+  hostsLanguage: HostsLanguage; //Мова господаря
+}
