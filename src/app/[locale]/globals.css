@@ -313,7 +313,6 @@ abbr[title] {
 }
 
 .custom-marker-content-page-info-root {
-.custom-marker-content-page-info-root {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -332,7 +331,6 @@ abbr[title] {
 	background-repeat: no-repeat;
 	background-position: center;
 }
-
 
 /* Calendar datepicker */
 .react-datepicker {
@@ -405,20 +403,19 @@ abbr[title] {
 	color: black !important;
 	border: none !important;
 	font-family: var(--var-nunito), sans-serif;
-  }
-  
-  .react-datepicker__year-option {
+}
+
+.react-datepicker__year-option {
 	cursor: pointer;
 	display: block;
-	font-size: 1.2em !important; 
-  }
-  
-  .react-datepicker__year-option:hover {
+	font-size: 1.2em !important;
+}
+
+.react-datepicker__year-option:hover {
 	background-color: #e6e6e6 !important;
 	color: black !important;
-  }
-  
-  .react-datepicker__year-option--selected:hover {
+}
+
+.react-datepicker__year-option--selected:hover {
 	background: black !important;
-  }
-  
+}
