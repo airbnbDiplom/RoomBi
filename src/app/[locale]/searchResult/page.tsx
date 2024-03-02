@@ -9,11 +9,11 @@ import FilterMain from './components/filterMain'
 
 const i18nNamespaces = ['translation']
 
-export const SearchDataView = async ({
+export default async function SearchDataView({
 	params: { locale },
 }: {
 	params: HomeParams
-}) => {
+}) {
 	const { resources } = await initTranslations(locale, ['translation'])
 
 	return (
@@ -30,5 +30,3 @@ export const SearchDataView = async ({
 		</TranslationsProvider>
 	)
 }
-
-export default SearchDataView
