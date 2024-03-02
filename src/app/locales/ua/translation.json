@@ -76,6 +76,18 @@
 	"serviceFeeApartament":"Сервісний збір",
 	"dontPayApartament":"Поки що ви нічого не платите",
 	"reserveApartament":"Забронювати",
+	"confirmApartament":"Підтвердити",
+	"payUsingApartament":"Оплатити за допомогою",
+	"debitCreditApartament":"Кредитна або дебетова картка",
+	"cardApartament":"Карта",
+	"validityApartament":"Термін дії",
+	"incorrectInputApartament":"Невірне введення",
+	"requiredApartament":"вимагається",
+	"chooseDateApartament":"Оберіть дату",
+	"paymentOkApartament":"оплата прошла успішно",
+	"paymentErrorApartament":"Платіж не вдалося",
+
+
 
 	"OfferApartment": "Запропонувати помешкання на",
 	"AddADate": "Додайте дату",

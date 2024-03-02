@@ -1,10 +1,14 @@
-import { getApartamentId } from '@/app/services/housesServices'
 import TranslationsProvider from '@/app/configs/TranslationsProvider'
-import initTranslations from '../../i18n'
+import { authConfig } from '@/app/configs/auth'
+import { getApartamentId } from '@/app/services/housesServices'
+import { decodeTokenGetId } from '@/app/services/jwtDecoder'
 import { Header } from '@/app/startComponents/header/Header'
+import { getServerSession } from 'next-auth'
+import initTranslations from '../../i18n'
 import { Footer } from '../../startComponents/footer/Footer'
 import Loading from './../loading'
 import { UserInfo } from './components/user-info/UserInfo'
+
 type Props = {
 	params: {
 		id: string
@@ -13,9 +17,23 @@ type Props = {
 }
 const i18nNamespaces = ['translation']
 export default async function Hous({ params: { id, locale } }: Props) {
-	const { resources } = await initTranslations(locale, ['translation'])
+	const session = await getServerSession(authConfig)
 
-	const hous = await getApartamentId(id)
+	let hous
+	if (session) {
+		if (session.user.name) {
+			const idUser = decodeTokenGetId(session.user.name)
+			if (idUser) {
+				hous = await getApartamentId(id, idUser.toString())
+			} else {
+				hous = await getApartamentId(id)
+			}
+		}
+	} else {
+		hous = await getApartamentId(id)
+	}
+	console.log('hous', hous.wish)
+	const { resources } = await initTranslations(locale, ['translation'])
 
 	return (
 		<TranslationsProvider
@@ -24,7 +42,7 @@ export default async function Hous({ params: { id, locale } }: Props) {
 			resources={resources}
 		>
 			<>
-				<div className='header-main'>
+				<div className='header-Main'>
 					<Header />
 				</div>
 				{hous ? (

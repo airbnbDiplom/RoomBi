@@ -3,6 +3,7 @@ import { DateBi, DateBooking } from "@/app/type/type";
 import { Draft } from "@reduxjs/toolkit";
 
 type reserv = {
+  id: number;
   date: DateBooking | null;
   numberOfGuests: number;
   numberOfAdults: number;
@@ -12,9 +13,11 @@ type reserv = {
   totalPrice: number;
   serviceFee: number;
   pricePerNight: number;
+  status: string;
 };
 
 const initialState: reserv = {
+  id: 0,
   date: null,
   numberOfGuests: 1,
   numberOfAdults: 1,
@@ -24,12 +27,19 @@ const initialState: reserv = {
   totalPrice: 0,
   serviceFee: 0,
   pricePerNight: 0,
+  status: "",
 };
 
 const reservSlice = createSlice({
   name: "apartments",
   initialState,
   reducers: {
+    setId(state, action: PayloadAction<number>) {
+      state.id = action.payload;
+    },
+    setStatus(state, action: PayloadAction<string>) {
+      state.status = action.payload;
+    },
     setStartDate(state, action: PayloadAction<DateBi>) {
       if (state.date == null) {
         const temp: DateBooking = {
@@ -38,9 +48,7 @@ const reservSlice = createSlice({
         };
         state.date = temp;
       }
-      console.log("state1", action.payload);
       if (state.date) {
-        console.log("state2");
         state.date.start = action.payload;
       }
     },
@@ -83,6 +91,7 @@ const reservSlice = createSlice({
 });
 
 export const {
+  setId,
   setStartDate,
   setEndDate,
   setDate,
@@ -90,5 +99,6 @@ export const {
   decrement,
   setPricePerNight,
   setTotalPrice,
+  setStatus,
 } = reservSlice.actions;
 export default reservSlice.reducer;

@@ -76,7 +76,17 @@
 	"serviceFeeApartament":"Service fee",
 	"dontPayApartament":"You don't pay anything yet",
 	"reserveApartament":"Reserve",
-
+	"confirmApartament":"Confirm",
+	"payUsingApartament":"Pay using",
+	"debitCreditApartament":"Credit or debit card",
+	"cardApartament":"Card",
+	"validityApartament":"Validity",
+	"incorrectInputApartament":"incorrect input",
+	"requiredApartament":"required",
+	"chooseDateApartament":"Choose a date",
+	"paymentOkApartament":"payment was successful",
+	"paymentErrorApartament":"payment failed",
+	
 	"OfferApartment": "Offer an apartment at",
 	"AddADate": "Add a date",
 	"locale": "en",
