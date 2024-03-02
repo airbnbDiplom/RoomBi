@@ -42,17 +42,17 @@ export const authConfig = {
           dateOfBirth: credentials?.dateOfBirth,
           country: credentials?.country
         };
-        
+
         const requestUser = new RequestUser(
-          user.email, 
-          user.password, 
-          user.type, 
-          user.name, 
-          user.phoneNumber, 
-          user.dateOfBirth, 
+          user.email,
+          user.password,
+          user.type,
+          user.name,
+          user.phoneNumber,
+          user.dateOfBirth,
           user.country
         );
-        const res = await authLogin(requestUser); 
+        const res = await authLogin(requestUser);
         console.log('Content-Type:', res.headers.get('content-type'));
         console.log(res.status);
         if (res.headers.get('content-type') && res.headers.get('content-type').includes('application/json')) {
@@ -68,7 +68,7 @@ export const authConfig = {
             if (response && response.error) {
               return null;
             }
-            
+            console.log(response);
             if (res.status === 200 && Array.isArray(response)) {
               const countries = response.map((country) => {
                 return {
@@ -77,7 +77,11 @@ export const authConfig = {
                 };
               });
               console.log(countries);
-              return countries;
+
+              // Создаем новый объект, включающий все свойства res и добавляем свойство countries
+              const newRes = { ...res, countries };
+
+              return { data: newRes };
             }
 
             if (res.status === 200 && response.token && response.refreshToken) {
@@ -87,9 +91,9 @@ export const authConfig = {
                 image: "not google",
               };
               return sessionUser;
-            } 
-              return null;
-            
+            }
+            return null;
+
           } catch (err) {
             console.error("Error parsing JSON response:", err);
             return null;
@@ -100,7 +104,6 @@ export const authConfig = {
             const error = new Error(textResponse);
             error.status = 400;
             throw error;
-          return res;
           } else if (res.status === 400) {
             console.log("Error 0000", res.status);
             const textResponse = await res.text();
@@ -118,7 +121,12 @@ export const authConfig = {
     },
     async session({ session, user, token }) {
       if (session.user.image !== "not google") {
-        const res = await authLogin(session.user.email, "password", "google");
+        const requestUser = new RequestUser(
+          session.user.email,
+          "password",
+          "google"
+        );
+        const res = await authLogin(requestUser, "google");
         if (res.ok) {
           const response = await res.json();
           const { token, refreshToken } = response;
@@ -133,6 +141,28 @@ export const authConfig = {
       }
 
       return session;
+    },
+    async signin({ user, account, profile }) {
+        const requestUser = new RequestUser(
+          session.user.email,
+          "password",
+          "google"
+        );
+        const res = await authLogin(requestUser, "google");
+        if (res.ok) {
+          const response = await res.json();
+          const { token, refreshToken } = response;
+          const sessionUser = {
+            name: token,
+            email: refreshToken,
+            image: "google",
+          };
+
+          session.user = sessionUser;
+        }
+      
+
+      return true;
     },
   },
 };

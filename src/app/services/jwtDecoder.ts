@@ -14,6 +14,19 @@ function decodeTokenAndGetExpiration(token: string): number | null {
   return null;
 }
 
+ // Возвращаем первую букву Name
+ export function decodeTokenAndGetFirstLetterOfName(token: string): string | null {
+  try {
+    const decodedToken: any = jwtDecode(token);
+    if (decodedToken && decodedToken.Name) {
+      return decodedToken.Name.charAt(0);
+    }
+  } catch (error) {
+    console.error("Помилка розкодування токена:", error);
+  }
+  return null;
+}
+
 // Функція для періодичної перевірки терміну дії токена
 export function checkTokenExpiration(token: string): boolean {
   const expirationTime = decodeTokenAndGetExpiration(token);

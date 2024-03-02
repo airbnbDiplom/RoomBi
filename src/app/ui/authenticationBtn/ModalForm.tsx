@@ -9,7 +9,6 @@ import { useTranslation } from "next-i18next";
 import RegContModal from "./RegContModal";
 import { Eye, EyeSlash } from 'react-bootstrap-icons';
 import { useSession } from 'next-auth/react';
-
 interface RequestUser {
   email?: string;
   password?: string;
@@ -23,7 +22,6 @@ interface RequestUser {
 interface SignInResponse {
   status: number;
   error?: string | null;
-  data?: Country[]; 
 }
 
 interface ModalFormProps {
@@ -32,17 +30,6 @@ interface ModalFormProps {
   handleClose: () => void;
   handleOpen: () => void;
 }
-
-class Country {
-  name: string;
-  countryCode: string;
-
-  constructor(name: string, countryCode: string) {
-    this.name = name;
-    this.countryCode = countryCode;
-  }
-}
-
 
 const ModalForm: React.FC<ModalFormProps> = ({
   show,
@@ -67,15 +54,13 @@ const ModalForm: React.FC<ModalFormProps> = ({
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [isRepeatPasswordFocused, setIsRepeatPasswordFocused] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
-  
-  let countries: Country[] = [];
 
   const handleModalClose = () => {
     cleaning();
-    setIsEmailValid(true); 
-    setIsPasswordValid(true); 
-    setIsRepeatPasswordValid(true); 
-    setServerError(""); 
+    setIsEmailValid(true);
+    setIsPasswordValid(true);
+    setIsRepeatPasswordValid(true);
+    setServerError("");
     handleClose();
   };
 
@@ -85,10 +70,6 @@ const ModalForm: React.FC<ModalFormProps> = ({
   const handleSignIn = async () => {
     try {
       const res = await signIn("google", { callbackUrl });
-      console.log("---handleSignIn---", res);
-      // const res1 = await signinType("google"); 
-
-      //handleClose();
     } catch (error) {
       console.error("Помилка входу через Google:", error);
     }
@@ -158,7 +139,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
   const signinType = async (type: string) => {
 
     let user: RequestUser;
-    if (type === "google"){
+    if (type === "google") {
       const { data: session } = useSession();
       user = {
         name: session?.user?.name || "",
@@ -174,42 +155,29 @@ const ModalForm: React.FC<ModalFormProps> = ({
         type: type,
       };
     }
-    
+
     console.log(user);
-  
+
     try {
-      const res: string | SignInResponse | undefined | Country = await signIn("credentials", {
+      const res: string | SignInResponse | undefined = await signIn("credentials", {
         email: user.email,
         password: user.password,
         type: user.type,
         redirect: false,
       });
-      console.log('res:', res);
-      console.log('typeof res:', typeof res);
-      console.log('res.status:', res?.status);
-      console.log('res.data:', res?.data);
-      if (res && typeof res !== 'string' && res.status === 200 && res.data) {
-        // Сервер вернул список стран
-        const countries = res.data.map((country: Country) => {
-          return {
-            name: country.name,
-            countryCode: country.countryCode
-          };
-        });
+      console.log(res?.status, res?.error);
+      if (res?.status === 200) {
+        console.log("Response is a string: ", res.error);
         console.log("OK - ", res);
-        console.log(countries);
         handleClose();
         setShowNewModal(true);
         setServerError("");
-         
-      // } else if (res?.error === 'Користувач з таким email існує.') {
-      //     console.error('Користувач з таким email існує');
-      //     setServerError('Користувач з таким email існує');
-      // }
-      }else {
-        const msg: string = res?.error || "Помилка сервера";
-        console.error(msg);
-        setServerError(msg);
+      } else {
+        if (res?.error == 'CredentialsSignin') {
+          setServerError("Серверу п*з**ць, вибачте за неприємності");
+        } else {
+          setServerError(res?.error || null);
+        }
       }
     } catch (error) {
       console.error("Error: ", error);
@@ -223,9 +191,9 @@ const ModalForm: React.FC<ModalFormProps> = ({
       return;
     }
     if (!isRegistration) {
-      await signinType("login"); 
+      await signinType("login");
     } else if (isRegistration) {
-      await signinType("register"); 
+      await signinType("register");
     }
   };
 
@@ -240,7 +208,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
         <Modal.Body>
           <>
             <h2 className={styles.welcomeMessage}>{t("welcomeMessage")}</h2>
-            {serverError && <p style={{ color: "red" } } className={styles.itemFont}>{serverError}</p>}
+            {serverError && <p style={{ color: "red" }} className={styles.itemFont}>{serverError}</p>}
             <Form>
               <div className={`form-floating my-3 ${email || isEmailFocused ? 'is-focused' : ''}`}>
                 <Form.Control
@@ -258,7 +226,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
                     boxShadow: isEmailValid ? '' : '0 0 0 0.2rem rgba(255, 0, 0, 0.25)',
                   }}
                 />
-                <label htmlFor="formBasicEmail" style={{ color: isEmailValid ? '' : 'red' }}  className={styles.itemFont}>{t("email")}</label>
+                <label htmlFor="formBasicEmail" style={{ color: isEmailValid ? '' : 'red' }} className={styles.itemFont}>{t("email")}</label>
                 {!isEmailValid && <div className="invalid-feedback d-block itemFont" >{t("enterValidEmail")}</div>}
               </div>
               <div className={`form-floating my-3 ${password || isPasswordFocused ? 'is-focused' : ''}`}>
@@ -308,7 +276,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
                 </div>
               )}
               <Button
-                 className={`d-grid gap-2 ${styles.submitButton} ${styles.itemFont}`}
+                className={`d-grid gap-2 ${styles.submitButton} ${styles.itemFont}`}
                 variant="danger"
                 type="button"
                 onClick={handleSubmit}
@@ -346,13 +314,12 @@ const ModalForm: React.FC<ModalFormProps> = ({
         </Modal.Body>
       </Modal>
       <RegContModal
-  show={showNewModal}
-  onHide={() => setShowNewModal(false)}
-  openModalForm={openModalForm}
-  email={email}
-  password={password}
-  countries={countries} 
-/>
+        show={showNewModal}
+        onHide={() => setShowNewModal(false)}
+        openModalForm={openModalForm}
+        email={email}
+        password={password}
+      />
     </>
   );
 };
