@@ -40,7 +40,7 @@ export const authConfig = {
           name: credentials?.name,
           phoneNumber: credentials?.phoneNumber,
           dateOfBirth: credentials?.dateOfBirth,
-          country: credentials?.country
+          country: credentials?.country,
         };
 
         const requestUser = new RequestUser(
@@ -53,9 +53,12 @@ export const authConfig = {
           user.country
         );
         const res = await authLogin(requestUser);
-        console.log('Content-Type:', res.headers.get('content-type'));
+        console.log("Content-Type:", res.headers.get("content-type"));
         console.log(res.status);
-        if (res.headers.get('content-type') && res.headers.get('content-type').includes('application/json')) {
+        if (
+          res.headers.get("content-type") &&
+          res.headers.get("content-type").includes("application/json")
+        ) {
           try {
             if (res.status === 400) {
               console.log("Error 0000", res.status);
@@ -73,7 +76,7 @@ export const authConfig = {
               const countries = response.map((country) => {
                 return {
                   name: country.name,
-                  countryCode: country.countryCode
+                  countryCode: country.countryCode,
                 };
               });
               console.log(countries);
@@ -93,7 +96,6 @@ export const authConfig = {
               return sessionUser;
             }
             return null;
-
           } catch (err) {
             console.error("Error parsing JSON response:", err);
             return null;
@@ -116,18 +118,28 @@ export const authConfig = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account, profile, isNewUser }) {
-      return token;
-    },
+    // async jwt({ token, user, account, profile, isNewUser }) {
+    //   return token;
+    // },
     async session({ session, user, token }) {
       if (session.user.image !== "not google") {
+        // const requestUser = new RequestUser(
+        //   session.user.email,
+        //   "password",
+        //   "google",
+        //   "",
+        //   "",
+        //   "",
+        //   ""
+        // );
         const requestUser = new RequestUser(
           session.user.email,
           "password",
           "google"
         );
-        const res = await authLogin(requestUser, "google");
+        const res = await authLogin(requestUser);
         if (res.ok) {
+          console.log("++++++_OK");
           const response = await res.json();
 
           const { token, refreshToken } = response;
@@ -138,32 +150,33 @@ export const authConfig = {
           };
 
           session.user = sessionUser;
+        } else {
+          console.log("++++++_NOT", res.status);
         }
       }
 
       return session;
     },
-    async signin({ user, account, profile }) {
-        const requestUser = new RequestUser(
-          session.user.email,
-          "password",
-          "google"
-        );
-        const res = await authLogin(requestUser, "google");
-        if (res.ok) {
-          const response = await res.json();
-          const { token, refreshToken } = response;
-          const sessionUser = {
-            name: token,
-            email: refreshToken,
-            image: "google",
-          };
+    // async signin({ user, account, profile }) {
+    //     const requestUser = new RequestUser(
+    //       session.user.email,
+    //       "password",
+    //       "google"
+    //     );
+    //     const res = await authLogin(requestUser, "google");
+    //     if (res.ok) {
+    //       const response = await res.json();
+    //       const { token, refreshToken } = response;
+    //       const sessionUser = {
+    //         name: token,
+    //         email: refreshToken,
+    //         image: "google",
+    //       };
 
-          session.user = sessionUser;
-        }
-      
+    //       session.user = sessionUser;
+    //     }
 
-      return true;
-    },
+    //   return true;
+    // },
   },
 };

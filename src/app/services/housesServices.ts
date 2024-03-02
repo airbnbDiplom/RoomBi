@@ -1,61 +1,62 @@
-'use server'
+"use server";
 
 const getHouses = async () => {
-	const url = process.env.NEXT_GET_APARTAMENTS
+  const url = process.env.NEXT_GET_APARTAMENTS;
 
-	if (!url) {
-		throw new Error('URL is undefined.')
-	}
-	const response = await fetch(url, {
-		next: {
-			revalidate: 5000,
-		},
-	})
-	if (!response.ok) throw new Error('Unable to fetch houses.')
-	return response.json()
-}
+  if (!url) {
+    throw new Error("URL is undefined.");
+  }
+  const response = await fetch(url, {
+    next: {
+      revalidate: 5000,
+    },
+  });
+  if (!response.ok) throw new Error("Unable to fetch houses.");
+  return response.json();
+};
 
 const getFirstPageServer = async () => {
-	const url = process.env.NEXT_GET_FIRST_PAGE
-	if (!url) {
-		throw new Error('URL is undefined.')
-	}
-	const response = await fetch(url, {
-		next: {
-			revalidate: 5000,
-		},
-	})
-	if (!response.ok) {
-		console.error('getFirstPageServer', response)
-		throw new Error('Unable to fetch houses.')
-	}
+  const url = process.env.NEXT_GET_FIRST_PAGE;
+  if (!url) {
+    throw new Error("URL is undefined.");
+  }
+  const response = await fetch(url, {
+    next: {
+      revalidate: 5000,
+    },
+  });
+  if (!response.ok) {
+    console.error("getFirstPageServer", response);
+    throw new Error("Unable to fetch houses.");
+  }
 
-	return response.json()
-}
+  return response.json();
+};
 
-export const getApartamentId = async (id: string, idUser: string = '0') => {
-	const url = process.env.NEXT_GET_APARTAMENT_ID
-	if (!url) {
-		throw new Error('URL is undefined.')
-	}
+export const getApartamentId = async (id: string, idUser: string = "0") => {
+  const url = process.env.NEXT_GET_APARTAMENT_ID;
+  if (!url) {
+    throw new Error("URL is undefined.");
+  }
 
-	const response = await fetch(`${url}?id=${id}&idUser=${idUser}`, {
-		next: {
-			revalidate: 5000,
-		},
-	})
-	if (!response.ok) throw new Error(response.statusText)
+  const response = await fetch(`${url}?id=${id}&idUser=${idUser}`, {
+    next: {
+      revalidate: 5000,
+    },
+  });
+  if (!response.ok) throw new Error(response.statusText);
 
-	const res = response.json()
-	return res
-}
+  const res = response.json();
+  console.log("TTTTTTT+++", `${url}?id=${id}&idUser=${idUser}`);
+  return res;
+};
 
 export const getFirstPage = async () => {
-	const response = await getFirstPageServer()
-	return response
-}
+  const response = await getFirstPageServer();
+  return response;
+};
 
 export const getAllHouses = async () => {
-	const response = await getHouses()
-	return response
-}
+  const response = await getHouses();
+  return response;
+};
