@@ -24,7 +24,7 @@ export default async function Hous({ params: { id, locale } }: Props) {
 			resources={resources}
 		>
 			<>
-				<div className='header-Main'>
+				<div className='header-main'>
 					<Header />
 				</div>
 				{hous ? (

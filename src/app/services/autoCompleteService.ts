@@ -2,7 +2,10 @@
 
 import { AutoCompleteList } from '@/app/type/type'
 
-const autoCompleteService = async (inputString: string) => {
+const autoCompleteService = async (
+	inputString: string,
+	locale: string = 'en'
+) => {
 	//const urlSearch = process.env.NEXT_AUTOCOMPLETE
 	const urlSearch = 'https://nominatim.openstreetmap.org/search?'
 	if (urlSearch === undefined) return null
@@ -18,12 +21,14 @@ const autoCompleteService = async (inputString: string) => {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
+				'Accept-Language': locale,
 			},
 		})
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`)
 		}
 		const data: AutoCompleteList = await response.json()
+		console.log(data)
 		return data
 	} catch (e) {
 		console.error('Could not fetch data:', e)

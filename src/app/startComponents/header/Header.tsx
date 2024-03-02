@@ -9,6 +9,7 @@ import Search from './search/Search'
 import { useAppDispatch, useAppSelector, useWindowSize } from '@/app/redux/hook'
 import { SearchBtnEnum } from '@/app/type/type'
 import { useTranslation } from 'react-i18next'
+import { setState } from '@/app/redux/searchInHeader/SearchSlice'
 
 const Header: FC = () => {
 	const { t } = useTranslation()
@@ -25,7 +26,15 @@ const Header: FC = () => {
 	useEffect(() => {
 		setTeamBlack(btnState === SearchBtnEnum.DisableAll ? false : true)
 	}, [btnState])
-
+	useEffect(() => {
+		const data = sessionStorage.getItem('dataSearch')
+		if (data !== null) {
+			const dataParse = JSON.parse(data)
+			console.log('dataParse', dataParse)
+			dispatch(setState(dataParse))
+			sessionStorage.removeItem('dataSearch')
+		}
+	})
 	return (
 		<div
 			className={` pt-xs-1 pt-sm-2 pt-md-4  pb-3   ps-md-3 pe-md-3 ps-lg-3 pe-lg-3 pe-xl-4 ps-xl-4' ${
@@ -40,9 +49,6 @@ const Header: FC = () => {
 					RoomBi
 				</Link>
 			</div>
-			{/* <div className={style.languageContainer}>
-				
-			</div> */}
 			<div className={style.searchBar}>
 				{width > 576
 					? isSmallSearchOn && (

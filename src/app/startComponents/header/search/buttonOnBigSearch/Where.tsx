@@ -29,16 +29,17 @@ const Where: React.FC<whereProps & ThemProps> = ({
 	const dispatch = useAppDispatch()
 	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
 	const stateString = useAppSelector(state =>
-		state.searchReducer.DataSearchObj.whereObj?.properties?.display_name ===
-		undefined
+		state.searchReducer.DataSearchObj.whereObj?.properties?.name === undefined
 			? ''
-			: state.searchReducer.DataSearchObj.whereObj?.properties?.display_name
+			: state.searchReducer.DataSearchObj.whereObj?.properties?.name
 	)
 
-	const [stringInput, setStringInput] = useState(
+	const [stringInput, setStringInput] = useState('')
+
+	useEffect(() => {
 		stateString !== '' ? stateString : ''
-	)
-
+		setStringInput(stateString)
+	}, [stateString])
 	const [whereOptionBlack, setWhereOptionBlack] = useState(false)
 	useEffect(() => {
 		if (btnState === SearchBtnEnum.Where) {
@@ -60,13 +61,15 @@ const Where: React.FC<whereProps & ThemProps> = ({
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value.trim()
 		if (value.length > 2) {
-			autoCompleteService(value).then((data: AutoCompleteList | null) => {
-				if (data) {
-					setAutoList(data)
-				} else {
-					console.log('Where handleInputChange No data fetched.')
+			autoCompleteService(value, t('locale')).then(
+				(data: AutoCompleteList | null) => {
+					if (data) {
+						setAutoList(data)
+					} else {
+						console.log('Where handleInputChange No data fetched.')
+					}
 				}
-			})
+			)
 		}
 		setStringInput(event.target.value)
 		setWhereOptionBlack(true)

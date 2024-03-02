@@ -20,7 +20,7 @@ body {
 	font-family: var(--var-nunito), sans-serif;
 	background-color: var(--boyRed);
 }
-.header-Main {
+.header-main {
 	background-color: var(--gainsboro);
 	z-index: 5;
 	@media (max-width: 576px) {
@@ -279,23 +279,22 @@ abbr[title] {
 	}
 }
 
-.custom-marker-content-page-info-root{
+.custom-marker-content-page-info-root {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 70px;
-	height:70px;
+	height: 70px;
 	background-color: rgba(255, 0, 0, 0.424);
 	border-radius: 50%;
 }
-.custom-marker-content-page-info
-{
+.custom-marker-content-page-info {
 	width: 40px;
-	height:40px;
+	height: 40px;
 	background-color: rgb(255, 0, 0);
 	border-radius: 50%;
 	background-image: url('/userInfo/marker.svg');
-	background-size:50% ;
+	background-size: 50%;
 	background-repeat: no-repeat;
 	background-position: center;
 }
