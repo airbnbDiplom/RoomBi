@@ -48,21 +48,22 @@ const ReservCalendar: React.FC<{ data: DateBooking[] }> = ({
   const [reserv, setReserv] = useState<Date[]>([]);
 
   const initState = (Data: DateBooking[]) => {
-    for (let i = 0; i < Data.length; i++) {
-      const startDate = new Date(
-        Data[i].start.year,
-        Data[i].start.month,
-        Data[i].start.day
-      );
-      const endDate = new Date(
-        Data[i].end.year,
-        Data[i].end.month,
-        Data[i].end.day
-      );
+    if (Data)
+      for (let i = 0; i < Data.length; i++) {
+        const startDate = new Date(
+          Data[i].start.year,
+          Data[i].start.month,
+          Data[i].start.day
+        );
+        const endDate = new Date(
+          Data[i].end.year,
+          Data[i].end.month,
+          Data[i].end.day
+        );
 
-      const reserv = getDatesInRange(startDate, endDate);
-      setReserv((prevReserv) => [...prevReserv, ...reserv]);
-    }
+        const reserv = getDatesInRange(startDate, endDate);
+        setReserv((prevReserv) => [...prevReserv, ...reserv]);
+      }
   };
 
   useEffect(() => {
@@ -70,7 +71,6 @@ const ReservCalendar: React.FC<{ data: DateBooking[] }> = ({
   }, [value, data]);
 
   const dateParts = (date: Date) => {
-    console.log(date);
     const startDate: DateBi = {
       day: date.getDate(),
       month: date.getMonth(),

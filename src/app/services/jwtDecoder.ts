@@ -1,4 +1,3 @@
-"use client";
 import { jwtDecode } from "jwt-decode";
 
 // Функція для розкодування токена та отримання часу закінчення (exp)
@@ -10,6 +9,40 @@ function decodeTokenAndGetExpiration(token: string): number | null {
     }
   } catch (error) {
     console.error("Помилка розкодування токена:", error);
+  }
+  return null;
+}
+
+ // Возвращаем первую букву Name
+ export function decodeTokenAndGetFirstLetterOfName(token: string): string | null {
+  try {
+    const decodedToken: any = jwtDecode(token);
+    if (decodedToken && decodedToken.Name) {
+      return decodedToken.Name.charAt(0);
+    }
+  } catch (error) {
+    throw("Помилка розкодування токена:");
+  }
+  return null;
+}
+
+// Расшифровка токена юзера для редактирования данных
+export function decodeTokenAndGetUserDetails(token: string): { firstName: string, lastName: string, email: string, address: string, phoneNumber: string } | null {
+  try {
+    const decodedToken: any = jwtDecode(token);
+    if (decodedToken) {
+      const [firstName, lastName] = decodedToken.Name.split(' ');
+      const { Email, Address, PhoneNumber } = decodedToken;
+      return {
+        firstName,
+        lastName,
+        email: Email,
+        address: Address,
+        phoneNumber: PhoneNumber
+      };
+    }
+  } catch (error) {
+    throw("Помилка розкодування токена:");
   }
   return null;
 }
@@ -41,3 +74,16 @@ export function checkTokenExpiration(token: string): boolean {
     return false;
   }
 }
+
+// Функція для розкодування токена та отримання часу закінчення (exp)
+export const decodeTokenGetId = (token: string): number | null => {
+  try {
+    const decodedToken: any = jwtDecode(token);
+    if (decodedToken.Id) {
+      return decodedToken.Id;
+    }
+  } catch (error) {
+    console.error("Помилка розкодування токена:", error);
+  }
+  return null;
+};

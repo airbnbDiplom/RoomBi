@@ -1,5 +1,5 @@
 "use server";
-export const authLogin = async (email, password, type) => {
+export const authLogin = async (requestUser) => {
   try {
     const url = process.env.NEXT_URL_LOGIN;
 
@@ -9,12 +9,9 @@ export const authLogin = async (email, password, type) => {
         "Content-Type": "application/json",
         // Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        type: type,
-      }),
+      body: JSON.stringify(requestUser),
     });
+
     return res;
   } catch {
     return null;

@@ -5,7 +5,7 @@ import { ReservDate } from "./reserv-date/ReservDate";
 import { ReservSelect } from "./reserv-select/ReservSelect";
 import { DateBooking } from "@/app/type/type";
 import { useTranslation } from "react-i18next";
-import { Button } from "react-bootstrap";
+import { ReservBtn } from "./reserv-btn/ReservBtn";
 
 const ReservMenu: React.FC<{ data: DateBooking[] }> = ({
   data,
@@ -14,7 +14,8 @@ const ReservMenu: React.FC<{ data: DateBooking[] }> = ({
 }) => {
   const { t } = useTranslation();
   const [countDay, setCountDay] = useState(1);
-  const date = useAppSelector((state) => state.reservReducer.date);
+  const { date, status } = useAppSelector((state) => state.reservReducer);
+
   const pricePerNight = useAppSelector(
     (state) => state.reservReducer.pricePerNight
   );
@@ -72,13 +73,23 @@ const ReservMenu: React.FC<{ data: DateBooking[] }> = ({
         <p>{t("serviceFeeApartament")} RoomBi</p>
         <p>{serviceFee} $</p>
       </div>
-      <Button variant="danger" className={style.btn}>
-        {t("reserveApartament")}
-      </Button>
+      <ReservBtn />
+
       <div className={style.txtBlockMain}>
         <p>{t("allPaymentApartament")}</p>
         <p>{totalPrice}</p>
       </div>
+
+      {status !== "" && status === "paymentOkApartament" ? (
+        <span className={style.status} style={{ color: "green" }}>
+          {t(status)}
+        </span>
+      ) : null}
+      {status !== "" && status === "paymentErrorApartament" ? (
+        <span className={style.status} style={{ color: "red" }}>
+          {t(status)}
+        </span>
+      ) : null}
     </div>
   );
 };
