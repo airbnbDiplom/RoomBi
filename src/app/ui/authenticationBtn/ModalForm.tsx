@@ -63,7 +63,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
     setServerError("");
     handleClose();
   };
-
+  const [session, setSession] = useState<SignInResponse | null>(null);
   const openModalForm = () => {
     handleOpen();
   };
@@ -166,7 +166,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
         redirect: false,
       });
       console.log(res?.status, res?.error);
-      if (res?.status === 200) {
+        if (res?.error === "Ok") {
         console.log("Response is a string: ", res.error);
         console.log("OK - ", res);
         handleClose();

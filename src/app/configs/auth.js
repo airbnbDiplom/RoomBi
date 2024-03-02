@@ -2,6 +2,7 @@ import GoogleProfile from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { authLogin } from "@/app/services/authConfig";
 
+
 class RequestUser {
   constructor(email, password, type, name, phoneNumber, dateOfBirth, country) {
     this.email = email;
@@ -53,8 +54,6 @@ export const authConfig = {
           user.country
         );
         const res = await authLogin(requestUser);
-        console.log('Content-Type:', res.headers.get('content-type'));
-        console.log(res.status);
         if (res.headers.get('content-type') && res.headers.get('content-type').includes('application/json')) {
           try {
             if (res.status === 400) {
@@ -75,7 +74,10 @@ export const authConfig = {
                   countryCode: country.countryCode
                 };
               });
+
+              // Создаем новый объект, включающий все свойства res и добавляем свойство countries
               const newRes = { ...res, countries };
+
               return { data: newRes };
             }
 
@@ -110,6 +112,10 @@ export const authConfig = {
       },
     }),
   ],
+  session: {
+    rolling: true,
+    maxAge: 24 * 60 * 60,
+  },
   callbacks: {
     async jwt({ token, user, account, profile, isNewUser }) {
       return token;
@@ -119,46 +125,30 @@ export const authConfig = {
         const requestUser = new RequestUser(
           session.user.email,
           "password",
-          "google"
+          "register2", 
+          "user.name",
+          "1233453345",
+          "1990-06-28T20:00:00.000Z",
+          "Україна"
         );
-        const res = await authLogin(requestUser, "google");
+      //  console.log(requestUser);
+        const res = await authLogin(requestUser);
+        console.log(res.status);
         if (res.ok) {
+          console.log("zashel");
           const response = await res.json();
-
           const { token, refreshToken } = response;
           const sessionUser = {
             name: token,
             email: refreshToken,
             image: "google",
           };
-
+          console.log("do", session.user);
           session.user = sessionUser;
+          console.log("posle", session.user);
         }
       }
-
       return session;
-    },
-    async signin({ user, account, profile }) {
-        const requestUser = new RequestUser(
-          session.user.email,
-          "password",
-          "google"
-        );
-        const res = await authLogin(requestUser, "google");
-        if (res.ok) {
-          const response = await res.json();
-          const { token, refreshToken } = response;
-          const sessionUser = {
-            name: token,
-            email: refreshToken,
-            image: "google",
-          };
-
-          session.user = sessionUser;
-        }
-      
-
-      return true;
     },
   },
 };
