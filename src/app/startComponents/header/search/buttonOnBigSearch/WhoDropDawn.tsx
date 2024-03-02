@@ -17,7 +17,7 @@ import AnimalModal from '@/app/ui/modal/AnimalModal'
 
 const WhoDropDawn: React.FC = () => {
 	const { t } = useTranslation()
-	const why = useAppSelector(state => state.searchReducer.DataSearchObj.whoObj)
+	const why = useAppSelector(state => state.searchReducer.DataSearchObj.whyObj)
 	const dispatch = useAppDispatch()
 	const [modalShow, setModalShow] = useState(false)
 	useEffect(() => {

@@ -30,28 +30,31 @@ const apartmentsSlice = createSlice({
       state.apartmentsMap = [...state.apartmentsAll];
     },
     showCard(state) {
-      state.apartments = [...state.apartmentsAll.slice(0, 24)];
+      state.countPage = 1;
+      state.apartments = [...state.apartmentsAll.slice(0, 18)];
     },
     pushPushOnePage(state) {
-      let startIndex;
-      if (state.countPage === 1) {
-        startIndex = state.countPage * 24;
-      } else {
-        startIndex = state.countPage * 6 + 24;
+      const { countPage, apartmentsAll, apartments } = state;
+
+      // Визначаємо початковий індекс
+      const startIndex = countPage === 1 ? countPage * 18 : countPage * 6 + 18;
+
+      // Визначаємо кількість елементів, які потрібно додати
+      const numberOfElementsToAdd = Math.min(
+        6,
+        apartmentsAll.length - apartments.length
+      );
+
+      // Додаємо елементи до списку апартаментів
+      if (numberOfElementsToAdd > 0) {
+        const tempArr = apartmentsAll.slice(
+          startIndex,
+          startIndex + numberOfElementsToAdd
+        );
+        state.apartments.push(...tempArr);
       }
 
-      let tempArr;
-      if (startIndex + 6 >= state.apartmentsAll.length) {
-        tempArr = state.apartmentsAll.slice(state.apartments.length);
-        state.apartments = [...state.apartments, ...tempArr];
-      } else {
-        tempArr = state.apartmentsAll.slice(startIndex, startIndex + 6);
-        state.apartments = [...state.apartments, ...tempArr];
-      }
-      console.log("length", state.apartments.length);
-      console.log("state.countPage", state.countPage);
-      console.log("startIndex", startIndex);
-      console.log("hi");
+      // Збільшуємо лічильник сторінок
       state.countPage++;
     },
 

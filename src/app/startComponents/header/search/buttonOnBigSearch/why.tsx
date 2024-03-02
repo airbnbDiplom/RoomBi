@@ -23,7 +23,7 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const dispatch = useAppDispatch()
 	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
 	const whoObj = useAppSelector(
-		state => state.searchReducer.DataSearchObj.whoObj
+		state => state.searchReducer.DataSearchObj.whyObj
 	)
 	const clearWhoInput = (event: any) => {
 		event.preventDefault()

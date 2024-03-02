@@ -1,25 +1,29 @@
-.container{
+.container {
     display: flex;
-}
-.blockLeft{
-    width: 70%;
-    background-color: yellow;
-}
-.blockRight{
-    width: 30%;
-    height: 200px;
-    background-color: rgb(0, 255, 8);
+    position: relative;
 }
 
-.rating{
-    display: flex;
-    align-items: center;
+.blockLeft{
+    width: 100%;
+    @media (min-width: 750px) {
+        width: 65%
+       }
 }
-.rating p{
-    margin: 0px;
-    margin-left:5px ;
-    margin-right: 5px;
+.blockRight {
+    width: 0%;
+    height: 500px;
+    position: sticky;
+    top: 150px; 
+    display: none;
+
+    @media (min-width: 750px) {
+        width: 35%;
+	 display: flex;
+     justify-content: end;
+	}
 }
+
+
 .point{
     display: inline-block;
     width:  5px;
@@ -39,3 +43,8 @@
     margin-top: 30px;
     margin-bottom: 20px;
 }
+
+
+
+
+

@@ -1,0 +1,31 @@
+.main {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	height: 80vh;
+	margin: 10px;
+}
+.itemList {
+	position: relative;
+	display: grid;
+	flex-grow: 4;
+}
+.mapContainer {
+	position: relative;
+	display: block;
+	flex-grow: 3;
+
+	height: 100%;
+}
+@media (max-width: 1200px) {
+	.main {
+		flex-direction: column;
+		margin: 10px;
+	}
+	.itemList {
+		order: 2;
+	}
+	.mapContainer {
+		height: 30vh;
+	}
+}
