@@ -68,7 +68,6 @@ export const authConfig = {
             if (response && response.error) {
               return null;
             }
-            console.log(response);
             if (res.status === 200 && Array.isArray(response)) {
               const countries = response.map((country) => {
                 return {
@@ -76,11 +75,7 @@ export const authConfig = {
                   countryCode: country.countryCode
                 };
               });
-              console.log(countries);
-
-              // Создаем новый объект, включающий все свойства res и добавляем свойство countries
               const newRes = { ...res, countries };
-
               return { data: newRes };
             }
 
