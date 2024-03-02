@@ -8,6 +8,7 @@
 	--darkLava: #433d35;
 	--gainsboro: rgb(248, 249, 250);
 }
+
 @media (prefers-color-scheme: dark) {
 	:root {
 		--foreground-rgb: 255, 255, 255;
@@ -15,6 +16,7 @@
 		--background-end-rgb: 0, 0, 0;
 	}
 }
+
 body {
 	color: var(--eerieBlack);
 	font-family: var(--var-nunito), sans-serif;
@@ -23,10 +25,12 @@ body {
 .header-main {
 	background-color: var(--gainsboro);
 	z-index: 5;
+
 	@media (max-width: 576px) {
 		position: relative;
 	}
 }
+
 .header-Main-sticky {
 	position: sticky;
 	top: 0;
@@ -35,6 +39,7 @@ body {
 .custom-dropdown-toggle::after {
 	display: none !important;
 }
+
 .link-Reset {
 	text-decoration: none;
 	color: var(--eerieBlack);
@@ -77,14 +82,17 @@ body {
 .leaflet-control-attribution a {
 	display: none;
 }
+
 .leaflet-control-attribution {
 	position: relative;
 	top: 100px;
 	left: 5px;
 }
+
 .leaflet-control-attribution span {
 	display: none;
 }
+
 .custom-marker-txt:focus,
 .custom-marker-txt:focus-within,
 .custom-marker-txt:active {
@@ -110,12 +118,14 @@ a.leaflet-control-zoom-in span {
 	background-color: white;
 	border-bottom: 2px solid rgb(151, 151, 151);
 }
+
 .leaflet-touch .leaflet-bar a:last-child {
 	width: 40px;
 	height: 50px;
 	padding-top: 10px;
 	background-color: white;
 }
+
 div.leaflet-control-zoom.leaflet-bar.leaflet-control {
 	border: 2px solid rgb(255, 255, 255);
 	border-radius: 8px;
@@ -128,12 +138,14 @@ div.leaflet-popup-content {
 	margin: 0px;
 	padding: 0px;
 }
+
 div.leaflet-popup-content-wrapper p {
 	margin: 0px;
 	margin-top: 3px;
 	margin-left: 5px;
 	margin-bottom: 3px;
 }
+
 /*/----- btn close */
 a.leaflet-popup-close-button span {
 	display: block;
@@ -175,22 +187,27 @@ a.leaflet-popup-close-button span:active {
 	margin-left: 5px;
 	margin-right: 5px;
 }
+
 /* Calendar on Search */
 abbr[title] {
 	text-decoration: none !important;
 	cursor: default !important;
 }
+
 .react-calendar {
 	border: none !important;
 }
+
 .react-calendar--doubleView {
 	max-width: 600px !important;
 	width: 100% !important;
 }
+
 .react-calendar__navigation__label {
 	text-transform: uppercase;
 	font-weight: 700;
 }
+
 .react-calendar__navigation__arrow {
 	border-radius: 25px;
 }
@@ -199,30 +216,38 @@ abbr[title] {
 .react-calendar__navigation__next2-button {
 	display: none;
 }
+
 .react-calendar__month-view__weekdays {
 	text-transform: capitalize !important;
 	color: #a0a0a0;
 }
+
 .react-calendar__navigation__label:disabled {
 	background-color: white !important;
 }
+
 .react-calendar__navigation__label {
 	color: black;
 	font-size: 1.3em !important;
 	font-family: var(--var-nunito), sans-serif;
 }
+
 .react-calendar__month-view__days__day--neighboringMonth {
 	visibility: hidden !important;
 }
+
 .react-calendar__month-view__days__day:disabled {
 	background-color: white !important;
 }
+
 .react-calendar__month-view__days__day--weekend {
 	color: black !important;
 }
+
 .react-calendar__month-view__days__day--weekend:disabled {
 	color: #a0a0a0 !important;
 }
+
 .react-calendar__tile {
 	border-radius: 20px;
 	padding: 10px 0 10px 0 !important;
@@ -230,18 +255,22 @@ abbr[title] {
 	font: inherit !important;
 	font-size: 1.2em !important;
 }
+
 .react-calendar__tile:hover .react-calendar__tile:focus {
 	border: 1px solid black !important;
-	background-color: transparent !important ;
+	background-color: transparent !important;
 }
+
 .react-calendar__tile--active {
 	background: black !important;
 	color: white !important;
 }
+
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
 	background: black !important;
 }
+
 .react-calendar__viewContainer {
 	padding: 0 5% 0 5% !important;
 }
@@ -261,24 +290,29 @@ abbr[title] {
 	background: black !important;
 	color: white !important;
 }
+
 .react-calendar__tile--now {
-	background: white !important  ;
+	background: white !important;
 	color: black !important;
 }
+
 .react-calendar__tile--rangeEnd {
 	background: black !important;
 	color: white !important;
 }
+
 .page_main__yiKJr {
 	min-height: 20vh !important;
 	padding: 0px !important;
 }
+
 @media (max-width: 768px) {
 	.react-calendar {
 		width: 250px !important;
 	}
 }
 
+.custom-marker-content-page-info-root {
 .custom-marker-content-page-info-root {
 	display: flex;
 	justify-content: center;
@@ -298,3 +332,93 @@ abbr[title] {
 	background-repeat: no-repeat;
 	background-position: center;
 }
+
+
+/* Calendar datepicker */
+.react-datepicker {
+	border: none !important;
+	font-family: var(--var-nunito), sans-serif;
+}
+
+.react-datepicker__header {
+	background-color: white !important;
+	border-bottom: none !important;
+}
+
+.react-datepicker__current-month {
+	font-size: 1.3em !important;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.react-datepicker__day-name {
+	text-transform: capitalize !important;
+	color: #a0a0a0;
+}
+
+.react-datepicker__day {
+	border-radius: 20px;
+	font-size: 1.2em !important;
+}
+
+.react-datepicker__day:hover {
+	border: 1px solid black !important;
+	background-color: transparent !important;
+}
+
+.react-datepicker__day--selected {
+	background: black !important;
+	color: white !important;
+}
+
+.react-datepicker__day--selected:hover {
+	background: black !important;
+}
+
+.react-datepicker__day--today {
+	background: white !important;
+	color: black !important;
+}
+
+.react-datepicker__day--today:hover {
+	background: #e6e6e6 !important;
+	color: black !important;
+}
+
+.react-datepicker__day--today.react-datepicker__day--today:focus {
+	background: black !important;
+	color: white !important;
+}
+
+.react-datepicker__day--selected.react-datepicker__day--selected,
+.react-datepicker__day--today.react-datepicker__day--selected {
+	background: black !important;
+	color: white !important;
+}
+
+.react-datepicker__day--outside-month {
+	visibility: hidden !important;
+}
+
+.react-datepicker__year-dropdown {
+	background-color: white !important;
+	color: black !important;
+	border: none !important;
+	font-family: var(--var-nunito), sans-serif;
+  }
+  
+  .react-datepicker__year-option {
+	cursor: pointer;
+	display: block;
+	font-size: 1.2em !important; 
+  }
+  
+  .react-datepicker__year-option:hover {
+	background-color: #e6e6e6 !important;
+	color: black !important;
+  }
+  
+  .react-datepicker__year-option--selected:hover {
+	background: black !important;
+  }
+  
