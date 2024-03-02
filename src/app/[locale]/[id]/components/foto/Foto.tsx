@@ -32,7 +32,7 @@ const Foto: React.FC<{ data: ImgBi[] }> = ({ data }: { data: ImgBi[] }) => {
               className={style.image}
               src={`https://roombi.space/Car/${tempArr[0].pictureUrl}`}
               alt={tempArr[0].pictureName}
-              width={700}
+              width={200}
               height={400}
               priority
             />

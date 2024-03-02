@@ -52,8 +52,8 @@ const Comment: React.FC<{ data: GuestCommentsForApartmentPage }> = ({
           />
         </div>
         <div className={style.blockRight}>
-          <p> Petro</p>
-          <p> Cheonan-si, Південна Корея</p>
+          <p> {data.userName}</p>
+          <p> {data.userCountry}</p>
         </div>
       </div>
       <div className={style.rating}>

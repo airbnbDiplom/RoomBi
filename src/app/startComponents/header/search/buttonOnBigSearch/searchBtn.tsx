@@ -3,37 +3,43 @@ import Image from 'next/image'
 import style from '../Search.module.css'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import autoCompleteService from '@/app/services/autoCompleteService'
-import { AutoCompleteList } from '@/app/type/type'
+import {
+	AutoCompleteList,
+	DataSearchForSorting,
+	DateBi,
+	DateBooking,
+} from '@/app/type/type'
 import {
 	setWhenObjDateCome,
 	setWhenObjDateOut,
 	setWhereObj,
 } from '@/app/redux/searchInHeader/SearchSlice'
-
+import searchDataService from '@/app/services/searchDataServices'
+import { useTranslation } from 'react-i18next'
 interface props {
 	inputRef: React.RefObject<HTMLInputElement>
 }
-
 const SearchBtn: React.FC<props> = ({ inputRef }) => {
+	const { t } = useTranslation()
 	const dataSearch = useAppSelector(state => state.searchReducer.DataSearchObj)
 	const dispatch = useAppDispatch()
-	const validateData = () => {
+	const validData = () => {
 		if (
 			inputRef.current &&
 			Object.keys(dataSearch.whereObj).length === 0 &&
 			inputRef.current.value.trim().length > 2
 		) {
-			autoCompleteService(inputRef.current.value).then(
+			autoCompleteService(inputRef.current.value, t('locale')).then(
 				(data: AutoCompleteList | null) => {
 					if (data) {
 						dispatch(setWhereObj(data.features[0]))
-						console.log('data.features[0]', data.features[0])
 					} else {
 						console.log('Where handleInputChange No data fetched.')
 					}
 				}
 			)
 		}
+		let newDate: string = ''
 		if (
 			(dataSearch.whenObj.dateCome === '' &&
 				dataSearch.whenObj.dateOut !== '') ||
@@ -41,28 +47,74 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 		) {
 			if (dataSearch.whenObj.dateCome === '') {
 				const date = new Date(dataSearch.whenObj.dateOut)
+				newDate = new Date(date.setDate(date.getDate() + 1)).toString()
 				dispatch(setWhenObjDateCome(dataSearch.whenObj.dateOut))
-				dispatch(
-					setWhenObjDateOut(
-						new Date(date.setDate(date.getDate() + 1)).toString()
-					)
-				)
+				dispatch(setWhenObjDateOut(newDate.toString()))
 			} else {
 				const date = new Date(dataSearch.whenObj.dateCome)
-				dispatch(
-					setWhenObjDateOut(
-						new Date(date.setDate(date.getDate() + 1)).toString()
-					)
-				)
+				newDate = new Date(date.setDate(date.getDate() + 1)).toString()
+				dispatch(setWhenObjDateOut(newDate.toString()))
 			}
 		}
 		console.log('dataSearch', dataSearch)
+
+		const transferData: DataSearchForSorting = {
+			where:
+				Object.keys(dataSearch.whereObj).length > 0
+					? {
+							type: dataSearch.whereObj.properties.addresstype,
+							name: dataSearch.whereObj.properties.display_name,
+					  }
+					: undefined,
+			when:
+				dataSearch.whenObj.dateCome !== '' || dataSearch.whenObj.dateOut !== ''
+					? {
+							start:
+								dataSearch.whenObj.dateCome === ''
+									? convertData(new Date(newDate))
+									: convertData(new Date(dataSearch.whenObj.dateCome)),
+							end:
+								dataSearch.whenObj.dateOut === ''
+									? convertData(new Date(newDate))
+									: convertData(new Date(dataSearch.whenObj.dateOut)),
+					  }
+					: undefined,
+			why:
+				dataSearch.whyObj.gestsCount > 0
+					? dataSearch.whyObj.gestsCount +
+					  dataSearch.whyObj.childrenCount +
+					  dataSearch.whyObj.babyCount
+					: undefined,
+		}
+		console.log('transferData', transferData)
+		searchDataService(transferData)
+			.then((data: any) => {
+				console.log('data', data)
+				//if (data !== null) {
+				console.log('data', data)
+				sessionStorage.setItem('dataSearch', JSON.stringify(dataSearch))
+				window.location.replace('/searchResult')
+				// } else {
+				// 	console.log('dateIsNull')
+				// }
+			})
+			.catch(err => {
+				console.log('err', err)
+			})
 	}
+	const convertData = (date: Date): DateBi => {
+		return {
+			year: date.getFullYear(),
+			month: date.getMonth() + 1,
+			day: date.getDate(),
+		}
+	}
+
 	return (
 		<div
 			className={`${style.item} ${style.item_5}  ${style.cursor}  ${style.search}`}
 			onClick={() => {
-				validateData()
+				validData()
 			}}
 		>
 			<Image

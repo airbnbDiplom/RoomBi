@@ -65,7 +65,6 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				dispatch(setWhenObjDateOut(newDate.toString()))
 				setDateVieOnButtonSearch(formatted(calendarDateD))
 			} else {
-				console.log('calendarDateD', calendarDateD)
 				setDateVieOnButtonSearch(formatted(calendarDateD))
 				dispatch(setBtnState(SearchBtnEnum.Who))
 			}
@@ -80,7 +79,6 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 		}
 	}
 	const formatted = (date: Date): string => {
-		console.log('date', date)
 		const formatter = new Intl.DateTimeFormat(t('locale'), {
 			day: 'numeric',
 			month: 'long',

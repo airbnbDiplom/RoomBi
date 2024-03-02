@@ -124,6 +124,7 @@ export const authConfig = {
         const res = await authLogin(requestUser, "google");
         if (res.ok) {
           const response = await res.json();
+
           const { token, refreshToken } = response;
           const sessionUser = {
             name: token,

@@ -22,6 +22,7 @@ const ReservDate: React.FC<{ data: DateBooking[] }> = ({
     ) {
       setIfDateEnd(false);
     } else {
+      setIsShow(false);
       setIfDateEnd(true);
     }
   }, [date]);

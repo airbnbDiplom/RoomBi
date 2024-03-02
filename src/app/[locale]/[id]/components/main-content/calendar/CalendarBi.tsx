@@ -50,21 +50,23 @@ const CalendarBi: React.FC<{ data: DateBooking[] }> = ({
   const pricePerNight = useAppSelector(
     (state) => state.reservReducer.pricePerNight
   );
-  const initState = (Data: DateBooking[]) => {
-    for (let i = 0; i < Data.length; i++) {
-      const startDate = new Date(
-        Data[i].start.year,
-        Data[i].start.month,
-        Data[i].start.day
-      );
-      const endDate = new Date(
-        Data[i].end.year,
-        Data[i].end.month,
-        Data[i].end.day
-      );
+  const initState = (Data: DateBooking[] | undefined) => {
+    if (Data) {
+      for (let i = 0; i < Data.length; i++) {
+        const startDate = new Date(
+          Data[i].start.year,
+          Data[i].start.month,
+          Data[i].start.day
+        );
+        const endDate = new Date(
+          Data[i].end.year,
+          Data[i].end.month,
+          Data[i].end.day
+        );
 
-      const reserv = getDatesInRange(startDate, endDate);
-      setReserv((prevReserv) => [...prevReserv, ...reserv]);
+        const reserv = getDatesInRange(startDate, endDate);
+        setReserv((prevReserv) => [...prevReserv, ...reserv]);
+      }
     }
   };
   useEffect(() => {
