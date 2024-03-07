@@ -99,35 +99,55 @@ export interface AutoCompleteList {
 }
 
 export interface AutoCompleteItem {
-	type: 'AutoCompleteItem'
-	properties: Properties
-	bbox: number[]
-	geometry: Geometry
-}
-
-interface Properties {
+	address: Address
 	addresstype: string
-	place_id: string
-	osm_type: string
-	osm_id: string
-	name: string
-	display_name: string
-	place_rank: string
+	boundingbox: string[]
 	category: string
-	type: string
+	display_name: string
 	importance: number
+	lat: string
+	licence: string
+	lon: string
+	name: string
+	osm_id: number
+	osm_type: string
+	place_id: number
+	place_rank: number
+	type: string
 }
+interface Address {
+	'ISO3166-2-lvl4': string
+	'ISO3166-2-lvl6': string
+	borough: string
+	city: string
+	country: string
+	country_code: string
+	postcode: string
+}
+// interface Properties {
+// 	addresstype: string
+// 	place_id: string
+// 	osm_type: string
+// 	osm_id: string
+// 	name: string
+// 	display_name: string
+// 	place_rank: string
+// 	category: string
+// 	type: string
+// 	importance: number
+// }
 
-interface Geometry {
-	type: 'Point'
-	coordinates: [number, number]
-}
+// interface Geometry {
+// 	type: 'Point'
+// 	coordinates: [number, number]
+// }
 // end  ---autoComplete---
 
 export interface DataSearchForSorting {
 	where?: {
 		type: string
-		name: string
+		countryCode: string
+		placeId: number
 	}
 	when?: DateBooking
 	why?: number

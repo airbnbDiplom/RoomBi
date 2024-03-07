@@ -1,19 +1,14 @@
-import {
-	AutoCompleteItem,
-	AutoCompleteList,
-	SearchBtnEnum,
-} from '@/app/type/type'
+import { AutoCompleteItem, SearchBtnEnum } from '@/app/type/type'
 import style from '../Search.module.css'
-import React, { MouseEventHandler } from 'react'
+import React from 'react'
 import { useAppDispatch } from '@/app/redux/hook'
 import { setWhereObj } from '@/app/redux/searchInHeader/SearchSlice'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 import Image from 'next/image'
-import { useTranslation } from 'react-i18next'
 
 interface WhereOptionDropDawnProps {
 	setWhereOptionBlack: React.Dispatch<React.SetStateAction<boolean>>
-	autoList: AutoCompleteList
+	autoList: AutoCompleteItem[]
 	setStringInput: React.Dispatch<React.SetStateAction<string>>
 }
 
@@ -28,7 +23,7 @@ const WhereOptionDropDawn: React.FC<WhereOptionDropDawnProps> = ({
 		item: AutoCompleteItem
 	): React.MouseEventHandler<HTMLDivElement> | undefined => {
 		dispatch(setWhereObj(item))
-		setStringInput(item.properties.display_name)
+		setStringInput(item.display_name)
 		setWhereOptionBlack(false)
 		dispatch(setBtnState(SearchBtnEnum.WhenCome))
 		return
@@ -36,14 +31,14 @@ const WhereOptionDropDawn: React.FC<WhereOptionDropDawnProps> = ({
 
 	return (
 		<div className={`${style.whereOptionDropDawnBlok}`}>
-			{autoList.features !== undefined &&
-				autoList.features.map(item => (
+			{autoList !== undefined &&
+				autoList.map(item => (
 					<div
 						onClick={() => {
 							setItemToStore(item)
 						}}
 						className={`${style.whereOptionDropDawnBlokItem}`}
-						key={item.properties.place_id}
+						key={item.place_id}
 					>
 						<div>
 							<div className={`${style.imagePoint}`}>
@@ -55,7 +50,7 @@ const WhereOptionDropDawn: React.FC<WhereOptionDropDawnProps> = ({
 								/>
 							</div>
 							<div className={`${style.whereOptionDropDawnBlokItemText}`}>
-								{item.properties.display_name}
+								{item.display_name}
 							</div>
 						</div>
 					</div>

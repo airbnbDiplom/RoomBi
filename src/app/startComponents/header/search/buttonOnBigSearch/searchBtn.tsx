@@ -4,6 +4,7 @@ import style from '../Search.module.css'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import autoCompleteService from '@/app/services/autoCompleteService'
 import {
+	AutoCompleteItem,
 	AutoCompleteList,
 	DataSearchForSorting,
 	DateBi,
@@ -30,9 +31,9 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 			inputRef.current.value.trim().length > 2
 		) {
 			autoCompleteService(inputRef.current.value, t('locale')).then(
-				(data: AutoCompleteList | null) => {
+				(data: AutoCompleteItem[] | null) => {
 					if (data) {
-						dispatch(setWhereObj(data.features[0]))
+						dispatch(setWhereObj(data[0]))
 					} else {
 						console.log('Where handleInputChange No data fetched.')
 					}
@@ -62,8 +63,9 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 			where:
 				Object.keys(dataSearch.whereObj).length > 0
 					? {
-							type: dataSearch.whereObj.properties.addresstype,
-							name: dataSearch.whereObj.properties.display_name,
+							type: dataSearch.whereObj.addresstype,
+							countryCode: dataSearch.whereObj.address.country_code,
+							placeId: dataSearch.whereObj.place_id,
 					  }
 					: undefined,
 			when:
@@ -89,11 +91,10 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 		console.log('transferData', transferData)
 		searchDataService(transferData)
 			.then((data: any) => {
-				console.log('data', data)
 				//if (data !== null) {
 				console.log('data', data)
-				sessionStorage.setItem('dataSearch', JSON.stringify(dataSearch))
-				window.location.replace('/searchResult')
+				//sessionStorage.setItem('dataSearch', JSON.stringify(dataSearch))
+				//window.location.replace('/searchResult')
 				// } else {
 				// 	console.log('dateIsNull')
 				// }
