@@ -1,5 +1,12 @@
 "use client";
-import { InputGroup, FormControl, Modal, Form, Button, FloatingLabel } from "react-bootstrap";
+import {
+  InputGroup,
+  FormControl,
+  Modal,
+  Form,
+  Button,
+  FloatingLabel,
+} from "react-bootstrap";
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -7,8 +14,8 @@ import styles from "./AuthenticationBtn.module.css";
 import { useSearchParams } from "next/navigation";
 import { useTranslation } from "next-i18next";
 import RegContModal from "./RegContModal";
-import { Eye, EyeSlash } from 'react-bootstrap-icons';
-import { useSession } from 'next-auth/react';
+import { Eye, EyeSlash } from "react-bootstrap-icons";
+import { useSession } from "next-auth/react";
 interface RequestUser {
   email?: string;
   password?: string;
@@ -137,7 +144,6 @@ const ModalForm: React.FC<ModalFormProps> = ({
   };
 
   const signinType = async (type: string) => {
-
     let user: RequestUser;
     if (type === "google") {
       const { data: session } = useSession();
@@ -147,8 +153,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
         password: "google",
         type: type,
       };
-    }
-    else {
+    } else {
       user = {
         email: email,
         password: password,
@@ -159,21 +164,24 @@ const ModalForm: React.FC<ModalFormProps> = ({
     console.log(user);
 
     try {
-      const res: string | SignInResponse | undefined = await signIn("credentials", {
-        email: user.email,
-        password: user.password,
-        type: user.type,
-        redirect: false,
-      });
+      const res: string | SignInResponse | undefined = await signIn(
+        "credentials",
+        {
+          email: user.email,
+          password: user.password,
+          type: user.type,
+          redirect: false,
+        }
+      );
       console.log(res?.status, res?.error);
-      if (res?.status === 200) {
+      if (res?.error === "Ok") {
         console.log("Response is a string: ", res.error);
         console.log("OK - ", res);
         handleClose();
         setShowNewModal(true);
         setServerError("");
       } else {
-        if (res?.error == 'CredentialsSignin') {
+        if (res?.error == "CredentialsSignin") {
           setServerError("Серверу п*з**ць, вибачте за неприємності");
         } else {
           setServerError(res?.error || null);
@@ -208,11 +216,21 @@ const ModalForm: React.FC<ModalFormProps> = ({
         <Modal.Body>
           <>
             <h2 className={styles.welcomeMessage}>{t("welcomeMessage")}</h2>
-            {serverError && <p style={{ color: "red" }} className={styles.itemFont}>{serverError}</p>}
+            {serverError && (
+              <p style={{ color: "red" }} className={styles.itemFont}>
+                {serverError}
+              </p>
+            )}
             <Form>
-              <div className={`form-floating my-3 ${email || isEmailFocused ? 'is-focused' : ''}`}>
+              <div
+                className={`form-floating my-3 ${
+                  email || isEmailFocused ? "is-focused" : ""
+                }`}
+              >
                 <Form.Control
-                  className={`${styles.formControl} ${!isEmailValid ? 'input-invalid' : ''}`}
+                  className={`${styles.formControl} ${
+                    !isEmailValid ? "input-invalid" : ""
+                  }`}
                   type="email"
                   id="formBasicEmail"
                   placeholder={t("email")}
@@ -222,14 +240,30 @@ const ModalForm: React.FC<ModalFormProps> = ({
                   onFocus={() => setIsEmailFocused(true)}
                   onBlur={() => setIsEmailFocused(false)}
                   style={{
-                    borderColor: isEmailValid ? '' : 'red',
-                    boxShadow: isEmailValid ? '' : '0 0 0 0.2rem rgba(255, 0, 0, 0.25)',
+                    borderColor: isEmailValid ? "" : "red",
+                    boxShadow: isEmailValid
+                      ? ""
+                      : "0 0 0 0.2rem rgba(255, 0, 0, 0.25)",
                   }}
                 />
-                <label htmlFor="formBasicEmail" style={{ color: isEmailValid ? '' : 'red' }} className={styles.itemFont}>{t("email")}</label>
-                {!isEmailValid && <div className="invalid-feedback d-block itemFont" >{t("enterValidEmail")}</div>}
+                <label
+                  htmlFor="formBasicEmail"
+                  style={{ color: isEmailValid ? "" : "red" }}
+                  className={styles.itemFont}
+                >
+                  {t("email")}
+                </label>
+                {!isEmailValid && (
+                  <div className="invalid-feedback d-block itemFont">
+                    {t("enterValidEmail")}
+                  </div>
+                )}
               </div>
-              <div className={`form-floating my-3 ${password || isPasswordFocused ? 'is-focused' : ''}`}>
+              <div
+                className={`form-floating my-3 ${
+                  password || isPasswordFocused ? "is-focused" : ""
+                }`}
+              >
                 <Form.Control
                   type={showPassword ? "text" : "password"}
                   id="formBasicPassword"
@@ -240,19 +274,46 @@ const ModalForm: React.FC<ModalFormProps> = ({
                   onFocus={() => setIsPasswordFocused(true)}
                   onBlur={() => setIsPasswordFocused(false)}
                   style={{
-                    borderColor: isPasswordValid ? '' : 'red',
-                    boxShadow: isPasswordValid ? '' : '0 0 0 0.2rem rgba(255, 0, 0, 0.25)',
-                    paddingRight: '40px'
+                    borderColor: isPasswordValid ? "" : "red",
+                    boxShadow: isPasswordValid
+                      ? ""
+                      : "0 0 0 0.2rem rgba(255, 0, 0, 0.25)",
+                    paddingRight: "40px",
                   }}
                 />
-                <label htmlFor="formBasicPassword" style={{ color: isPasswordValid ? '' : 'red' }} className={styles.itemFont}>{t("password")}</label>
-                {!isPasswordValid && <div className="invalid-feedback d-block itemFont">{t("passwordMustBeAtLeast5")}</div>}
-                <span onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: '10px', top: isPasswordValid ? '50%' : '35%', transform: 'translateY(-50%)', cursor: 'pointer' }}>
+                <label
+                  htmlFor="formBasicPassword"
+                  style={{ color: isPasswordValid ? "" : "red" }}
+                  className={styles.itemFont}
+                >
+                  {t("password")}
+                </label>
+                {!isPasswordValid && (
+                  <div className="invalid-feedback d-block itemFont">
+                    {t("passwordMustBeAtLeast5")}
+                  </div>
+                )}
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: isPasswordValid ? "50%" : "35%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                  }}
+                >
                   {showPassword ? <EyeSlash /> : <Eye />}
                 </span>
               </div>
               {isRegistration && (
-                <div className={`form-floating my-3 ${repeatPassword || isRepeatPasswordFocused ? 'is-focused' : ''}`}>
+                <div
+                  className={`form-floating my-3 ${
+                    repeatPassword || isRepeatPasswordFocused
+                      ? "is-focused"
+                      : ""
+                  }`}
+                >
                   <Form.Control
                     type={showRepeatPassword ? "text" : "password"}
                     id="formBasicRepeatPassword"
@@ -263,14 +324,35 @@ const ModalForm: React.FC<ModalFormProps> = ({
                     onFocus={() => setIsRepeatPasswordFocused(true)}
                     onBlur={() => setIsRepeatPasswordFocused(false)}
                     style={{
-                      borderColor: isRepeatPasswordValid ? '' : 'red',
-                      boxShadow: isRepeatPasswordValid ? '' : '0 0 0 0.2rem rgba(255, 0, 0, 0.25)',
-                      paddingRight: '40px'
+                      borderColor: isRepeatPasswordValid ? "" : "red",
+                      boxShadow: isRepeatPasswordValid
+                        ? ""
+                        : "0 0 0 0.2rem rgba(255, 0, 0, 0.25)",
+                      paddingRight: "40px",
                     }}
                   />
-                  <label htmlFor="formBasicRepeatPassword" style={{ color: isRepeatPasswordValid ? '' : 'red' }} className={styles.itemFont}>{t("confirmPassword")}</label>
-                  {!isRepeatPasswordValid && <div className="invalid-feedback d-block itemFont">{t("passwordsDoNotMatch")}</div>}
-                  <span onClick={() => setShowRepeatPassword(!showRepeatPassword)} style={{ position: 'absolute', right: '10px', top: isRepeatPasswordValid ? '50%' : '35%', transform: 'translateY(-50%)', cursor: 'pointer' }}>
+                  <label
+                    htmlFor="formBasicRepeatPassword"
+                    style={{ color: isRepeatPasswordValid ? "" : "red" }}
+                    className={styles.itemFont}
+                  >
+                    {t("confirmPassword")}
+                  </label>
+                  {!isRepeatPasswordValid && (
+                    <div className="invalid-feedback d-block itemFont">
+                      {t("passwordsDoNotMatch")}
+                    </div>
+                  )}
+                  <span
+                    onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+                    style={{
+                      position: "absolute",
+                      right: "10px",
+                      top: isRepeatPasswordValid ? "50%" : "35%",
+                      transform: "translateY(-50%)",
+                      cursor: "pointer",
+                    }}
+                  >
                     {showRepeatPassword ? <EyeSlash /> : <Eye />}
                   </span>
                 </div>
@@ -292,7 +374,9 @@ const ModalForm: React.FC<ModalFormProps> = ({
               }}
             >
               <hr style={{ flex: 1 }} />
-              <p style={{ margin: "0 10px" }} className={styles.itemFont}>{t("or")}</p>
+              <p style={{ margin: "0 10px" }} className={styles.itemFont}>
+                {t("or")}
+              </p>
               <hr style={{ flex: 1 }} />
             </div>
             <Button

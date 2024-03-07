@@ -1,5 +1,7 @@
 "use server";
 
+import { Filter } from "../type/type";
+
 const getHouses = async () => {
   const url = process.env.NEXT_GET_APARTAMENTS;
 
@@ -15,19 +17,54 @@ const getHouses = async () => {
   return response.json();
 };
 
-const getFirstPageServer = async () => {
-  const url = process.env.NEXT_GET_FIRST_PAGE;
+export const getFirstPage = async (userId?: string) => {
+  let url = process.env.NEXT_GET_FIRST_PAGE;
   if (!url) {
     throw new Error("URL is undefined.");
   }
+  if (userId) {
+    url = url + `&idUser=${userId}`;
+  }
+  console.log("url", url);
   const response = await fetch(url, {
     next: {
-      revalidate: 5000,
+      revalidate: 5,
     },
   });
   if (!response.ok) {
     console.error("getFirstPageServer", response);
-    throw new Error("Unable to fetch houses.");
+    throw new Error("Unable to fetch housesc.");
+  }
+  return response.json();
+};
+
+export const getFilter = async (filter: Filter) => {
+  const url = process.env.NEXT_FILTER;
+  if (!url) {
+    throw new Error("URL is undefined.");
+  }
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      typeAccommodation: filter.typeAccommodation,
+      minimumPrice: filter.minimumPrice,
+      maximumPrice: filter.maximumPrice,
+      bedrooms: filter.bedrooms,
+      beds: filter.beds,
+      bathrooms: filter.bathrooms,
+      rating: filter.rating,
+      typeOfHousing: filter.typeOfHousing,
+      offeredAmenitiesDTO: filter.offeredAmenitiesDTO,
+      hostsLanguage: filter.hostsLanguage,
+    }),
+  });
+  if (!response.ok) {
+    console.error("getFilter", response);
+    throw new Error("Unable to fetch getFilter.");
   }
 
   return response.json();
@@ -39,21 +76,11 @@ export const getApartamentId = async (id: string, idUser: string = "0") => {
     throw new Error("URL is undefined.");
   }
 
-  const response = await fetch(`${url}?id=${id}&idUser=${idUser}`, {
-    next: {
-      revalidate: 5000,
-    },
-  });
+  const response = await fetch(`${url}?id=${id}&idUser=${idUser}`);
   if (!response.ok) throw new Error(response.statusText);
 
   const res = response.json();
-  console.log("TTTTTTT+++", `${url}?id=${id}&idUser=${idUser}`);
   return res;
-};
-
-export const getFirstPage = async () => {
-  const response = await getFirstPageServer();
-  return response;
 };
 
 export const getAllHouses = async () => {

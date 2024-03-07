@@ -3,68 +3,144 @@ import style from "./filterBtn.module.css";
 import Image from "next/image";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { TypeAllocationRadio } from "./type-of-allocation/TypeAllocationRadio";
+import { Filter } from "@/app/type/type";
+import { RoomsBeds } from "./rooms-and-beds/RoomsBeds";
+import { MinMaxPrice } from "./min-max-price/MinMaxPrice";
+import { MinMaxPriceShow } from "./min-max-price-show/MinMaxPriceShow";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+import { CheckboxAmenities } from "./checkbox-amenities/CheckboxAmenities";
+import { Button } from "@mui/material";
+import { ImageCheckbox } from "./image checkbox/ImageCheckbox";
+import { RatingCheckbox } from "./rating-checkbox/RatingCheckbox";
+import { getFilter } from "@/app/services/housesServices";
+import { setApartments } from "@/app/redux/apartmentsState/apartmentsSlice";
 
 const FilterBtn: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const { t } = useTranslation();
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const [showCheckbox, setShowCheckbox] = useState(false);
+  const handleShowCheckbox = () => setShowCheckbox(!showCheckbox);
+  const [showBtn, setShowBtn] = useState(false);
+  const length = useAppSelector(
+    (state) => state.apartmentsReducer.apartmentsAll.length
+  );
+  useEffect(() => {
+    if (length > 0) {
+      setShowBtn(true);
+    }
+  }, [length]);
+  const initialState: Filter = {
+    typeAccommodation: "Будь-який",
+    minimumPrice: 0,
+    maximumPrice: 800,
+    bedrooms: 0,
+    beds: 0,
+    bathrooms: 0,
+    rating: false,
+    typeOfHousing: [],
+    offeredAmenitiesDTO: [],
+    hostsLanguage: [],
+  };
+  const [state, setState] = useState<Filter>(initialState);
+  useEffect(() => {
+    console.log("state", state);
+  }, [state]);
+  const clisk = async () => {
+    const data = await getFilter(state);
+    dispatch(setApartments(data));
+    setState(initialState);
+  };
   return (
     <>
-      <button className={style.filterBtn} onClick={handleShow}>
-        {" "}
-        <Image
-          className={style.imgFilterBtn}
-          src="/filter/filterBtn.svg"
-          width={20}
-          height={20}
-          alt="filterBtn"
-        />
-        {t("showBtnFilters")}
-      </button>
+      {showBtn && (
+        <>
+          <button className={style.filterBtn} onClick={handleShow}>
+            {" "}
+            <Image
+              className={style.imgFilterBtn}
+              src="/filter/filterBtn.svg"
+              width={20}
+              height={20}
+              alt="filterBtn"
+            />
+            {t("showBtnFilters")}
+          </button>
 
-      <div
-        className="modal show"
-        style={{ display: "block", position: "initial" }}
-      >
-        <Modal show={show} onHide={handleClose} size="lg">
-          <Modal.Header closeButton>
-            <Modal.Title>Фільтри</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <h5>Тип розміщення</h5>
-            <p>Своя кімната і доступ до загальних приміщень.</p>
-            <h5>Діапазон цін</h5>
-            <h5>Кімнати та ліжка</h5>
-            <p>Cпальні</p>
-            <p>Ліжка</p>
-            <p>Ванні кімнати</p>
-            <h5>Першокласне житло</h5>
-            <h5>Тип житла</h5>
-            <p>Будинок</p>
-            <p>Квартира</p>
-            <p>Будинок для гостей</p>
-            <h5>Зручності</h5>
-            <p>Найнеобхідніше</p>
-            <p>Характеристики </p>
-            <p>Місцезнаходження</p>
-            <p>Безпека</p>
-            <h5>Можливості бронювання</h5>
-            <p>Миттєве бронювання</p>
-            <p>
-              Оголошення, які можна забронювати, не чекаючи на підтвердження
-              господаря.
-            </p>
-            <p>Самостійне заселення</p>
-            <p>Ви легко потрапите в житло, не чекаючи господаря</p>
-            <p>Можна з твариною</p>
-            <p>Подорожуєте із твариною-помічником?</p>
-          </Modal.Body>
-        </Modal>
-      </div>
+          <div style={{ display: "block", position: "initial" }}>
+            <Modal show={show} onHide={handleClose} size="lg">
+              <Modal.Header closeButton style={{ paddingLeft: "40%" }}>
+                <Modal.Title>
+                  {" "}
+                  <h3>{t("txt0FB")}</h3>
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body className={style.containet}>
+                <h3>{t("txt1FB")}</h3>
+                <p>{t("txt2FB")}</p>
+                <TypeAllocationRadio setState={setState} />
+                <span className={style.spanLine}></span>
+                <h3>{t("txt3FB")}</h3>
+                <p>{t("txt4FB")}</p>
+                <div className={style.price}>
+                  <MinMaxPrice setState={setState} type={"bedrooms"} />
+                  <MinMaxPriceShow state={state} />
+                </div>
+
+                <span className={style.spanLine}></span>
+                <h3>{t("txt5FB")}</h3>
+                <p>{t("txt6FB")}</p>
+                <RoomsBeds setState={setState} type={"bedrooms"} />
+                <p>{t("txt7FB")}</p>
+                <RoomsBeds setState={setState} type={"beds"} />
+                <p>{t("txt8FB")}</p>
+                <RoomsBeds setState={setState} type={"bathrooms"} />
+                <span className={style.spanLine}></span>
+                <h3>{t("txt9FB")}</h3>
+                <RatingCheckbox setState={setState} />
+                <span className={style.spanLine}></span>
+                <h3>{t("txtFB_TH0")}</h3>
+                <ImageCheckbox setState={setState} />
+                <span className={style.spanLine}></span>
+                <h3>{t("txtFB_0")}</h3>
+                <CheckboxAmenities setState={setState} type={"txtFB_1"} />
+
+                {showCheckbox && (
+                  <>
+                    <CheckboxAmenities setState={setState} type={"txtFB_2"} />
+                    <CheckboxAmenities setState={setState} type={"txtFB_3"} />
+                    <CheckboxAmenities setState={setState} type={"txtFB_4"} />
+                  </>
+                )}
+
+                <Button
+                  sx={{ color: "black", fontWeight: "700" }}
+                  onClick={handleShowCheckbox}
+                >
+                  {t("showMoreBtn")}
+                </Button>
+                <span className={style.spanLine}></span>
+
+                <CheckboxAmenities setState={setState} type={"txtFB_L0"} />
+                <span className={style.spanLine}></span>
+                <Button
+                  onClick={clisk}
+                  color="inherit"
+                  variant="contained"
+                  sx={{ backgroundColor: "#959595", fontWeight: "700" }}
+                >
+                  {t("showBtnFilters")}
+                </Button>
+              </Modal.Body>
+            </Modal>
+          </div>
+        </>
+      )}
     </>
   );
 };
