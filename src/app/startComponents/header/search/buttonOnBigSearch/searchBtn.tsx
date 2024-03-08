@@ -91,10 +91,11 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 		console.log('transferData', transferData)
 		searchDataService(transferData)
 			.then((data: any) => {
-				//if (data !== null) {
-				console.log('data', data)
-				//sessionStorage.setItem('dataSearch', JSON.stringify(dataSearch))
-				//window.location.replace('/searchResult')
+				//if (data !== null)
+				//{
+				//console.log('data', data)
+				sessionStorage.setItem('dataSearch', JSON.stringify(dataSearch))
+				window.location.replace('/searchResult')
 				// } else {
 				// 	console.log('dateIsNull')
 				// }
