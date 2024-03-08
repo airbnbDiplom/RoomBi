@@ -20,6 +20,7 @@ const UserInfo: React.FC<{ data: RentalApartmentDTO }> = ({
 }: {
   data: RentalApartmentDTO;
 }) => {
+  console.log("hous_+_", data);
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const session = useSession();

@@ -41,10 +41,12 @@ const MainHeader: React.FC<{ data: RentalApartmentDTO }> = ({
   const save = async () => {
     if (session.data?.user?.name) {
       const res = await putWishlists(data.id, session.data?.user?.name);
+      console.log("res--1", res);
+
       if (res) {
-        if (saveUrlImg == "save") {
+        if (res === "Ok") {
           setSaveUrlImg("save2");
-        } else {
+        } else if (res === "No") {
           setSaveUrlImg("save");
         }
       }
