@@ -55,6 +55,7 @@ const FilterBtn: React.FC = () => {
     const data = await getFilter(state);
     dispatch(setApartments(data));
     setState(initialState);
+    setShowBtn(false);
   };
   return (
     <>
