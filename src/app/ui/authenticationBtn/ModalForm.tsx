@@ -144,21 +144,10 @@ const ModalForm: React.FC<ModalFormProps> = ({
 	}
 
 	const signinType = async (type: string) => {
-		let user: RequestUser
-		if (type === 'google') {
-			const { data: session } = useSession()
-			user = {
-				name: session?.user?.name || '',
-				email: session?.user?.email || '',
-				password: 'google',
-				type: type,
-			}
-		} else {
-			user = {
-				email: email,
-				password: password,
-				type: type,
-			}
+		let user: RequestUser = {
+			email: email,
+			password: password,
+			type: type,
 		}
 
 		console.log(user)
