@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { useSession } from 'next-auth/react';
 import { signIn, signOut } from "next-auth/react";
 import { decodeTokenAndGetFirstLetterOfName } from '@/app/services/jwtDecoder';
+
 const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const [showRegister, setShowRegister] = useState(false)
 	const [showLogin, setShowLogin] = useState(false)
@@ -16,7 +17,12 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const { data: session } = useSession();
 	const user = session?.user?.name || null;
 	const token = session?.user?.name;
-	const firstLetterOfName = token ? decodeTokenAndGetFirstLetterOfName(token) : '';
+	let firstLetterOfName: string | null = '';
+	try {
+	  firstLetterOfName = token ? decodeTokenAndGetFirstLetterOfName(token) : '';
+	} catch (error) {
+		signOut();
+	}
 	return (
 		<Dropdown className={`d-flex align-item-center ${style.btn}`}>
 			<Dropdown.Toggle
@@ -63,6 +69,7 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			{user ? (
 				<Dropdown.Menu className={style.itemFont}>
 					<Dropdown.Divider />
+					<Dropdown.Item href="/accountPage">{t("account")}</Dropdown.Item>
 					<Dropdown.Item href="#">{t("helpcenter")}</Dropdown.Item>
 					<Dropdown.Item href="#">
 						<button onClick={() => signOut()}>signOut </button>

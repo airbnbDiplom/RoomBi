@@ -21,7 +21,28 @@ function decodeTokenAndGetExpiration(token: string): number | null {
       return decodedToken.Name.charAt(0);
     }
   } catch (error) {
-    console.error("Помилка розкодування токена:", error);
+    throw("Помилка розкодування токена:");
+  }
+  return null;
+}
+
+// Расшифровка токена юзера для редактирования данных
+export function decodeTokenAndGetUserDetails(token: string): { firstName: string, lastName: string, email: string, address: string, phoneNumber: string } | null {
+  try {
+    const decodedToken: any = jwtDecode(token);
+    if (decodedToken) {
+      const [firstName, lastName] = decodedToken.Name.split(' ');
+      const { Email, Address, PhoneNumber } = decodedToken;
+      return {
+        firstName,
+        lastName,
+        email: Email,
+        address: Address,
+        phoneNumber: PhoneNumber
+      };
+    }
+  } catch (error) {
+    throw("Помилка розкодування токена:");
   }
   return null;
 }
