@@ -32,29 +32,32 @@ const WhereOptionDropDawn: React.FC<WhereOptionDropDawnProps> = ({
 	return (
 		<div className={`${style.whereOptionDropDawnBlok}`}>
 			{autoList !== undefined &&
-				autoList.map(item => (
-					<div
-						onClick={() => {
-							setItemToStore(item)
-						}}
-						className={`${style.whereOptionDropDawnBlokItem}`}
-						key={item.place_id}
-					>
-						<div>
-							<div className={`${style.imagePoint}`}>
-								<Image
-									src={'/icon/pointOnMap.svg'}
-									width={38}
-									height={38}
-									alt='point on map icon'
-								/>
+				autoList.map(
+					item =>
+						item.type === 'administrative' && (
+							<div
+								onClick={() => {
+									setItemToStore(item)
+								}}
+								className={`${style.whereOptionDropDawnBlokItem}`}
+								key={item.place_id}
+							>
+								<div>
+									<div className={`${style.imagePoint}`}>
+										<Image
+											src={'/icon/pointOnMap.svg'}
+											width={38}
+											height={38}
+											alt='point on map icon'
+										/>
+									</div>
+									<div className={`${style.whereOptionDropDawnBlokItemText}`}>
+										{item.display_name}
+									</div>
+								</div>
 							</div>
-							<div className={`${style.whereOptionDropDawnBlokItemText}`}>
-								{item.display_name}
-							</div>
-						</div>
-					</div>
-				))}
+						)
+				)}
 		</div>
 	)
 }
