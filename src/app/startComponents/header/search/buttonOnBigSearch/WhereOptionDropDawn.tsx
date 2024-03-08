@@ -34,7 +34,7 @@ const WhereOptionDropDawn: React.FC<WhereOptionDropDawnProps> = ({
 			{autoList !== undefined &&
 				autoList.map(
 					item =>
-						item.type === 'administrative' && (
+						(item.type === 'administrative' || 'country' || 'city') && (
 							<div
 								onClick={() => {
 									setItemToStore(item)

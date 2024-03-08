@@ -184,5 +184,90 @@
 	"selectCountry": "Select country",
 	"namesRequired": "First name and last name are required",
 	"phoneRequired": "Phone number is required",
-	"countryRequired": "Please select a country"
+	"countryRequired": "Please select a country",
+	
+	"anyTypeFB": "Any ",
+	"roomTypeFB": "Room",
+	"fullAccommodationFB": "Full accommodation",
+	"txt0FB": "Filters",
+	"txt1FB": "Type of accommodation",
+	"txt2FB": "Search for rooms, houses and other accommodation",
+	"txt3FB": "Price range",
+	"txt4FB": "Prices per night do not include taxes and fees",
+	"txt5FB": "Rooms and beds",
+	"txt6FB": "Bedrooms",
+	"txt7FB": "Beds",
+	"txt8FB": "Bathrooms",
+	"txt9FB": "First-class accommodation",
+	"txt10FB": "Does not matter",
+	"txt11FB": "This property is the most loved by guests on RoomBi",
+	"txt12FB": "Choice of guests",
+
+	"txtFB11": "WiFi",
+	"txtFB12": "TV",
+	"txtFB13": "Kitchen",
+	"txtFB14": "Washing machine",
+	"txtFB15": "Conditioner",
+	"txtFB16": "Workspace",
+	"txtFB17": "First aid kit",
+	"txtFB18": "Extinguisher",
+	"txtFB19": "Free parking",
+	"txtFB20": "Toll parking",
+	"txtFB21": "Pool",
+	"txtFB22": "Jacuzzi",
+	"txtFB23": "Courtyard",
+	"txtFB24": "BBQ area",
+	"txtFB25": "Outdoor dining area",
+	"txtFB26": "Fire pit",
+	"txtFB27": "Pool table",
+	"txtFB29": "Fireplace",
+	"txtFB30": "Piano",
+	"txtFB31": "Gym equipment",
+	"txtFB32": "Outdoor shower",
+	"txtFB33": "Access to the lake",
+	"txtFB34": "Access to the beach",
+	"txtFB35": "Skiing",
+	"txtFB36": "Carbon monoxide detector",
+	"txtFB37": "Smoke detector",
+	"txtFB_0": "Amenities",
+	"txtFB_1": "The most necessary",
+	"txtFB_2": "Characteristics",
+	"txtFB_3": "Location",
+	"txtFB_4": "Safety",
+	
+	"txtFB_L0": "Host language",
+	"txtFB_L1": "English",
+	"txtFB_L2": "Ukrainian",
+	"txtFB_L3": "French",
+	"txtFB_L4": "German",
+	"txtFB_L5": "Italian",
+	"txtFB_L6": "Portuguese",
+	"txtFB_L7": "Poland",
+	"txtFB_L8": "Japanese",
+	"txtFB_L9": "Spanish",
+	"txtFB_L10": "Arabic",
+	"txtFB_L11": "Turkish",
+	"txtFB_L12": "Finnish",
+	
+	"txtFB_TH0": "Type of housing",
+	"txtFB_TH1": "Rooms",		
+	"txtFB_TH2": "Houses",	
+	"txtFB_TH3": "Country houses",
+	"txtFB_TH4": "Floating houses"	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
