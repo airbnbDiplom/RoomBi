@@ -69,6 +69,7 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			{user ? (
 				<Dropdown.Menu className={style.itemFont}>
 					<Dropdown.Divider />
+					<Dropdown.Item href="/accountPage">{t("account")}</Dropdown.Item>
 					<Dropdown.Item href="#">{t("helpcenter")}</Dropdown.Item>
 					<Dropdown.Item href="#">
 						<button onClick={() => signOut()}>signOut </button>

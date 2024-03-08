@@ -4,12 +4,11 @@ import { Footer } from '@/app/startComponents/footer/Footer'
 import { Header } from '@/app/startComponents/header/Header'
 import { HomeParams } from '@/app/type/type'
 import React from 'react'
-
-import FilterMain from './components/filterMain'
+import styles from './account.module.css'
 
 const i18nNamespaces = ['translation']
 
-export default async function SearchDataView({
+export default async function AccountPage({
 	params: { locale },
 }: {
 	params: HomeParams
@@ -22,11 +21,20 @@ export default async function SearchDataView({
 			locale={locale}
 			resources={resources}
 		>
-			<div className='header-main'>
-				<Header />
+			<div className={styles.pageContainer}>
+				<div className='header-main'>
+					<Header />
+				</div>
+				<div className={styles.content}>
+					<h1>Account</h1>
+					<div>
+						<h2>Personal Information</h2>
+						<p>Name: </p>
+						<p>Email: </p>
+					</div>
+				</div>
+				<Footer />
 			</div>
-			<FilterMain />
-			<Footer />
 		</TranslationsProvider>
 	)
 }

@@ -1,4 +1,9 @@
-import { ThemProps, SearchBtnEnum, AutoCompleteList } from '@/app/type/type'
+import {
+	ThemProps,
+	SearchBtnEnum,
+	AutoCompleteList,
+	AutoCompleteItem,
+} from '@/app/type/type'
 import autoCompleteService from '@/app/services/autoCompleteService'
 import style from '../Search.module.css'
 import WhereDropDawn from './WhereDropDawn'
@@ -21,17 +26,15 @@ const Where: React.FC<whereProps & ThemProps> = ({
 }) => {
 	const { t } = useTranslation()
 	//const inputRef = useRef<HTMLInputElement>(null)
-	const [autoList, setAutoList] = useState<AutoCompleteList>(
-		{} as AutoCompleteList
-	)
+	const [autoList, setAutoList] = useState<AutoCompleteItem[]>([])
 
 	const [drop, setWhenDropDawn] = useState(false)
 	const dispatch = useAppDispatch()
 	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
 	const stateString = useAppSelector(state =>
-		state.searchReducer.DataSearchObj.whereObj?.properties?.name === undefined
+		state.searchReducer.DataSearchObj.whereObj?.name === undefined
 			? ''
-			: state.searchReducer.DataSearchObj.whereObj?.properties?.name
+			: state.searchReducer.DataSearchObj.whereObj?.name
 	)
 
 	const [stringInput, setStringInput] = useState('')
@@ -51,7 +54,7 @@ const Where: React.FC<whereProps & ThemProps> = ({
 		}
 	}, [btnState, isTeamBlack, inputRef])
 
-	const clearDateOnButton = (event: any) => {
+	const clearDataOnButton = (event: any) => {
 		event.preventDefault()
 		event.stopPropagation()
 		setStringInput('')
@@ -62,7 +65,7 @@ const Where: React.FC<whereProps & ThemProps> = ({
 		const value = event.target.value.trim()
 		if (value.length > 2) {
 			autoCompleteService(value, t('locale')).then(
-				(data: AutoCompleteList | null) => {
+				(data: AutoCompleteItem[] | null) => {
 					if (data) {
 						setAutoList(data)
 					} else {
@@ -129,7 +132,7 @@ const Where: React.FC<whereProps & ThemProps> = ({
 					/>
 				</div>
 				{stringInput !== undefined && stringInput.length > 0 && (
-					<ClearInputBtn clearInput={clearDateOnButton} />
+					<ClearInputBtn clearInput={clearDataOnButton} />
 				)}
 			</div>
 			{drop && stringInput !== undefined && stringInput.length === 0 && (
@@ -138,8 +141,8 @@ const Where: React.FC<whereProps & ThemProps> = ({
 
 			{whereOptionBlack &&
 				stringInput.length > 2 &&
-				autoList.features !== undefined &&
-				autoList.features.length > 0 && (
+				autoList !== undefined &&
+				autoList.length > 0 && (
 					<WhereOptionDropDawn
 						setWhereOptionBlack={setWhereOptionBlack}
 						autoList={autoList}
