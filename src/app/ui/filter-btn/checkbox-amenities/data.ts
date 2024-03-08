@@ -209,7 +209,7 @@ export const TypeOfHousing: FilterCheckboxAmenities[] = [
     isChecked: false,
   },
   {
-    value: "houses",
+    value: "Houses",
     keyLocale: "txtFB_TH2",
     isChecked: false,
   },
