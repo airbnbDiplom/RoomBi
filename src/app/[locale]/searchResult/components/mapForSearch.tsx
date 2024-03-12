@@ -16,12 +16,12 @@ const MapForSearch = () => {
 			parseFloat(value)
 		)
 	)
-
+	console.log(bbox)
 	const bounds = new LatLngBounds(
-		[bbox !== undefined ? bbox[1] : 26, bbox !== undefined ? bbox[0] : -15],
-		[bbox !== undefined ? bbox[3] : 76, bbox !== undefined ? bbox[2] : 35]
+		[bbox !== undefined ? bbox[0] : 26, bbox !== undefined ? bbox[2] : -15],
+		[bbox !== undefined ? bbox[1] : 76, bbox !== undefined ? bbox[3] : 35]
 	)
-
+	console.log('bounds', bounds)
 	return (
 		<div className={style.mapContainer}>
 			<MapContainer

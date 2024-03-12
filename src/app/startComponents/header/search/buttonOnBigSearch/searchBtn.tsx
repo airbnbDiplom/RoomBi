@@ -22,6 +22,7 @@ interface props {
 }
 const SearchBtn: React.FC<props> = ({ inputRef }) => {
 	const { t } = useTranslation()
+
 	const dataSearch = useAppSelector(state => state.searchReducer.DataSearchObj)
 	const dispatch = useAppDispatch()
 	const validData = () => {
@@ -93,9 +94,9 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 			.then((data: any) => {
 				//if (data !== null)
 				//{
-				//console.log('data', data)
+				console.log('data', data)
 				sessionStorage.setItem('dataSearch', JSON.stringify(dataSearch))
-				window.location.replace('/searchResult')
+				//	window.location.replace('/searchResult')
 				// } else {
 				// 	console.log('dateIsNull')
 				// }
