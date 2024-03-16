@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import style from '@/app/[locale]/searchResult/searchResult.module.css'
 import SearchResultItemList from './searchResultItemList'
-import MapForSearch from './mapForSearch'
 import dynamic from 'next/dynamic'
 const FilterMain = () => {
 	const MapForSearch = useMemo(

@@ -3,17 +3,21 @@
 import React, { useEffect } from 'react'
 import style from '@/app/[locale]/searchResult/searchResult.module.css'
 import { useAppSelector } from '@/app/redux/hook'
+import { CardBi } from '@/app/components/card/CardBi'
 const SearchResultItemList: React.FC = () => {
-	const apartmentList = useAppSelector(
-		state => state.apartmentsReducer.apartmentsAll
+	const searchFilterList = useAppSelector(
+		state => state.searchFilterReducer.collection
 	)
 
 	return (
 		<div className={style.itemList}>
-			apartment
-			{/* {apartmentList.map(item => {
-				return <div key={item.id}>{item.id}</div>
-			})} */}
+			{searchFilterList.map(item => {
+				return (
+					<div className={style.item} key={item.id}>
+						<CardBi {...item} />
+					</div>
+				)
+			})}
 		</div>
 	)
 }

@@ -6,9 +6,11 @@ import autoCompleteService from '@/app/services/autoCompleteService'
 import {
 	AutoCompleteItem,
 	AutoCompleteList,
+	CardBiProps,
 	DataSearchForSorting,
 	DateBi,
 	DateBooking,
+	SearchBtnEnum,
 } from '@/app/type/type'
 import {
 	setWhenObjDateCome,
@@ -17,9 +19,13 @@ import {
 } from '@/app/redux/searchInHeader/SearchSlice'
 import searchDataService from '@/app/services/searchDataServices'
 import { useTranslation } from 'react-i18next'
+import Link from 'next/link'
+import { setSearchFilterState } from '@/app/redux/searchInHeader/searchFilterSlice'
+import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 interface props {
 	inputRef: React.RefObject<HTMLInputElement>
 }
+
 const SearchBtn: React.FC<props> = ({ inputRef }) => {
 	const { t } = useTranslation()
 
@@ -43,22 +49,35 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 		}
 		let newDate: string = ''
 		if (
-			(dataSearch.whenObj.dateCome === '' &&
-				dataSearch.whenObj.dateOut !== '') ||
-			(dataSearch.whenObj.dateCome !== '' && dataSearch.whenObj.dateOut === '')
+			dataSearch.whenObj.dateCome === '' &&
+			dataSearch.whenObj.dateOut !== ''
 		) {
-			if (dataSearch.whenObj.dateCome === '') {
-				const date = new Date(dataSearch.whenObj.dateOut)
-				newDate = new Date(date.setDate(date.getDate() + 1)).toString()
-				dispatch(setWhenObjDateCome(dataSearch.whenObj.dateOut))
-				dispatch(setWhenObjDateOut(newDate.toString()))
-			} else {
-				const date = new Date(dataSearch.whenObj.dateCome)
-				newDate = new Date(date.setDate(date.getDate() + 1)).toString()
-				dispatch(setWhenObjDateOut(newDate.toString()))
-			}
+			const date = new Date(dataSearch.whenObj.dateOut)
+			newDate = new Date(date.setDate(date.getDate() + 1)).toString()
+			dispatch(setWhenObjDateCome(dataSearch.whenObj.dateOut))
+			dispatch(setWhenObjDateOut(newDate.toString()))
 		}
-		console.log('dataSearch', dataSearch)
+		if (
+			dataSearch.whenObj.dateCome !== '' &&
+			dataSearch.whenObj.dateOut === ''
+		) {
+			const date = new Date(dataSearch.whenObj.dateCome)
+			newDate = new Date(date.setDate(date.getDate() + 1)).toString()
+			dispatch(setWhenObjDateOut(newDate.toString()))
+		}
+		if (
+			dataSearch.whenObj.dateCome === '' &&
+			dataSearch.whenObj.dateOut === ''
+		) {
+			const toDay = new Date()
+			dispatch(setWhenObjDateCome(toDay.toString()))
+			dispatch(
+				setWhenObjDateOut(
+					new Date(toDay.setDate(toDay.getDate() + 1)).toString()
+				)
+			)
+			dispatch(setBtnState(SearchBtnEnum.DisableAll))
+		}
 
 		const transferData: DataSearchForSorting = {
 			where:
@@ -91,15 +110,13 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 		}
 		console.log('transferData', transferData)
 		searchDataService(transferData)
-			.then((data: any) => {
-				//if (data !== null)
-				//{
-				console.log('data', data)
-				sessionStorage.setItem('dataSearch', JSON.stringify(dataSearch))
-				//	window.location.replace('/searchResult')
-				// } else {
-				// 	console.log('dateIsNull')
-				// }
+			.then((data: CardBiProps[]) => {
+				if (data !== null) {
+					console.log('data', data)
+					dispatch(setSearchFilterState(data))
+				} else {
+					console.log('data null')
+				}
 			})
 			.catch(err => {
 				console.log('err', err)
@@ -115,17 +132,19 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 
 	return (
 		<div
-			className={`${style.item} ${style.item_5}  ${style.cursor}  ${style.search}`}
+			className={`${style.search} ${style.item_5} ${style.item}  ${style.cursor} `}
 			onClick={() => {
 				validData()
 			}}
 		>
-			<Image
-				src={'/icon/search.svg'}
-				width={30}
-				height={30}
-				alt='search icon'
-			/>
+			<Link href={'/searchResult'} className={style.link}>
+				<Image
+					src={'/icon/search.svg'}
+					width={30}
+					height={30}
+					alt='search icon'
+				/>
+			</Link>
 		</div>
 	)
 }

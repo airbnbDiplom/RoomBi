@@ -80,6 +80,7 @@
 	border-radius: 50px;
 	transition: box-shadow 300ms;
 }
+
 .resetButton {
 	position: relative;
 	background: none;
@@ -135,7 +136,7 @@
 	border: 1px solid var(--eerieBlack);
 	border-radius: 15px;
 	top: 90px;
-	z-index: 5;
+	z-index: 999;
 	padding: 15px;
 	text-align: start;
 	background-color: white;
