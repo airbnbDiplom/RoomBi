@@ -10,7 +10,7 @@
 	overflow-x: hidden;
 	position: relative;
 	display: grid;
-	max-width: 60%;
+	min-width: 60%;
 	grid-template-columns: repeat(4, 1fr);
 }
 .item {
