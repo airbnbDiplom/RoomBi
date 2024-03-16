@@ -12,9 +12,10 @@ import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
 import { useAppDispatch } from "@/app/redux/hook";
-import { setId } from "@/app/redux/reservState/reservSlice";
+import { setId, setRentalApartment } from "@/app/redux/reservState/reservSlice";
 import { useSession } from "next-auth/react";
 import { ReservMenu } from "../main-content/reservMenu/ReservMenu";
+import Link from "next/link";
 const UserInfo: React.FC<{ data: RentalApartmentDTO }> = ({
   data,
 }: {
@@ -25,6 +26,8 @@ const UserInfo: React.FC<{ data: RentalApartmentDTO }> = ({
   const dispatch = useAppDispatch();
   const session = useSession();
   dispatch(setId(data.id));
+  dispatch(setRentalApartment(data));
+
   const MapInf = useMemo(
     () =>
       dynamic(
@@ -65,7 +68,10 @@ const UserInfo: React.FC<{ data: RentalApartmentDTO }> = ({
         <div>
           {session.data && (
             <span className={style.btn}>
-              <Button variant="light">{t("contactHostApartament")}</Button>
+              <Link className={style.linkBtn} href={"/contactHost"}>
+                {" "}
+                {t("contactHostApartament")}
+              </Link>
             </span>
           )}
         </div>
