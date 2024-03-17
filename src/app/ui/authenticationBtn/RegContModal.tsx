@@ -11,7 +11,12 @@ import { useTranslation } from "next-i18next";
 import { signIn, signOut } from "next-auth/react";
 import { uk } from 'date-fns/locale';
 import { enUS } from 'date-fns/locale';
+import { getCountries } from '@/app/services/getCountriesService';
 import "@/app/[locale]/globals.css";
+interface Country {
+  name: string;
+  phoneCode: string;
+}
 interface RegContModalProps {
   show: boolean;
   onHide: () => void;
@@ -34,15 +39,24 @@ const RegContModal: React.FC<RegContModalProps> = ({ show, onHide, openModalForm
   const [lastName, setLastName] = useState("");
   const [countryCode, setCountryCode] = useState('+380');
   const [phone, setPhone] = useState(countryCode);
+  const [countryName, setCountryName] = useState('');
+  const [error1, setError1] = useState<string | null>(null);
   const [date, setDate] = useState<Date | null>(null);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [error1, setError1] = useState<string | null>(null);
+  const [countries, setCountries] = useState<Country[]>([]);
   const [errors, setErrors] = useState<{ names?: string | null, phone?: string | null, country?: string | null }>({});
-  const [countryName, setCountryName] = useState('');
+
   const currentLanguage = i18n.language;
   const wrapperRef = useRef<HTMLDivElement>(null);
-
+  useEffect(() => {
+    const fetchCountries = async () => {
+      const countriesData = await getCountries();
+      setCountries(countriesData);
+    };
+  
+    fetchCountries();
+  }, []);
   const resetForm = () => {
     setFirstName('');
     setLastName('');
@@ -66,13 +80,13 @@ const RegContModal: React.FC<RegContModalProps> = ({ show, onHide, openModalForm
     const namesError = validateNames();
     const phoneError = !phone || phone === countryCode ? t('phoneRequired') : null;
     const countryError = !countryCode || !countryName ? t('countryRequired') : null;
-  
+
     setErrors({
       names: namesError,
       phone: phoneError,
       country: countryError
     });
-  
+
     return !(namesError || phoneError || countryError);
   };
 
@@ -247,6 +261,14 @@ const RegContModal: React.FC<RegContModalProps> = ({ show, onHide, openModalForm
               value={firstName}
               autoComplete="off"
               onChange={(e) => setFirstName(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === ' ') {
+                  e.preventDefault();
+                }
+              }}
+              onPaste={e => {
+                e.preventDefault();
+              }}
             />
             <label htmlFor="floatingFirstName">{t('firstName')}</label>
           </Form.Floating>
@@ -259,6 +281,14 @@ const RegContModal: React.FC<RegContModalProps> = ({ show, onHide, openModalForm
               value={lastName}
               autoComplete="off"
               onChange={(e) => setLastName(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === ' ') {
+                  e.preventDefault();
+                }
+              }}
+              onPaste={e => {
+                e.preventDefault();
+              }}
             />
             <label htmlFor="floatingLastName">{t('lastName')}</label>
           </Form.Floating>
@@ -271,6 +301,7 @@ const RegContModal: React.FC<RegContModalProps> = ({ show, onHide, openModalForm
               id="floatingSelect"
               className="my-2"
               aria-label="Default select example"
+              value={countryCode} 
               onChange={(e) => {
                 setCountryCode(e.target.value);
                 setCountryName(e.target.options[e.target.selectedIndex].dataset.name || '');
@@ -278,13 +309,12 @@ const RegContModal: React.FC<RegContModalProps> = ({ show, onHide, openModalForm
                 setError1("");
               }}
             >
-              <option selected disabled value="">{t('selectCountry')}</option>
-              <option value="+380" data-name="Україна">Україна (+380)</option>
-              <option value="+44" data-name="Велика Британія">Велика Британія (+44)</option>
-              <option value="+49" data-name="Німеччина">Німеччина (+49)</option>
-              <option value="+40" data-name="Румунія">Румунія (+40)</option>
-              <option value="+39" data-name="Італія">Італія (+39)</option>
-              <option value="+91" data-name="Польша">Польша (+48)</option>
+                <option selected disabled value="">{t('selectCountry')}</option>
+  {countries.map((country) => (
+    <option key={country.phoneCode} value={country.phoneCode} data-name={country.name}>
+      {country.name} ({country.phoneCode})
+    </option>
+  ))}
             </Form.Select>
 
             <label htmlFor="floatingSelect">{t('selectCountryCode')}</label>
@@ -297,6 +327,7 @@ const RegContModal: React.FC<RegContModalProps> = ({ show, onHide, openModalForm
               placeholder={countryCode}
               value={phone}
               autoComplete="off"
+              maxLength={14}
               onChange={(e) => {
                 const value = e.target.value;
                 if (value.startsWith(countryCode)) {

@@ -23,6 +23,8 @@ export const authConfig = {
     }),
     Credentials({
       credentials: {
+        token : { label: "Token", type: "text" },
+        refreshToken: { label: "Refresh Token", type: "text" },
         email: { label: "Email", type: "email", required: true },
         password: { label: "Password", type: "password" },
         type: { label: "Type" },
@@ -32,6 +34,14 @@ export const authConfig = {
         country: { label: "Country", type: "text" },
       },
       async authorize(credentials) {
+        if (credentials?.token && credentials?.refreshToken) {
+          const sessionUser = {
+            name: credentials.token,
+            email: credentials.refreshToken,
+            image: "not google",
+          };
+          return sessionUser;
+        }
         if (!credentials?.email || !credentials?.password) return null;
 
         const user = {
@@ -75,7 +85,6 @@ export const authConfig = {
                 };
               });
 
-              // Создаем новый объект, включающий все свойства res и добавляем свойство countries
               const newRes = { ...res, countries };
 
               return { data: newRes };
@@ -112,43 +121,43 @@ export const authConfig = {
       },
     }),
   ],
-  session: {
-    rolling: true,
-    maxAge: 24 * 60 * 60,
-  },
   callbacks: {
     async jwt({ token, user, account, profile, isNewUser }) {
+      if (account?.accessToken) {
+        token.accessToken = account.accessToken;
+        token.refreshToken = account.refreshToken;
+      }
       return token;
     },
     async session({ session, user, token }) {
+      if (token.accessToken && token.refreshToken) {
+        session.user.name = token.accessToken;
+        session.user.email = token.refreshToken;
+      }
       if (session.user.image !== "not google") {
         const requestUser = new RequestUser(
           session.user.email,
           "password",
-          "register2", 
-          "user.name",
-          "1233453345",
-          "1990-06-28T20:00:00.000Z",
-          "Україна"
+          "google",
+          session.user.name
         );
-      //  console.log(requestUser);
+       console.log(requestUser);
         const res = await authLogin(requestUser);
         console.log(res.status);
         if (res.ok) {
-          console.log("zashel");
           const response = await res.json();
           const { token, refreshToken } = response;
+          console.log("response", response);
           const sessionUser = {
             name: token,
             email: refreshToken,
-            image: "google",
+            image: "not google",
           };
-          console.log("do", session.user);
           session.user = sessionUser;
-          console.log("posle", session.user);
+          console.log("session.user", session.user);
         }
       }
       return session;
     },
   },
-};
+ };

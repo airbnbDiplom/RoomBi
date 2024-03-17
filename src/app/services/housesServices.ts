@@ -16,21 +16,21 @@ const getHouses = async () => {
 }
 
 const getFirstPageServer = async () => {
-	const url = process.env.NEXT_GET_FIRST_PAGE
-	if (!url) {
-		throw new Error('URL is undefined.')
-	}
-	const response = await fetch(url, {
-		next: {
-			revalidate: 5000,
-		},
-	})
-	if (!response.ok) {
-		console.error('getFirstPageServer', response)
-		throw new Error('Unable to fetch houses.')
-	}
+	// const url = process.env.NEXT_GET_FIRST_PAGE
+	// if (!url) {
+	// 	throw new Error('URL is undefined.')
+	// }
+	// const response = await fetch(url, {
+	// 	next: {
+	// 		revalidate: 5000,
+	// 	},
+	// })
+	// if (!response.ok) {
+	// 	console.error('getFirstPageServer', response)
+	// 	throw new Error('Unable to fetch houses.')
+	// }
 
-	return response.json()
+	// return response.json()
 }
 
 export const getApartamentId = async (id: string, idUser: string = '0') => {

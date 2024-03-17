@@ -404,6 +404,28 @@ abbr[title] {
 	border: none !important;
 	font-family: var(--var-nunito), sans-serif;
 }
+.react-datepicker__year-dropdown::before,
+.react-datepicker__year-dropdown::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+
+.react-datepicker__year-dropdown::before {
+  top: 10px;
+  transform: translateX(-50%);
+  border-bottom: 5px solid #333;
+}
+
+.react-datepicker__year-dropdown::after {
+  bottom: 10px;
+  transform: translateX(-50%);
+  border-top: 5px solid #333;
+}
 
 .react-datepicker__year-option {
 	cursor: pointer;
