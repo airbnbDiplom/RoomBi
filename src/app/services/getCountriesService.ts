@@ -1,6 +1,9 @@
+"use server";
+
 export const getCountries = async () => {
   try {
     const url = process.env.NEXT_GET_COUNTRIES;
+    console.log("URL", url);
     if (url === undefined) return null
     const response = await fetch(url, {
       method: "GET",
