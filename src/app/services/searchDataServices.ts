@@ -8,7 +8,7 @@ const searchDataService = async (data: DataSearchForSorting) => {
 	try {
 		const response = await fetch(urlSearch, {
 			method: 'POST',
-			cache: 'reload',
+			cache: 'no-store',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(data),
 		})

@@ -84,7 +84,6 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			year: 'numeric',
 		})
 
-		//console.log('formatter.format(date)', formatter.format(date))
 		return formatter.format(date)
 	}
 	return (

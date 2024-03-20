@@ -16,6 +16,9 @@ const searchFilterSlice = createSlice({
 		setSearchFilterState(state, action: PayloadAction<CardBiProps[]>) {
 			state.collection = action.payload
 		},
+		setSearchFilterStateDefault(state) {
+			state.collection = []
+		},
 	},
 })
 export const { setSearchFilterState } = searchFilterSlice.actions

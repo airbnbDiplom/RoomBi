@@ -42,6 +42,11 @@
 .colorTwo {
 	color: #8a8278;
 	font-size: 1.5dvh;
+	overflow: hidden !important;
+	text-overflow: ellipsis;
+}
+.overflow {
+	overflow: hidden;
 }
 .cursor {
 	cursor: pointer;
@@ -143,6 +148,10 @@
 	font-weight: 600;
 	font-size: 12px;
 	color: var(--eerieBlack);
+}
+.link {
+	display: inline-block;
+	width: 100%;
 }
 .actionWhereDropDawnOn {
 	left: 0;

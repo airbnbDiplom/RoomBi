@@ -76,7 +76,6 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 					new Date(toDay.setDate(toDay.getDate() + 1)).toString()
 				)
 			)
-			dispatch(setBtnState(SearchBtnEnum.DisableAll))
 		}
 
 		const transferData: DataSearchForSorting = {
@@ -131,21 +130,24 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 	}
 
 	return (
-		<div
-			className={`${style.search} ${style.item_5} ${style.item}  ${style.cursor} `}
-			onClick={() => {
-				validData()
-			}}
+		<Link
+			href={'/searchResult'}
+			className={`${style.search} ${style.item_5} ${style.item}  ${style.link}`}
 		>
-			<Link href={'/searchResult'} className={style.link}>
+			<div
+				className={`${style.search}  `}
+				onClick={() => {
+					validData()
+				}}
+			>
 				<Image
 					src={'/icon/search.svg'}
 					width={30}
 					height={30}
 					alt='search icon'
 				/>
-			</Link>
-		</div>
+			</div>
+		</Link>
 	)
 }
 
