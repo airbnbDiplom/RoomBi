@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { ChangeEvent, useState } from "react";
 import { useAppSelector } from "@/app/redux/hook";
+import { useRouter } from "next/navigation";
 
 const payment: Payment = {
   cardNumber: "",
@@ -23,6 +24,7 @@ const Textarea: React.FC<{ data: RentalApartmentDTO }> = ({
 }: {
   data: RentalApartmentDTO;
 }) => {
+  const router = useRouter();
   const { t } = useTranslation();
   const [state, setState] = useState("");
   const { date, totalPrice, rentalApartment } = useAppSelector(
@@ -48,6 +50,7 @@ const Textarea: React.FC<{ data: RentalApartmentDTO }> = ({
         booking: booking,
       };
       console.log("hi", message);
+      router.push("/messenger");
     }
   };
   return (

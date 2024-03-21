@@ -1,12 +1,10 @@
 import TranslationsProvider from "@/app/configs/TranslationsProvider";
-import { Header } from "@/app/startComponents/header/Header";
 import { HomeParams } from "@/app/type/type";
 import initTranslations from "../../i18n";
-import { Main } from "@/app/[locale]/contactHost/components/main/Main";
-import Link from "next/link";
+import { Main } from "./components/main/Main";
 
 const i18nNamespaces = ["translation"];
-export default async function ContactHost({
+export default async function Messenger({
   params: { locale },
 }: {
   params: HomeParams;
@@ -21,9 +19,8 @@ export default async function ContactHost({
     >
       <>
         <div className="header-Main">
-          <Header />
+          <Main />
         </div>
-        <Main />
       </>
     </TranslationsProvider>
   );
