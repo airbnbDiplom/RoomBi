@@ -2,12 +2,6 @@
 import React, { useMemo } from 'react'
 import style from '@/app/[locale]/searchResult/searchResult.module.css'
 import dynamic from 'next/dynamic'
-
-import { GetServerSideProps } from 'next'
-import store from '@/app/redux/store'
-import searchDataService from '@/app/services/searchDataServices'
-import { CardBiProps, DataSearchForSorting } from '@/app/type/type'
-import convertData from '@/app/services/conwertDate'
 import SearchResult from './searchResult'
 
 const FilterMain = () => {
@@ -25,7 +19,6 @@ const FilterMain = () => {
 			),
 		[]
 	)
-
 	return (
 		<main className={style.main}>
 			<SearchResult />

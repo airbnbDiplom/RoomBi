@@ -17,10 +17,11 @@ const searchFilterSlice = createSlice({
 			state.collection = action.payload
 		},
 		setSearchFilterStateDefault(state) {
-			state.collection = []
+			state.collection = null
 		},
 	},
 })
-export const { setSearchFilterState } = searchFilterSlice.actions
+export const { setSearchFilterState, setSearchFilterStateDefault } =
+	searchFilterSlice.actions
 
 export default searchFilterSlice.reducer

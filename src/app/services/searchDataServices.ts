@@ -15,6 +15,7 @@ const searchDataService = async (data: DataSearchForSorting) => {
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`)
 		}
+
 		const searchDataList: CardBiProps[] = await response.json()
 		console.log('searchDataList', searchDataList)
 		return searchDataList

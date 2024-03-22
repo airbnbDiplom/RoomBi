@@ -1,21 +1,19 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import style from '@/app/[locale]/searchResult/searchResult.module.css'
-import { useAppSelector } from '@/app/redux/hook'
+import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import { CardBi } from '@/app/components/card/CardBi'
-import { CardBiProps, DataSearchForSorting } from '@/app/type/type'
-
 import { useTranslation } from 'react-i18next'
-
-import convertData from '@/app/services/conwertDate'
-import searchDataService from '@/app/services/searchDataServices'
 import LadingSpinner from './ladingSpinner'
+import { setSearchFilterStateDefault } from '@/app/redux/searchInHeader/searchFilterSlice'
 
 const SearchResult = () => {
 	const { t } = useTranslation()
 	const searchFilterData = useAppSelector(
 		state => state.searchFilterReducer.collection
 	)
+	const dispatch = useAppDispatch()
+
 	return (
 		<>
 			<div className={style.itemList}>
@@ -29,7 +27,9 @@ const SearchResult = () => {
 							)
 						})
 					) : (
-						<h2 className={style.searchNiResult}>{t('searchNoResult')}</h2>
+						<>
+							<h2 className={style.searchNiResult}>{t('searchNoResult')}</h2>
+						</>
 					)
 				) : (
 					<LadingSpinner />
