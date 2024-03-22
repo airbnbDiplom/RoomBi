@@ -9,21 +9,27 @@ import { Comments } from "../comments/Comments";
 import { Master } from "../main-content/master/Master";
 import { Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-import { useAppDispatch } from "@/app/redux/hook";
-import { setId } from "@/app/redux/reservState/reservSlice";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+import { setId, setRentalApartment } from "@/app/redux/reservState/reservSlice";
 import { useSession } from "next-auth/react";
 import { ReservMenu } from "../main-content/reservMenu/ReservMenu";
+import Link from "next/link";
+
 const UserInfo: React.FC<{ data: RentalApartmentDTO }> = ({
   data,
 }: {
   data: RentalApartmentDTO;
 }) => {
+  console.log("hous_+_", data);
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const session = useSession();
   dispatch(setId(data.id));
+  dispatch(setRentalApartment(data));
+  const { date } = useAppSelector((state) => state.reservReducer);
+  const [fontWeight, setFontWeight] = useState("500");
   const MapInf = useMemo(
     () =>
       dynamic(
@@ -37,6 +43,16 @@ const UserInfo: React.FC<{ data: RentalApartmentDTO }> = ({
       ),
     []
   );
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    console.log("date", date);
+    if (date === null) {
+      setFontWeight("800");
+      e.preventDefault();
+      setTimeout(() => {
+        setFontWeight("500");
+      }, 500);
+    }
+  };
   return (
     <div className={style.container}>
       <MainHeader data={data} />
@@ -64,8 +80,26 @@ const UserInfo: React.FC<{ data: RentalApartmentDTO }> = ({
         <div>
           {session.data && (
             <span className={style.btn}>
-              <Button variant="light">{t("contactHostApartament")}</Button>
+              <Link
+                className={style.linkBtn}
+                href={"/contactHost"}
+                onClick={handleClick}
+              >
+                {" "}
+                {t("contactHostApartament")}
+              </Link>
             </span>
+          )}
+          {date === null && (
+            <p
+              style={{
+                color: "red",
+                margin: "20px",
+                fontWeight: `${fontWeight}`,
+              }}
+            >
+              {t("chooseDateApartament")}
+            </p>
           )}
         </div>
       </div>

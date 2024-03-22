@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./cardBi.module.css";
 import { CarouselBi } from "./carousel/CarouselBi";
 import { Col, Row } from "react-bootstrap";
@@ -7,6 +7,8 @@ import { CardBiProps } from "../../type/type";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "next-i18next";
+import { useSession } from "next-auth/react";
+import { putWishlists } from "@/app/services/wishlistsService";
 const CardBi: React.FC<CardBiProps> = ({
   id,
   pictures,
@@ -15,17 +17,35 @@ const CardBi: React.FC<CardBiProps> = ({
   bookingFree,
   pricePerNight,
   objectRating,
+  wish,
 }) => {
-  const router = useRouter();
+  const session = useSession();
+  const [saveUrlImg, setSaveUrlImg] = useState("heart");
   const { t } = useTranslation();
+  useEffect(() => {
+    if (wish && session.data?.user?.name) setSaveUrlImg("save2");
+    else setSaveUrlImg("heart");
+  }, [wish, session.data?.user?.name]);
+
   const handleClickRouter = () => {
     const newTabUrl = `/${id}`;
     window.open(newTabUrl, "_blank");
   };
-  const handleClickHeart = () => {
-    console.log("Button Heart!");
-  };
 
+  const handleClickHeart = async () => {
+    if (session.data?.user?.name) {
+      const res = await putWishlists(id, session.data?.user?.name);
+      console.log("res--1", res);
+
+      if (res) {
+        if (res === "Ok") {
+          setSaveUrlImg("save2");
+        } else if (res === "No") {
+          setSaveUrlImg("save");
+        }
+      }
+    }
+  };
   return (
     <div className={style.card}>
       <div className={style.cardHeader}>
@@ -39,8 +59,22 @@ const CardBi: React.FC<CardBiProps> = ({
         <div>
           <button
             onClick={handleClickHeart}
-            className={style.btnHeart}
-          ></button>
+            style={{
+              border: "none",
+              backgroundColor: "rgba(240, 248, 255, 0)",
+            }}
+          >
+            {session.data?.user?.name && (
+              <Image
+                className={style.image}
+                src={`/userInfo/${saveUrlImg}.png`}
+                alt={"save"}
+                width={20}
+                height={20}
+                priority
+              />
+            )}
+          </button>
         </div>
       </div>
       <div className={style.caruselContainer}>

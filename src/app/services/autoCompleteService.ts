@@ -1,6 +1,6 @@
 'use server'
 
-import { AutoCompleteList } from '@/app/type/type'
+import { AutoCompleteItem, AutoCompleteList } from '@/app/type/type'
 
 const autoCompleteService = async (
 	inputString: string,
@@ -12,7 +12,8 @@ const autoCompleteService = async (
 
 	const queryParams = new URLSearchParams({
 		q: inputString,
-		format: 'geojson',
+		addressdetails: '1',
+		format: 'jsonv2',
 		limit: '6',
 	})
 
@@ -27,7 +28,8 @@ const autoCompleteService = async (
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`)
 		}
-		const data: AutoCompleteList = await response.json()
+		const data: AutoCompleteItem[] = await response.json()
+
 		console.log(data)
 		return data
 	} catch (e) {

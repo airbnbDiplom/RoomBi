@@ -1,6 +1,10 @@
 import { Col, Row } from 'react-bootstrap'
 import style from '../Search.module.css'
-import { AutoCompleteList, SearchBtnEnum } from '@/app/type/type'
+import {
+	AutoCompleteItem,
+	AutoCompleteList,
+	SearchBtnEnum,
+} from '@/app/type/type'
 import { useAppDispatch, useWindowSize } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 import BtnWhereTile from './btn/btnWhere'
@@ -30,9 +34,9 @@ const WhereDropDawn = ({
 				value !== undefined &&
 				value !== t('FlexibleSearch')
 			) {
-				autoCompleteService(value).then((data: AutoCompleteList | null) => {
+				autoCompleteService(value).then((data: AutoCompleteItem[] | null) => {
 					if (data) {
-						dispatch(setWhereObj(data.features[0]))
+						dispatch(setWhereObj(data[0]))
 					} else {
 						console.log('Where handleInputChange No data fetched.')
 					}

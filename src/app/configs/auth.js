@@ -2,7 +2,6 @@ import GoogleProfile from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { authLogin } from "@/app/services/authConfig";
 
-
 class RequestUser {
   constructor(email, password, type, name, phoneNumber, dateOfBirth, country) {
     this.email = email;
@@ -51,7 +50,7 @@ export const authConfig = {
           name: credentials?.name,
           phoneNumber: credentials?.phoneNumber,
           dateOfBirth: credentials?.dateOfBirth,
-          country: credentials?.country
+          country: credentials?.country,
         };
 
         const requestUser = new RequestUser(
@@ -64,7 +63,12 @@ export const authConfig = {
           user.country
         );
         const res = await authLogin(requestUser);
-        if (res.headers.get('content-type') && res.headers.get('content-type').includes('application/json')) {
+        console.log("Content-Type:", res.headers.get("content-type"));
+        console.log(res.status);
+        if (
+          res.headers.get("content-type") &&
+          res.headers.get("content-type").includes("application/json")
+        ) {
           try {
             if (res.status === 400) {
               console.log("Error 0000", res.status);
@@ -81,7 +85,7 @@ export const authConfig = {
               const countries = response.map((country) => {
                 return {
                   name: country.name,
-                  countryCode: country.countryCode
+                  countryCode: country.countryCode,
                 };
               });
 
@@ -99,7 +103,6 @@ export const authConfig = {
               return sessionUser;
             }
             return null;
-
           } catch (err) {
             console.error("Error parsing JSON response:", err);
             return null;
@@ -135,6 +138,15 @@ export const authConfig = {
         session.user.email = token.refreshToken;
       }
       if (session.user.image !== "not google") {
+        // const requestUser = new RequestUser(
+        //   session.user.email,
+        //   "password",
+        //   "google",
+        //   "",
+        //   "",
+        //   "",
+        //   ""
+        // );
         const requestUser = new RequestUser(
           session.user.email,
           "password",
@@ -143,8 +155,8 @@ export const authConfig = {
         );
        console.log(requestUser);
         const res = await authLogin(requestUser);
-        console.log(res.status);
         if (res.ok) {
+          console.log("zashel");
           const response = await res.json();
           const { token, refreshToken } = response;
           console.log("response", response);
@@ -160,4 +172,4 @@ export const authConfig = {
       return session;
     },
   },
- };
+};
