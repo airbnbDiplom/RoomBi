@@ -2,18 +2,18 @@ import { CardBiProps } from '@/app/type/type'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type searchFilterState = {
-	collection: CardBiProps[]
+	collection: CardBiProps[] | null
 }
 
 const initialState: searchFilterState = {
-	collection: [],
+	collection: null,
 }
 
 const searchFilterSlice = createSlice({
 	name: 'filterSearchState',
 	initialState,
 	reducers: {
-		setSearchFilterState(state, action: PayloadAction<CardBiProps[]>) {
+		setSearchFilterState(state, action: PayloadAction<CardBiProps[] | null>) {
 			state.collection = action.payload
 		},
 		setSearchFilterStateDefault(state) {

@@ -13,6 +13,12 @@
 	min-width: 60%;
 	grid-template-columns: repeat(4, 1fr);
 }
+.searchNiResult {
+	grid-column-start: 1;
+	grid-column-end: 4;
+	text-align: center;
+	margin-top: 10px;
+}
 .item {
 	display: inline-block;
 	flex-grow: 1;
@@ -23,6 +29,24 @@
 	max-width: 100%;
 	min-width: 40%;
 	height: 100%;
+}
+.spinnerContainer {
+	grid-column-start: 1;
+	grid-column-end: 4;
+	display: grid;
+	place-content: center;
+	background-color: #bdbdbd;
+	width: 100%;
+	height: 100%;
+}
+.spinnerContainer img {
+	width: 100%;
+	height: 100%;
+}
+.spinnerContainer p {
+	text-align: center;
+	font-size: 1.5rem;
+	font-weight: bold;
 }
 @media (max-width: 1900px) {
 	.itemList {

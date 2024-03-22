@@ -29,18 +29,18 @@ const MapForSearch = () => {
 	const searchFilterData = useAppSelector(
 		state => state.searchFilterReducer.collection
 	)
-
-	searchFilterData.map(item => {
-		const markerItem: MarkerItem = {
-			geocode: [parseFloat(item.ingMap), parseFloat(item.latMap)],
-			apartment: item,
-			customIcon: new DivIcon({
-				className: 'custom-marker',
-				html: `<div class="custom-marker-content"><p class="custom-marker-txt">$${item.pricePerNight}</p></div>`,
-			}),
-		}
-		markerArray.push(markerItem)
-	})
+	if (searchFilterData !== null)
+		searchFilterData.map(item => {
+			const markerItem: MarkerItem = {
+				geocode: [parseFloat(item.ingMap), parseFloat(item.latMap)],
+				apartment: item,
+				customIcon: new DivIcon({
+					className: 'custom-marker',
+					html: `<div class="custom-marker-content"><p class="custom-marker-txt">$${item.pricePerNight}</p></div>`,
+				}),
+			}
+			markerArray.push(markerItem)
+		})
 	const bounds = new LatLngBounds(
 		[bbox !== undefined ? bbox[0] : 26, bbox !== undefined ? bbox[2] : -15],
 		[bbox !== undefined ? bbox[1] : 76, bbox !== undefined ? bbox[3] : 35]
