@@ -88,7 +88,7 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				<div
 					className={`mt-3 mb-3 ps-lg-4 ps-md-4 ps-xs-2 ${
 						isTeamBlack ? `${style.borderRightWhite} ` : style.borderRightBlack
-					}`}
+					} ${style.overflow}`}
 				>
 					<p className={`m-0 ${style.head}`}>{t('Arrival')}</p>
 					<p className={`${style.colorTwo} m-0`}>{dateVieOnButtonSearch}</p>

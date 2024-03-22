@@ -18,11 +18,11 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const user = session?.user?.name || null;
 	const token = session?.user?.name;
 	let firstLetterOfName: string | null = '';
-	try {
-	  firstLetterOfName = token ? decodeTokenAndGetFirstLetterOfName(token) : '';
-	} catch (error) {
-		signOut();
-	}
+	// try {
+	firstLetterOfName = token ? decodeTokenAndGetFirstLetterOfName(token) : '';
+	// } catch (error) {
+	// 	signOut();
+	// }
 	return (
 		<Dropdown className={`d-flex align-item-center ${style.btn}`}>
 			<Dropdown.Toggle
@@ -58,7 +58,7 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 					) : (
 						<Image
 							priority
-							src={isTeamBlack ? "./icon/personW.svg" : "./icon/person.svg"}
+							src={isTeamBlack ? "/icon/personW.svg" : "/icon/person.svg"}
 							width={22}
 							height={22}
 							alt="person icon"
@@ -68,11 +68,21 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			</Dropdown.Toggle>
 			{user ? (
 				<Dropdown.Menu className={style.itemFont}>
-					<Dropdown.Divider />
-					<Dropdown.Item href="/accountPage">{t("account")}</Dropdown.Item>
+					<Dropdown.Item href="/accountPage">{t("Account")} </Dropdown.Item>
 					<Dropdown.Item href="#">{t("helpcenter")}</Dropdown.Item>
+					<Dropdown.Divider />
 					<Dropdown.Item href="#">
-						<button onClick={() => signOut()}>signOut </button>
+						<Button
+							variant="link"
+							onClick={() => signOut()}
+							style={{
+								textDecoration: 'none',
+								color: 'inherit',
+								paddingLeft: '0',
+							}}
+						>
+							 {t('signOut')}
+						</Button>
 					</Dropdown.Item>
 				</Dropdown.Menu>
 			) : (

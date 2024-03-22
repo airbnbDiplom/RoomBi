@@ -171,7 +171,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
 				setServerError('')
 			} else {
 				if (res?.error == 'CredentialsSignin') {
-					setServerError('Серверу п*з**ць, вибачте за неприємності')
+					setServerError(t('serverError'))
 				} else {
 					setServerError(res?.error || null)
 				}
@@ -375,7 +375,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
 						>
 							<Image
 								priority
-								src='./icon/google.svg'
+								src='/icon/google.svg'
 								width={18}
 								height={18}
 								alt='google icon'

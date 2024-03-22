@@ -56,6 +56,9 @@ const searchSlice = createSlice({
 		setWhoObjAnimalsCount(state, action: PayloadAction<number>) {
 			state.DataSearchObj.whyObj.animalsCount = action.payload
 		},
+		setSearchInitial(state) {
+			state.DataSearchObj = initialState.DataSearchObj
+		},
 	},
 })
 export const {
@@ -68,5 +71,6 @@ export const {
 	setWhoObjChildrenCount,
 	setWhoObjBabyCount,
 	setWhoObjAnimalsCount,
+	setSearchInitial,
 } = searchSlice.actions
 export default searchSlice.reducer
