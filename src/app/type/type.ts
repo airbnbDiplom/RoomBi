@@ -308,3 +308,10 @@ export interface MessageStart {
   message: ChatForApartmentPageDTO;
   booking: Booking;
 }
+export interface MessageListProps {
+  messages: MessageObj[];
+}
+export interface CardLeftBlockProps {
+  fotoMaster: string;
+  message: ChatForApartmentPageDTO[];
+}

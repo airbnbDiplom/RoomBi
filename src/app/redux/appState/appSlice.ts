@@ -1,3 +1,4 @@
+import { ChatForApartmentPageDTO } from "@/app/type/type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type App = {
@@ -5,6 +6,7 @@ type App = {
   location: string;
   messengerDisplayCenterBlock: string;
   messengerDisplayLeftBlock: string;
+  messages: ChatForApartmentPageDTO[];
 };
 
 const initialState: App = {
@@ -12,6 +14,7 @@ const initialState: App = {
   location: "en",
   messengerDisplayCenterBlock: "none",
   messengerDisplayLeftBlock: "block",
+  messages: [],
 };
 
 const appSlice = createSlice({
@@ -30,6 +33,9 @@ const appSlice = createSlice({
     setMessengerDisplayLeftBlock(state, action: PayloadAction<string>) {
       state.messengerDisplayLeftBlock = action.payload;
     },
+    setMessages(state, action: PayloadAction<ChatForApartmentPageDTO[]>) {
+      state.messages = action.payload;
+    },
   },
 });
 
@@ -38,5 +44,6 @@ export const {
   setLocation,
   setMessengerDisplayCenterBlock,
   setMessengerDisplayLeftBlock,
+  setMessages,
 } = appSlice.actions;
 export default appSlice.reducer;

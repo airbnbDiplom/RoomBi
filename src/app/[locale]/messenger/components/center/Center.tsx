@@ -10,8 +10,8 @@ import {
 const Center: React.FC = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const { rentalApartment } = useAppSelector((state) => state.reservReducer);
-  console.log("RightBlock _rentalApartment- ", rentalApartment);
+  const { messages } = useAppSelector((state) => state.appReducer);
+  console.log("RightBlock _rentalApartment- ", messages);
   const setMessengerDisplayCenter = () => {
     dispatch(setMessengerDisplayLeftBlock("block"));
     dispatch(setMessengerDisplayCenterBlock("none"));
@@ -20,6 +20,9 @@ const Center: React.FC = () => {
   return (
     <div>
       <h1 onClick={setMessengerDisplayCenter}>hi Center</h1>
+      {messages.map((item) => (
+        <div key={item.dateTime.toString()}>{item.comment}</div>
+      ))}
     </div>
   );
 };
