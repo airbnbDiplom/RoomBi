@@ -19,7 +19,6 @@ import { Highlighter } from 'react-bootstrap-icons';
 import { Book } from 'react-bootstrap-icons';
 import { Clock } from 'react-bootstrap-icons';
 import {  } from 'react-bootstrap-icons';
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"></link>
 interface EditProfileProps {
   locale: string;
 }
