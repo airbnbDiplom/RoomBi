@@ -155,10 +155,7 @@
 	"emptyField": "Field cannot be empty or contain spaces",
 	"contactAdminToChangeEmail": "To change your email address, please contact the administration.",
 	"serverError": "The server is not working, sorry for the inconvenience",
-	"signOut": "Sign Out"
-}
-	"countryRequired": "Please select a country",
-	
+	"signOut": "Sign Out",
 	"anyTypeFB": "Any ",
 	"roomTypeFB": "Room",
 	"fullAccommodationFB": "Full accommodation",
