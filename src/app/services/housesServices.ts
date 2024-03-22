@@ -28,7 +28,7 @@ export const getFirstPage = async (userId?: string) => {
   console.log("url", url);
   const response = await fetch(url, {
     next: {
-      revalidate: 5,
+      revalidate: 500,
     },
   });
   if (!response.ok) {
@@ -76,7 +76,11 @@ export const getApartamentId = async (id: string, idUser: string = "0") => {
     throw new Error("URL is undefined.");
   }
 
-  const response = await fetch(`${url}?id=${id}&idUser=${idUser}`);
+  const response = await fetch(`${url}?id=${id}&idUser=${idUser}`, {
+    next: {
+      revalidate: 150,
+    },
+  });
   if (!response.ok) throw new Error(response.statusText);
 
   const res = response.json();
