@@ -8,6 +8,7 @@ import { User, updateUser } from '@/app/services/updateUserService';
 import { decodeTokenAndGetUserDetails, decodeTokenAndGetExpiration } from '@/app/services/jwtDecoder'
 import { differenceInYears, differenceInMonths, differenceInDays, addYears, addMonths, differenceInHours, differenceInMinutes, differenceInSeconds } from 'date-fns';
 import { uk, enUS } from 'date-fns/locale';
+import Link from 'next/link';
 interface ProfileProps {
   locale: string;
 }
@@ -149,7 +150,9 @@ const Profile: React.FC<ProfileProps> = ({ locale }) => {
       <div className={`${styles.card} ${styles.card2} ${styles.topMarginLine}`}>
         <h2>Самое время заполнить профиль</h2>
         <p>Профиль на Roombi — важный элемент любого бронирования. Расскажите о себе. Это важно и другим гостям, и хозяевам.</p>
-        <button className="btn btn-danger" style={{ alignSelf: 'flex-start' }}>Создать профиль</button>
+        <Link href="/editProfile">
+  <button className="btn btn-danger" style={{ alignSelf: 'flex-start' }}>Создать профиль</button>
+</Link>
       </div>
     </div>
   );
