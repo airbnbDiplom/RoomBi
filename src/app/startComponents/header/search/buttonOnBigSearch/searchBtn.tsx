@@ -27,7 +27,6 @@ import {
 interface props {
 	inputRef: React.RefObject<HTMLInputElement>
 }
-
 const SearchBtn: React.FC<props> = ({ inputRef }) => {
 	const router = useRouter()
 	const dispatch = useAppDispatch()
@@ -35,7 +34,6 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 	const { t } = useTranslation()
 
 	const fetchData = async (transferData: DataSearchForSorting) => {
-		console.log('transferData', transferData)
 		if (transferData === null) {
 			console.log('transferData is bad')
 			return
@@ -88,6 +86,8 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 					placeId: dataSearch.whereObj.place_id,
 				}
 			}
+		} else {
+			transferData.where = null
 		}
 		// проверка дат на пустоту( пустой даты быть не должно)
 		let newDate: string = ''
@@ -139,7 +139,7 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 		// проверка количества гостей
 		if (dataSearch.whyObj.gestsCount === 0) {
 			dispatch(setWhoObjGestCount(1))
-			transferData.why = 1
+			transferData.why = 0
 		} else {
 			transferData.why =
 				dataSearch.whyObj.gestsCount +
