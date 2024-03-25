@@ -274,9 +274,9 @@ const ReservBtn: React.FC = () => {
         </Button>
         {isShow && (
           <div className={style.container}>
-            {paymentData && paymentData.length !== 0 && (
-              <div>
-                <p className={style.title}> {t("payUsingApartament")}</p>
+            <div>
+              <p className={style.title}> {t("payUsingApartament")}</p>{" "}
+              {paymentData && paymentData.length !== 0 && (
                 <FormControl
                   sx={{ m: 1 }}
                   size={"small"}
@@ -303,53 +303,49 @@ const ReservBtn: React.FC = () => {
                       ))}
                   </Select>
                 </FormControl>
-                {card === "" && (
-                  <div>
-                    <TextField
-                      id="outlined-basic1"
-                      label={t("cardApartament")}
-                      variant="outlined"
-                      placeholder="0000 0000 0000 0000"
-                      sx={{ m: 1 }}
-                      size={"small"}
-                      style={{ width: "95%" }}
-                      value={showCard}
-                      onChange={handleChangeCard}
-                    />
-                    <TextField
-                      sx={{ ml: 1, mr: 1 }}
-                      id="outlined-basic"
-                      label={t("validityApartament")}
-                      variant="outlined"
-                      size="small"
-                      placeholder="MM/PP"
-                      style={{ width: "45%" }}
-                      value={showValidity}
-                      onChange={onChangeValidity}
-                    />
-                    <TextField
-                      sx={{ ml: 1 }}
-                      id="outlined-basic1"
-                      size="small"
-                      label="CVV"
-                      placeholder="123"
-                      variant="outlined"
-                      style={{ width: "45%" }}
-                      value={cvv}
-                      onChange={onChangeCVV}
-                    />{" "}
-                  </div>
-                )}
-                <Button
-                  variant="warning"
-                  className={style.btn}
-                  onClick={confirm}
-                >
-                  {t("confirmApartament")}
-                </Button>
-                {error !== "" && <p className={style.error}>{error}</p>}
-              </div>
-            )}
+              )}
+              {card === "" && (
+                <div>
+                  <TextField
+                    id="outlined-basic1"
+                    label={t("cardApartament")}
+                    variant="outlined"
+                    placeholder="0000 0000 0000 0000"
+                    sx={{ m: 1 }}
+                    size={"small"}
+                    style={{ width: "95%" }}
+                    value={showCard}
+                    onChange={handleChangeCard}
+                  />
+                  <TextField
+                    sx={{ ml: 1, mr: 1 }}
+                    id="outlined-basic"
+                    label={t("validityApartament")}
+                    variant="outlined"
+                    size="small"
+                    placeholder="MM/PP"
+                    style={{ width: "45%" }}
+                    value={showValidity}
+                    onChange={onChangeValidity}
+                  />
+                  <TextField
+                    sx={{ ml: 1 }}
+                    id="outlined-basic1"
+                    size="small"
+                    label="CVV"
+                    placeholder="123"
+                    variant="outlined"
+                    style={{ width: "45%" }}
+                    value={cvv}
+                    onChange={onChangeCVV}
+                  />{" "}
+                </div>
+              )}
+              <Button variant="warning" className={style.btn} onClick={confirm}>
+                {t("confirmApartament")}
+              </Button>
+              {error !== "" && <p className={style.error}>{error}</p>}
+            </div>
           </div>
         )}
       </div>

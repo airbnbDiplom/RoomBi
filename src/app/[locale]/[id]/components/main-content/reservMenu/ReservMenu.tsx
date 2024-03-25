@@ -77,6 +77,7 @@ const ReservMenu: React.FC<{ data: DateBooking[] }> = ({
 
       <div className={style.txtBlockMain}>
         <p>{t("allPaymentApartament")}</p>
+
         <p>{totalPrice}</p>
       </div>
 

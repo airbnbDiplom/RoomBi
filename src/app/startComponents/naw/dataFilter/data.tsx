@@ -222,7 +222,7 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "Luxe",
     nameUa: "Luxe",
-    nameEn: "Castles",
+    nameEn: "Luxe",
     src: "/filter/Luxe.svg",
   },
   {
@@ -230,7 +230,7 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "Hanokah",
     nameUa: "Ханоки",
-    nameEn: "Castles",
+    nameEn: "Hanokah",
     src: "/filter/Hanokah.svg",
   },
   {
@@ -238,7 +238,7 @@ export const filterData: FilterLngObj[] = [
     type: "location",
     label: "CityOfDreams",
     nameUa: "Місто мрії",
-    nameEn: "Castles",
+    nameEn: "City Of Dreams",
     src: "/filter/CityOfDreams.svg",
   },
   {
@@ -246,7 +246,7 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "Cycladichouses",
     nameUa: "Кікладські будинки",
-    nameEn: "Castles",
+    nameEn: "Cycladic houses",
     src: "/filter/Cycladichouses.svg",
   },
   {
@@ -254,7 +254,7 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "Windmills",
     nameUa: "Вітряні млини",
-    nameEn: "Castles",
+    nameEn: "Windmills",
     src: "/filter/Windmills.svg",
   },
   {
@@ -262,7 +262,7 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "ShepherdWagons",
     nameUa: "Вівчарські вози",
-    nameEn: "Castles",
+    nameEn: "Shepherd Wagons",
     src: "/filter/ShepherdWagons.svg",
   },
   {
@@ -270,7 +270,7 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "Ryokans",
     nameUa: "Рьокани",
-    nameEn: "Castles",
+    nameEn: "Ryokans",
     src: "/filter/Ryokans.svg",
   },
   {
@@ -278,7 +278,7 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "Yurts",
     nameUa: "Юрти",
-    nameEn: "Castles",
+    nameEn: "Yurts",
     src: "/filter/Yurts.svg",
   },
   {
@@ -286,7 +286,7 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "Minsu",
     nameUa: "Мінсу",
-    nameEn: "Castles",
+    nameEn: "Minsu",
     src: "/filter/Minsu.svg",
   },
   {
@@ -294,7 +294,7 @@ export const filterData: FilterLngObj[] = [
     type: "location",
     label: "Desert",
     nameUa: "Пустеля",
-    nameEn: "Castles",
+    nameEn: "Desert",
     src: "/filter/Desert.svg",
   },
   {
@@ -302,7 +302,7 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "Barns",
     nameUa: "Сараї",
-    nameEn: "Castles",
+    nameEn: "Barns",
     src: "/filter/Barns.svg",
   },
   {
@@ -310,7 +310,7 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "Towers",
     nameUa: "Вежі",
-    nameEn: "Castles",
+    nameEn: "Towers",
     src: "/filter/Towers.svg",
   },
   {
@@ -318,15 +318,15 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "Floatinghouses",
     nameUa: "Плавучі будинки",
-    nameEn: "Castles",
+    nameEn: "Floating houses",
     src: "/filter/Floatinghouses.svg",
   },
   {
     id: 41,
     type: "house",
-    label: "Човни",
-    nameUa: "Boats",
-    nameEn: "Castles",
+    label: "Boats",
+    nameUa: "Човни",
+    nameEn: "Boats",
     src: "/filter/Boats.svg",
   },
   {
@@ -334,7 +334,7 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "Riads",
     nameUa: "Ріади",
-    nameEn: "Castles",
+    nameEn: "Riads",
     src: "/filter/Riads.svg",
   },
   {
@@ -342,7 +342,7 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "Dammuso",
     nameUa: "Даммузо",
-    nameEn: "Castles",
+    nameEn: "Dammuso",
     src: "/filter/Dammuso.svg",
   },
   {
@@ -350,7 +350,7 @@ export const filterData: FilterLngObj[] = [
     type: "location",
     label: "NearTheBeach",
     nameUa: "Біля пляжу",
-    nameEn: "Castles",
+    nameEn: "NearThe Beach",
     src: "/filter/NearTheBeach.svg",
   },
   {
@@ -358,7 +358,7 @@ export const filterData: FilterLngObj[] = [
     type: "sport",
     label: "Skiing",
     nameUa: "Катання на лижах",
-    nameEn: "Castles",
+    nameEn: "Skiing",
     src: "/filter/Skiing.svg",
   },
   {
@@ -366,7 +366,7 @@ export const filterData: FilterLngObj[] = [
     type: "house",
     label: "Containers",
     nameUa: "Контейнери",
-    nameEn: "Castles",
+    nameEn: "Containers",
     src: "/filter/Containers.svg",
   },
   {
@@ -374,7 +374,7 @@ export const filterData: FilterLngObj[] = [
     type: "OfferedAmenities",
     label: "CashRegisterParticular",
     nameUa: "Касовий апарат",
-    nameEn: "Castles",
+    nameEn: "Cash Register Particular",
     src: "/filter/CashRegisterParticular.svg",
   },
   {
@@ -382,7 +382,7 @@ export const filterData: FilterLngObj[] = [
     type: "OfferedAmenities",
     label: "LargeKitchens",
     nameUa: "Великі кухні",
-    nameEn: "Castles",
+    nameEn: "Large Kitchens",
     src: "/filter/LargeKitchens.svg",
   },
 ];

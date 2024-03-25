@@ -22,14 +22,30 @@
     margin-bottom: 20px;
 }
 
-.btn{
-    display: inline-block;
-    border: 2px solid black;
-    border-radius: 9px;
- }
+
 
 .footer{
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.btn {
+    display: inline-block;
+	border: 1px solid black;
+	border-radius: 8px;
+	padding: 5px 10px;
+	background-color: rgba(255, 0, 0, 0);
+}
+
+.btn:hover {
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+	-webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+	-moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.51);
+}
+.linkBtn{
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 700;
 }

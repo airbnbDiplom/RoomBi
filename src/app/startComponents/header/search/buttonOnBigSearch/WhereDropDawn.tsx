@@ -34,13 +34,15 @@ const WhereDropDawn = ({
 				value !== undefined &&
 				value !== t('FlexibleSearch')
 			) {
-				autoCompleteService(value).then((data: AutoCompleteItem[] | null) => {
-					if (data) {
-						dispatch(setWhereObj(data[0]))
-					} else {
-						console.log('Where handleInputChange No data fetched.')
+				autoCompleteService(value, t('locale')).then(
+					(data: AutoCompleteItem[] | null) => {
+						if (data) {
+							dispatch(setWhereObj(data[0]))
+						} else {
+							console.log('Where handleInputChange No data fetched.')
+						}
 					}
-				})
+				)
 			}
 		}, 250)
 	}

@@ -47,7 +47,6 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	useEffect(() => {
 		if (calendarDateDStr !== '') {
 			const calendarDateD = new Date(calendarDateDStr)
-
 			if (
 				calendarDateComStr !== '' &&
 				calendarDateD < new Date(calendarDateComStr)
@@ -85,7 +84,6 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			year: 'numeric',
 		})
 
-		//console.log('formatter.format(date)', formatter.format(date))
 		return formatter.format(date)
 	}
 	return (

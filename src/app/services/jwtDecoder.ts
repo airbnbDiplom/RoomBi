@@ -1,7 +1,8 @@
+import { log } from "console";
 import { jwtDecode } from "jwt-decode";
 
 // Функція для розкодування токена та отримання часу закінчення (exp)
-function decodeTokenAndGetExpiration(token: string): number | null {
+export function decodeTokenAndGetExpiration(token: string): number | null {
   try {
     const decodedToken: any = jwtDecode(token);
     if (decodedToken && decodedToken.exp) {
@@ -21,28 +22,35 @@ function decodeTokenAndGetExpiration(token: string): number | null {
       return decodedToken.Name.charAt(0);
     }
   } catch (error) {
-    throw("Помилка розкодування токена:");
+    // throw("Помилка розкодування токена:");
+    console.error("Помилка розкодування токена:", error);
+
   }
   return null;
 }
 
 // Расшифровка токена юзера для редактирования данных
-export function decodeTokenAndGetUserDetails(token: string): { firstName: string, lastName: string, email: string, address: string, phoneNumber: string } | null {
+export function decodeTokenAndGetUserDetails(token: string): { id: string, firstName: string, lastName: string, email: string, address: string, phoneNumber: string, airbnbRegistrationYear: string, profilePicture: string, language: string, country: string } | null {
   try {
     const decodedToken: any = jwtDecode(token);
     if (decodedToken) {
       const [firstName, lastName] = decodedToken.Name.split(' ');
-      const { Email, Address, PhoneNumber } = decodedToken;
+      const { Id, Email, Address, PhoneNumber, AirbnbRegistrationYear, ProfilePicture, Language, Country } = decodedToken;
       return {
+        id: Id,
         firstName,
         lastName,
         email: Email,
         address: Address,
-        phoneNumber: PhoneNumber
+        phoneNumber: PhoneNumber,
+        airbnbRegistrationYear: AirbnbRegistrationYear,
+        profilePicture: ProfilePicture,
+        language: Language,
+        country: Country
       };
     }
   } catch (error) {
-    throw("Помилка розкодування токена:");
+    console.error("Помилка розкодування токена:", error);
   }
   return null;
 }

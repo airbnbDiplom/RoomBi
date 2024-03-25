@@ -1,26 +1,13 @@
-import React, { useMemo } from 'react'
+'use server'
+import React from 'react'
 import style from '@/app/[locale]/searchResult/searchResult.module.css'
-import SearchResultItemList from './searchResultItemList'
+import SearchResult from './searchResult'
 import MapForSearch from './mapForSearch'
-import dynamic from 'next/dynamic'
+
 const FilterMain = () => {
-	const MapForSearch = useMemo(
-		() =>
-			dynamic(
-				() =>
-					import('@/app/[locale]/searchResult/components/mapForSearch').then(
-						mod => mod.default
-					),
-				{
-					// loading: () => <Loading />,
-					ssr: false,
-				}
-			),
-		[]
-	)
 	return (
 		<main className={style.main}>
-			<SearchResultItemList />
+			<SearchResult />
 			<MapForSearch />
 		</main>
 	)

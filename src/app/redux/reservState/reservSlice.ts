@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DateBi, DateBooking } from "@/app/type/type";
+import { DateBi, DateBooking, RentalApartmentDTO } from "@/app/type/type";
 import { Draft } from "@reduxjs/toolkit";
 
 type reserv = {
@@ -14,6 +14,7 @@ type reserv = {
   serviceFee: number;
   pricePerNight: number;
   status: string;
+  rentalApartment: RentalApartmentDTO | null;
 };
 
 const initialState: reserv = {
@@ -28,6 +29,7 @@ const initialState: reserv = {
   serviceFee: 0,
   pricePerNight: 0,
   status: "",
+  rentalApartment: null,
 };
 
 const reservSlice = createSlice({
@@ -36,6 +38,9 @@ const reservSlice = createSlice({
   reducers: {
     setId(state, action: PayloadAction<number>) {
       state.id = action.payload;
+    },
+    setRentalApartment(state, action: PayloadAction<RentalApartmentDTO>) {
+      state.rentalApartment = action.payload;
     },
     setStatus(state, action: PayloadAction<string>) {
       state.status = action.payload;
@@ -100,5 +105,6 @@ export const {
   setPricePerNight,
   setTotalPrice,
   setStatus,
+  setRentalApartment,
 } = reservSlice.actions;
 export default reservSlice.reducer;

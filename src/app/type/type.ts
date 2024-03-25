@@ -149,7 +149,7 @@ export interface DataSearchForSorting {
 		type: string
 		countryCode: string
 		placeId: number
-	}
+	} | null
 	when?: DateBooking
 	why?: number
 }
@@ -286,4 +286,25 @@ export interface FilterCheckboxAmenities {
 	value: string
 	keyLocale: string
 	isChecked: boolean
+}
+
+//Повідомлення
+export interface MessageObj {
+	fotoMaster: string
+	fotoApartment: string
+	nameApartment: string
+	nameMaster: string
+	booking: Booking
+	message: ChatForApartmentPageDTO[]
+}
+export interface ChatForApartmentPageDTO {
+	comment: string
+	rentalApartmentId: number
+	masterIdUser: number
+	dateTime: Date
+}
+
+export interface MessageStart {
+	message: ChatForApartmentPageDTO
+	booking: Booking
 }

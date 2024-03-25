@@ -4,7 +4,6 @@ import { Footer } from '@/app/startComponents/footer/Footer'
 import { Header } from '@/app/startComponents/header/Header'
 import { HomeParams } from '@/app/type/type'
 import React from 'react'
-
 import FilterMain from './components/filterMain'
 
 const i18nNamespaces = ['translation']

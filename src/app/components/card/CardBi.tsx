@@ -23,11 +23,10 @@ const CardBi: React.FC<CardBiProps> = ({
   const [saveUrlImg, setSaveUrlImg] = useState("heart");
   const { t } = useTranslation();
   useEffect(() => {
-    if (wish) setSaveUrlImg("save2");
-    else {
-      setSaveUrlImg("heart");
-    }
-  }, [wish]);
+    if (wish && session.data?.user?.name) setSaveUrlImg("save2");
+    else setSaveUrlImg("heart");
+  }, [wish, session.data?.user?.name]);
+
   const handleClickRouter = () => {
     const newTabUrl = `/${id}`;
     window.open(newTabUrl, "_blank");
