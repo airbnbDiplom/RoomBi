@@ -12,10 +12,12 @@
     display: flex;
     justify-content: space-between;
 
+
 }
 
 .leftBlock{
     width: 100%;
+    
     @media(min-width: 800px)
     {
         width: 400px;
@@ -23,16 +25,18 @@
 }
 .center{
     width: 100%;
+    border: 1px solid lightslategray;
+    border-bottom:none ;
+    height: 100vh;
+    padding: 20px;
     @media(min-width: 800px)
     {
         width: calc(100% - 400px);
     }
-background-color: rgb(0, 255, 47);
+  
 }
 .rightBlock{
-    padding-left: 20px;
     width: 20%;
-    background-color: red;
     display: none;
     @media(min-width: 1200px)
     {

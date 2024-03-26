@@ -15,10 +15,7 @@ const LeftBlock: React.FC<MessageListProps> = ({ messages }) => {
       <div className={style.content}>
         {messages.map((item) => (
           <div key={item.booking.apartmentId}>
-            <CardLeftBlock
-              fotoMaster={item.fotoMaster}
-              message={item.message}
-            />
+            <CardLeftBlock item={item} />
 
             <span className={style.span}></span>
           </div>

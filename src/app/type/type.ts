@@ -295,7 +295,7 @@ export interface MessageObj {
   nameApartment: string;
   nameMaster: string;
   booking: Booking;
-  message: ChatForApartmentPageDTO[];
+  message: ChatForApartmentPageDTORedax[];
 }
 export interface ChatForApartmentPageDTO {
   comment: string;
@@ -303,7 +303,12 @@ export interface ChatForApartmentPageDTO {
   masterIdUser: number;
   dateTime: Date;
 }
-
+export interface ChatForApartmentPageDTORedax {
+  comment: string;
+  rentalApartmentId: number;
+  masterIdUser: number;
+  dateTime: string;
+}
 export interface MessageStart {
   message: ChatForApartmentPageDTO;
   booking: Booking;
@@ -311,7 +316,11 @@ export interface MessageStart {
 export interface MessageListProps {
   messages: MessageObj[];
 }
-export interface CardLeftBlockProps {
+export interface MessageObjNotRedax {
   fotoMaster: string;
+  fotoApartment: string;
+  nameApartment: string;
+  nameMaster: string;
+  booking: Booking;
   message: ChatForApartmentPageDTO[];
 }

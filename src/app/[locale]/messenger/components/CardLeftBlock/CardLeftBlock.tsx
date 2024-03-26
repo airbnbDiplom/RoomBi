@@ -6,16 +6,17 @@ import {
   setMessengerDisplayLeftBlock,
   setMessages,
 } from "@/app/redux/appState/appSlice";
-import { CardLeftBlockProps } from "@/app/type/type";
-import Image from "next/image";
 
-const CardLeftBlock: React.FC<CardLeftBlockProps> = ({
-  fotoMaster,
-  message,
-}) => {
+import Image from "next/image";
+import { MessageObj } from "@/app/type/type";
+
+interface CardLeftBlockProps {
+  item: MessageObj;
+}
+const CardLeftBlock: React.FC<CardLeftBlockProps> = ({ item }) => {
   const dispatch = useAppDispatch();
   const setMessengerDisplayLeft = () => {
-    dispatch(setMessages(message));
+    dispatch(setMessages(item));
     if (window.innerWidth > 800) {
       console.log("window.innerWidth", window.innerWidth);
       dispatch(setMessengerDisplayCenterBlock("block"));
@@ -52,17 +53,18 @@ const CardLeftBlock: React.FC<CardLeftBlockProps> = ({
     <div className={style.container} onClick={setMessengerDisplayLeft}>
       <Image
         className={style.img}
-        src={`https://roombi.space/Avatar/${fotoMaster}`}
+        src={`https://roombi.space/Avatar/${item.fotoMaster}`}
         width={70}
         height={70}
         alt="Picture of the author"
       />
       <div className={style.messageContainer}>
+        <p className={style.name}>{item.nameMaster}</p>
         <p onClick={setMessengerDisplayLeft} className={style.message}>
-          {message[0].comment}
+          {item.message[0].comment}
         </p>
         <p className={style.time}>
-          {dateParse(message[0].dateTime.toString())}
+          {dateParse(item.message[0].dateTime.toString())}
         </p>
       </div>
     </div>

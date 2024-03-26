@@ -32,25 +32,25 @@ export const Message: MessageObj[] = [
     message: [
       {
         comment: "Привіт, як ви?",
-        dateTime: new Date("2024-03-21T19:02:28.925299"),
+        dateTime: "2024-03-21T19:02:28.925299",
         rentalApartmentId: 1,
-        masterIdUser: 1,
+        masterIdUser: 14,
       },
       {
         comment: "Добрий вечір, як я можу вам допомогти?",
-        dateTime: new Date("2024-03-21T20:02:28.933971"),
+        dateTime: "2024-03-21T20:02:28.933971",
         rentalApartmentId: 1,
         masterIdUser: 1,
       },
       {
         comment: "Дуже хочу орендувати кімнату від вас.",
-        dateTime: new Date("2024-03-21T21:02:28.934047"),
+        dateTime: "2024-03-21T21:02:28.934047",
         rentalApartmentId: 1,
-        masterIdUser: 1,
+        masterIdUser: 14,
       },
       {
         comment: "О, ласкаво просимо! З радістю вас побачу.",
-        dateTime: new Date("2024-03-21T22:02:28.934064"),
+        dateTime: "2024-03-21T22:02:28.934064",
         rentalApartmentId: 1,
         masterIdUser: 1,
       },
@@ -72,28 +72,28 @@ export const Message: MessageObj[] = [
       {
         comment:
           "Добрий день! Ми сім'я з чотирьох осіб і хотіли б забронювати дім на літні канікули. Чи є вас підходящі варіанти?",
-        dateTime: new Date("2024-03-21T19:02:28.93408"),
+        dateTime: "2024-03-21T19:02:28.93408",
         rentalApartmentId: 2,
-        masterIdUser: 2,
+        masterIdUser: 14,
       },
       {
         comment:
           "Доброго дня! Так, у нас є декілька варіантів для вашої сім'ї. Скільки часу ви плануєте провести у нас?",
-        dateTime: new Date("2024-03-21T20:02:28.934094"),
+        dateTime: "2024-03-21T20:02:28.934094",
         rentalApartmentId: 2,
         masterIdUser: 2,
       },
       {
         comment:
           "Ми плануємо залишитися на два тижні, приблизно з 15 липня по 1 серпня. Чи є доступні дати в цей період?",
-        dateTime: new Date("2024-03-21T21:02:28.934119"),
+        dateTime: "2024-03-21T21:02:28.934119",
         rentalApartmentId: 2,
-        masterIdUser: 2,
+        masterIdUser: 14,
       },
       {
         comment:
           "Так, у нас є доступні дати на ваш період перебування. Які у вас вимоги до дому? Наприклад, скільки спалень вам потрібно?",
-        dateTime: new Date("2024-03-21T22:02:28.934132"),
+        dateTime: "2024-03-21T22:02:28.934132",
         rentalApartmentId: 2,
         masterIdUser: 2,
       },
@@ -115,13 +115,13 @@ export const Message: MessageObj[] = [
       {
         comment:
           "Привіт! Цикавить чи є на кухні все необхідне обладнання для приготування їжи?",
-        dateTime: new Date("2024-03-21T20:02:28.934146"),
+        dateTime: "2024-03-21T20:02:28.934146",
         rentalApartmentId: 3,
-        masterIdUser: 3,
+        masterIdUser: 14,
       },
       {
         comment: "Так, кухня повністю обладнана.",
-        dateTime: new Date("2024-03-21T21:02:28.934164"),
+        dateTime: "2024-03-21T21:02:28.934164",
         rentalApartmentId: 3,
         masterIdUser: 3,
       },
