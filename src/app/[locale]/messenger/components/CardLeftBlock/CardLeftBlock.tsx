@@ -48,26 +48,49 @@ const CardLeftBlock: React.FC<CardLeftBlockProps> = ({ item }) => {
     const newFormattedDate = `${parts[1]} ${parts[0]}, ${parts[2]}`;
     return newFormattedDate;
   };
-
-  return (
-    <div className={style.container} onClick={setMessengerDisplayLeft}>
-      <Image
-        className={style.img}
-        src={`https://roombi.space/Avatar/${item.fotoMaster}`}
-        width={70}
-        height={70}
-        alt="Picture of the author"
-      />
-      <div className={style.messageContainer}>
-        <p className={style.name}>{item.nameMaster}</p>
-        <p onClick={setMessengerDisplayLeft} className={style.message}>
-          {item.message[0].comment}
-        </p>
-        <p className={style.time}>
-          {dateParse(item.message[0].dateTime.toString())}
-        </p>
+  const { messages } = useAppSelector((state) => state.appReducer);
+  if (messages?.booking.apartmentId !== item?.booking.apartmentId) {
+    return (
+      <div className={style.container} onClick={setMessengerDisplayLeft}>
+        <Image
+          className={style.img}
+          src={`https://roombi.space/Avatar/${item.fotoMaster}`}
+          width={70}
+          height={70}
+          alt="Picture of the author"
+        />
+        <div className={style.messageContainer}>
+          <p className={style.name}>{item.nameMaster}</p>
+          <p onClick={setMessengerDisplayLeft} className={style.message}>
+            {item.message[0].comment}
+          </p>
+          <p className={style.time}>
+            {dateParse(item.message[0].dateTime.toString())}
+          </p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className={style.containerActive} onClick={setMessengerDisplayLeft}>
+        <Image
+          className={style.img}
+          src={`https://roombi.space/Avatar/${item.fotoMaster}`}
+          width={70}
+          height={70}
+          alt="Picture of the author"
+        />
+        <div className={style.messageContainer}>
+          <p className={style.name}>{item.nameMaster}</p>
+          <p onClick={setMessengerDisplayLeft} className={style.message}>
+            {item.message[0].comment}
+          </p>
+          <p className={style.time}>
+            {dateParse(item.message[0].dateTime.toString())}
+          </p>
+        </div>
+      </div>
+    );
+  }
 };
 export { CardLeftBlock };

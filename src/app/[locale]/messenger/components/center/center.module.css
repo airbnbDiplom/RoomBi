@@ -46,6 +46,12 @@
     display: flex;
     align-items: center;
 }
+.lmessage2{
+    width: 50%;
+}
+.rmessage2{
+    width: 50%;
+}
 .leftArrow{
     display: block;
     margin: 0 20px;

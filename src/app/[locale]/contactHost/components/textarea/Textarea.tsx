@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 const payment: Payment = {
   cardNumber: "",
   expirationDate: "",
-  cVV: "",
+  cvv: "",
   cardType: "",
 };
 const Textarea: React.FC<{ data: RentalApartmentDTO }> = ({

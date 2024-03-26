@@ -57,6 +57,13 @@ const RightBlock: React.FC<MessageListProps> = () => {
         <h5>
           {t("allPaymentApartament")} - {messages.booking.totalPrice}$
         </h5>
+        <Image
+          className={style.imgroomr2}
+          src="/filter/roomr2.png"
+          width={200}
+          height={200}
+          alt="Picture of the author"
+        />
       </div>
     );
 };

@@ -15,6 +15,7 @@
     width: 55%;
 }
 .rightBlock{
+    position: relative;
     padding-left: 20px;
     width: 55%;
     @media (min-width: 850px)

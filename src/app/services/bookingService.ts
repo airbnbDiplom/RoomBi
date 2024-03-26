@@ -5,7 +5,6 @@ import { Booking, Payment } from "../type/type";
 export const bookingFetch = async (booking: Booking, token: string) => {
   try {
     const url = process.env.NEXT_ADD_BOOKING_ID;
-    console.log("url--", url);
     if (url) {
       const res = await fetch(url, {
         method: "POST",
@@ -21,12 +20,13 @@ export const bookingFetch = async (booking: Booking, token: string) => {
           payment: booking.payment,
         }),
       });
+      console.log("putWishlists-1", res.status);
       if (!res.ok) {
+        console.log("putWishlists-0");
         return null;
       }
-      const responseData = await res.json();
-      console.log("putWishlists", responseData);
-      return responseData;
+
+      return res.status;
     }
   } catch (e) {
     console.log("error", e);
@@ -34,7 +34,7 @@ export const bookingFetch = async (booking: Booking, token: string) => {
   }
 };
 
-export const bookingReserve = async (token: string) => {
+export const bookingPayment = async (token: string) => {
   try {
     const url = process.env.NEXT_GET_PAYMENT_ID;
     if (url) {
@@ -45,8 +45,10 @@ export const bookingReserve = async (token: string) => {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      console.log("status=-", res.status);
       const responseData: Payment[] = await res.json();
-      console.log("bookingReserve", responseData[0]);
+      console.log("bookingPayment =-", responseData);
       return responseData;
     }
   } catch (e) {

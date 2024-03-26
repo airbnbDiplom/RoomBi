@@ -12,7 +12,7 @@ function convertDate(dateString: string): DateBi {
 const payment: Payment = {
   cardNumber: "string",
   expirationDate: "string",
-  cVV: "string",
+  cvv: "string",
   cardType: "string",
 };
 

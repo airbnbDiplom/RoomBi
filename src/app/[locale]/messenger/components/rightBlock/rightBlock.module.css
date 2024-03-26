@@ -13,6 +13,13 @@
 .imgMaster{
 border-radius: 50%;
 }
+.imgroomr2{
+    position: fixed;
+    bottom: 10px;
+    width: 15%;
+    border-radius: 12px;
+    height: 150px;
+}
 .master{
     display: flex;
     align-items: center;

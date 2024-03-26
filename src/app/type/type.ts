@@ -264,7 +264,7 @@ export interface Booking {
 export interface Payment {
   cardNumber: string;
   expirationDate: string;
-  cVV: string;
+  cvv: string;
   cardType: string;
 }
 

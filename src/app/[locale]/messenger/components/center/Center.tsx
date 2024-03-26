@@ -70,7 +70,7 @@ const Center: React.FC = () => {
           if (item.masterIdUser.toString() !== myId) {
             return (
               <div key={item.dateTime.toString()} className={style.lmessage}>
-                <div>
+                <div className={style.lmessage2}>
                   <div className={style.messagesHeader}>
                     <p className={style.name}>{messages.nameMaster}</p>
                     <p className={style.date}>
@@ -86,7 +86,7 @@ const Center: React.FC = () => {
             if (session.data?.user?.name)
               return (
                 <div key={item.dateTime.toString()} className={style.rmessage}>
-                  <div>
+                  <div className={style.rmessage2}>
                     <div className={style.messagesHeader}>
                       <p className={style.name}>
                         {decodeTokenGetUserName(session.data?.user?.name)}
