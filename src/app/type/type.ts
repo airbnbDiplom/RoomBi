@@ -301,6 +301,7 @@ export interface ChatForApartmentPageDTO {
   comment: string;
   rentalApartmentId: number;
   masterIdUser: number;
+  guestIdUser: number;
   dateTime: Date;
 }
 export interface ChatForApartmentPageDTORedax {
@@ -308,6 +309,7 @@ export interface ChatForApartmentPageDTORedax {
   rentalApartmentId: number;
   masterIdUser: number;
   dateTime: string;
+  guestIdUser: number;
 }
 export interface MessageStart {
   message: ChatForApartmentPageDTO;

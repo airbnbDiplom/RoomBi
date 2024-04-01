@@ -2,6 +2,7 @@
 import {
   Booking,
   ChatForApartmentPageDTO,
+  MessageObj,
   MessageStart,
   Payment,
   RentalApartmentDTO,
@@ -10,8 +11,11 @@ import style from "./textarea.module.css";
 import { useTranslation } from "react-i18next";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { ChangeEvent, useState } from "react";
-import { useAppSelector } from "@/app/redux/hook";
+import { useAppSelector, useAppDispatch } from "@/app/redux/hook";
 import { useRouter } from "next/navigation";
+import { getAllChat, messageStart } from "@/app/services/messagesService";
+import { useSession } from "next-auth/react";
+import { setMessageObjList } from "@/app/redux/appState/appSlice";
 
 const payment: Payment = {
   cardNumber: "",
@@ -24,18 +28,22 @@ const Textarea: React.FC<{ data: RentalApartmentDTO }> = ({
 }: {
   data: RentalApartmentDTO;
 }) => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const { t } = useTranslation();
   const [state, setState] = useState("");
   const { date, totalPrice, rentalApartment } = useAppSelector(
     (state) => state.reservReducer
   );
-  const send = () => {
+  const session = useSession();
+
+  const send = async () => {
     if (rentalApartment && date) {
       const chatForApartmentPageDTO: ChatForApartmentPageDTO = {
         comment: state,
         rentalApartmentId: rentalApartment?.id,
         masterIdUser: rentalApartment.master.id,
+        guestIdUser: rentalApartment.master.id,
         dateTime: new Date(),
       };
       const booking: Booking = {
@@ -49,7 +57,16 @@ const Textarea: React.FC<{ data: RentalApartmentDTO }> = ({
         message: chatForApartmentPageDTO,
         booking: booking,
       };
-      console.log("hi", message);
+      // console.log("hi", message);
+      if (session.data?.user?.name) {
+        const res = await getAllChat(session.data?.user?.name);
+        if (res) {
+          dispatch(setMessageObjList(res));
+        }
+
+        // messageStart(message, session.data?.user?.name);
+      }
+
       router.push("/messenger");
     }
   };

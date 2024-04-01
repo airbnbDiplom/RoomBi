@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useAppSelector, useAppDispatch } from "@/app/redux/hook";
 import style from "./center.module.css";
 import {
+  sendMessageRedax,
   setMessengerDisplayCenterBlock,
   setMessengerDisplayLeftBlock,
 } from "@/app/redux/appState/appSlice";
@@ -14,6 +15,10 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { Button } from "react-bootstrap";
 import { useState } from "react";
+import {
+  ChatForApartmentPageDTO,
+  ChatForApartmentPageDTORedax,
+} from "@/app/type/type";
 function convertToDateTime(dateTimeString: string) {
   const date = new Date(dateTimeString);
 
@@ -44,6 +49,22 @@ const Center: React.FC = () => {
   };
   const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
+  };
+  const sendMessage = () => {
+    if (message != "") {
+      if (messages?.message[0].rentalApartmentId) {
+        const msSend: ChatForApartmentPageDTORedax = {
+          comment: message,
+          rentalApartmentId: messages?.message[0].rentalApartmentId,
+          masterIdUser: messages?.message[0].masterIdUser,
+          guestIdUser: messages?.message[0].guestIdUser,
+          dateTime: new Date().toString(),
+        };
+        dispatch(sendMessageRedax(msSend));
+        setMessage("");
+        console.log("L", msSend);
+      }
+    }
   };
 
   if (session.data?.user?.name) {
@@ -108,8 +129,17 @@ const Center: React.FC = () => {
             type="text"
             value={message}
             onChange={handleMessageChange}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                sendMessage();
+              }
+            }}
           />
-          {message !== "" && <button className={style.btn}>⇑</button>}
+          {message !== "" && (
+            <button className={style.btn} onClick={sendMessage}>
+              ⇑
+            </button>
+          )}
         </div>
       </div>
     );

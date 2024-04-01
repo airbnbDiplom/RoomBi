@@ -22,7 +22,7 @@ export const authConfig = {
     }),
     Credentials({
       credentials: {
-        token : { label: "Token", type: "text" },
+        token: { label: "Token", type: "text" },
         refreshToken: { label: "Refresh Token", type: "text" },
         email: { label: "Email", type: "email", required: true },
         password: { label: "Password", type: "password" },
@@ -153,7 +153,7 @@ export const authConfig = {
           "google",
           session.user.name
         );
-       console.log(requestUser);
+        console.log(requestUser);
         const res = await authLogin(requestUser);
         if (res.ok) {
           console.log("zashel");

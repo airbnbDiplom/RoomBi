@@ -13,12 +13,15 @@ import {
 } from "@/app/redux/appState/appSlice";
 import { MessageListProps, MessageObj } from "@/app/type/type";
 
-const Main: React.FC<MessageListProps> = ({ messages }) => {
+const Main: React.FC = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { rentalApartment } = useAppSelector((state) => state.reservReducer);
-  const { messengerDisplayLeftBlock, messengerDisplayCenterBlock } =
-    useAppSelector((state) => state.appReducer);
+  const {
+    messengerDisplayLeftBlock,
+    messengerDisplayCenterBlock,
+    messageObjList,
+  } = useAppSelector((state) => state.appReducer);
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,7 +39,9 @@ const Main: React.FC<MessageListProps> = ({ messages }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, [dispatch]);
-  if (messages)
+
+  console.log("messageObjList", messageObjList);
+  if (messageObjList)
     return (
       <div>
         <div className={style.header}>
@@ -48,7 +53,7 @@ const Main: React.FC<MessageListProps> = ({ messages }) => {
             className={style.leftBlock}
             style={{ display: `${messengerDisplayLeftBlock}` }}
           >
-            <LeftBlock messages={messages} />
+            <LeftBlock messages={messageObjList} />
           </div>
           <div
             className={style.center}
@@ -57,7 +62,7 @@ const Main: React.FC<MessageListProps> = ({ messages }) => {
             <Center />
           </div>
           <div className={style.rightBlock}>
-            <RightBlock messages={messages} />
+            <RightBlock messages={messageObjList} />
           </div>
         </div>
       </div>

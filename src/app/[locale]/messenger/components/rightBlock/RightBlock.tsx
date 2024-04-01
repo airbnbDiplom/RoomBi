@@ -2,12 +2,17 @@
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "@/app/redux/hook";
 import style from "./rightBlock.module.css";
-import { MessageListProps } from "@/app/type/type";
+import { DateBi, MessageListProps } from "@/app/type/type";
 import Image from "next/image";
 
 const RightBlock: React.FC<MessageListProps> = () => {
   const { t } = useTranslation();
   const { messages } = useAppSelector((state) => state.appReducer);
+  if (messages)
+    console.log(
+      "messages.booking.checkInDate.day",
+      messages.booking.checkInDate.day
+    );
   if (messages)
     return (
       <div className={style.container}>
