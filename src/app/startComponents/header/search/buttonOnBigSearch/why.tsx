@@ -12,7 +12,6 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import style from '../Search.module.css'
 import WhoDropDawn from './WhoDropDawn'
-
 const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const [width, hight] = useWindowSize()
 	const { t } = useTranslation()
@@ -71,7 +70,7 @@ const Who: React.FC<ThemProps> = ({ isTeamBlack }) => {
 		SetGestString(() => {
 			return str
 		})
-	}, [whoObj])
+	}, [t, whoObj])
 	useEffect(() => {
 		btnState === SearchBtnEnum.Who
 			? setWhenDropDawn(true)

@@ -10,7 +10,6 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import style from '../Search.module.css'
 import WhenDropDawn from './WhenDropDawn'
-
 const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	const [width, hight] = useWindowSize()
 	const [borderStyle, setBorderStyle] = useState('')
@@ -28,6 +27,7 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 	)
 	const [drop, setWhenDropDawn] = useState(false)
 	const btnState = useAppSelector(state => state.searchBtnStateReducer.bntState)
+
 	useEffect(() => {
 		btnState === SearchBtnEnum.WhenDeparture
 			? setWhenDropDawn(true)
@@ -65,7 +65,10 @@ const WhenDeparture: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				setDateVieOnButtonSearch(formatted(calendarDateD))
 			} else {
 				setDateVieOnButtonSearch(formatted(calendarDateD))
-				dispatch(setBtnState(SearchBtnEnum.Who))
+
+				if (btnState !== SearchBtnEnum.SearchBtn) {
+					dispatch(setBtnState(SearchBtnEnum.Who))
+				}
 			}
 		} else {
 			setDateVieOnButtonSearch(t('AddADate'))

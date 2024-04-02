@@ -5,7 +5,7 @@ export interface btnDataI {
 
 export const btnDataArray: btnDataI[] = [
 	{
-		value: 'Гнучкый пошук',
+		value: 'FlexibleSearch',
 		imgSrc: '/searchimg/f9ec8a23-ed44-420b-83e5-10ff1f071a13.webp',
 	},
 	{

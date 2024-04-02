@@ -43,10 +43,6 @@ const WhereOptionDropDawn: React.FC<WhereOptionDropDawnProps> = ({
 			{autoList !== undefined &&
 				autoList.map(
 					item =>
-						// item.addresstype === 'country' ||
-						// 'city' ||
-						// 'town' ||
-						// 'village'
 						addressTypeValidation(item.addresstype) === true && (
 							<div
 								onClick={() => {
@@ -65,7 +61,9 @@ const WhereOptionDropDawn: React.FC<WhereOptionDropDawnProps> = ({
 										/>
 									</div>
 									<div className={`${style.whereOptionDropDawnBlokItemText}`}>
-										{item.name}
+										{item.addresstype === 'country'
+											? `${item.address.country} `
+											: `${item.address.country}, ${item.name}`}
 									</div>
 								</div>
 							</div>

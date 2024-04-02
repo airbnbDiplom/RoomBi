@@ -50,6 +50,7 @@ export enum SearchBtnEnum {
 	WhenCome = 2,
 	WhenDeparture = 3,
 	Who = 4,
+	SearchBtn = 5,
 }
 
 export interface SearchKindSwitch {
@@ -125,23 +126,7 @@ interface Address {
 	country_code: string
 	postcode: string
 }
-// interface Properties {
-// 	addresstype: string
-// 	place_id: string
-// 	osm_type: string
-// 	osm_id: string
-// 	name: string
-// 	display_name: string
-// 	place_rank: string
-// 	category: string
-// 	type: string
-// 	importance: number
-// }
 
-// interface Geometry {
-// 	type: 'Point'
-// 	coordinates: [number, number]
-// }
 // end  ---autoComplete---
 
 export interface DataSearchForSorting {

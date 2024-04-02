@@ -8,7 +8,10 @@ import {
 import { useAppDispatch, useWindowSize } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 import BtnWhereTile from './btn/btnWhere'
-import { setWhereObj } from '@/app/redux/searchInHeader/SearchSlice'
+import {
+	setWhereEmptyObj,
+	setWhereObj,
+} from '@/app/redux/searchInHeader/SearchSlice'
 import autoCompleteService from '@/app/services/autoCompleteService'
 import { btnDataArray, btnDataI } from './btn/btnWhereData'
 import { useTranslation } from 'react-i18next'
@@ -44,6 +47,9 @@ const WhereDropDawn = ({
 					}
 				)
 			}
+			if (value === t('FlexibleSearch')) {
+				dispatch(setWhereEmptyObj())
+			}
 		}, 250)
 	}
 	const chunkArray = (array: btnDataI[], chunkSize: number): btnDataI[][] => {
@@ -63,7 +69,11 @@ const WhereDropDawn = ({
 					{row.map((item, itemIndex) => (
 						<Col key={itemIndex}>
 							<BtnWhereTile
-								value={item.value}
+								value={
+									item.value === 'FlexibleSearch'
+										? t('FlexibleSearch')
+										: item.value
+								}
 								imgSrc={item.imgSrc}
 								onClick={clickImgEvent}
 							/>

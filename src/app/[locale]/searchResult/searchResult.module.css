@@ -5,23 +5,26 @@
 	height: 80vh;
 	margin: 10px;
 }
-.itemList {
+.itemTopCon {
+	position: relative;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	position: relative;
-	display: grid;
 	min-width: 60%;
+}
+.itemList {
+	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 }
-.searchNiResult {
+.searchNoResult {
 	grid-column-start: 1;
-	grid-column-end: 4;
+	grid-column-end: 5;
 	text-align: center;
 	margin-top: 10px;
 }
 .item {
-	display: inline-block;
-	flex-grow: 1;
+	position: relative;
+	max-width: 100%;
+	min-width: 50%;
 }
 .mapContainer {
 	position: relative;
@@ -32,7 +35,7 @@
 }
 .spinnerContainer {
 	grid-column-start: 1;
-	grid-column-end: 4;
+	grid-column-end: 5;
 	display: grid;
 	place-content: center;
 	background-color: #bdbdbd;
@@ -48,9 +51,36 @@
 	font-size: 1.5rem;
 	font-weight: bold;
 }
+.btnCont {
+	display: flex;
+	justify-content: center;
+}
+
+.itemTopCon::-webkit-scrollbar {
+	width: 12px;
+}
+
+.itemTopCon::-webkit-scrollbar-track {
+	border-radius: 8px;
+	background-color: #ffffff;
+	border: 1px solid #ffffff;
+}
+
+.itemTopCon::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	background-color: #363636;
+}
 @media (max-width: 1900px) {
 	.itemList {
 		grid-template-columns: repeat(3, 1fr);
+	}
+	.searchNoResult {
+		grid-column-start: 1;
+		grid-column-end: 4;
+	}
+	.spinnerContainer {
+		grid-column-start: 1;
+		grid-column-end: 4;
 	}
 }
 @media (max-width: 1200px) {
@@ -58,10 +88,20 @@
 		flex-direction: column;
 		margin: 10px;
 	}
-	.itemList {
+	.itemTopCon {
 		max-width: 100%;
 		order: 2;
+	}
+	.itemList {
 		grid-template-columns: repeat(4, 1fr);
+	}
+	.searchNoResult {
+		grid-column-start: 1;
+		grid-column-end: 5;
+	}
+	.spinnerContainer {
+		grid-column-start: 1;
+		grid-column-end: 5;
 	}
 
 	.mapContainer {
@@ -75,10 +115,26 @@
 	.mapContainer {
 		display: none;
 	}
+	.searchNoResult {
+		grid-column-start: 1;
+		grid-column-end: 4;
+	}
+	.spinnerContainer {
+		grid-column-start: 1;
+		grid-column-end: 4;
+	}
 }
 @media (max-width: 768px) {
 	.itemList {
 		grid-template-columns: repeat(2, 1fr);
+	}
+	.searchNoResult {
+		grid-column-start: 1;
+		grid-column-end: 3;
+	}
+	.spinnerContainer {
+		grid-column-start: 1;
+		grid-column-end: 3;
 	}
 }
 @media (max-width: 576px) {

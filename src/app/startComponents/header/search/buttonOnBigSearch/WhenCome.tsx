@@ -55,12 +55,15 @@ const WhenCome: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				setDateVieOnButtonSearch(formatted(calendarDate))
 			} else {
 				setDateVieOnButtonSearch(formatted(calendarDate))
-				dispatch(setBtnState(SearchBtnEnum.WhenDeparture))
+				if (btnState !== SearchBtnEnum.SearchBtn) {
+					dispatch(setBtnState(SearchBtnEnum.WhenDeparture))
+				}
 			}
 		} else {
 			setDateVieOnButtonSearch(t('AddADate'))
 		}
-	}, [calendarDateComStr])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [calendarDateComStr, dispatch])
 
 	const clearDateOnButton = (event: any) => {
 		if (dateVieOnButtonSearch !== t('AddADate')) {

@@ -23,10 +23,12 @@ import {
 	setSearchFilterState,
 	setSearchFilterStateDefault,
 } from '@/app/redux/searchInHeader/searchFilterSlice'
+import { setSearchObject } from '@/app/redux/searchInHeader/searchPriviesSearchObjectSliec'
 
 interface props {
 	inputRef: React.RefObject<HTMLInputElement>
 }
+debugger
 const SearchBtn: React.FC<props> = ({ inputRef }) => {
 	const router = useRouter()
 	const dispatch = useAppDispatch()
@@ -43,52 +45,7 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 		})
 	}
 
-	const transferDataToServer: React.MouseEventHandler<HTMLDivElement> = () => {
-		const transferData: DataSearchForSorting = {
-			where: undefined,
-			when: undefined,
-			why: undefined,
-		}
-		const searchDirection = inputRef.current?.value
-		if (searchDirection) {
-			// В случае если через автокомплит не чего не выбрано выбрать по первому вхождению
-			if (
-				searchDirection.trim().length > 2 &&
-				Object.keys(dataSearch.whereObj).length === 0
-			) {
-				autoCompleteService(searchDirection.trim(), t('locale')).then(
-					(data: AutoCompleteItem[] | null) => {
-						if (data) {
-							for (let i = 0; i < data.length; i++) {
-								if (
-									data[i].addresstype === 'country' ||
-									data[i].addresstype === 'city' ||
-									data[i].addresstype === 'region'
-								) {
-									dispatch(setWhereObj(data[i]))
-									transferData.where = {
-										type: data[i].addresstype,
-										countryCode: data[i].address.country_code,
-										placeId: data[i].place_id,
-									}
-									break
-								}
-							}
-						} else {
-							console.log('Where handleInputChange No data fetched.')
-						}
-					}
-				)
-			} else if (Object.keys(dataSearch.whereObj).length > 0) {
-				transferData.where = {
-					type: dataSearch.whereObj.addresstype,
-					countryCode: dataSearch.whereObj.address.country_code,
-					placeId: dataSearch.whereObj.place_id,
-				}
-			}
-		} else {
-			transferData.where = null
-		}
+	const transferDataToServer = (transferData: DataSearchForSorting) => {
 		// проверка дат на пустоту( пустой даты быть не должно)
 		let newDate: string = ''
 		if (
@@ -139,7 +96,7 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 		// проверка количества гостей
 		if (dataSearch.whyObj.gestsCount === 0) {
 			dispatch(setWhoObjGestCount(1))
-			transferData.why = 0
+			transferData.why = 1
 		} else {
 			transferData.why =
 				dataSearch.whyObj.gestsCount +
@@ -147,13 +104,81 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 				dataSearch.whyObj.babyCount
 		}
 		dispatch(setSearchFilterStateDefault())
+		dispatch(() => {
+			setBtnState(SearchBtnEnum.DisableAll)
+		})
+		dispatch(setSearchObject(transferData))
 		fetchData(transferData)
+	}
+
+	const checkAutoCompleteObjectFull: React.MouseEventHandler<
+		HTMLDivElement
+	> = () => {
+		const transferData: DataSearchForSorting = {
+			where: undefined,
+			when: undefined,
+			why: undefined,
+		}
+		const searchDirection = inputRef.current?.value
+		if (searchDirection) {
+			// В случае если через автокомплит не чего не выбрано выбрать по первому вхождению
+
+			if (
+				searchDirection !== t('FlexibleSearch') &&
+				searchDirection.trim().length > 2 &&
+				(dataSearch.whereObj === undefined ||
+					Object.keys(dataSearch.whereObj).length === 0)
+			) {
+				console.log(t('FlexibleSearch'))
+				autoCompleteService(searchDirection.trim(), t('locale')).then(
+					(data: AutoCompleteItem[] | null) => {
+						const transferData: DataSearchForSorting = {
+							where: undefined,
+							when: undefined,
+							why: undefined,
+						}
+						if (data) {
+							for (let i = 0; i < data.length; i++) {
+								if (
+									data[i].addresstype === 'country' ||
+									data[i].addresstype === 'city' ||
+									data[i].addresstype === 'region'
+								) {
+									dispatch(setWhereObj(data[i]))
+									transferData.where = {
+										type: data[i].addresstype,
+										countryCode: data[i].address.country_code,
+										placeId: data[i].place_id,
+									}
+									transferDataToServer(transferData)
+								}
+							}
+						} else {
+							console.log('Where handleInputChange No data fetched.')
+						}
+					}
+				)
+			} else if (Object.keys(dataSearch.whereObj).length > 0) {
+				transferData.where = {
+					type: dataSearch.whereObj.addresstype,
+					countryCode: dataSearch.whereObj.address.country_code,
+					placeId: dataSearch.whereObj.place_id,
+				}
+				transferDataToServer(transferData)
+			} else {
+				transferData.where = null
+				transferDataToServer(transferData)
+			}
+		} else {
+			transferData.where = null
+			transferDataToServer(transferData)
+		}
 	}
 
 	return (
 		<div
 			onClick={e => {
-				transferDataToServer(e)
+				checkAutoCompleteObjectFull(e)
 				router.push('/searchResult')
 			}}
 			className={`${style.search} ${style.item_5} ${style.item}  ${style.link}`}

@@ -5,6 +5,7 @@ import appReducer from './appState/appSlice'
 import apartmentsReducer from './apartmentsState/apartmentsSlice'
 import reservReducer from './reservState/reservSlice'
 import searchFilterReducer from './searchInHeader/searchFilterSlice'
+import searchPriviesSearchObjectReducer from './searchInHeader/searchPriviesSearchObjectSliec'
 const store = configureStore({
 	reducer: {
 		appReducer,
@@ -13,6 +14,7 @@ const store = configureStore({
 		searchBtnStateReducer,
 		reservReducer,
 		searchFilterReducer,
+		searchPriviesSearchObjectReducer,
 	},
 })
 

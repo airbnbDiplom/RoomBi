@@ -1,41 +1,60 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import style from '@/app/[locale]/searchResult/searchResult.module.css'
-import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { useAppSelector } from '@/app/redux/hook'
 import { CardBi } from '@/app/components/card/CardBi'
 import { useTranslation } from 'react-i18next'
 import LadingSpinner from './ladingSpinner'
-import { setSearchFilterStateDefault } from '@/app/redux/searchInHeader/searchFilterSlice'
+import BtnShowMoreInSearch from '@/app/ui/btnShowMoreInSearch/btnShowMoreInSearch'
 
 const SearchResult = () => {
 	const { t } = useTranslation()
 	const searchFilterData = useAppSelector(
 		state => state.searchFilterReducer.collection
 	)
-	const dispatch = useAppDispatch()
+	const [page, setPage] = useState(1)
+	const [isOnFetch, setOnFetch] = useState(false)
+	const pageSize = 6
 
 	return (
-		<>
-			<div className={style.itemList}>
-				{searchFilterData !== null ? (
-					searchFilterData.length > 0 ? (
-						searchFilterData.map(item => {
-							return (
-								<div className={style.item} key={item.id}>
-									<CardBi {...item} />
-								</div>
-							)
-						})
-					) : (
-						<>
-							<h2 className={style.searchNiResult}>{t('searchNoResult')}</h2>
-						</>
-					)
+		<div className={style.itemTopCon}>
+			{searchFilterData !== null ? (
+				searchFilterData.length > 0 ? (
+					<>
+						<div className={style.itemList}>
+							{searchFilterData.map(item => {
+								return (
+									<>
+										<div className={style.item} key={item.id}>
+											<CardBi {...item} />
+										</div>
+									</>
+								)
+							})}
+						</div>
+						<div className={style.btnCont}>
+							{searchFilterData &&
+								(isOnFetch ||
+									searchFilterData.length / pageSize / page === 1) && (
+									<BtnShowMoreInSearch
+										pageSize={pageSize}
+										page={page}
+										setPage={setPage}
+										setIsFetch={setOnFetch}
+										isOnFetch={isOnFetch}
+									/>
+								)}
+						</div>
+					</>
 				) : (
-					<LadingSpinner />
-				)}
-			</div>
-		</>
+					<>
+						<h2 className={style.searchNoResult}>{t('searchNoResult')}</h2>
+					</>
+				)
+			) : (
+				<LadingSpinner />
+			)}
+		</div>
 	)
 }
 export default SearchResult
