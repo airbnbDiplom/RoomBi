@@ -1,6 +1,8 @@
 import GoogleProfile from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { authLogin } from "@/app/services/authConfig";
+import {checkTokenExpiration} from "@/app/services/jwtDecoder";
+import {refreshToken} from "@/app/services/refreshTokenService";
 
 class RequestUser {
   constructor(email, password, type, name, phoneNumber, dateOfBirth, country) {
@@ -22,7 +24,7 @@ export const authConfig = {
     }),
     Credentials({
       credentials: {
-        token : { label: "Token", type: "text" },
+        token: { label: "Token", type: "text" },
         refreshToken: { label: "Refresh Token", type: "text" },
         email: { label: "Email", type: "email", required: true },
         password: { label: "Password", type: "password" },
@@ -31,14 +33,18 @@ export const authConfig = {
         phoneNumber: { label: "Phone Number", type: "text" },
         dateOfBirth: { label: "Date of Birth", type: "date" },
         country: { label: "Country", type: "text" },
+        profile: { label: "Profile", type: "profile" },
       },
       async authorize(credentials) {
-        if (credentials?.token && credentials?.refreshToken) {
+        console.log("credentials");
+        if (credentials.token && credentials.refreshToken) {
+         
           const sessionUser = {
             name: credentials.token,
             email: credentials.refreshToken,
             image: "not google",
           };
+          console.log("profile");
           return sessionUser;
         }
         if (!credentials?.email || !credentials?.password) return null;
@@ -126,34 +132,37 @@ export const authConfig = {
   ],
   callbacks: {
     async jwt({ token, user, account, profile, isNewUser }) {
-      if (account?.accessToken) {
-        token.accessToken = account.accessToken;
-        token.refreshToken = account.refreshToken;
-      }
+      // if (account?.name && account?.email) {
+      //   token.name = account.name;
+      //   token.email = account.email;
+      // }
+    // console.log("account", account);
+    //   const isTokenExpired = checkTokenExpiration(token.name); // Функция для проверки истечения токена
+    //   console.log("isTokenExpired", isTokenExpired);
+    //   if (isTokenExpired) {
+    //     // Если токен истек, получаем новый токен с сервера
+    //     const newToken = await refreshToken(token.email); // Функция для обновления токена
+    
+    //     // Обновляем токен в нашем объекте token
+    //     token.name = newToken.name;
+    //     token.email = newToken.email;
+    //   }
+    
       return token;
     },
     async session({ session, user, token }) {
-      if (token.accessToken && token.refreshToken) {
-        session.user.name = token.accessToken;
-        session.user.email = token.refreshToken;
+      if (token.email && token.name) {
+        session.user.name = token.name;
+        session.user.email = token.email;
       }
       if (session.user.image !== "not google") {
-        // const requestUser = new RequestUser(
-        //   session.user.email,
-        //   "password",
-        //   "google",
-        //   "",
-        //   "",
-        //   "",
-        //   ""
-        // );
         const requestUser = new RequestUser(
           session.user.email,
           "password",
           "google",
           session.user.name
         );
-       console.log(requestUser);
+        console.log(requestUser);
         const res = await authLogin(requestUser);
         if (res.ok) {
           console.log("zashel");

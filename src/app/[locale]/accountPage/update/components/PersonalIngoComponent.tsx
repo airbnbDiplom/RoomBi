@@ -129,6 +129,7 @@ const PersonalInfoComponent: React.FC<PersonalInfoComponentProps> = ({ userToken
 
         try {
             const response = await updateUser(updatedUser, userToken);
+            console.log(response);
             if (response?.token && response.refreshToken) {
                 const { token, refreshToken } = response;
                 await signIn(
