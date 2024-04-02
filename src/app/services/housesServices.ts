@@ -18,24 +18,24 @@ const getHouses = async () => {
 };
 
 export const getFirstPage = async (userId?: string) => {
-  // let url = process.env.NEXT_GET_FIRST_PAGE;
-  // if (!url) {
-  //   throw new Error("URL is undefined.");
-  // }
-  // if (userId) {
-  //   url = url + `&idUser=${userId}`;
-  // }
-  // console.log("url", url);
-  // const response = await fetch(url, {
-  //   next: {
-  //     revalidate: 500,
-  //   },
-  // });
-  // if (!response.ok) {
-  //   console.error("getFirstPageServer", response);
-  //   throw new Error("Unable to fetch housesc.");
-  // }
-  // return response.json();
+  let url = process.env.NEXT_GET_FIRST_PAGE;
+  if (!url) {
+    throw new Error("URL is undefined.");
+  }
+  if (userId) {
+    url = url + `&idUser=${userId}`;
+  }
+  console.log("url", url);
+  const response = await fetch(url, {
+    next: {
+      revalidate: 500,
+    },
+  });
+  if (!response.ok) {
+    console.error("getFirstPageServer", response);
+    throw new Error("Unable to fetch housesc.");
+  }
+  return response.json();
 };
 
 export const getFilter = async (filter: Filter) => {
