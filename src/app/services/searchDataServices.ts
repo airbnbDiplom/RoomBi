@@ -1,11 +1,12 @@
 'use server'
+debugger
 import { CardBiProps, DataSearchForSorting } from '../type/type'
 const searchDataService = async (
 	data: DataSearchForSorting,
 	page = 1,
 	pageSize = 6
 ) => {
-	const urlSearch = process.env.NEXT_GET_SEARCH_DATA //'https://localhost:7158/api/DataSearchForSorting/sort/'
+	const urlSearch = 'https://localhost:7158/api/DataSearchForSorting/sort/' //process.env.NEXT_GET_SEARCH_DATA
 	if (urlSearch === undefined) return null
 	try {
 		// const requestData = { ...data, page, pageSize }
@@ -21,7 +22,7 @@ const searchDataService = async (
 		)
 		if (!response.ok) {
 			console.log(`HTTP error! status: ${response.status}`)
-			return []
+			return [] as CardBiProps[]
 		}
 
 		const searchDataList: CardBiProps[] = await response.json()
@@ -29,7 +30,7 @@ const searchDataService = async (
 		return searchDataList
 	} catch (e) {
 		console.error('Could not fetch data:', e)
-		return null
+		return [] as CardBiProps[]
 	}
 }
 export default searchDataService

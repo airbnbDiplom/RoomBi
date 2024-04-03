@@ -24,11 +24,9 @@ const SearchResultList = () => {
 						<div className={style.itemList}>
 							{searchFilterData.map(item => {
 								return (
-									<>
-										<div className={style.item} key={item.id}>
-											<CardBi {...item} />
-										</div>
-									</>
+									<div className={style.item} key={item.id}>
+										<CardBi {...item} />
+									</div>
 								)
 							})}
 						</div>
