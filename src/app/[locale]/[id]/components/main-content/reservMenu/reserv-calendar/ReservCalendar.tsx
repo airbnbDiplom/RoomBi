@@ -73,7 +73,7 @@ const ReservCalendar: React.FC<{ data: DateBooking[] }> = ({
   const dateParts = (date: Date) => {
     const startDate: DateBi = {
       day: date.getDate(),
-      month: date.getMonth(),
+      month: date.getMonth() + 1,
       year: date.getFullYear(),
     };
     dispatch(setDate(null));
@@ -107,12 +107,12 @@ const ReservCalendar: React.FC<{ data: DateBooking[] }> = ({
     if (Array.isArray(date) && date[0] && date[1]) {
       const startDate: DateBi = {
         day: date[0].getDate(),
-        month: date[0].getMonth(),
+        month: date[0].getMonth() + 1,
         year: date[0].getFullYear(),
       };
       const endDate: DateBi = {
         day: date[1].getDate(),
-        month: date[1].getMonth(),
+        month: date[1].getMonth() + 1,
         year: date[1].getFullYear(),
       };
 

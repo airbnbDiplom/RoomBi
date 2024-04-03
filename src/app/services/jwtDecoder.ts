@@ -14,8 +14,10 @@ export function decodeTokenAndGetExpiration(token: string): number | null {
   return null;
 }
 
- // Возвращаем первую букву Name
- export function decodeTokenAndGetFirstLetterOfName(token: string): string | null {
+// Возвращаем первую букву Name
+export function decodeTokenAndGetFirstLetterOfName(
+  token: string
+): string | null {
   try {
     const decodedToken: any = jwtDecode(token);
     if (decodedToken && decodedToken.Name) {
@@ -24,18 +26,37 @@ export function decodeTokenAndGetExpiration(token: string): number | null {
   } catch (error) {
     // throw("Помилка розкодування токена:");
     console.error("Помилка розкодування токена:", error);
-
   }
   return null;
 }
 
 // Расшифровка токена юзера для редактирования данных
-export function decodeTokenAndGetUserDetails(token: string): { id: string, firstName: string, lastName: string, email: string, address: string, phoneNumber: string, airbnbRegistrationYear: string, profilePicture: string, language: string, country: string } | null {
+export function decodeTokenAndGetUserDetails(token: string): {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  address: string;
+  phoneNumber: string;
+  airbnbRegistrationYear: string;
+  profilePicture: string;
+  language: string;
+  country: string;
+} | null {
   try {
     const decodedToken: any = jwtDecode(token);
     if (decodedToken) {
-      const [firstName, lastName] = decodedToken.Name.split(' ');
-      const { Id, Email, Address, PhoneNumber, AirbnbRegistrationYear, ProfilePicture, Language, Country } = decodedToken;
+      const [firstName, lastName] = decodedToken.Name.split(" ");
+      const {
+        Id,
+        Email,
+        Address,
+        PhoneNumber,
+        AirbnbRegistrationYear,
+        ProfilePicture,
+        Language,
+        Country,
+      } = decodedToken;
       return {
         id: Id,
         firstName,
@@ -46,7 +67,7 @@ export function decodeTokenAndGetUserDetails(token: string): { id: string, first
         airbnbRegistrationYear: AirbnbRegistrationYear,
         profilePicture: ProfilePicture,
         language: Language,
-        country: Country
+        country: Country,
       };
     }
   } catch (error) {
@@ -95,3 +116,30 @@ export const decodeTokenGetId = (token: string): number | null => {
   }
   return null;
 };
+
+// Расшифровка токена юзера для отримання id
+export function decodeTokenGetUserId(token: string): string | null {
+  try {
+    const decodedToken: any = jwtDecode(token);
+    if (decodedToken) {
+      const { Id } = decodedToken;
+      return Id;
+    }
+  } catch (error) {
+    console.error("Помилка розкодування токена:", error);
+  }
+  return null;
+}
+// Расшифровка токена юзера для отримання name
+export function decodeTokenGetUserName(token: string): string | null {
+  try {
+    const decodedToken: any = jwtDecode(token);
+    if (decodedToken) {
+      const [firstName, lastName] = decodedToken.Name.split(" ");
+      return firstName;
+    }
+  } catch (error) {
+    console.error("Помилка розкодування токена:", error);
+  }
+  return null;
+}

@@ -15,7 +15,7 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import { bookingFetch, bookingReserve } from "@/app/services/bookingService";
+import { bookingFetch, bookingPayment } from "@/app/services/bookingService";
 
 const ReservBtn: React.FC = () => {
   const session = useSession();
@@ -38,7 +38,7 @@ const ReservBtn: React.FC = () => {
   const showBlock = async () => {
     if (session.data?.user?.name) {
       if (!isShow) {
-        const responseData: Payment[] | null | undefined = await bookingReserve(
+        const responseData: Payment[] | null | undefined = await bookingPayment(
           session.data?.user?.name
         );
         setPaymentData(responseData);
@@ -98,6 +98,7 @@ const ReservBtn: React.FC = () => {
           };
           if (session.data?.user?.name) {
             const res = await bookingFetch(request, session.data?.user?.name);
+            console.log("res  res #", res);
             if (res) {
               dispatch(setStatus("paymentOkApartament"));
               setIsShow(false);
@@ -118,14 +119,19 @@ const ReservBtn: React.FC = () => {
             payment: {
               cardNumber: showCard,
               expirationDate: showValidity,
-              cVV: cvv,
+              cvv: cvv,
               cardType: randomIndex === 0 ? "Visa" : "Mastercard",
             },
           };
           if (session.data?.user?.name) {
             const res = await bookingFetch(request, session.data?.user?.name);
-            console.log("request", request);
-            console.log("request", res);
+
+            if (res === 200) {
+              alert("Оплата здійснена успішно");
+              setIsShow(false);
+            } else {
+              alert("Відмова зв'яжіться з вашим банком");
+            }
           }
         }
       }

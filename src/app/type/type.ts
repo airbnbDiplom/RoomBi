@@ -249,7 +249,7 @@ export interface Booking {
 export interface Payment {
 	cardNumber: string
 	expirationDate: string
-	cVV: string
+	cvv: string
 	cardType: string
 }
 
@@ -280,16 +280,45 @@ export interface MessageObj {
 	nameApartment: string
 	nameMaster: string
 	booking: Booking
-	message: ChatForApartmentPageDTO[]
+	message: ChatForApartmentPageDTORedax[]
 }
 export interface ChatForApartmentPageDTO {
 	comment: string
 	rentalApartmentId: number
 	masterIdUser: number
+	guestIdUser: number
 	dateTime: Date
 }
-
+export interface ChatForApartmentPageDTORedax {
+	comment: string
+	rentalApartmentId: number
+	masterIdUser: number
+	dateTime: string
+	guestIdUser: number
+}
 export interface MessageStart {
 	message: ChatForApartmentPageDTO
 	booking: Booking
+}
+export interface MessageListProps {
+	messages: MessageObj[]
+}
+export interface MessageObjNotRedax {
+	fotoMaster: string
+	fotoApartment: string
+	nameApartment: string
+	nameMaster: string
+	booking: Booking
+	message: ChatForApartmentPageDTO[]
+}
+export interface MessageListProps {
+	messages: MessageObj[]
+}
+export interface MessageObjNotRedax {
+	fotoMaster: string
+	fotoApartment: string
+	nameApartment: string
+	nameMaster: string
+	booking: Booking
+	message: ChatForApartmentPageDTO[]
 }

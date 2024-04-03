@@ -25,7 +25,7 @@ export const getFirstPage = async (userId?: string) => {
   if (userId) {
     url = url + `&idUser=${userId}`;
   }
-  console.log("url", url);
+
   const response = await fetch(url, {
     next: {
       revalidate: 500,
@@ -43,7 +43,7 @@ export const getFilter = async (filter: Filter) => {
   if (!url) {
     throw new Error("URL is undefined.");
   }
-
+  console.log("filter", filter);
   const response = await fetch(url, {
     method: "POST",
     headers: {
