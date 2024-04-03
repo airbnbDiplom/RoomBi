@@ -6,7 +6,7 @@ const searchDataService = async (
 	page = 1,
 	pageSize = 6
 ) => {
-	const urlSearch = 'https://localhost:7158/api/DataSearchForSorting/sort/' //process.env.NEXT_GET_SEARCH_DATA
+	const urlSearch = process.env.NEXT_GET_SEARCH_DATA //'https://localhost:7158/api/DataSearchForSorting/sort/'
 	if (urlSearch === undefined) return null
 	try {
 		// const requestData = { ...data, page, pageSize }
