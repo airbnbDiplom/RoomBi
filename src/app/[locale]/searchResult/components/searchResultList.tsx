@@ -33,7 +33,7 @@ const SearchResultList = () => {
 						<div className={style.btnCont}>
 							{searchFilterData &&
 								(isOnFetch ||
-									searchFilterData.length / pageSize / page === 1) && (
+									searchFilterData?.length / pageSize / page === 1) && (
 									<BtnShowMoreInSearch
 										pageSize={pageSize}
 										page={page}
