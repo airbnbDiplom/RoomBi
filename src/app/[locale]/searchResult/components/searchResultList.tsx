@@ -18,7 +18,7 @@ const SearchResultList = () => {
 
 	return (
 		<div className={style.itemTopCon}>
-			{searchFilterData !== null ? (
+			{searchFilterData !== undefined && searchFilterData !== null ? (
 				searchFilterData.length > 0 ? (
 					<>
 						<div className={style.itemList}>
