@@ -1,4 +1,4 @@
-'use server'
+'use client'
 import React from 'react'
 import style from '@/app/[locale]/searchResult/searchResult.module.css'
 import SearchResult from './searchResult'
