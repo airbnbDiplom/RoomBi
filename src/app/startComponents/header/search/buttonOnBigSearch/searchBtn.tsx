@@ -103,10 +103,11 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 				dataSearch.whyObj.childrenCount +
 				dataSearch.whyObj.babyCount
 		}
-		dispatch(setSearchFilterStateDefault())
 		dispatch(() => {
 			setBtnState(SearchBtnEnum.DisableAll)
 		})
+		dispatch(setSearchFilterStateDefault())
+
 		dispatch(setSearchObject(transferData))
 		fetchData(transferData)
 	}
