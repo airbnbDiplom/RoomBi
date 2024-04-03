@@ -2,13 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import 'leaflet/dist/leaflet.css'
 import style from '../components/searchResult.module.css'
-import {
-	MapContainer,
-	Marker,
-	TileLayer,
-	Popup,
-	useMapEvents,
-} from 'react-leaflet'
+import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet'
 import { useAppSelector } from '@/app/redux/hook'
 import { DivIcon, LatLngBounds } from 'leaflet'
 import { CardBiProps } from '@/app/type/type'
