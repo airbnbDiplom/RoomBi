@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import style from '@/app/[locale]/searchResult/searchResult.module.css'
+import style from '@/app/[locale]/searchResult/components/searchResult.module.css'
 
 const LadingSpinner: FC = () => {
 	const { t } = useTranslation()

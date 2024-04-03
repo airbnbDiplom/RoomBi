@@ -1,34 +1,60 @@
-// 'use server'
-// import { CardBi } from '@/app/components/card/CardBi'
-// import searchDataService from '@/app/services/searchDataServices'
+'use client'
+import React, { useState } from 'react'
+import style from '@/app/[locale]/searchResult/components/searchResult.module.css'
+import { useAppSelector } from '@/app/redux/hook'
+import { CardBi } from '@/app/components/card/CardBi'
+import { useTranslation } from 'react-i18next'
+import LadingSpinner from './ladingSpinner'
+import BtnShowMoreInSearch from '@/app/ui/btnShowMoreInSearch/btnShowMoreInSearch'
 
-// import React from 'react'
-// import style from '@/app/[locale]/searchResult/searchResult.module.css'
-// // import { useTranslation } from 'react-i18next'
-// import LadingSpinner from './ladingSpinner'
+const SearchResultList = () => {
+	const { t } = useTranslation()
+	const searchFilterData = useAppSelector(
+		state => state.searchFilterReducer.collection
+	)
+	const [page, setPage] = useState(1)
+	const [isOnFetch, setOnFetch] = useState(false)
+	const pageSize = 6
 
-// const SearchResultList = async () => {
-// 	const searchFilterList = await searchDataService(transferData)
-
-// 	return (
-// 		<>
-// 			{searchFilterList !== null ? (
-// 				searchFilterList.length > 0 ? (
-// 					searchFilterList.map(item => {
-// 						return (
-// 							<div className={style.item} key={item.id}>
-// 								<CardBi {...item} />
-// 							</div>
-// 						)
-// 					})
-// 				) : (
-// 					<h2 className={style.searchNiResult}>sdsd</h2>
-// 				)
-// 			) : (
-// 				<LadingSpinner />
-// 			)}
-// 		</>
-// 	)
-// }
-
-// export default SearchResultList
+	return (
+		<div className={style.itemTopCon}>
+			{searchFilterData !== null ? (
+				searchFilterData.length > 0 ? (
+					<>
+						<div className={style.itemList}>
+							{searchFilterData.map(item => {
+								return (
+									<>
+										<div className={style.item} key={item.id}>
+											<CardBi {...item} />
+										</div>
+									</>
+								)
+							})}
+						</div>
+						<div className={style.btnCont}>
+							{searchFilterData &&
+								(isOnFetch ||
+									searchFilterData.length / pageSize / page === 1) && (
+									<BtnShowMoreInSearch
+										pageSize={pageSize}
+										page={page}
+										setPage={setPage}
+										setIsFetch={setOnFetch}
+										isOnFetch={isOnFetch}
+									/>
+								)}
+						</div>
+					</>
+				) : (
+					<>
+						<h2 className={style.searchNoResult}>{t('searchNoResult')}</h2>
+					</>
+				)
+			) : (
+				<LadingSpinner />
+			)}
+		</div>
+	)
+}
+export default SearchResultList

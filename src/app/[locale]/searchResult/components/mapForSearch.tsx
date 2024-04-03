@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import 'leaflet/dist/leaflet.css'
-import style from '../searchResult.module.css'
+import style from '../components/searchResult.module.css'
 import {
 	MapContainer,
 	Marker,
