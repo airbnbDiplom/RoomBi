@@ -22,7 +22,7 @@ const SearchResultList = () => {
 				searchFilterData.length > 0 ? (
 					<>
 						<div className={style.itemList}>
-							{searchFilterData.map(item => {
+							{searchFilterData?.map(item => {
 								return (
 									<div className={style.item} key={item.id}>
 										<CardBi {...item} />
