@@ -6,6 +6,7 @@ import { SocialNetwork } from "./socialNetwork/SocialNetwork";
 import { FooterButton } from "./footerButton/FooterButton";
 import { LanguageChanger } from "@/app/ui/languageChanger/LanguageChanger";
 import { useTranslation } from "next-i18next";
+import Image from "next/image";
 const Footer: React.FC = () => {
   const { t } = useTranslation();
   return (
@@ -32,12 +33,21 @@ const Footer: React.FC = () => {
       </div>
 
       <div className={style.right}>
+        <Link
+          rel="stylesheet"
+          href="https://t.me/RoomBi_bot"
+          className={style.btnBot}
+        >
+          <Image
+            src={`/telegram.svg`}
+            width={26}
+            height={26}
+            alt="telegram"
+            style={{ width: "20px", height: "20px" }}
+          />{" "}
+          Telegram Bot
+        </Link>{" "}
         <LanguageChanger />
-        <FooterButton
-          title="USD"
-          src="/footer/dollar.svg"
-          event="конвертер валют"
-        />
         <SocialNetwork src="/footer/inst.svg" />
         <SocialNetwork src="/footer/fb.png" />
         <SocialNetwork src="/footer/git.png" />
