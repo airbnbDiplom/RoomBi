@@ -87,6 +87,7 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
         <Dropdown.Menu className={style.itemFont}>
           <Dropdown.Item href="/accountPage">{t("Account")} </Dropdown.Item>
           <Dropdown.Item href="#">{t("helpcenter")}</Dropdown.Item>
+          <Dropdown.Item href="/wishlist">{t("helpcenter")}</Dropdown.Item>
           {messageObjList.length > 0 && (
             <Dropdown.Item href="/messenger">{t("txt2CM")}</Dropdown.Item>
           )}
@@ -149,6 +150,7 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
           <Dropdown.Divider />
           <Dropdown.Item href="#">{t("offerroom")}</Dropdown.Item>
           <Dropdown.Item href="#">{t("helpcenter")}</Dropdown.Item>
+
         </Dropdown.Menu>
       )}
     </Dropdown>
