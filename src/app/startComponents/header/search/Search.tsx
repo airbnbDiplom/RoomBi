@@ -1,6 +1,4 @@
-import Image from 'next/image'
 import style from './Search.module.css'
-import { Col, Row } from 'react-bootstrap'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
 	SearchDataState,

@@ -17,7 +17,7 @@ import {
 } from '@/app/redux/searchInHeader/SearchSlice'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/navigation'
-import convertData from '@/app/services/conwertDate'
+
 import searchDataService from '@/app/services/searchDataServices'
 import {
 	setSearchFilterState,
@@ -28,7 +28,7 @@ import { setSearchObject } from '@/app/redux/searchInHeader/searchPriviesSearchO
 interface props {
 	inputRef: React.RefObject<HTMLInputElement>
 }
-debugger
+
 const SearchBtn: React.FC<props> = ({ inputRef }) => {
 	const router = useRouter()
 	const dispatch = useAppDispatch()
@@ -57,8 +57,8 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 			dispatch(setWhenObjDateCome(dataSearch.whenObj.dateOut))
 			dispatch(setWhenObjDateOut(newDate))
 			transferData.when = {
-				start: convertData(new Date(dataSearch.whenObj.dateOut)),
-				end: convertData(new Date(newDate)),
+				start: new Date(dataSearch.whenObj.dateOut).toISOString(),
+				end: new Date(newDate).toISOString(),
 			}
 		} else if (
 			dataSearch.whenObj.dateCome !== '' &&
@@ -69,8 +69,8 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 				setWhenObjDateOut(new Date(date.setDate(date.getDate() + 1)).toString())
 			)
 			transferData.when = {
-				start: convertData(new Date(dataSearch.whenObj.dateCome)),
-				end: convertData(new Date(date.setDate(date.getDate() + 1))),
+				start: new Date(dataSearch.whenObj.dateCome).toISOString(),
+				end: new Date(date.setDate(date.getDate() + 1)).toISOString(),
 			}
 		} else if (
 			dataSearch.whenObj.dateCome === '' &&
@@ -84,13 +84,13 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 				)
 			)
 			transferData.when = {
-				start: convertData(toDay),
-				end: convertData(new Date(toDay.setDate(toDay.getDate() + 1))),
+				start: toDay.toISOString(),
+				end: new Date(toDay.setDate(toDay.getDate() + 1)).toISOString(),
 			}
 		} else {
 			transferData.when = {
-				start: convertData(new Date(dataSearch.whenObj.dateCome)),
-				end: convertData(new Date(dataSearch.whenObj.dateOut)),
+				start: new Date(dataSearch.whenObj.dateCome).toISOString(),
+				end: new Date(dataSearch.whenObj.dateOut).toISOString(),
 			}
 		}
 		// проверка количества гостей
@@ -109,6 +109,7 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 		dispatch(setSearchFilterStateDefault())
 
 		dispatch(setSearchObject(transferData))
+		console.log('transferData', transferData)
 		fetchData(transferData)
 	}
 

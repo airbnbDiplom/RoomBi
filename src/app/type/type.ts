@@ -135,7 +135,10 @@ export interface DataSearchForSorting {
 		countryCode: string
 		placeId: number
 	} | null
-	when?: DateBooking
+	when?: {
+		start: string
+		end: string
+	}
 	why?: number
 }
 
