@@ -50,7 +50,7 @@ const TypeAllocationRadio: React.FC<TypeAllocationRadioProps> = ({
           type="radio"
           id="louie"
           name="drone"
-          value="Any"
+          value="Будь-який"
           onChange={(e) => handleRadioChange(e.target.value)}
         />
         <label htmlFor="louie" className={style.rRadius}>

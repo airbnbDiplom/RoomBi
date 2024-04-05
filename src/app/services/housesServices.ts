@@ -45,6 +45,7 @@ export const getFilter = async (filter: Filter) => {
   }
   console.log("filter", filter);
   const response = await fetch(url, {
+    cache: "no-store",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -66,8 +67,9 @@ export const getFilter = async (filter: Filter) => {
     console.error("getFilter", response);
     throw new Error("Unable to fetch getFilter.");
   }
-
-  return response.json();
+  const g = await response.json();
+  console.log("rt -", g);
+  return g;
 };
 
 export const getApartamentId = async (id: string, idUser: string = "0") => {
