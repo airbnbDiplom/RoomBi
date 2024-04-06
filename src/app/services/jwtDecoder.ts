@@ -61,6 +61,8 @@ export function checkTokenExpiration(token: string): boolean {
 
   if (expirationTime) {
     const currentTime = Date.now();
+    console.log("currentTime:", currentTime);
+    console.log("expirationTime:", expirationTime);
     const currentTimeInMinutes = expirationTime / 60000;
     const tokenExpirationInMinutes = currentTime / 60000;
     const y = tokenExpirationInMinutes - currentTimeInMinutes;
