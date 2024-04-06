@@ -132,23 +132,20 @@ export const authConfig = {
   ],
   callbacks: {
     async jwt({ token, user, account, profile, isNewUser }) {
-      // if (account?.name && account?.email) {
-      //   token.name = account.name;
-      //   token.email = account.email;
-      // }
-    // console.log("account", account);
-    //   const isTokenExpired = checkTokenExpiration(token.name); // Функция для проверки истечения токена
-    //   console.log("isTokenExpired", isTokenExpired);
-    //   if (isTokenExpired) {
-    //     // Если токен истек, получаем новый токен с сервера
-    //     const newToken = await refreshToken(token.email); // Функция для обновления токена
+      const isTokenExpired = checkTokenExpiration(token.name); // Функция для проверки истечения токена
+      console.log("isTokenExpired", isTokenExpired);
+      if (isTokenExpired) {
+
+        console.log("обновляем токен");
+        // Если токен истек, получаем новый токен с сервера
+        const newToken = await refreshToken(token.email); // Функция для обновления токена
     
-    //     // Обновляем токен в нашем объекте token
-    //     token.name = newToken.name;
-    //     token.email = newToken.email;
-    //   }
+        // Обновляем токен в нашем объекте token
+        token.name = newToken.name;
+        token.email = newToken.email;
+      }
     
-      return token;
+       return token;
     },
     async session({ session, user, token }) {
       if (token.email && token.name) {
