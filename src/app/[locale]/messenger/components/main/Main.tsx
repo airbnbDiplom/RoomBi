@@ -11,13 +11,17 @@ import {
   setMessengerDisplayCenterBlock,
   setMessengerDisplayLeftBlock,
 } from "@/app/redux/appState/appSlice";
+import { MessageListProps, MessageObj } from "@/app/type/type";
+
 const Main: React.FC = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { rentalApartment } = useAppSelector((state) => state.reservReducer);
-  const { messengerDisplayLeftBlock, messengerDisplayCenterBlock } =
-    useAppSelector((state) => state.appReducer);
-  console.log("rentalApartment", rentalApartment);
+  const {
+    messengerDisplayLeftBlock,
+    messengerDisplayCenterBlock,
+    messageObjList,
+  } = useAppSelector((state) => state.appReducer);
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,32 +38,34 @@ const Main: React.FC = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [dispatch]); // Запускається тільки один раз при монтажі компонента
-  // if (rentalApartment)
-  return (
-    <div>
-      <div className={style.header}>
-        <Header />
-      </div>
+  }, [dispatch]);
 
-      <div className={style.container}>
-        <div
-          className={style.leftBlock}
-          style={{ display: `${messengerDisplayLeftBlock}` }}
-        >
-          <LeftBlock />
+  console.log("messageObjList", messageObjList);
+  if (messageObjList)
+    return (
+      <div>
+        <div className={style.header}>
+          <Header />
         </div>
-        <div
-          className={style.center}
-          style={{ display: `${messengerDisplayCenterBlock}` }}
-        >
-          <Center />
-        </div>
-        <div className={style.rightBlock}>
-          <RightBlock />
+
+        <div className={style.container}>
+          <div
+            className={style.leftBlock}
+            style={{ display: `${messengerDisplayLeftBlock}` }}
+          >
+            <LeftBlock messages={messageObjList} />
+          </div>
+          <div
+            className={style.center}
+            style={{ display: `${messengerDisplayCenterBlock}` }}
+          >
+            <Center />
+          </div>
+          <div className={style.rightBlock}>
+            <RightBlock messages={messageObjList} />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
 };
 export { Main };

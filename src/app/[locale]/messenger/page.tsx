@@ -2,7 +2,8 @@ import TranslationsProvider from "@/app/configs/TranslationsProvider";
 import { HomeParams } from "@/app/type/type";
 import initTranslations from "../../i18n";
 import { Main } from "./components/main/Main";
-
+// import { Message } from "./type";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 const i18nNamespaces = ["translation"];
 export default async function Messenger({
   params: { locale },

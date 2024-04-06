@@ -18,24 +18,24 @@ const getHouses = async () => {
 };
 
 export const getFirstPage = async (userId?: string) => {
-  // let url = process.env.NEXT_GET_FIRST_PAGE;
-  // if (!url) {
-  //   throw new Error("URL is undefined.");
-  // }
-  // if (userId) {
-  //   url = url + `&idUser=${userId}`;
-  // }
-  // console.log("url", url);
-  // const response = await fetch(url, {
-  //   next: {
-  //     revalidate: 500,
-  //   },
-  // });
-  // if (!response.ok) {
-  //   console.error("getFirstPageServer", response);
-  //   throw new Error("Unable to fetch housesc.");
-  // }
-  // return response.json();
+  let url = process.env.NEXT_GET_FIRST_PAGE;
+  if (!url) {
+    throw new Error("URL is undefined.");
+  }
+  if (userId) {
+    url = url + `&idUser=${userId}`;
+  }
+  console.log("url", url);
+  const response = await fetch(url, {
+    next: {
+      revalidate: 500,
+    },
+  });
+  if (!response.ok) {
+    console.error("getFirstPageServer", response);
+    throw new Error("Unable to fetch housesc.");
+  }
+  return response.json();
 };
 
 export const getFilter = async (filter: Filter) => {
@@ -43,8 +43,9 @@ export const getFilter = async (filter: Filter) => {
   if (!url) {
     throw new Error("URL is undefined.");
   }
-
+  console.log("filter", filter);
   const response = await fetch(url, {
+    cache: "no-store",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -66,8 +67,9 @@ export const getFilter = async (filter: Filter) => {
     console.error("getFilter", response);
     throw new Error("Unable to fetch getFilter.");
   }
-
-  return response.json();
+  const g = await response.json();
+  console.log("rt -", g);
+  return g;
 };
 
 export const getApartamentId = async (id: string, idUser: string = "0") => {

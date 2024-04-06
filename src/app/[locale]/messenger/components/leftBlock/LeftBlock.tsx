@@ -1,25 +1,26 @@
 "use client";
 import { useTranslation } from "react-i18next";
-import { useAppSelector, useAppDispatch } from "@/app/redux/hook";
 import style from "./leftBlock.module.css";
-import {
-  setMessengerDisplayCenterBlock,
-  setMessengerDisplayLeftBlock,
-} from "@/app/redux/appState/appSlice";
+import { MessageListProps } from "@/app/type/type";
+import { CardLeftBlock } from "../CardLeftBlock/CardLeftBlock";
 
-const LeftBlock: React.FC = () => {
-  const dispatch = useAppDispatch();
+const LeftBlock: React.FC<MessageListProps> = ({ messages }) => {
   const { t } = useTranslation();
-  const { rentalApartment } = useAppSelector((state) => state.reservReducer);
-  console.log("RightBlock _rentalApartment- ", rentalApartment);
-  const setMessengerDisplayLeft = () => {
-    dispatch(setMessengerDisplayCenterBlock("block"));
-    dispatch(setMessengerDisplayLeftBlock("none"));
-  };
-  // if (rentalApartment)
+
   return (
-    <div>
-      <h1 onClick={setMessengerDisplayLeft}>hi LeftBlock</h1>
+    <div className={style.container}>
+      <div className={style.header}>
+        <h1>{t("txt2CM")}</h1>
+      </div>
+      <div className={style.content}>
+        {messages.map((item) => (
+          <div key={item.booking.apartmentId}>
+            <CardLeftBlock item={item} />
+
+            <span className={style.span}></span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

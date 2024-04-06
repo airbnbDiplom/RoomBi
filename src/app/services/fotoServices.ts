@@ -12,6 +12,7 @@ export const saveFoto = async (fileData: FormData) => {
       },
     });
 
+    console.log("HTTP error: status", response.status);
     if (!response.ok) throw new Error("Unable to fetch houses.");
     if (response.ok) {
       const responseData = await response.json();

@@ -1,6 +1,4 @@
-import Image from 'next/image'
 import style from './Search.module.css'
-import { Col, Row } from 'react-bootstrap'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
 	SearchDataState,
@@ -49,11 +47,12 @@ const Search: React.FC<TeamSetter & propsSearchKindSwitchP & ThemProps> = ({
 			setScroll(window.scrollY)
 			window.removeEventListener('scroll', handler)
 		}
-
+		dispatch(setBtnState(SearchBtnEnum.DisableAll))
 		window.addEventListener('scroll', handler)
 		return () => {
 			window.removeEventListener('scroll', handler)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	useEffect(() => {

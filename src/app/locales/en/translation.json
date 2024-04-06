@@ -208,7 +208,7 @@
 	"txtFB_2": "Characteristics",
 	"txtFB_3": "Location",
 	"txtFB_4": "Safety",
-	
+
 	"txtFB_L0": "Host language",
 	"txtFB_L1": "English",
 	"txtFB_L2": "Ukrainian",
@@ -222,26 +222,15 @@
 	"txtFB_L10": "Arabic",
 	"txtFB_L11": "Turkish",
 	"txtFB_L12": "Finnish",
-	
+
 	"txtFB_TH0": "Type of housing",
-	"txtFB_TH1": "Rooms",		
-	"txtFB_TH2": "Houses",	
+	"txtFB_TH1": "Rooms",
+	"txtFB_TH2": "Houses",
 	"txtFB_TH3": "Country houses",
-	"txtFB_TH4": "Floating houses"	
+	"txtFB_TH4": "Floating houses",
+	"txtFB_TH5": "Details",
+	"searchSpinnerMessage": "Start search according to your request...",
+	"searchNoResult": "No results were found for your request",
+
+	"offerrom": "Add accommodation on RoomBi"
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

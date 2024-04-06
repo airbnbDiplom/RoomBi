@@ -1,8 +1,9 @@
+'use server'
 import React, { useMemo } from 'react'
-import style from '@/app/[locale]/searchResult/searchResult.module.css'
-import SearchResultItemList from './searchResultItemList'
-import MapForSearch from './mapForSearch'
+import style from '@/app/[locale]/searchResult/components/searchResult.module.css'
+import SearchResultList from './searchResultList'
 import dynamic from 'next/dynamic'
+
 const FilterMain = () => {
 	const MapForSearch = useMemo(
 		() =>
@@ -20,7 +21,7 @@ const FilterMain = () => {
 	)
 	return (
 		<main className={style.main}>
-			<SearchResultItemList />
+			<SearchResultList />
 			<MapForSearch />
 		</main>
 	)

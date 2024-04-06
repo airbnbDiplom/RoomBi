@@ -23,8 +23,8 @@ const FileTest = () => {
   };
 
   const sub = async () => {
-    const res = saveFoto(fileData);
-    console.log("res", res);
+    const res = await saveFoto(fileData);
+    console.log("res 3", res);
   };
 
   useEffect(() => {

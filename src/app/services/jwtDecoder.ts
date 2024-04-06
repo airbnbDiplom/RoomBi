@@ -1,68 +1,104 @@
-import { log } from "console";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode'
+import { Faster_One } from 'next/font/google'
+
+interface DecodedToken {
+	id: string
+	firstName: string
+	lastName: string
+	email: string
+	address: string
+	phoneNumber: string
+	airbnbRegistrationYear: string
+	profilePicture: string
+	language: string
+	country: string
+	userStatus: string
+}
 
 // Функція для розкодування токена та отримання часу закінчення (exp)
 export function decodeTokenAndGetExpiration(token: string): number | null {
-  try {
-    const decodedToken: any = jwtDecode(token);
-    if (decodedToken && decodedToken.exp) {
-      return decodedToken.exp * 1000; // Перетворюємо секунди в мілісекунди
-    }
-  } catch (error) {
-    console.error("Помилка розкодування токена:", error);
-  }
-  return null;
+	try {
+		const decodedToken: any = jwtDecode(token)
+		if (decodedToken && decodedToken.exp) {
+			return decodedToken.exp * 1000 // Перетворюємо секунди в мілісекунди
+		}
+	} catch (error) {
+		console.error('Помилка розкодування токена:', error)
+	}
+	return null
 }
 
- // Возвращаем первую букву Name
- export function decodeTokenAndGetFirstLetterOfName(token: string): string | null {
-  try {
-    const decodedToken: any = jwtDecode(token);
-    if (decodedToken && decodedToken.Name) {
-      return decodedToken.Name.charAt(0);
-    }
-  } catch (error) {
-    // throw("Помилка розкодування токена:");
-    console.error("Помилка розкодування токена:", error);
-
-  }
-  return null;
+// Возвращаем первую букву Name
+export function decodeTokenAndGetFirstLetterOfName(
+	token: string
+): string | null {
+	try {
+		const decodedToken: any = jwtDecode(token)
+		if (decodedToken && decodedToken.Name) {
+			return decodedToken.Name.charAt(0)
+		}
+	} catch (error) {
+		// throw("Помилка розкодування токена:");
+		console.error('Помилка розкодування токена:', error)
+	}
+	return null
 }
 
 // Расшифровка токена юзера для редактирования данных
-export function decodeTokenAndGetUserDetails(token: string): { id: string, firstName: string, lastName: string, email: string, address: string, phoneNumber: string, airbnbRegistrationYear: string, profilePicture: string, language: string, country: string } | null {
-  try {
-    const decodedToken: any = jwtDecode(token);
-    if (decodedToken) {
-      const [firstName, lastName] = decodedToken.Name.split(' ');
-      const { Id, Email, Address, PhoneNumber, AirbnbRegistrationYear, ProfilePicture, Language, Country } = decodedToken;
-      return {
-        id: Id,
-        firstName,
-        lastName,
-        email: Email,
-        address: Address,
-        phoneNumber: PhoneNumber,
-        airbnbRegistrationYear: AirbnbRegistrationYear,
-        profilePicture: ProfilePicture,
-        language: Language,
-        country: Country
-      };
-    }
-  } catch (error) {
-    console.error("Помилка розкодування токена:", error);
-  }
-  return null;
+export function decodeTokenAndGetUserDetails(token: string): {
+	id: string
+	firstName: string
+	lastName: string
+	email: string
+	address: string
+	phoneNumber: string
+	airbnbRegistrationYear: string
+	profilePicture: string
+	language: string
+	country: string
+	userStatus: string
+} | null {
+	try {
+		const decodedToken: any = jwtDecode(token)
+		if (decodedToken) {
+			const [firstName, lastName] = decodedToken.Name.split(' ')
+			const {
+				Id,
+				Email,
+				Address,
+				PhoneNumber,
+				AirbnbRegistrationYear,
+				ProfilePicture,
+				Language,
+				Country,
+				UserStatus,
+			} = decodedToken
+			return {
+				id: Id,
+				firstName,
+				lastName,
+				email: Email,
+				address: Address,
+				phoneNumber: PhoneNumber,
+				airbnbRegistrationYear: AirbnbRegistrationYear,
+				profilePicture: ProfilePicture,
+				language: Language,
+				country: Country,
+				userStatus: UserStatus,
+			}
+		}
+	} catch (error) {
+		console.error('Помилка розкодування токена:', error)
+	}
+	return null
 }
 
 // Функція для періодичної перевірки терміну дії токена
 export function checkTokenExpiration(token: string): boolean {
-  const expirationTime = decodeTokenAndGetExpiration(token);
+	const expirationTime = decodeTokenAndGetExpiration(token)
 
   if (expirationTime) {
     const currentTime = Date.now();
-    console.log("currentTime:", currentTime);
-    console.log("expirationTime:", expirationTime);
     const currentTimeInMinutes = expirationTime / 60000;
     const tokenExpirationInMinutes = currentTime / 60000;
     const y = tokenExpirationInMinutes - currentTimeInMinutes;
@@ -87,13 +123,51 @@ export function checkTokenExpiration(token: string): boolean {
 
 // Функція для розкодування токена та отримання часу закінчення (exp)
 export const decodeTokenGetId = (token: string): number | null => {
-  try {
-    const decodedToken: any = jwtDecode(token);
-    if (decodedToken.Id) {
-      return decodedToken.Id;
-    }
-  } catch (error) {
-    console.error("Помилка розкодування токена:", error);
-  }
-  return null;
-};
+	try {
+		const decodedToken: any = jwtDecode(token)
+		if (decodedToken.Id) {
+			return decodedToken.Id
+		}
+	} catch (error) {
+		console.error('Помилка розкодування токена:', error)
+	}
+	return null
+}
+
+// Расшифровка токена юзера для отримання id
+export function decodeTokenGetUserId(token: string): string | null {
+	try {
+		const decodedToken: any = jwtDecode(token)
+		if (decodedToken) {
+			const { Id } = decodedToken
+			return Id
+		}
+	} catch (error) {
+		console.error('Помилка розкодування токена:', error)
+	}
+	return null
+}
+// Расшифровка токена юзера для отримання name
+export function decodeTokenGetUserName(token: string): string | null {
+	try {
+		const decodedToken: any = jwtDecode(token)
+		if (decodedToken) {
+			const [firstName, lastName] = decodedToken.Name.split(' ')
+			return firstName
+		}
+	} catch (error) {
+		console.error('Помилка розкодування токена:', error)
+	}
+	return null
+}
+export const decodeTokenGetUserRole = (token: string): boolean | null => {
+	const decodedToken: any = jwtDecode(token)
+	if (decodedToken) {
+		const userStatus = decodedToken.UserStatus
+		if (userStatus === null) {
+			return false
+		}
+		return userStatus === '0' ? false : true
+	}
+	return null
+}
