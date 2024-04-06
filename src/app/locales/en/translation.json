@@ -232,5 +232,9 @@
 	"searchSpinnerMessage": "Start search according to your request...",
 	"searchNoResult": "No results were found for your request",
 
-	"offerrom": "Add accommodation on RoomBi"
+	"offerrom": "Add accommodation on RoomBi",
+	"exit": "Exit",
+	"gratings": "Welcome to RoomBi",
+	"let'sStart": "Let's add your first home",
+	"start": "Start"
 }

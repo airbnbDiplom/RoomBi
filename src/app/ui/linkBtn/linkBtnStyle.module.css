@@ -1,0 +1,31 @@
+.btnStyle {
+	overflow: hidden;
+	position: relative;
+	display: grid;
+	min-width: 100px;
+	max-width: 150px;
+	min-height: 50px;
+	max-height: 75px;
+	place-content: center;
+	text-decoration: none;
+	border-radius: 20px;
+	font-size: x-large;
+	font-weight: 800;
+}
+.btnStyle:hover {
+	background: #c18d48b7 !important;
+	transition: 0.9s;
+}
+.btnStyle::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(60deg, transparent, #d9b16c82, transparent);
+	transition: 0.9s;
+}
+.btnStyle:hover::before {
+	left: 100%;
+}

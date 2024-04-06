@@ -232,5 +232,9 @@
 
 	"searchSpinnerMessage": "Йде підбір за вашим запитом...",
 	"searchNoResult": "За вашим запитом не знайдено результатів",
-	"offerrom": "Додати житло на RoomBi"
+	"offerrom": "Додати житло на RoomBi",
+	"exit": "Вихід",
+	"gratings": "Ласкаво просимо до RoomBi",
+	"let'sStart": "Давайте додамо ваше перше житло",
+	"start": "Почати"
 }
