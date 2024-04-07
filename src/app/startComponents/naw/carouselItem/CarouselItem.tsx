@@ -21,10 +21,10 @@ const CarouselItem: React.FC<CarouselItemProps> = ({ filterData }) => {
         return (
           <ItemNaw
             key={item.id}
-            id={item.id}
+            id={len === "ua" ? 1 : 2}
             label={item.label}
-            name={len === "ua" ? item.nameUa : item.nameEn}
-            name2={len === "en" ? item.nameEn : item.nameUa}
+            name={item.nameUa}
+            name2={item.nameEn}
             src={item.src}
             type={item.type}
           />

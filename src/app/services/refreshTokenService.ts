@@ -1,13 +1,19 @@
 "use server";
+interface AuthenticationResponseDTO {
+  token: string;
+  refreshToken: string;
+}
 
-export const refreshToken = async (authenticationResponseDTO) => {
+export const refreshToken = async (
+  authenticationResponseDTO: AuthenticationResponseDTO
+) => {
   try {
-    const url = 'https://roombiserver.azurewebsites.net/api/User/refresh-token';
+    const url = "https://roombiserver.azurewebsites.net/api/User/refresh-token";
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify(authenticationResponseDTO),
     });

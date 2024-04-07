@@ -9,24 +9,30 @@ import {
 
 import Image from "next/image";
 import { MessageObj } from "@/app/type/type";
+import { useEffect } from "react";
 
 interface CardLeftBlockProps {
   item: MessageObj;
+  active: number;
 }
-const CardLeftBlock: React.FC<CardLeftBlockProps> = ({ item }) => {
+const CardLeftBlock: React.FC<CardLeftBlockProps> = ({ item, active }) => {
   const dispatch = useAppDispatch();
   const setMessengerDisplayLeft = () => {
     dispatch(setMessages(item));
     if (window.innerWidth > 800) {
-      console.log("window.innerWidth", window.innerWidth);
       dispatch(setMessengerDisplayCenterBlock("block"));
       dispatch(setMessengerDisplayLeftBlock("block"));
     } else {
-      console.log("window.innerWidth", window.innerWidth);
       dispatch(setMessengerDisplayCenterBlock("block"));
       dispatch(setMessengerDisplayLeftBlock("none"));
     }
   };
+  useEffect(() => {
+    if (active === 0) {
+      dispatch(setMessages(item));
+    }
+  }, [active, dispatch, item]);
+
   const lng = useAppSelector((state) => state.appReducer.location);
   const dateParse = (date: string) => {
     const d = new Date(date);

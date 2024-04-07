@@ -1,8 +1,8 @@
 import GoogleProfile from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { authLogin } from "@/app/services/authConfig";
-import {checkTokenExpiration} from "@/app/services/jwtDecoder";
-import {refreshToken} from "@/app/services/refreshTokenService";
+import { checkTokenExpiration } from "@/app/services/jwtDecoder";
+import { refreshToken } from "@/app/services/refreshTokenService";
 
 class RequestUser {
   constructor(email, password, type, name, phoneNumber, dateOfBirth, country) {
@@ -38,7 +38,6 @@ export const authConfig = {
       async authorize(credentials) {
         console.log("credentials");
         if (credentials.token && credentials.refreshToken) {
-         
           const sessionUser = {
             name: credentials.token,
             email: credentials.refreshToken,
@@ -132,22 +131,18 @@ export const authConfig = {
   ],
   callbacks: {
     async jwt({ token, user, account, profile, isNewUser }) {
-      // if (account?.name && account?.email) {
-      //   token.name = account.name;
-      //   token.email = account.email;
-      // }
-    // console.log("account", account);
-    //   const isTokenExpired = checkTokenExpiration(token.name); // Функция для проверки истечения токена
-    //   console.log("isTokenExpired", isTokenExpired);
-    //   if (isTokenExpired) {
-    //     // Если токен истек, получаем новый токен с сервера
-    //     const newToken = await refreshToken(token.email); // Функция для обновления токена
-    
-    //     // Обновляем токен в нашем объекте token
-    //     token.name = newToken.name;
-    //     token.email = newToken.email;
-    //   }
-    
+      const isTokenExpired = checkTokenExpiration(token.name); // Функция для проверки истечения токена
+      console.log("isTokenExpired", isTokenExpired);
+      if (isTokenExpired) {
+        console.log("обновляем токен");
+        // Если токен истек, получаем новый токен с сервера
+        const newToken = await refreshToken(token.email); // Функция для обновления токена
+
+        // Обновляем токен в нашем объекте token
+        token.name = newToken.name;
+        token.email = newToken.email;
+      }
+
       return token;
     },
     async session({ session, user, token }) {

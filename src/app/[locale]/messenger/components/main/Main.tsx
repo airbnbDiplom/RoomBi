@@ -12,6 +12,7 @@ import {
   setMessengerDisplayLeftBlock,
 } from "@/app/redux/appState/appSlice";
 import { MessageListProps, MessageObj } from "@/app/type/type";
+import { Box, LinearProgress } from "@mui/material";
 
 const Main: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -41,7 +42,7 @@ const Main: React.FC = () => {
   }, [dispatch]);
 
   console.log("messageObjList", messageObjList);
-  if (messageObjList)
+  if (messageObjList.length > 0)
     return (
       <div>
         <div className={style.header}>
@@ -67,5 +68,20 @@ const Main: React.FC = () => {
         </div>
       </div>
     );
+  else {
+    return (
+      <div>
+        <div className={style.header}>
+          <Header />
+        </div>
+
+        <div className={style.container}>
+          <Box sx={{ width: "100%" }}>
+            <LinearProgress /> <h1>Оновлення повідомлень.</h1>
+          </Box>
+        </div>
+      </div>
+    );
+  }
 };
 export { Main };

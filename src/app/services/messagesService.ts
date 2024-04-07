@@ -2,6 +2,8 @@
 
 import {
   Booking,
+  ChatForApartmentPageDTO,
+  ChatForApartmentPageDTORedax,
   DateBi,
   MessageObj,
   MessageStart,
@@ -9,39 +11,6 @@ import {
 } from "../type/type";
 import { decodeTokenGetUserId } from "./jwtDecoder";
 
-export const messageStart = async (
-  messageStart: MessageStart,
-  token: string
-) => {
-  try {
-    console.log("messageStart Service -", messageStart);
-    console.log("token Service -", decodeTokenGetUserId(token));
-    // const url = process.env.NEXT_MESSAGE_START;
-    // if (url) {
-    //   const res = await fetch(url, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //     body: JSON.stringify({
-    //       message: messageStart.message,
-    //       booking: messageStart.booking,
-    //     }),
-    //   });
-    //   console.log("putWishlists-1", res.status);
-    //   if (!res.ok) {
-    //     console.log("putWishlists-0");
-    //     return null;
-    //   }
-
-    //   return res.status;
-    // }
-  } catch (e) {
-    console.log("error", e);
-    return null;
-  }
-};
 function convertDate(dateString: string): DateBi {
   const dateObj = new Date(dateString);
   const day = dateObj.getDate();
@@ -50,7 +19,9 @@ function convertDate(dateString: string): DateBi {
 
   return { day, month, year };
 }
+
 export const getAllChat = async (token: string) => {
+  console.log("getAllChat 1");
   try {
     const url = process.env.NEXT_GET_ALL_CHAT;
 
@@ -86,6 +57,71 @@ export const getAllChat = async (token: string) => {
         result.push(temp);
       }
       return result;
+    }
+  } catch (e) {
+    const error: MessageObj[] = [];
+    return error;
+  }
+};
+
+export const sendMessageFetch = async (
+  mg: ChatForApartmentPageDTO,
+  token: string
+) => {
+  try {
+    const url = process.env.NEXT_MESSAGE_ONLY;
+    if (url) {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          comment: mg.comment,
+          rentalApartmentId: mg.rentalApartmentId,
+          masterIdUser: mg.masterIdUser,
+          dateTime: mg.dateTime,
+          guestIdUser: mg.guestIdUser,
+        }),
+      });
+
+      if (!res.ok) {
+        return res.status;
+      }
+
+      return res.status;
+    }
+  } catch (e) {
+    console.log("error", e);
+    return null;
+  }
+};
+
+export const messageStart = async (
+  messageStart: MessageStart,
+  token: string
+) => {
+  console.log("messageStart - ", messageStart);
+  try {
+    const url = process.env.NEXT_MESSAGE_START;
+    if (url) {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          chatForApartmentPageDTO: messageStart.message,
+          bookingDTO: messageStart.booking,
+        }),
+      });
+
+      if (!res.ok) {
+        res.status;
+      }
+      return res.status;
     }
   } catch (e) {
     console.log("error", e);
