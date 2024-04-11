@@ -134,10 +134,25 @@ export const decodeTokenGetId = (token: string): number | null => {
   return null;
 };
 
+// Расшифровка токена юзера для отримання UserStatus
+export function decodeTokenGetUserStatus(token: string): string | null {
+  try {
+    const decodedToken: any = jwtDecode(token);
+
+    if (decodedToken) {
+      const { UserStatus } = decodedToken;
+      return UserStatus;
+    }
+  } catch (error) {
+    console.error("Помилка розкодування токена:", error);
+  }
+  return null;
+}
 // Расшифровка токена юзера для отримання id
 export function decodeTokenGetUserId(token: string): string | null {
   try {
     const decodedToken: any = jwtDecode(token);
+
     if (decodedToken) {
       const { Id } = decodedToken;
       return Id;

@@ -15,6 +15,7 @@ import { useAppSelector, useAppDispatch } from "@/app/redux/hook";
 import { useRouter } from "next/navigation";
 import { getAllChat, messageStart } from "@/app/services/messagesService";
 import { useSession } from "next-auth/react";
+import { decodeTokenGetUserId } from "@/app/services/jwtDecoder";
 
 const payment: Payment = {
   cardNumber: "",
@@ -36,30 +37,33 @@ const Textarea: React.FC<{ data: RentalApartmentDTO }> = ({
   const session = useSession();
 
   const send = async () => {
-    if (rentalApartment && date) {
-      const chatForApartmentPageDTO: ChatForApartmentPageDTO = {
-        comment: state,
-        rentalApartmentId: rentalApartment?.id,
-        masterIdUser: rentalApartment.master.id,
-        guestIdUser: rentalApartment.master.id,
-        dateTime: new Date(),
-      };
-      const booking: Booking = {
-        apartmentId: rentalApartment?.id,
-        checkInDate: date?.start,
-        checkOutDate: date?.end,
-        totalPrice: totalPrice,
-        payment: payment,
-      };
-      const message: MessageStart = {
-        message: chatForApartmentPageDTO,
-        booking: booking,
-      };
+    if (session.data?.user?.name) {
+      const myId = decodeTokenGetUserId(session.data?.user?.name);
+      if (rentalApartment && date) {
+        const chatForApartmentPageDTO: ChatForApartmentPageDTO = {
+          comment: state,
+          rentalApartmentId: rentalApartment?.id,
+          toId: rentalApartment.master.id,
+          fromId: Number(myId),
+          dateTime: new Date(),
+        };
+        const booking: Booking = {
+          apartmentId: rentalApartment?.id,
+          checkInDate: date?.start,
+          checkOutDate: date?.end,
+          totalPrice: totalPrice,
+          payment: payment,
+        };
+        const message: MessageStart = {
+          message: chatForApartmentPageDTO,
+          booking: booking,
+        };
 
-      if (session.data?.user?.name) {
-        const status = await messageStart(message, session.data?.user?.name);
-        if (status == 200) {
-          router.push("/messenger");
+        if (session.data?.user?.name) {
+          const status = await messageStart(message, session.data?.user?.name);
+          if (status == 200) {
+            router.push("/messenger");
+          }
         }
       }
     }

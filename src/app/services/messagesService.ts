@@ -35,6 +35,7 @@ export const getAllChat = async (token: string) => {
         },
       });
       const responseData = await res.json();
+
       let result: MessageObj[] = [];
       for (let i = 0; i < responseData.length; i++) {
         const checkInDate = convertDate(responseData[i].booking.checkInDate);
@@ -46,11 +47,14 @@ export const getAllChat = async (token: string) => {
           totalPrice: responseData[i].booking.totalPrice,
           payment: responseData[i].booking.payment,
         };
+
         const temp: MessageObj = {
-          fotoMaster: responseData[i].fotoMaster,
+          fotoFrom: responseData[i].fotoFrom,
+          fotoTo: responseData[i].fotoTo,
           fotoApartment: responseData[i].fotoApartment,
           nameApartment: responseData[i].nameApartment,
-          nameMaster: responseData[i].nameMaster,
+          nameFrom: responseData[i].nameFrom,
+          nameTo: responseData[i].nameTo,
           booking: tempBooking,
           message: responseData[i].message,
         };
@@ -68,6 +72,7 @@ export const sendMessageFetch = async (
   mg: ChatForApartmentPageDTO,
   token: string
 ) => {
+  console.log("sendMessageFetch - ", mg);
   try {
     const url = process.env.NEXT_MESSAGE_ONLY;
     if (url) {
@@ -80,9 +85,9 @@ export const sendMessageFetch = async (
         body: JSON.stringify({
           comment: mg.comment,
           rentalApartmentId: mg.rentalApartmentId,
-          masterIdUser: mg.masterIdUser,
+          fromId: mg.fromId,
           dateTime: mg.dateTime,
-          guestIdUser: mg.guestIdUser,
+          toId: mg.toId,
         }),
       });
 
@@ -117,7 +122,7 @@ export const messageStart = async (
           bookingDTO: messageStart.booking,
         }),
       });
-
+      console.log("messageStart status- ", res.status);
       if (!res.ok) {
         res.status;
       }
