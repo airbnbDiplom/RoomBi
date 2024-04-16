@@ -322,3 +322,30 @@ export interface MessageObjNotRedax {
 export interface MessageListProps {
   messages: MessageObj[];
 }
+export interface WeatherDay {
+  date: string;
+  temperature: {
+    min: string;
+    max: string;
+  };
+  precipitation: {
+    amount: string;
+    probability: string;
+  };
+  wind: {
+    speed: string;
+    direction: string;
+  };
+}
+
+export interface PlacesGemini {
+  name: string; // The name of the place
+  distance: number; // The distance in kilometers
+  category: string; // The category of the place (e.g., restaurant, museum, park, etc.)
+}
+
+export interface LayRoute {
+  type: string; //          Тип маршруту (літак, потяг, автомобіль)
+  description: string; //   Опис маршруту
+  estimatedTime: string; // Приблизний час подорожі
+}

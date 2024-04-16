@@ -15,6 +15,8 @@ type reserv = {
   pricePerNight: number;
   status: string;
   rentalApartment: RentalApartmentDTO | null;
+  typeApartmentRb: string;
+  test: string;
 };
 
 const initialState: reserv = {
@@ -30,6 +32,8 @@ const initialState: reserv = {
   pricePerNight: 0,
   status: "",
   rentalApartment: null,
+  typeApartmentRb: "",
+  test: "",
 };
 
 const reservSlice = createSlice({
@@ -40,11 +44,25 @@ const reservSlice = createSlice({
       state.id = action.payload;
     },
     setRentalApartment(state, action: PayloadAction<RentalApartmentDTO>) {
-      state.rentalApartment = action.payload;
+      if (state.rentalApartment == null) state.rentalApartment = action.payload;
     },
     setStatus(state, action: PayloadAction<string>) {
       state.status = action.payload;
     },
+    setComments(state, action: PayloadAction<[]>) {
+      if (state.rentalApartment) {
+        state.rentalApartment = {
+          ...state.rentalApartment,
+          guestComments: action.payload,
+        };
+      }
+    },
+    setTypeApartment(state, action: PayloadAction<string>) {
+      if (state.rentalApartment?.typeApartment) {
+        state.rentalApartment.typeApartment = action.payload;
+      }
+    },
+
     setStartDate(state, action: PayloadAction<DateBi>) {
       if (state.date == null) {
         const temp: DateBooking = {
@@ -96,6 +114,7 @@ const reservSlice = createSlice({
 });
 
 export const {
+  setTypeApartment,
   setId,
   setStartDate,
   setEndDate,
@@ -106,5 +125,6 @@ export const {
   setTotalPrice,
   setStatus,
   setRentalApartment,
+  setComments,
 } = reservSlice.actions;
 export default reservSlice.reducer;

@@ -8,9 +8,14 @@ import { OfferedAmenities } from "./offered-amenities/OfferedAmenities";
 import { Rating } from "../rating/Rating";
 import { CalendarBi } from "./calendar/CalendarBi";
 import { ReservMenu } from "./reservMenu/ReservMenu";
-import { useAppDispatch } from "@/app/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { useEffect } from "react";
 import { setPricePerNight } from "@/app/redux/reservState/reservSlice";
+import { GeminiBtnWeather } from "../gemini/gemini-btn-weather/GeminiBtnWeather";
+import { GeminiInterestingPlacesNearbyBtn } from "../gemini/gemini-interesting-places-nearby-btn/GeminiInterestingPlacesNearbyBtn";
+import { GeminiTranslateComments } from "../gemini/gemini-translate-comments/GeminiTranslateComments";
+import { GeminiLayRoute } from "../gemini/gemini-lay-route/GeminiLayRoute";
+
 const MainContent: React.FC<{ data: RentalApartmentDTO }> = ({
   data,
 }: {
@@ -21,7 +26,7 @@ const MainContent: React.FC<{ data: RentalApartmentDTO }> = ({
   useEffect(() => {
     dispatch(setPricePerNight(data.pricePerNight));
   }, [dispatch, data.pricePerNight]);
-
+  const date = useAppSelector((state) => state.reservReducer.date);
   return (
     <div className={style.container}>
       <div className={style.blockLeft}>
@@ -45,10 +50,13 @@ const MainContent: React.FC<{ data: RentalApartmentDTO }> = ({
         <p>{data.offeredAmenities.description}</p>
         <span className={style.br}></span>
         <PlaceSleep data={data.pictures} />
-
         <span className={style.br}></span>
         <OfferedAmenities data={data.offeredAmenities} />
         <CalendarBi data={data.dateBooking} />
+        {date?.start && date.end && <GeminiBtnWeather />}
+        <GeminiInterestingPlacesNearbyBtn />
+        <GeminiLayRoute />
+        <GeminiTranslateComments />
       </div>
       <div className={style.blockRight}>
         <ReservMenu data={data.dateBooking} />
