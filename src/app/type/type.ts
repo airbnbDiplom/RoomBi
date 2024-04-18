@@ -1,3 +1,5 @@
+import { ApartmentsVariant } from '../[locale]/becomeAHost/components/apartmentsVariantList'
+
 export interface HomeParams {
 	locale: string
 }
@@ -125,6 +127,7 @@ interface Address {
 	country: string
 	country_code: string
 	postcode: string
+	district: string
 }
 
 // end  ---autoComplete---
@@ -324,4 +327,80 @@ export interface MessageObjNotRedax {
 	nameMaster: string
 	booking: Booking
 	message: ChatForApartmentPageDTO[]
+}
+export interface newApartment {
+	title: string // Заголовок
+	address: string // Адрес
+	ingMap: string // Долгота на карте
+	latMap: string // Широта на карте
+	numberOfGuests: number // Количество гостей
+	bedrooms: number // Количество спален
+	bathrooms: number // Количество ванных комнат
+	beds: number // Количество кроватей
+	pricePerNight: number // Цена за ночь
+	objectState: string // Состояние объекта
+	objectRating: number // Рейтинг объекта
+	typeApartment: ApartmentsVariant | undefined // Тип апартаментов
+	location: string
+	house: FilterLngObj | undefined
+	sport: string
+	country: string
+	city: string
+	county: string
+	countryCode: string
+	wish: boolean
+	offeredAmenities: NewApartmentOfferedAmenities // Предлагаемые удобства
+	master: NewApartmentMaster // Хозяин
+	description: string // Описание'
+	pictures: ImgBi[]
+}
+export interface NewApartmentOfferedAmenities {
+	wiFi: boolean // Наличие WiFi
+	tV: boolean // Наличие телевизора
+	kitchen: boolean // Наличие кухни
+	washingMachine: boolean // Наличие стиральной машины
+	freeParking: boolean // Бесплатная парковка
+	paidParking: boolean // Платная парковка
+	airConditioner: boolean // Наличие кондиционера
+	workspace: boolean // Наличие рабочей зоны
+	specialFeatures: string // Особенные характеристики
+	pool: boolean // Наличие бассейна
+	jacuzzi: boolean // Наличие джакузи
+	innerYard: boolean // Наличие внутреннего двора
+	bBQArea: boolean // Наличие зоны для барбекю
+	outdoorDiningArea: boolean // Наличие обеденной зоны на улице
+	firePit: boolean // Наличие костровища
+	poolTable: boolean // Наличие стола для игры в бильярд
+	fireplace: boolean // Наличие камина
+	piano: boolean // Наличие пианино
+	gymEquipment: boolean // Наличие тренажеров
+	lakeAccess: boolean // Доступ к озеру
+	beachAccess: boolean // Доступ к пляжу
+	skiInOut: boolean // Доступ к лыжным трассам
+	outdoorShower: boolean // Наличие уличного душа
+	smokeDetector: boolean // Наличие датчика дыма
+	firstAidKit: boolean // Наличие аптечки
+	fireExtinguisher: boolean // Наличие огнетушителя
+	carbonMonoxideDetector: boolean // Наличие датчика угарного газа
+}
+export interface NewApartmentMaster {
+	id: string
+	name?: string
+}
+export interface autoCompleteObj {
+	address: Address
+	place_id: number
+	licence: string
+	osm_type: string
+	osm_id: number
+	lat: string
+	lon: string
+	class: string
+	type: string
+	place_rank: number
+	importance: number
+	addresstype: string
+	name: string
+	display_name: string
+	boundingbox: string[]
 }

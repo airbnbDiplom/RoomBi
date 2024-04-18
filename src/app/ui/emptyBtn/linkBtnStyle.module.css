@@ -2,9 +2,8 @@
 	overflow: hidden;
 	position: relative;
 	display: grid;
-	min-width: 100px;
-	max-width: 150px;
-	min-height: 50px;
+	width: 150px;
+	min-width: 50px;
 	max-height: 75px;
 	place-content: center;
 	text-decoration: none;

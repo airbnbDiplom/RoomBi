@@ -8,7 +8,7 @@ import {
 	SearchBtnEnum,
 } from '@/app/type/type'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
-import autoCompleteService from '@/app/services/autoCompleteService'
+
 import {
 	setWhenObjDateCome,
 	setWhenObjDateOut,
@@ -24,6 +24,7 @@ import {
 	setSearchFilterStateDefault,
 } from '@/app/redux/searchInHeader/searchFilterSlice'
 import { setSearchObject } from '@/app/redux/searchInHeader/searchPriviesSearchObjectSliec'
+import { autoCompleteService } from '@/app/services/autoCompleteService'
 
 interface props {
 	inputRef: React.RefObject<HTMLInputElement>

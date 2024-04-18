@@ -3,6 +3,7 @@ import searchBtnStateReducer from './searchInHeader/SearchBtnStateSlice'
 import { configureStore } from '@reduxjs/toolkit'
 import appReducer from './appState/appSlice'
 import apartmentsReducer from './apartmentsState/apartmentsSlice'
+import newApartmentReducer from './addNewApartmentState/addNewApartmentSlice'
 import reservReducer from './reservState/reservSlice'
 import searchFilterReducer from './searchInHeader/searchFilterSlice'
 import searchPriviesSearchObjectReducer from './searchInHeader/searchPriviesSearchObjectSliec'
@@ -15,6 +16,7 @@ const store = configureStore({
 		reservReducer,
 		searchFilterReducer,
 		searchPriviesSearchObjectReducer,
+		newApartmentReducer,
 	},
 })
 

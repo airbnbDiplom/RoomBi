@@ -4,7 +4,7 @@ import {
 	AutoCompleteList,
 	AutoCompleteItem,
 } from '@/app/type/type'
-import autoCompleteService from '@/app/services/autoCompleteService'
+
 import style from '../Search.module.css'
 import WhereDropDawn from './WhereDropDawn'
 import React, { useEffect, useRef, useState } from 'react'
@@ -14,6 +14,7 @@ import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 import ClearInputBtn from '@/app/ui/clearInput/ClearInputBtn'
 import { setWhereEmptyObj } from '@/app/redux/searchInHeader/SearchSlice'
 import { useTranslation } from 'react-i18next'
+import { autoCompleteService } from '@/app/services/autoCompleteService'
 
 interface whereProps {
 	inputRef: React.RefObject<HTMLInputElement>

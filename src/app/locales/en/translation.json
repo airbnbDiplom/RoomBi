@@ -236,5 +236,20 @@
 	"exit": "Exit",
 	"gratings": "Welcome to RoomBi",
 	"let'sStart": "Let's add your first home",
-	"start": "Start"
+	"start": "Start",
+	"finish": "Finish",
+	"back": "Back",
+	"next": "Next",
+	"houseType": "Please select accommodation type",
+	"fullApartment": "The whole housing",
+	"fullApartmentSubtitle": "The entire premises are completely at the disposal of guests",
+	"room": "room",
+	"getsHave": "Guests have their own room and access to common areas.",
+	"commonRoom": "commonRoom",
+	"commonRoomSubTitle": "Guests sleep in a common room or a room where other people may be present.",
+	"select": "Choose an option",
+	"ApartmentVariantH1": "What type of accommodation will be available to guests?",
+	"country": "Country",
+	"administrative": "Region, district, state",
+	"city": "City"
 }

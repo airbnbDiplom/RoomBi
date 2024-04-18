@@ -12,9 +12,10 @@ import {
 	setWhereEmptyObj,
 	setWhereObj,
 } from '@/app/redux/searchInHeader/SearchSlice'
-import autoCompleteService from '@/app/services/autoCompleteService'
+
 import { btnDataArray, btnDataI } from './btn/btnWhereData'
 import { useTranslation } from 'react-i18next'
+import { autoCompleteService } from '@/app/services/autoCompleteService'
 
 const WhereDropDawn = ({
 	setStringInput,
