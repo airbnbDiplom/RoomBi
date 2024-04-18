@@ -100,28 +100,28 @@ export function decodeTokenAndGetUserDetails(token: string): {
 export function checkTokenExpiration(token: string): boolean {
 	const expirationTime = decodeTokenAndGetExpiration(token)
 
-  if (expirationTime) {
-    const currentTime = Date.now();
-    const currentTimeInMinutes = expirationTime / 60000;
-    const tokenExpirationInMinutes = currentTime / 60000;
-    const y = tokenExpirationInMinutes - currentTimeInMinutes;
-    console.log("Час закінчення токена в хвилинах:", tokenExpirationInMinutes);
-    console.log("Поточний час в хвилинах:", currentTimeInMinutes);
-    console.log("y", y);
+	if (expirationTime) {
+		const currentTime = Date.now()
+		const currentTimeInMinutes = expirationTime / 60000
+		const tokenExpirationInMinutes = currentTime / 60000
+		const y = tokenExpirationInMinutes - currentTimeInMinutes
+		console.log('Час закінчення токена в хвилинах:', tokenExpirationInMinutes)
+		console.log('Поточний час в хвилинах:', currentTimeInMinutes)
+		console.log('y', y)
 
-    const r = y;
-    console.log("r", r);
-    if (r > 0) {
-      console.log("Токен скоро закінчиться, перезапитайте його");
-      return true;
-    } else {
-      console.log("Токен активный");
-      return false;
-    }
-  } else {
-    console.error("Не вдалося отримати термін дії токена");
-    return false;
-  }
+		const r = y
+		console.log('r', r)
+		if (r > 0) {
+			console.log('Токен скоро закінчиться, перезапитайте його')
+			return true
+		} else {
+			console.log('Токен активный')
+			return false
+		}
+	} else {
+		console.error('Не вдалося отримати термін дії токена')
+		return false
+	}
 }
 
 // Функція для розкодування токена та отримання часу закінчення (exp)
@@ -137,10 +137,25 @@ export const decodeTokenGetId = (token: string): number | null => {
 	return null
 }
 
+// Расшифровка токена юзера для отримання UserStatus
+export function decodeTokenGetUserStatus(token: string): string | null {
+	try {
+		const decodedToken: any = jwtDecode(token)
+
+		if (decodedToken) {
+			const { UserStatus } = decodedToken
+			return UserStatus
+		}
+	} catch (error) {
+		console.error('Помилка розкодування токена:', error)
+	}
+	return null
+}
 // Расшифровка токена юзера для отримання id
 export function decodeTokenGetUserId(token: string): string | null {
 	try {
 		const decodedToken: any = jwtDecode(token)
+
 		if (decodedToken) {
 			const { Id } = decodedToken
 			return Id

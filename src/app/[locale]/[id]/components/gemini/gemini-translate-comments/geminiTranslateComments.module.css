@@ -1,0 +1,51 @@
+.container
+{
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.btnShowModal {
+    width: 50%;
+    height: 50px;
+    margin: 10px 0;
+    position: relative; /* Потрібно для позиціонування псевдоелемента */
+    border: 1px solid black; /* Видаляємо основну межу кнопки */
+    border-radius: 5px;
+    font-weight: 700;
+    background-color: white;
+}
+.btnShowModal:hover{
+    background-color: rgb(74, 73, 73);
+    color: white;
+}
+.btnShowModal::after {
+    content: ''; 
+    position: absolute; 
+    top: 2px;
+    left: 92%;
+    width: 15px;
+    height:  15px;
+    border-radius: 40%;
+    border: 2px dashed transparent; 
+    transition: border-color 0.3s ease;
+}
+
+.btnShowModal::after {
+    border-color: rgb(7, 255, 73); 
+    animation: borderRotate 2s linear infinite; /* Анімація руху межі */
+}
+.btnShowModal:hover::after {
+    border-top-color: rgb(246, 255, 0); 
+    border-right-color: rgb(79, 250, 5); 
+    border-left-color: rgb(79, 250, 5);
+    border-bottom-color: rgb(246, 255, 0);
+    animation: borderRotate 0.5s linear infinite; /* Анімація руху межі */
+}
+@keyframes borderRotate {
+    100% {
+        transform: rotate(360deg); /* Обертання на 360 градусів за 1 секунду (один оберт за секунду) */
+    }
+}
+

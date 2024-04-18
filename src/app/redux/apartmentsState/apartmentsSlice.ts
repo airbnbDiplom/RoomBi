@@ -57,13 +57,11 @@ const apartmentsSlice = createSlice({
       // Збільшуємо лічильник сторінок
       state.countPage++;
     },
-
     navFilter(
       state,
       action: PayloadAction<{ name: string; name2: string; type: string }>
     ) {
       const { name, name2, type } = action.payload;
-
       const result = state.apartmentsAll.filter((item) => {
         if (
           item[type as keyof CardBiProps] === name ||

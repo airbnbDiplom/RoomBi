@@ -13,12 +13,12 @@ import {
 } from "@/app/services/jwtDecoder";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { Button } from "react-bootstrap";
 import { useState } from "react";
 import {
   ChatForApartmentPageDTO,
   ChatForApartmentPageDTORedax,
 } from "@/app/type/type";
+import { sendMessageFetch } from "@/app/services/messagesService";
 function convertToDateTime(dateTimeString: string) {
   const date = new Date(dateTimeString);
 
@@ -40,6 +40,7 @@ function convertToDateTime(dateTimeString: string) {
 const Center: React.FC = () => {
   const dispatch = useAppDispatch();
   const session = useSession();
+
   const { t } = useTranslation();
   const { messages } = useAppSelector((state) => state.appReducer);
   const [message, setMessage] = useState("");
@@ -50,19 +51,51 @@ const Center: React.FC = () => {
   const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
   };
-  const sendMessage = () => {
-    if (message != "") {
-      if (messages?.message[0].rentalApartmentId) {
-        const msSend: ChatForApartmentPageDTORedax = {
-          comment: message,
-          rentalApartmentId: messages?.message[0].rentalApartmentId,
-          masterIdUser: messages?.message[0].masterIdUser,
-          guestIdUser: messages?.message[0].guestIdUser,
-          dateTime: new Date().toString(),
-        };
-        dispatch(sendMessageRedax(msSend));
-        setMessage("");
-        console.log("L", msSend);
+  const sendMessage = async () => {
+    if (session.data?.user?.name) {
+      const myId = decodeTokenGetUserId(session.data?.user?.name);
+
+      if (message != "") {
+        if (messages?.message[0].rentalApartmentId) {
+          let idTo;
+          let idFrom;
+
+          if (myId == messages?.message[0].toId.toString()) {
+            idTo = messages?.message[0].fromId;
+            idFrom = messages?.message[0].toId;
+          } else {
+            idTo = messages?.message[0].toId;
+            idFrom = messages?.message[0].fromId;
+          }
+
+          let msSend: ChatForApartmentPageDTORedax = {
+            comment: message,
+            rentalApartmentId: messages?.message[0].rentalApartmentId,
+            fromId: idFrom,
+            toId: idTo,
+            dateTime: new Date().toString(),
+          };
+          if (session.data?.user?.name) {
+            const ms: ChatForApartmentPageDTO = {
+              comment: msSend.comment,
+              rentalApartmentId: msSend.rentalApartmentId,
+              fromId: msSend.fromId,
+              toId: msSend.toId,
+              dateTime: new Date(),
+            };
+
+            const status = await sendMessageFetch(ms, session.data?.user?.name);
+            if (status == 200) {
+              dispatch(sendMessageRedax(msSend));
+              setMessage("");
+            } else {
+              const errorMg = "Повідомлення не доставлене.";
+              msSend.comment = errorMg;
+              dispatch(sendMessageRedax(msSend));
+              setMessage("");
+            }
+          }
+        }
       }
     }
   };
@@ -79,50 +112,103 @@ const Center: React.FC = () => {
             height={40}
             alt="Picture of the author"
           />
-          <h1>{messages?.nameMaster}</h1>
+          <h1>{messages?.nameTo}</h1>
+        </div>
+        <div className={style.containerMessage}>
+          {messages?.message.map((item) => {
+            let myId = "";
+
+            if (session.data?.user?.name != null) {
+              myId = decodeTokenGetUserId(session.data?.user?.name)!;
+            }
+
+            if (item.fromId.toString() === myId && session.data?.user?.name) {
+              if (
+                decodeTokenGetUserName(session.data?.user?.name) ===
+                messages.nameFrom.split(" ")[0]
+              ) {
+                return (
+                  <div
+                    key={item.dateTime.toString()}
+                    className={style.lmessage}
+                  >
+                    <div className={style.lmessage2}>
+                      <div className={style.messagesHeader}>
+                        <p className={style.name}>{messages.nameFrom}</p>
+                        <p className={style.date}>
+                          {convertToDateTime(item.dateTime)}
+                        </p>
+                      </div>
+
+                      <p> {item.comment}</p>
+                    </div>
+                  </div>
+                );
+              } else {
+                return (
+                  <div
+                    key={item.dateTime.toString()}
+                    className={style.lmessage}
+                  >
+                    <div className={style.lmessage2}>
+                      <div className={style.messagesHeader}>
+                        <p className={style.name}>{messages.nameTo}</p>
+                        <p className={style.date}>
+                          {convertToDateTime(item.dateTime)}
+                        </p>
+                      </div>
+
+                      <p> {item.comment}</p>
+                    </div>
+                  </div>
+                );
+              }
+            } else {
+              if (session.data?.user?.name)
+                if (
+                  decodeTokenGetUserName(session.data?.user?.name) !==
+                  messages.nameFrom.split(" ")[0]
+                ) {
+                  return (
+                    <div
+                      key={item.dateTime.toString()}
+                      className={style.rmessage}
+                    >
+                      <div className={style.rmessage2}>
+                        <div className={style.messagesHeader}>
+                          <p className={style.name}>{messages.nameFrom}</p>
+                          <p className={style.date}>
+                            {convertToDateTime(item.dateTime)}
+                          </p>
+                        </div>
+
+                        <p> {item.comment}</p>
+                      </div>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div
+                      key={item.dateTime.toString()}
+                      className={style.rmessage}
+                    >
+                      <div className={style.rmessage2}>
+                        <div className={style.messagesHeader}>
+                          <p className={style.name}>{messages.nameTo}</p>
+                          <p className={style.date}>
+                            {convertToDateTime(item.dateTime)}
+                          </p>
+                        </div>
+
+                        <p> {item.comment}</p>
+                      </div>
+                    </div>
+                  );
+                }
+            }
+          })}
         </div>
 
-        {messages?.message.map((item) => {
-          let myId = "";
-          if (session.data?.user?.name != null) {
-            myId = decodeTokenGetUserId(session.data?.user?.name)!;
-          }
-
-          if (item.masterIdUser.toString() !== myId) {
-            return (
-              <div key={item.dateTime.toString()} className={style.lmessage}>
-                <div className={style.lmessage2}>
-                  <div className={style.messagesHeader}>
-                    <p className={style.name}>{messages.nameMaster}</p>
-                    <p className={style.date}>
-                      {convertToDateTime(item.dateTime)}
-                    </p>
-                  </div>
-
-                  <p> {item.comment}</p>
-                </div>
-              </div>
-            );
-          } else {
-            if (session.data?.user?.name)
-              return (
-                <div key={item.dateTime.toString()} className={style.rmessage}>
-                  <div className={style.rmessage2}>
-                    <div className={style.messagesHeader}>
-                      <p className={style.name}>
-                        {decodeTokenGetUserName(session.data?.user?.name)}
-                      </p>
-                      <p className={style.date}>
-                        {convertToDateTime(item.dateTime)}
-                      </p>
-                    </div>
-
-                    <p> {item.comment}</p>
-                  </div>
-                </div>
-              );
-          }
-        })}
         <div className={style.form}>
           <input
             className={style.input}

@@ -7,7 +7,6 @@ import { MainContent } from "../main-content/MainContent";
 import { Rating } from "../rating/Rating";
 import { Comments } from "../comments/Comments";
 import { Master } from "../main-content/master/Master";
-import { Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";

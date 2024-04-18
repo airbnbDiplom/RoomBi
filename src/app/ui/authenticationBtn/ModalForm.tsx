@@ -166,15 +166,6 @@ const ModalForm: React.FC<ModalFormProps> = ({
       );
       console.log(res?.status, res?.error);
 
-      console.log("SDT- 0", session.data?.user?.name);
-      setTimeout(() => {
-        console.log("SDT- 1", session.data?.user?.name);
-      }, 1500);
-      //   const res = await getAllChat(session.data?.user?.name);
-      //   if (res) {
-      // 	dispatch(setMessageObjList(res));
-      //   }
-
       if (res?.error === "Ok") {
         console.log("Response is a string: ", res.error);
         console.log("OK - ", res);

@@ -76,6 +76,11 @@ font-weight: 800;
 .messagesHeader p{
     margin: 0 5px;
 }
+.containerMessage{position: relative;
+    height: 75vh;
+    overflow-x: hidden; /* Приховати горизонтальну прокрутку */
+    overflow-y: auto; /* Додати вертикальну прокрутку */
+}
 
 .form{
 width: 100%;

@@ -10,7 +10,10 @@ import initTranslations from "../i18n";
 import { Footer } from "../startComponents/footer/Footer";
 import Loading from "./loading";
 import styles from "./page.module.css";
-import { decodeTokenGetId } from "../services/jwtDecoder";
+import {
+  decodeTokenAndGetExpiration,
+  decodeTokenGetId,
+} from "../services/jwtDecoder";
 
 const i18nNamespaces = ["translation"];
 export default async function Home({
@@ -26,6 +29,7 @@ export default async function Home({
 
   if (session) {
     if (session.user.name) {
+      // decodeTokenAndGetExpiration(session.user.name);
       const idUser = decodeTokenGetId(session.user.name);
       if (idUser) {
         firstPage = await getFirstPage(idUser.toString());

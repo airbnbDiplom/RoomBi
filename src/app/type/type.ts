@@ -37,6 +37,7 @@ export interface FilterObj {
 	src: string
 	type: string
 }
+
 export interface FilterLngObj {
 	id: number
 	label: string
@@ -281,26 +282,28 @@ export interface FilterCheckboxAmenities {
 
 //Повідомлення
 export interface MessageObj {
-	fotoMaster: string
+	fotoFrom: string
+	fotoTo: string
 	fotoApartment: string
 	nameApartment: string
-	nameMaster: string
+	nameFrom: string
+	nameTo: string
 	booking: Booking
 	message: ChatForApartmentPageDTORedax[]
 }
 export interface ChatForApartmentPageDTO {
 	comment: string
 	rentalApartmentId: number
-	masterIdUser: number
-	guestIdUser: number
+	fromId: number
+	toId: number
 	dateTime: Date
 }
 export interface ChatForApartmentPageDTORedax {
 	comment: string
 	rentalApartmentId: number
-	masterIdUser: number
+	fromId: number
+	toId: number
 	dateTime: string
-	guestIdUser: number
 }
 export interface MessageStart {
 	message: ChatForApartmentPageDTO
@@ -310,23 +313,44 @@ export interface MessageListProps {
 	messages: MessageObj[]
 }
 export interface MessageObjNotRedax {
-	fotoMaster: string
+	fotoFrom: string
+	fotoTo: string
 	fotoApartment: string
 	nameApartment: string
-	nameMaster: string
+	nameFrom: string
+	nameTo: string
 	booking: Booking
 	message: ChatForApartmentPageDTO[]
 }
 export interface MessageListProps {
 	messages: MessageObj[]
 }
-export interface MessageObjNotRedax {
-	fotoMaster: string
-	fotoApartment: string
-	nameApartment: string
-	nameMaster: string
-	booking: Booking
-	message: ChatForApartmentPageDTO[]
+export interface WeatherDay {
+	date: string
+	temperature: {
+		min: string
+		max: string
+	}
+	precipitation: {
+		amount: string
+		probability: string
+	}
+	wind: {
+		speed: string
+		direction: string
+	}
+}
+
+export interface PlacesGemini {
+	name: string // The name of the place
+	distance: number // The distance in kilometers
+	category: string // The category of the place (e.g., restaurant, museum, park, etc.)
+}
+
+export interface LayRoute {
+	type: string //          Тип маршруту (літак, потяг, автомобіль)
+	description: string //   Опис маршруту
+	estimatedTime: string // Приблизний час подорожі
 }
 export interface newApartment {
 	title: string // Заголовок

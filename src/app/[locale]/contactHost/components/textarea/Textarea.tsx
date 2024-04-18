@@ -15,7 +15,7 @@ import { useAppSelector, useAppDispatch } from "@/app/redux/hook";
 import { useRouter } from "next/navigation";
 import { getAllChat, messageStart } from "@/app/services/messagesService";
 import { useSession } from "next-auth/react";
-import { setMessageObjList } from "@/app/redux/appState/appSlice";
+import { decodeTokenGetUserId } from "@/app/services/jwtDecoder";
 
 const payment: Payment = {
   cardNumber: "",
@@ -28,7 +28,6 @@ const Textarea: React.FC<{ data: RentalApartmentDTO }> = ({
 }: {
   data: RentalApartmentDTO;
 }) => {
-  const dispatch = useAppDispatch();
   const router = useRouter();
   const { t } = useTranslation();
   const [state, setState] = useState("");
@@ -38,36 +37,35 @@ const Textarea: React.FC<{ data: RentalApartmentDTO }> = ({
   const session = useSession();
 
   const send = async () => {
-    if (rentalApartment && date) {
-      const chatForApartmentPageDTO: ChatForApartmentPageDTO = {
-        comment: state,
-        rentalApartmentId: rentalApartment?.id,
-        masterIdUser: rentalApartment.master.id,
-        guestIdUser: rentalApartment.master.id,
-        dateTime: new Date(),
-      };
-      const booking: Booking = {
-        apartmentId: rentalApartment?.id,
-        checkInDate: date?.start,
-        checkOutDate: date?.end,
-        totalPrice: totalPrice,
-        payment: payment,
-      };
-      const message: MessageStart = {
-        message: chatForApartmentPageDTO,
-        booking: booking,
-      };
-      // console.log("hi", message);
-      if (session.data?.user?.name) {
-        const res = await getAllChat(session.data?.user?.name);
-        if (res) {
-          dispatch(setMessageObjList(res));
+    if (session.data?.user?.name) {
+      const myId = decodeTokenGetUserId(session.data?.user?.name);
+      if (rentalApartment && date) {
+        const chatForApartmentPageDTO: ChatForApartmentPageDTO = {
+          comment: state,
+          rentalApartmentId: rentalApartment?.id,
+          toId: rentalApartment.master.id,
+          fromId: Number(myId),
+          dateTime: new Date(),
+        };
+        const booking: Booking = {
+          apartmentId: rentalApartment?.id,
+          checkInDate: date?.start,
+          checkOutDate: date?.end,
+          totalPrice: totalPrice,
+          payment: payment,
+        };
+        const message: MessageStart = {
+          message: chatForApartmentPageDTO,
+          booking: booking,
+        };
+
+        if (session.data?.user?.name) {
+          const status = await messageStart(message, session.data?.user?.name);
+          if (status == 200) {
+            router.push("/messenger");
+          }
         }
-
-        // messageStart(message, session.data?.user?.name);
       }
-
-      router.push("/messenger");
     }
   };
   return (
