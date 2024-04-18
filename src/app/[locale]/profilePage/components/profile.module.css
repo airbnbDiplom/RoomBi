@@ -9,7 +9,16 @@
     word-break: break-word;
     overflow-wrap: break-word;
   }
-  
+  .icon {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 25px;
+    height: 25px;
+  }
+  .textContainer {
+    display: flex;
+    flex-direction: column;
+  }
   .card {
     display: flex;
     flex-direction: column;
@@ -46,7 +55,12 @@
     max-width: 300px;
     max-height: 400px;
   }
-  
+  .circle img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
   .circle {
     width: 100px;
     height: 100px;
@@ -59,7 +73,33 @@
     margin-bottom: 10px;
     text-align: center;
   }
-
+  .card3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 65px; 
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 0px; /* Изменено здесь */
+    margin-left: 30%;
+    min-width: 350px;
+    max-width: 400px;
+    max-height: 250px;
+  }
+  
+  .card4 {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    padding-top: 0px; /* Изменено здесь */
+    max-width: 300px;
+    max-height: 400px;
+  }
+  
+  .topMarginLine2 {
+    margin-top: 0px; /* Изменено здесь */
+    border-top: 1px solid lightgray;
+  }
   .roundedShadow {
     border-radius: 20px; 
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15); 

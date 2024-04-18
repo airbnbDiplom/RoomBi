@@ -57,6 +57,7 @@ export function decodeTokenAndGetUserDetails(token: string): {
 	language: string
 	country: string
 	userStatus: string
+	pf: string
 } | null {
 	try {
 		const decodedToken: any = jwtDecode(token)
@@ -72,6 +73,7 @@ export function decodeTokenAndGetUserDetails(token: string): {
 				Language,
 				Country,
 				UserStatus,
+				PF,
 			} = decodedToken
 			return {
 				id: Id,
@@ -85,6 +87,7 @@ export function decodeTokenAndGetUserDetails(token: string): {
 				language: Language,
 				country: Country,
 				userStatus: UserStatus,
+				pf: PF,
 			}
 		}
 	} catch (error) {
@@ -97,28 +100,28 @@ export function decodeTokenAndGetUserDetails(token: string): {
 export function checkTokenExpiration(token: string): boolean {
 	const expirationTime = decodeTokenAndGetExpiration(token)
 
-	if (expirationTime) {
-		const currentTime = Date.now()
-		const currentTimeInMinutes = expirationTime / 60000
-		const tokenExpirationInMinutes = currentTime / 60000
-		const y = tokenExpirationInMinutes - currentTimeInMinutes
-		console.log('Час закінчення токена в хвилинах:', tokenExpirationInMinutes)
-		console.log('Поточний час в хвилинах:', currentTimeInMinutes)
-		console.log('y', y)
+  if (expirationTime) {
+    const currentTime = Date.now();
+    const currentTimeInMinutes = expirationTime / 60000;
+    const tokenExpirationInMinutes = currentTime / 60000;
+    const y = tokenExpirationInMinutes - currentTimeInMinutes;
+    console.log("Час закінчення токена в хвилинах:", tokenExpirationInMinutes);
+    console.log("Поточний час в хвилинах:", currentTimeInMinutes);
+    console.log("y", y);
 
-		const r = y + 62
-		console.log('r', r)
-		if (r < 0) {
-			console.log('Токен скоро закінчиться, перезапитайте його')
-			return true
-		} else {
-			console.log('Токен закінчився')
-			return false
-		}
-	} else {
-		console.error('Не вдалося отримати термін дії токена')
-		return false
-	}
+    const r = y;
+    console.log("r", r);
+    if (r > 0) {
+      console.log("Токен скоро закінчиться, перезапитайте його");
+      return true;
+    } else {
+      console.log("Токен активный");
+      return false;
+    }
+  } else {
+    console.error("Не вдалося отримати термін дії токена");
+    return false;
+  }
 }
 
 // Функція для розкодування токена та отримання часу закінчення (exp)

@@ -10,6 +10,7 @@ import { useSession } from 'next-auth/react'
 import { signIn, signOut } from 'next-auth/react'
 import {
 	decodeTokenAndGetFirstLetterOfName,
+	decodeTokenAndGetUserDetails,
 	decodeTokenGetUserRole,
 } from '@/app/services/jwtDecoder'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
@@ -35,7 +36,10 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			}
 		}
 	}, [dispatch, token])
-
+	let userDetails;
+	if (user) {
+		userDetails = decodeTokenAndGetUserDetails(user);
+	}
 	useEffect(() => {
 		getMessage()
 	}, [getMessage])
@@ -50,9 +54,8 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				className={`custom-dropdown-toggle w-100 d-flex justify-content-end`}
 			>
 				<div
-					className={`${style.btn} ${
-						isTeamBlack ? style.btnBlack : style.btnWhite
-					} m-0 `}
+					className={`${style.btn} ${isTeamBlack ? style.btnBlack : style.btnWhite
+						} m-0 `}
 				>
 					<Image
 						priority
@@ -62,20 +65,31 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 						alt='List icon'
 					/>
 					{user ? (
-						<div
-							style={{
-								width: '22px',
-								height: '22px',
-								borderRadius: '50%',
-								backgroundColor: '#696969',
-								color: '#ffffff',
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center',
-							}}
-						>
-							{firstLetterOfName}
-						</div>
+						user && userDetails && userDetails.profilePicture && userDetails.profilePicture !== "no"? (
+							<img
+								src={`https://roombi.space/Avatar/${userDetails.profilePicture}`}
+								style={{
+									width: '30px',
+									height: '30px',
+									borderRadius: '50%',
+								}}
+							/>
+						) : (
+							<div
+								style={{
+									width: '22px',
+									height: '22px',
+									borderRadius: '50%',
+									backgroundColor: '#696969',
+									color: '#ffffff',
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center',
+								}}
+							>
+								{firstLetterOfName}
+							</div>
+						)
 					) : (
 						<Image
 							priority

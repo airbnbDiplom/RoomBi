@@ -132,28 +132,25 @@ export const authConfig = {
   ],
   callbacks: {
     async jwt({ token, user, account, profile, isNewUser }) {
-      // if (account?.name && account?.email) {
-      //   token.name = account.name;
-      //   token.email = account.email;
-      // }
-    // console.log("account", account);
-    //   const isTokenExpired = checkTokenExpiration(token.name); // Функция для проверки истечения токена
-    //   console.log("isTokenExpired", isTokenExpired);
-    //   if (isTokenExpired) {
-    //     // Если токен истек, получаем новый токен с сервера
-    //     const newToken = await refreshToken(token.email); // Функция для обновления токена
-    
-    //     // Обновляем токен в нашем объекте token
-    //     token.name = newToken.name;
-    //     token.email = newToken.email;
-    //   }
-    
-      return token;
+      const isTokenExpired = checkTokenExpiration(token.name); 
+      if (isTokenExpired) {
+        const authenticationResponseDTO = {
+          token: token.name,
+          refreshToken: token.email,
+        };
+        const newToken = await refreshToken(authenticationResponseDTO);
+        if (newToken) {
+          token.name = newToken.responseData.token;
+          token.email = newToken.responseData.refreshToken;
+        }
+      }
+       return token;
     },
     async session({ session, user, token }) {
       if (token.email && token.name) {
         session.user.name = token.name;
         session.user.email = token.email;
+        session.user.image = "not google";
       }
       if (session.user.image !== "not google") {
         const requestUser = new RequestUser(
@@ -162,20 +159,16 @@ export const authConfig = {
           "google",
           session.user.name
         );
-        console.log(requestUser);
         const res = await authLogin(requestUser);
         if (res.ok) {
-          console.log("zashel");
           const response = await res.json();
           const { token, refreshToken } = response;
-          console.log("response", response);
           const sessionUser = {
             name: token,
             email: refreshToken,
             image: "not google",
           };
           session.user = sessionUser;
-          console.log("session.user", session.user);
         }
       }
       return session;

@@ -8,12 +8,68 @@ import { User, updateUser } from '@/app/services/updateUserService';
 import { decodeTokenAndGetUserDetails, decodeTokenAndGetExpiration } from '@/app/services/jwtDecoder'
 import { differenceInYears, differenceInMonths, differenceInDays, addYears, addMonths, differenceInHours, differenceInMinutes, differenceInSeconds } from 'date-fns';
 import { uk, enUS } from 'date-fns/locale';
+import { getProfile } from '@/app/services/GetProfileService';
 import Link from 'next/link';
+import { CameraFill, Hr } from 'react-bootstrap-icons';
+import { Mortarboard } from 'react-bootstrap-icons';
+import { Briefcase } from 'react-bootstrap-icons';
+import { Globe2 } from 'react-bootstrap-icons';
+import { GlobeEuropeAfrica } from 'react-bootstrap-icons';
+import { GenderFemale } from 'react-bootstrap-icons';
+import { MusicNoteBeamed } from 'react-bootstrap-icons';
+import { Heart } from 'react-bootstrap-icons';
+import { Lightbulb } from 'react-bootstrap-icons';
+import { Magic } from 'react-bootstrap-icons';
+import { Book } from 'react-bootstrap-icons';
+import { Clock } from 'react-bootstrap-icons';
+import { useTranslation } from 'react-i18next';
 interface ProfileProps {
   locale: string;
 }
+
 const Profile: React.FC<ProfileProps> = ({ locale }) => {
-  const [user, setUser] = useState<User>({
+  const [schoolYears, setSchoolYears] = useState("");
+  const [job, setJob] = useState("");
+  const [location, setLocation] = useState("");
+  const [languages, setLanguages] = useState("");
+  const [generation, setGeneration] = useState("");
+  const [favoriteSong, setFavoriteSong] = useState("");
+  const [passion, setPassion] = useState("");
+  const [fact, setFact] = useState("");
+  const [skill, setSkill] = useState("");
+  const [biography, setBiography] = useState("");
+  const [activity, setActivity] = useState("");
+  const [about, setAbout] = useState("");
+  const [pets, setPets] = useState("");
+
+  let profile;
+  useEffect(() => {
+    async function fetchProfile() {
+      let token = session?.user?.name || "";
+      profile = await getProfile(token);
+      console.log('profile', profile);
+      if (profile) {
+        setSchoolYears(profile.schoolYears || "");
+        setJob(profile.job || "");
+        setLocation(profile.myLocation || "");
+        setLanguages(profile.myLanguages || "");
+        setGeneration(profile.generation || "");
+        setFavoriteSong(profile.favoriteSchoolSong || "");
+        setPassion(profile.passion || "");
+        setFact(profile.interestingFact || "");
+        setSkill(profile.uselessSkill || "");
+        setBiography(profile.biographyTitle || "");
+        setActivity(profile.dailyActivity || "");
+        setAbout(profile.aboutMe || "");
+        setPets(profile.pets || "");
+      }
+    }
+
+    fetchProfile();
+  }, []);
+
+  const { t } = useTranslation();
+  let currentUser: User = {
     Id: 0,
     Name: '',
     Password: '',
@@ -28,7 +84,7 @@ const Profile: React.FC<ProfileProps> = ({ locale }) => {
     RefreshToken: '',
     Language: '',
     Country: '',
-  });
+  };
   const [userDetails, setUserDetails] = useState({ name: '', email: '', yearsOnSite: '' });
   const { data: session, status: loading } = useSession() as { data: Session | null, status: 'loading' | 'authenticated' | 'unauthenticated' };
   useEffect(() => {
@@ -129,16 +185,23 @@ const Profile: React.FC<ProfileProps> = ({ locale }) => {
 
     fetchUserDetails();
   }, [loading, session]);
-
+  let token1 = session?.user?.name || "";
+  const usDetails = decodeTokenAndGetUserDetails(token1);
 
   return (
     <div className={styles['grid-container']}>
       <div className={`${styles.card} ${styles.card1} ${styles.roundedShadow}`}>
         <div
         >
-          <div className={styles.circle}>
-            <h1 className={styles.centerAlign}>{userDetails.name.charAt(0)}</h1>
-          </div>
+          {usDetails && usDetails.profilePicture && usDetails.profilePicture !== "no" ? (
+             <div className={styles.circle}>
+            <img src={`https://roombi.space/Avatar/${usDetails.profilePicture}`} alt="Profile" className={styles.circle}/>
+            </div>
+          ) : (
+            <div className={styles.circle}>
+              <h1 className={styles.centerAlign}>{userDetails && userDetails.name.charAt(0)}</h1>
+            </div>
+          )}
           <div className={styles.centerAlign}>{userDetails.name}</div>
           <p className={styles.centerAlign}>Гость</p>
         </div>
@@ -147,13 +210,123 @@ const Profile: React.FC<ProfileProps> = ({ locale }) => {
           <div className={styles.rightAlign}>на сайте RoomBi</div>
         </div>
       </div>
-      <div className={`${styles.card} ${styles.card2} ${styles.topMarginLine}`}>
-        <h2>Самое время заполнить профиль</h2>
-        <p>Профиль на Roombi — важный элемент любого бронирования. Расскажите о себе. Это важно и другим гостям, и хозяевам.</p>
+      {schoolYears !== "" || job !== "" || location !== "" || languages !== "" || generation !== "" || favoriteSong !== "" || passion !== "" 
+      || fact !== "" || skill !== "" || biography !== "" || activity !== "" || about !== "" || pets !== "" ? (
+        <>
+          <div >
+            <Link href="/editProfile">
+              <button className="btn btn-outline-dark" style={{ alignSelf: 'flex-start' }}>Редактировать профиль</button>
+            </Link>
+            {schoolYears !== "" && (
+              <div>
+                <Mortarboard className={styles.icon} />
+                  Где прошли мои школьные годы: {schoolYears}
+              </div>
+            )}
+            {job !== "" && (
+              <div>
+                <Briefcase className={styles.icon} />
+                <div className={styles.textContainer}>
+                  Моя работа сейчас: {job}
+                </div>
+              </div>
+            )}
+            {location !== "" && (
+              <div>
+                <GlobeEuropeAfrica className={styles.icon} />
+                <div className={styles.textContainer}>
+                  Где я живу сейчас: {location}
+                </div>
+              </div>
+            )}
+            {languages !== "" && (
+              <div>
+                <Globe2 className={styles.icon} />
+                <div className={styles.textContainer}>
+                  Языки, на которых я говорю или понимаю: {languages}
+                </div>
+              </div>
+            )}
+            {generation !== "" && (
+              <div>
+                <GenderFemale className={styles.icon} />
+                <div className={styles.textContainer}>
+                  Из какого я поколения: {generation}
+                </div>
+              </div>
+            )}
+            {favoriteSong !== "" && (
+              <div>
+                <MusicNoteBeamed className={styles.icon} />
+                <div className={styles.textContainer}>
+                  Любимая песня в школе: {favoriteSong}
+                </div>
+              </div>
+            )}
+            {passion !== "" && (
+              <div>
+                <Heart className={styles.icon} />
+                <div className={styles.textContainer}>
+                  Что я безумно люблю: {passion}
+                </div>
+              </div>
+            )}
+            {fact !== "" && (
+              <div>
+                <Lightbulb className={styles.icon} />
+                <div className={styles.textContainer}>
+                  Интересный факт обо мне: {fact}
+                </div>
+              </div>
+            )}
+            {skill !== "" && (
+              <div>
+                <Magic className={styles.icon} />
+                <div className={styles.textContainer}>
+                  Мой самый бесполезный навык: {skill}
+                </div>
+              </div>
+            )}
+            {biography !== "" && (
+              <div>
+                <Book className={styles.icon} />
+                <div className={styles.textContainer}>
+                  История моей жизни: {biography}
+                </div>
+              </div>
+            )}
+            {activity !== "" && (
+              <div>
+                <Clock className={styles.icon} />
+                <div className={styles.textContainer}>
+                  Что я делаю часами: {activity}
+                </div>
+              </div>
+            )}
+            {pets !== "" && (
+              <div>
+                <img src="/icon/paw.png" alt="paws" />
+                <div className={styles.textContainer}>
+                  Мои питомцы: {pets}
+                </div>
+              </div>
+            )}
+            {about !== "" && (
+              <div className={styles.textContainer}>
+                Обо мне: {about}
+              </div>
+            )}
+          </div>
+        </>
+      ) : (
+        <div className={`${styles.card} ${styles.card2} ${styles.topMarginLine}`}>
+        <h2>{t("timeToFillProfile")}</h2>
+        <p>{t("profileOnRoombi")}</p>
         <Link href="/editProfile">
-  <button className="btn btn-danger" style={{ alignSelf: 'flex-start' }}>Создать профиль</button>
-</Link>
+          <button className="btn btn-danger" style={{ alignSelf: 'flex-start' }}>{t("createProfile")}</button>
+        </Link>
       </div>
+      )}
     </div>
   );
 };
