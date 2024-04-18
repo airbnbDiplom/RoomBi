@@ -17,12 +17,17 @@ export const refreshToken = async (authenticationResponseDTO: AuthenticationResp
       body: JSON.stringify(authenticationResponseDTO),
     });
 
-    if (!response.ok) throw new Error("Unable to refresh token.");
+    if (!response.ok) {
+      console.error("HTTP error:", response.status);
+      const textResponse = await response.text();
+      console.error("Server response:", textResponse);
+      throw new Error("Unable to refresh token.");
+    }
     if (response.ok) {
       const responseData = await response.json();
+      console.log(responseData);
       if (responseData && Object.keys(responseData).length > 0) {
-        const { Token, RefreshToken } = responseData;
-        return { Token, RefreshToken };
+        return { responseData };
       } else {
         console.error("Empty response from server");
       }

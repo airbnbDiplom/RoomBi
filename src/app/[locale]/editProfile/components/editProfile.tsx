@@ -21,8 +21,12 @@ import { Book } from 'react-bootstrap-icons';
 import { Clock } from 'react-bootstrap-icons';
 import { } from 'react-bootstrap-icons';
 import Modal from 'react-modal';
+import { saveFoto } from "@/app/services/fotoServices";
 import { createProfile } from '@/app/services/createProfileService';
 import { getProfile } from '@/app/services/GetProfileService';
+import { delAvatar } from '@/app/services/delPhotoService';
+import { signIn } from 'next-auth/react';
+import { useTranslation } from 'react-i18next';
 class Profile {
   [key: string]: string | ((key: string, value: string) => void) | undefined;
   schoolYears?: string; // Где прошли мои школьные годы
@@ -45,7 +49,6 @@ class Profile {
   }
 
   async updateProfile(key: string, value: string) {
-    // обновляем значение ключа в профиле
     this[key] = value;
 
     await createProfile(this, this.token);
@@ -93,8 +96,73 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
   const [pets, setPets] = useState("");
   const [switchState, setSwitchState] = useState("Off");
   const { data: session, status: loading } = useSession() as { data: Session | null, status: 'loading' | 'authenticated' | 'unauthenticated' };
+  const [fileData, setFileData] = useState(new FormData());
 
-   useEffect(() => {
+  const onFileSelected = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
+    const input = event.target;
+
+    if (input.files != null && input.files.length > 0) {
+      const selectedFile = input.files[0];
+      console.log("selectedFile", selectedFile);
+      if (selectedFile) {
+        let updatedFileData = new FormData();
+        updatedFileData.append("upload", selectedFile);
+        updatedFileData.append("folder", "avatar");
+        setFileData(updatedFileData);
+        await sub(updatedFileData);
+        input.value = '';
+      }
+    }
+  };
+  let currentUser: User = {
+    Id: 0,
+    Name: '',
+    Password: '',
+    Email: '',
+    Address: '',
+    PhoneNumber: '',
+    DateOfBirth: new Date(),
+    AirbnbRegistrationYear: new Date(),
+    ProfilePicture: '',
+    CurrentStatus: false,
+    UserStatus: false,
+    RefreshToken: '',
+    Language: '',
+    Country: '',
+  };
+  const sub = async (fileData: FormData) => {
+    const saveFotoResponse = await saveFoto(fileData);
+    if (saveFotoResponse && saveFotoResponse.file_name) {
+      let token = session?.user?.name || "";
+      const userDetails = decodeTokenAndGetUserDetails(token);
+      const updatedUser: User = {
+        ...currentUser,
+        Email: userDetails?.email,
+        ProfilePicture: saveFotoResponse.file_name,
+      };
+      console.log("updatedUser", updatedUser);
+
+      try {
+        const response = await updateUser(updatedUser, token);
+        console.log(response);
+        if (response?.token && response.refreshToken) {
+          const { token, refreshToken } = response;
+          await signIn(
+            'credentials',
+            {
+              token: token,
+              refreshToken: refreshToken,
+              redirect: false,
+            }
+          )
+        }
+      } catch (error) {
+        console.error("Error updating user:", error);
+      }
+    }
+    console.log("res 3", saveFotoResponse);
+  };
+  useEffect(() => {
     const fetchUserDetails = async () => {
       if (loading === 'loading') {
         return;
@@ -149,6 +217,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
   function handleSwitchChange(event: React.ChangeEvent<HTMLInputElement>) {
     setSwitchState(event.target.checked ? "On" : "Off");
   }
+  const { t } = useTranslation();
   function handleSave(event: React.MouseEvent<HTMLButtonElement>) {
     const value = inputValue;
     const value2 = switchState;
@@ -157,66 +226,105 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
     console.log('value2', value2);
 
     switch (title) {
-      case 'Где вы учились?':
+      case t('whereDidYouStudy'):
         setSchoolYears(value);
         console.log('schoolYears', value);
         profile.updateProfile('schoolYears', value);
         break;
-      case 'Кем вы работаете?':
+      case t('whatDoYouDo'):
         setJob(value);
         profile.updateProfile('job', value);
         break;
-      case 'Где вы живете?':
+      case t('whereDoYouLive'):
         setLocation(value);
         profile.updateProfile('myLocation', value);
         break;
-      case 'Языки, на которых Вы говорите?':
+      case t('whichLanguagesDoYouSpeak'):
         setLanguages(value);
         profile.updateProfile('myLanguages', value);
         break;
-      case 'Время вашего рождения':
+      case t('yourBirthTime'):
         setGeneration(value2);
         profile.updateProfile('generation', value2);
         break;
-      case 'Любимая песня в школе':
+      case t('favoriteSchoolSong'):
         setFavoriteSong(value);
         profile.updateProfile('favoriteSchoolSong', value);
         break;
-      case 'Что Вам особенно нравится?':
+      case t('whatDoYouLike'):
         setPassion(value);
         profile.updateProfile('passion', value);
         break;
-      case 'Поделитесь интересным фактом о себе':
+      case t('shareInterestingFact'):
         setFact(value);
         profile.updateProfile('interestingFact', value);
         break;
-      case 'Какой навык вам не пригодился?':
+      case t('uselessSkill'):
         setSkill(value);
         profile.updateProfile('uselessSkill', value);
         break;
-      case 'Девиз — или биография?':
+      case t('mottoOrBiography'):
         setBiography(value);
         profile.updateProfile('biographyTitle', value);
         break;
-      case 'Что вы готовы делать часами?':
+      case t('whatYouDoForHours'):
         setActivity(value);
         profile.updateProfile('dailyActivity', value);
         break;
-      case 'О вас':
+      case t('aboutYou'):
         setAbout(value);
         profile.updateProfile('aboutMe', value);
         break;
-      case "У вас есть домашние животные?":
+      case t('doYouHavePets'):
         setPets(value);
         profile.updateProfile('pets', value);
         break;
       default:
-        console.error(`Unknown title: ${title}`);
+        console.error(`${t('unknownTitle')}: ${title}`);
     }
     closeModal();
   }
 
+  const deleteAvatar = async () => {
+    if (!userDetails || !userDetails.profilePicture) {
+      console.error('No avatar to delete');
+      return;
+    }
 
+    try {
+      const response = await delAvatar(userDetails.profilePicture);
+      if (response.status === 'File deleted successfully') {
+        try {
+          let token = session?.user?.name || "";
+          const userDetails = decodeTokenAndGetUserDetails(token);
+          const updatedUser: User = {
+            ...currentUser,
+            Email: userDetails?.email,
+            ProfilePicture: "no",
+          };
+          const response = await updateUser(updatedUser, token);
+          console.log(response);
+          if (response?.token && response.refreshToken) {
+            const { token, refreshToken } = response;
+            await signIn(
+              'credentials',
+              {
+                token: token,
+                refreshToken: refreshToken,
+                redirect: false,
+              }
+            )
+          }
+        } catch (error) {
+          console.error("Error updating user:", error);
+        }
+      } else {
+        console.error('Failed to delete avatar:', response.error);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -242,196 +350,220 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
     Language: '',
     Country: '',
   });
-
+  const userDetails = decodeTokenAndGetUserDetails(token);
 
   return (
     <div className={styles.container1}>
       <div className={styles.leftBlock1}>
-        <div className={styles.circle1}>K</div>
-        <button className={styles.button1}>
-          <CameraFill />
-          Добавить
-        </button>
+        {userDetails && userDetails.profilePicture && userDetails.profilePicture !== "no"
+          ? (
+            <>
+              <div>
+                <img src={`https://roombi.space/Avatar/${userDetails.profilePicture}`} className={styles.circle1} />
+              </div>
+              <button onClick={deleteAvatar} className={styles.button1}>
+                <CameraFill />
+                {t('delete')}
+              </button>
+            </>
+          )
+          : (
+            <>
+              <div className={styles.circle1}>K</div>
+              <input
+                type="file"
+                accept=".jpg, .jpeg, .png"
+                id="fileInput"
+                onChange={onFileSelected}
+                style={{ display: 'none' }}
+              />
+              <label htmlFor="fileInput" className={styles.button1}>
+                <CameraFill />
+                {t('add')}
+              </label>
+            </>
+          )
+        }
       </div>
       <div className={styles.rightBlock1}>
         <div className={styles.profileHeader}>
-          <h1>Профиль</h1>
-          <p>Всё, что вы расскажете, поможет другим гостям и хозяевам узнать вас получше.</p>
+          <h1>{t('profile')}</h1>
+          <p>{t('betterKnow')}</p>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-          "Где вы учились?",
-          "Домашние уроки или средняя школа, колледж или профессиональное образование? Какое заведение помогло вам стать собой?",
-          "Где прошли мои школьные годы:",
-          40,
-          schoolYears)}>
+  t("whereDidYouStudy"),
+  t("schoolOrCollege"),
+  t("whereDidMySchoolYearsPass"),
+  40,
+  schoolYears)}>
           <Mortarboard className={styles.icon} />
           <div className={styles.textContainer}>
-            Школьные годы{schoolYears !== "" && ":"}
+          {t('schoolYears')}{schoolYears !== "" && ":"}
             {schoolYears !== "" && <p>{schoolYears}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-          "Кем вы работаете?",
-          "Какая у вас профессия? Если вы не работаете, расскажите о своем призвании. Пример: «медсестра», «родитель четверых детей» или «серфингист на пенсии».",
-          "Моя работа:",
-          40,
-          job
-        )}>
+  t("whatDoYouDo"),
+  t("whatIsYourProfession"),
+  t("myJob1"),
+  40,
+  job
+)}>
           <Briefcase className={styles.icon} />
           <div className={styles.textContainer}>
-            Моя работа{job !== "" && ":"}
+          {t('myJob')}{job !== "" && ":"}
             {job !== "" && <p>{job}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-          "Где вы живете?",
-          "Напишите свой город",
-          "Мой город:",
-          40,
-          location
-        )}>
+  t("whereDoYouLive"),
+  t("writeYourCity"),
+  t("myCity"),
+  40,
+  location
+)}>
           <GlobeEuropeAfrica className={styles.icon} />
           <div className={styles.textContainer}>
-            Где я живу{location !== "" && ":"}
+          {t('whereILive')}{location !== "" && ":"}
             {location !== "" && <p>{location}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-          "Языки, на которых Вы говорите?",
-          "Перечислите языки, на которых Вы свободно говорит (через запятую)",
-          "Языки:",
-          40,
-          languages
-        )}>
+  t("whichLanguagesDoYouSpeak"),
+  t("listLanguages"),
+  t("languages"),
+  40,
+  languages
+)}>
           <Globe2 className={styles.icon} />
           <div className={styles.textContainer}>
-            Языки, на которых я говорю{languages !== "" && ":"}
+          {t('languagesISpeak')}{languages !== "" && ":"}
             {languages !== "" && <p>{languages}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-          "Время вашего рождения",
-          "Не волнуйтесь, точную дату никто не увидит.",
-          "Из какого я поколения:",
-          40,
-          generation
-        )}>
+  t("yourBirthTime"),
+  t("dontWorry"),
+  t("whichGeneration"),
+  40,
+  generation
+)}>
           <GenderFemale className={styles.icon} />
           <div className={styles.textContainer}>
-            Из какого я поколения{generation !== "" && ":"}
+          {t('myGeneration')}{generation !== "" && ":"}
             {generation !== "" && <p>{generation}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-          "Любимая песня в школе",
-          "Не смущайтесь! Расскажите, что вы слушали снова и снова, когда были подростком.",
-          "Любимая песня в школе:",
-          40,
-          favoriteSong
-        )}>
+  t("favoriteSchoolSong"),
+  t("dontBeShy"),
+  t("favoriteSchoolSongLabel"),
+  40,
+  favoriteSong
+)}>
           <MusicNoteBeamed className={styles.icon} />
           <div className={styles.textContainer}>
-            Любимая песня в школе{favoriteSong !== "" && ":"}
+          {t('favoriteSongInSchool')}{favoriteSong !== "" && ":"}
             {favoriteSong !== "" && <p>{favoriteSong}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-          "Что Вам особенно нравится?",
-          "Расскажите о том, что готовы делать бесконечно. Пример: «печь фокаччу с розмарином».",
-          "Что я безумно люблю:",
-          40,
-          passion
-        )}>
+  t("whatDoYouLike"),
+  t("tellAboutYourPassion"),
+  t("whatILove1"),
+  40,
+  passion
+)}>
           <Heart className={styles.icon} />
           <div className={styles.textContainer}>
-            Что я безумно люблю{passion !== "" && ":"}
+          {t('whatILove')}{passion !== "" && ":"}
             {passion !== "" && <p>{passion}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-          "Поделитесь интересным фактом о себе",
-          "Вспомните уникальный или примечательный факт о себе. Пример: «меня сняли в видеоклипе» или «я умею жонглировать».",
-          "Интересный факт обо мне:",
-          40,
-          fact
-        )}>
+  t("shareInterestingFact"),
+  t("rememberUniqueFact"),
+  t("interestingFactAboutMe1"),
+  40,
+  fact
+)}>
           <Lightbulb className={styles.icon} />
           <div className={styles.textContainer}>
-            Интересный факт обо мне{fact !== "" && ":"}
+          {t('interestingFactAboutMe')}{fact !== "" && ":"}
             {fact !== "" && <p>{fact}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-          "Какой навык вам не пригодился?",
-          "Расскажите о своих удивительных, но совершенно бесполезных способностях. Пример: «я умею тасовать колоду карт одной рукой».",
-          "Мой самый бесполезный навык:",
-          40,
-          skill
-        )}>
+  t("uselessSkill"),
+  t("tellAboutUselessSkill"),
+  t("myMostUselessSkill"),
+  40,
+  skill
+)}>
           <Magic className={styles.icon} />
           <div className={styles.textContainer}>
-            Мой самый бесполезный навык{skill !== "" && ":"}
+          {t('myUselessSkill')}{skill !== "" && ":"}
             {skill !== "" && <p>{skill}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-          "Девиз — или биография?",
-          "Представьте, что кто-то пишет книгу о вас. Как ее можно было бы назвать? Пример: «Рожденный для странствий» или «Записки собачницы».",
-          "История моей жизни:",
-          40,
-          biography
-        )}>
+  t("mottoOrBiography"),
+  t("imagineSomeoneWritingBook"),
+  t("storyOfMyLife1"),
+  40,
+  biography
+)}>
           <Book className={styles.icon} />
           <div className={styles.textContainer}>
-            История моей жизни{biography !== "" && ":"}
+          {t('storyOfMyLife')}{biography !== "" && ":"}
             {biography !== "" && <p>{biography}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-          "Что вы готовы делать часами?",
-          "Расскажите о любимых занятиях, на которые тратите свободное время. Пример: «смотрю видео с котиками» или «играю в шахматы».",
-          "Что я делаю часами:",
-          40,
-          activity
-        )}>
+  t("whatYouDoForHours"),
+  t("tellAboutFavoriteActivities"),
+  t("whatIDoForHours1"),
+  40,
+  activity
+)}>
           <Clock className={styles.icon} />
           <div className={styles.textContainer}>
-            Что я делаю часами{activity !== "" && ":"}
+          {t('whatIDoForHours')}{activity !== "" && ":"}
             {activity !== "" && <p>{activity}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-          "У вас есть домашние животные?",
-          "Если да, расскажите, какие именно и как их зовут. Пример: «трехцветная кошка Уискерс» или «проворная черепаха Леонардо».",
-          "Мои питомцы:",
-          40,
-          pets
-        )}>
+  t("doYouHavePets"),
+  t("ifYesTellAboutThem"),
+  t("myPets1"),
+  40,
+  pets
+)}>
           <img src="/icon/paw.png" alt="paws" />
           <div className={styles.textContainer}>
-            Питомцы{pets !== "" && ":"}
+          {t('myPets')}{pets !== "" && ":"}
             {pets !== "" && <p>{pets}</p>}
           </div>
         </div>
 
         <div className={styles.aboutSection}>
-          <h1>О вас</h1>
+          <h1>{t('aboutYou')}</h1>
           <div className={styles.dashedBorder}>
-            <p>Напишите что-нибудь интересное и запоминающееся.</p>
-            <a href="#" style={{ color: 'black', fontWeight: 'bold' }} onClick={openModalWithContent(
-              "О вас",
-              "Гости и хозяева хотят знать, с кем имеют дело. Помогите им, расскажите о себе.",
-              "О вас:",
-              450,
-              about
-            )}>
-              Добавить рассказ о себе
+          <p>{t("writeSomethingInteresting")}</p>
+<a href="#" style={{ color: 'black', fontWeight: 'bold' }} onClick={openModalWithContent(
+  t("aboutYou"),
+  t("guestsAndHostsWantToKnow"),
+  t("aboutYouLabel"),
+  450,
+  about
+)}>
+              {t('addStoryAboutYou')}
             </a>
             {about !== "" && <p>{about}</p>}
           </div>
         </div>
         <div className={styles.readyBut}>
-          <button className={styles.readyButton} onClick={() => alert('Ready')}>Готов</button>
+          <button className={styles.readyButton} onClick={() => window.location.href = '/profilePage'}>   {t('ready')}</button>
         </div>
       </div>
 
@@ -463,11 +595,11 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
         >X</button>
         <h2 style={{ marginRight: '15px' }}>{title}</h2>
         <p style={{ color: '#707070' }}>{message}</p>
-        {title === "Время вашего рождения" ? (
+        {title === t('birthTime') ? (
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div>
-              <div>Показывать десятилетие моего рождения</div>
-              <div style={{ fontSize: '14px', color: 'gray' }}>90-х годов рождения</div>
+              <div>{t('showDecade')}</div>
+              <div style={{ fontSize: '14px', color: 'gray' }}>{t('bornIn90s')}</div>
             </div>
             <Form.Check
               type="switch"
@@ -483,7 +615,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
               }}
             />
           </div>
-        ) : title === "О вас" ? (
+        ) : title === t('aboutYou') ? (
           <div>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Control
@@ -497,7 +629,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
               />
             </Form.Group>
             <div className="text-end mb-3" style={{ fontSize: '14px', fontWeight: 'bold', color: 'gray', marginTop: '3px' }}>
-              Символы: {inputLength} из {maxLength}
+            {t('characters')}: {inputLength} {t('outof')} {maxLength}
             </div>
           </div>
         ) : (
@@ -515,13 +647,13 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
               <label htmlFor="floatingInput">{inputLabel}</label>
             </Form.Floating>
             <div className="text-end mb-3" style={{ fontSize: '14px', fontWeight: 'bold', color: 'gray', marginTop: '3px' }}>
-              Символы: {inputLength} из {maxLength}
+            {t('characters')}: {inputLength} {t('outof')} {maxLength}
             </div>
           </div>
         )}
         <hr />
         <div className="text-end">
-          <Button variant="dark" onClick={handleSave}>Сохранить</Button>
+          <Button variant="dark" onClick={handleSave}>{t('save')}</Button>
         </div>
       </Modal>
     </div>

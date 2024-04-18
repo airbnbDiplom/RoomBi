@@ -57,6 +57,7 @@ export function decodeTokenAndGetUserDetails(token: string): {
 	language: string
 	country: string
 	userStatus: string
+	pf: string
 } | null {
 	try {
 		const decodedToken: any = jwtDecode(token)
@@ -72,6 +73,7 @@ export function decodeTokenAndGetUserDetails(token: string): {
 				Language,
 				Country,
 				UserStatus,
+				PF,
 			} = decodedToken
 			return {
 				id: Id,
@@ -85,6 +87,7 @@ export function decodeTokenAndGetUserDetails(token: string): {
 				language: Language,
 				country: Country,
 				userStatus: UserStatus,
+				pf: PF,
 			}
 		}
 	} catch (error) {
@@ -106,13 +109,13 @@ export function checkTokenExpiration(token: string): boolean {
     console.log("Поточний час в хвилинах:", currentTimeInMinutes);
     console.log("y", y);
 
-    const r = y + 62;
+    const r = y;
     console.log("r", r);
-    if (r < 0) {
+    if (r > 0) {
       console.log("Токен скоро закінчиться, перезапитайте його");
       return true;
     } else {
-      console.log("Токен закінчився");
+      console.log("Токен активный");
       return false;
     }
   } else {
