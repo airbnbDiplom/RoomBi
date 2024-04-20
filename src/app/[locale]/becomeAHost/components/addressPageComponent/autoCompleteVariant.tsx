@@ -1,5 +1,7 @@
 import {
+	setAddress,
 	setCity,
+	setCoordinate,
 	setCountry,
 	setCountryCode,
 	setCounty,
@@ -36,13 +38,20 @@ const AutoCompleteVariant: React.FC<autoCompleteProps> = ({
 					onClick={() => {
 						if (placeHolder === 'administrative') {
 							dispatch(setCounty(item.name))
+							dispatch(setCoordinate({ lat: item.lat, lon: item.lon }))
 						}
 						if (placeHolder === 'city') {
 							dispatch(setCity(item.name))
+							dispatch(setCoordinate({ lat: item.lat, lon: item.lon }))
 						}
 						if (placeHolder === 'country') {
 							dispatch(setCountry(item.name))
 							dispatch(setCountryCode(item.address.country_code))
+							dispatch(setCoordinate({ lat: item.lat, lon: item.lon }))
+						}
+						if (placeHolder === 'address') {
+							dispatch(setAddress(item.display_name))
+							dispatch(setCoordinate({ lat: item.lat, lon: item.lon }))
 						}
 						setInputValue(item.name)
 						setAutoCompleteVariant(null)
@@ -51,6 +60,8 @@ const AutoCompleteVariant: React.FC<autoCompleteProps> = ({
 				>
 					{placeHolder === 'city'
 						? `	${item.name} ${item.address?.district}`
+						: placeHolder === 'address'
+						? item.display_name
 						: item.name}
 				</div>
 			))}

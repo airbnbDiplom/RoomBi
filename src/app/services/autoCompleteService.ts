@@ -1,12 +1,10 @@
 'use server'
 
-import {
-	AutoCompleteItem,
-	AutoCompleteList,
-	autoCompleteObj,
-} from '@/app/type/type'
+import { AutoCompleteItem, autoCompleteObj } from '@/app/type/type'
 //const urlSearch = process.env.NEXT_AUTOCOMPLETE
 const urlSearch = 'https://nominatim.openstreetmap.org/search?'
+const urlRevers = 'https://nominatim.openstreetmap.org/reverse?'
+
 export const autoCompleteService = async (
 	inputString: string,
 	locale: string = 'en'
@@ -39,6 +37,7 @@ export const autoCompleteService = async (
 }
 
 export const inputAutoComplete = async (
+	inputFieldFor = '',
 	inputString: string,
 	locale: string = 'en',
 	countryCode: string = '',
@@ -56,11 +55,16 @@ export const inputAutoComplete = async (
 		queryParams.append('countrycodes', countryCode)
 		queryParams.append('featureType', 'state')
 	}
-	if (county !== '') {
+	if (county !== '' && inputFieldFor === 'administrative') {
 		queryParams.delete('q')
 		queryParams.delete('featureType')
 		queryParams.append('city', inputString)
 		queryParams.append('county', county)
+		queryParams.append('layer', 'address')
+	} else if (county === '' && inputFieldFor === 'city') {
+		queryParams.delete('q')
+		queryParams.delete('featureType')
+		queryParams.append('city', inputString)
 		queryParams.append('layer', 'address')
 	}
 
@@ -129,6 +133,37 @@ export const addressAutoComplete = async (
 		return data
 	} catch (error) {
 		console.error('Could not fetch data:', error)
+		return null
+	}
+}
+export const getAddressByLatLng = async (
+	lat: string,
+	lng: string,
+	locale: string = 'en'
+) => {
+	const queryParams = new URLSearchParams({
+		format: 'json',
+		lat: lat,
+		lon: lng,
+	})
+
+	try {
+		console.log(`${urlRevers}${queryParams}`)
+		const response = await fetch(`${urlSearch}${queryParams}`, {
+			method: 'GET',
+			cache: 'no-cache',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept-Language': locale,
+			},
+		})
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`)
+		}
+		const data: any = await response.json()
+		return data
+	} catch (e) {
+		console.error('Could not fetch data:', e)
 		return null
 	}
 }

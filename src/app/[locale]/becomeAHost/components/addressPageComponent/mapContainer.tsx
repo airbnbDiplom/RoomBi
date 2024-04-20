@@ -3,21 +3,13 @@ import 'leaflet/dist/leaflet.css'
 import React, { useEffect, useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import style from '../../addApart.module.css'
+import MapEventsComponentNew from './mapEventsComponentNew'
+import { useAppSelector } from '@/app/redux/hook'
 
-const MapContainerComponent = () => {
-	const [location, setLocation] = useState({ lat: 51.505, lng: -0.09 })
-	useEffect(() => {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(position => {
-				setLocation({
-					lat: position.coords.latitude,
-					lng: position.coords.longitude,
-				})
-			})
-		} else {
-			alert('Geolocation is not supported by this browser.')
-		}
-	}, [])
+interface mapProps {}
+const MapContainerComponent: React.FC<mapProps> = () => {
+	const location = useAppSelector(state => state.newApartmentReducer.location)
+
 	return (
 		<div className={style.mapContainerNew}>
 			<MapContainer
@@ -30,7 +22,7 @@ const MapContainerComponent = () => {
 					attribution={`<p class="tileLayer" >RoomBi Map</p>`}
 					url='https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
 				/>
-
+				<MapEventsComponentNew location={location} />
 				<Marker position={location}>
 					<Popup>You are here!</Popup>
 				</Marker>

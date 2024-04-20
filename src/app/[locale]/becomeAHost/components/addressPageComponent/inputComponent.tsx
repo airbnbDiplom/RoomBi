@@ -9,10 +9,11 @@ import { useAppSelector } from '@/app/redux/hook'
 interface InputProps {
 	autoCompleteFunc: (
 		arg0: string,
-		arf1?: string,
+		arf1: string,
 		arf2?: string,
 		arf3?: string,
-		arf4?: string
+		arf4?: string,
+		arf5?: string
 	) => Promise<autoCompleteObj[] | null>
 	placeHolder: string
 }
@@ -50,40 +51,62 @@ const InputComponent: React.FC<InputProps> = ({
 			}
 			const newTimeOutId = setTimeout(() => {
 				if (placeHolder === 'country') {
-					autoCompleteFunc(inputValue, t('locale')).then(data => {
+					autoCompleteFunc(placeHolder, inputValue, t('locale')).then(data => {
 						setAutoCompleteVariant(data)
 						console.log('returnObj', data)
 					})
 				} else if (placeHolder === 'administrative') {
 					console.log('inputValue', inputValue)
-					autoCompleteFunc(inputValue, t('locale'), countryCode).then(data => {
+					autoCompleteFunc(
+						placeHolder,
+						inputValue,
+						t('locale'),
+						countryCode
+					).then(data => {
 						setAutoCompleteVariant(data)
 
 						console.log('returnObj', data)
 					})
 				} else if (placeHolder === 'city') {
-					autoCompleteFunc(inputValue, t('locale'), countryCode, county).then(
-						data => {
-							setAutoCompleteVariant(data)
-							console.log('returnObj', data)
-						}
-					)
+					autoCompleteFunc(
+						placeHolder,
+						inputValue,
+						t('locale'),
+						countryCode,
+						county
+					).then(data => {
+						setAutoCompleteVariant(data)
+						console.log('returnObj', data)
+					})
 				} else if (placeHolder === 'address') {
-					autoCompleteFunc(inputValue, t('locale'), country, county, city).then(
-						data => {
-							setAutoCompleteVariant(data)
-							console.log('returnObj', data)
-						}
-					)
+					autoCompleteFunc(
+						placeHolder,
+						inputValue,
+						t('locale'),
+						country,
+						county,
+						city
+					).then(data => {
+						setAutoCompleteVariant(data)
+						console.log('returnObj', data)
+					})
 				}
 			}, 500)
 			setTimeOutId(newTimeOutId)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [inputValue])
+	const checkState = (): boolean | undefined => {
+		if (placeHolder === 'administrative' && country === '') return true
+		if (placeHolder === 'city' && country === '') return true
+		if (placeHolder === 'address' && city === '') return true
+		return false
+	}
+
 	return (
 		<div>
 			<input
+				disabled={checkState()}
 				type='text'
 				placeholder={t(placeHolder)}
 				onChange={changeHandler}

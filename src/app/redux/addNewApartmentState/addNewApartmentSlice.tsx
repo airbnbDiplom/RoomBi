@@ -20,7 +20,7 @@ const initialState: newApartment = {
 	objectState: '',
 	objectRating: 0,
 	typeApartment: undefined,
-	location: '',
+	location: { lat: 46.563328, lng: 30.7888128 },
 	house: undefined,
 	sport: '',
 	country: '',
@@ -87,6 +87,15 @@ const newApartmentsSlice = createSlice({
 		setCity(state, action: PayloadAction<string>) {
 			state.city = action.payload
 		},
+		setAddress(state, action: PayloadAction<string>) {
+			state.address = action.payload
+		},
+		setCoordinate(state, action: PayloadAction<{ lat: string; lon: string }>) {
+			state.location = {
+				lat: parseFloat(action.payload.lat),
+				lng: parseFloat(action.payload.lon),
+			}
+		},
 	},
 })
 
@@ -97,5 +106,7 @@ export const {
 	setCountryCode,
 	setCounty,
 	setCity,
+	setCoordinate,
+	setAddress,
 } = newApartmentsSlice.actions
 export default newApartmentsSlice.reducer

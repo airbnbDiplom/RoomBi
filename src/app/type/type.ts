@@ -365,7 +365,10 @@ export interface newApartment {
 	objectState: string // Состояние объекта
 	objectRating: number // Рейтинг объекта
 	typeApartment: ApartmentsVariant | undefined // Тип апартаментов
-	location: string
+	location: {
+		lat: number
+		lng: number
+	}
 	house: FilterLngObj | undefined
 	sport: string
 	country: string
