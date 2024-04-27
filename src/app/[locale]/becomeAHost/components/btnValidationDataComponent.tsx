@@ -23,10 +23,31 @@ const BtnValidationDataComponent = ({ pathArr }: { pathArr: string[] }) => {
 			setDisable(false)
 		} else if (currentPath === pathArr[2] && dataForCheck.typeApartment) {
 			setDisable(false)
+		} else if (
+			currentPath === pathArr[3] &&
+			dataForCheck.address?.length > 0 &&
+			dataForCheck.country.length > 0 &&
+			dataForCheck.city?.length > 0 &&
+			dataForCheck.countryCode?.length > 0 &&
+			dataForCheck.location
+		) {
+			setDisable(false)
+		} else if (currentPath === pathArr[4]) {
+			setDisable(false)
 		} else {
 			setDisable(true)
 		}
-	}, [currentPath, dataForCheck.house, dataForCheck.typeApartment, pathArr])
+	}, [
+		currentPath,
+		dataForCheck.address?.length,
+		dataForCheck.city?.length,
+		dataForCheck.country.length,
+		dataForCheck.countryCode?.length,
+		dataForCheck.house,
+		dataForCheck.location,
+		dataForCheck.typeApartment,
+		pathArr,
+	])
 	return (
 		<>
 			{!disable ? (

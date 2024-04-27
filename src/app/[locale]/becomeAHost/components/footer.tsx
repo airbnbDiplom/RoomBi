@@ -9,6 +9,8 @@ const Footer = () => {
 		'/houseType',
 		'/apartmentParts',
 		'/addressOfHome',
+		'/gestCount',
+		'/amenities',
 	]
 	return (
 		<div className={style.footer}>

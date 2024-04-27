@@ -2,7 +2,7 @@ import React from 'react'
 import style from '../addApart.module.css'
 import { filterData } from '@/app/startComponents/naw/dataFilter/data'
 
-import Header from '../components/header'
+import PageHeader from '../components/header'
 import { HomeParams } from '@/app/type/type'
 import TranslationsProvider from '@/app/configs/TranslationsProvider'
 import initTranslations from '@/app/i18n'
@@ -26,7 +26,7 @@ export default async function HouseType({
 			<div className={`${style.wrapper} ${style.center}`}>
 				<div className={style.centerDiv}>
 					<div className={style.block}>
-						<Header text={'houseType'} />
+						<PageHeader text={'houseType'} />
 						<ItemContainer />
 					</div>
 				</div>

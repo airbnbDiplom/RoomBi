@@ -353,26 +353,33 @@ export interface LayRoute {
 	estimatedTime: string // Приблизний час подорожі
 }
 export interface newApartment {
+	boundingbox: string[]
 	title: string // Заголовок
 	address: string // Адрес
+	houseNum: string
+	apartNum: string
 	ingMap: string // Долгота на карте
 	latMap: string // Широта на карте
 	numberOfGuests: number // Количество гостей
 	bedrooms: number // Количество спален
 	bathrooms: number // Количество ванных комнат
 	beds: number // Количество кроватей
+	gests: number
 	pricePerNight: number // Цена за ночь
 	objectState: string // Состояние объекта
 	objectRating: number // Рейтинг объекта
 	typeApartment: ApartmentsVariant | undefined // Тип апартаментов
-	location: {
-		lat: number
-		lng: number
-	}
+	location:
+		| {
+				lat: number
+				lng: number
+		  }
+		| undefined
 	house: FilterLngObj | undefined
 	sport: string
 	country: string
 	city: string
+	cityPlaceId: number
 	county: string
 	countryCode: string
 	wish: boolean
@@ -381,7 +388,12 @@ export interface newApartment {
 	description: string // Описание'
 	pictures: ImgBi[]
 }
+export interface AmenitiesObj {
+	existence: boolean
+	type: string
+}
 export interface NewApartmentOfferedAmenities {
+	[key: string]: boolean
 	wiFi: boolean // Наличие WiFi
 	tV: boolean // Наличие телевизора
 	kitchen: boolean // Наличие кухни
@@ -390,7 +402,7 @@ export interface NewApartmentOfferedAmenities {
 	paidParking: boolean // Платная парковка
 	airConditioner: boolean // Наличие кондиционера
 	workspace: boolean // Наличие рабочей зоны
-	specialFeatures: string // Особенные характеристики
+	// specialFeatures: string // Особенные характеристики
 	pool: boolean // Наличие бассейна
 	jacuzzi: boolean // Наличие джакузи
 	innerYard: boolean // Наличие внутреннего двора

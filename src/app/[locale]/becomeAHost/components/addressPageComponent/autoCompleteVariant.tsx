@@ -1,6 +1,8 @@
 import {
 	setAddress,
+	setBoundingbox,
 	setCity,
+	setCityPlaceId,
 	setCoordinate,
 	setCountry,
 	setCountryCode,
@@ -8,6 +10,7 @@ import {
 } from '@/app/redux/addNewApartmentState/addNewApartmentSlice'
 import { useAppDispatch } from '@/app/redux/hook'
 import { autoCompleteObj } from '@/app/type/type'
+import style from '../../addApart.module.css'
 
 import React from 'react'
 
@@ -31,26 +34,27 @@ const AutoCompleteVariant: React.FC<autoCompleteProps> = ({
 	const dispatch = useAppDispatch()
 
 	return (
-		<div>
+		<div className={style.autoComplete}>
 			{arr.map(item => (
 				<div
 					key={item.place_id}
 					onClick={() => {
 						if (placeHolder === 'administrative') {
 							dispatch(setCounty(item.name))
-							dispatch(setCoordinate({ lat: item.lat, lon: item.lon }))
+							dispatch(setBoundingbox(item.boundingbox))
 						}
 						if (placeHolder === 'city') {
 							dispatch(setCity(item.name))
-							dispatch(setCoordinate({ lat: item.lat, lon: item.lon }))
+							dispatch(setBoundingbox(item.boundingbox))
+							dispatch(setCityPlaceId(item.place_id))
 						}
 						if (placeHolder === 'country') {
 							dispatch(setCountry(item.name))
 							dispatch(setCountryCode(item.address.country_code))
-							dispatch(setCoordinate({ lat: item.lat, lon: item.lon }))
+							dispatch(setBoundingbox(item.boundingbox))
 						}
 						if (placeHolder === 'address') {
-							dispatch(setAddress(item.display_name))
+							dispatch(setAddress(item.name))
 							dispatch(setCoordinate({ lat: item.lat, lon: item.lon }))
 						}
 						setInputValue(item.name)
@@ -60,8 +64,6 @@ const AutoCompleteVariant: React.FC<autoCompleteProps> = ({
 				>
 					{placeHolder === 'city'
 						? `	${item.name} ${item.address?.district}`
-						: placeHolder === 'address'
-						? item.display_name
 						: item.name}
 				</div>
 			))}

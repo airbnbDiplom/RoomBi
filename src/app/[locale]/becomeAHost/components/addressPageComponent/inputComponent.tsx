@@ -1,10 +1,12 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useRef, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import { autoCompleteObj } from '@/app/type/type'
 import AutoCompleteVariant from './autoCompleteVariant'
 import { useAppSelector } from '@/app/redux/hook'
+import InfoModal from './InfoModal'
+import style from '../../addApart.module.css'
 
 interface InputProps {
 	autoCompleteFunc: (
@@ -22,25 +24,46 @@ const InputComponent: React.FC<InputProps> = ({
 	autoCompleteFunc,
 	placeHolder,
 }) => {
+	const county = useAppSelector(state => state.newApartmentReducer.county)
+	const country = useAppSelector(state => state.newApartmentReducer.country)
+	const city = useAppSelector(state => state.newApartmentReducer.city)
+	const address = useAppSelector(state => state.newApartmentReducer.address)
+	const houseNum = useAppSelector(state => state.newApartmentReducer.houseNum)
+	const apartNum = useAppSelector(state => state.newApartmentReducer.apartNum)
 	const { t } = useTranslation()
-
+	const valueInState = () => {
+		if (placeHolder === 'country' && country?.length > 0) return country
+		if (placeHolder === 'administrative' && county?.length > 0) return county
+		if (placeHolder === 'city' && city?.length > 0) return city
+		if (placeHolder === 'address' && address?.length > 0) return address
+		if (placeHolder === 'house' && houseNum?.length > 0) return houseNum
+		if (placeHolder === 'apart' && apartNum?.length > 0) return apartNum
+		return inputValue
+	}
 	const [inputValue, setInputValue] = useState('')
 	const [timeOutId, setTimeOutId] = useState<NodeJS.Timeout | null>(null)
 	const [autoCompleteVariant, setAutoCompleteVariant] = useState<
 		autoCompleteObj[] | null
 	>(null)
-
+	const [show, setShow] = useState(false)
 	const [timer, setTimer] = useState(true)
+	const [onClickOnInput, setOnClickToInput] = useState(true)
+
 	const countryCode = useAppSelector(
 		state => state.newApartmentReducer.countryCode
 	)
-	const county = useAppSelector(state => state.newApartmentReducer.county)
-	const country = useAppSelector(state => state.newApartmentReducer.country)
-	const city = useAppSelector(state => state.newApartmentReducer.city)
+
 	const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setTimer(false)
 		const value = event.target.value
 		setInputValue(value)
+	}
+
+	const focusHandler = () => {
+		if (placeHolder === 'address') {
+			setShow(true)
+			setOnClickToInput(false)
+		}
 	}
 
 	useEffect(() => {
@@ -68,6 +91,7 @@ const InputComponent: React.FC<InputProps> = ({
 						console.log('returnObj', data)
 					})
 				} else if (placeHolder === 'city') {
+					console.log(placeHolder)
 					autoCompleteFunc(
 						placeHolder,
 						inputValue,
@@ -79,17 +103,12 @@ const InputComponent: React.FC<InputProps> = ({
 						console.log('returnObj', data)
 					})
 				} else if (placeHolder === 'address') {
-					autoCompleteFunc(
-						placeHolder,
-						inputValue,
-						t('locale'),
-						country,
-						county,
-						city
-					).then(data => {
-						setAutoCompleteVariant(data)
-						console.log('returnObj', data)
-					})
+					autoCompleteFunc(inputValue, t('locale'), country, county, city).then(
+						data => {
+							setAutoCompleteVariant(data)
+							console.log('returnObj', data)
+						}
+					)
 				}
 			}, 500)
 			setTimeOutId(newTimeOutId)
@@ -104,24 +123,32 @@ const InputComponent: React.FC<InputProps> = ({
 	}
 
 	return (
-		<div>
-			<input
-				disabled={checkState()}
-				type='text'
-				placeholder={t(placeHolder)}
-				onChange={changeHandler}
-				value={inputValue}
-			/>
-			{autoCompleteVariant !== null && (
-				<AutoCompleteVariant
-					placeHolder={placeHolder}
-					arr={autoCompleteVariant}
-					setInputValue={setInputValue}
-					setAutoCompleteVariant={setAutoCompleteVariant}
-					setTimer={setTimer}
+		<>
+			<div className={style.question}>
+				<input
+					autoComplete='off'
+					className={style.input}
+					id='input'
+					{...(placeHolder === 'address' &&
+						onClickOnInput && { onFocus: focusHandler })}
+					disabled={checkState()}
+					type='text'
+					onChange={changeHandler}
+					value={valueInState()}
+					placeholder={t(placeHolder)}
 				/>
-			)}
-		</div>
+				{autoCompleteVariant !== null && autoCompleteVariant?.length > 0 && (
+					<AutoCompleteVariant
+						placeHolder={placeHolder}
+						arr={autoCompleteVariant}
+						setInputValue={setInputValue}
+						setAutoCompleteVariant={setAutoCompleteVariant}
+						setTimer={setTimer}
+					/>
+				)}
+			</div>
+			<InfoModal show={show} setShow={setShow} />
+		</>
 	)
 }
 

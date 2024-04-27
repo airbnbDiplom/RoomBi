@@ -1,0 +1,24 @@
+.amenitiesTypeContainer {
+	display: grid;
+	gap: 10px;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+.item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 5px;
+	min-width: 50px;
+	border: 1px solid black;
+	border-radius: 5px;
+	text-wrap: wrap;
+	background-color: rgb(234, 234, 237);
+}
+.item > p {
+	text-align: center;
+}
+
+.active {
+	background-color: rgb(161, 161, 161);
+}

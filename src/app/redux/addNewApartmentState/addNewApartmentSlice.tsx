@@ -1,31 +1,35 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
-	CardBiProps,
 	FilterLngObj,
-	MarkerBi,
 	newApartment,
+	NewApartmentOfferedAmenities,
 } from '@/app/type/type'
 import { ApartmentsVariant } from '@/app/[locale]/becomeAHost/components/apartmentsVariantList'
 
 const initialState: newApartment = {
+	boundingbox: [],
 	title: '',
 	address: '',
+	houseNum: '',
+	apartNum: '',
 	ingMap: '',
 	latMap: '',
 	numberOfGuests: 0,
 	bedrooms: 0,
 	bathrooms: 0,
 	beds: 0,
+	gests: 1,
 	pricePerNight: 0,
 	objectState: '',
 	objectRating: 0,
 	typeApartment: undefined,
-	location: { lat: 46.563328, lng: 30.7888128 },
+	location: undefined,
 	house: undefined,
 	sport: '',
 	country: '',
 	countryCode: '',
 	city: '',
+	cityPlaceId: 0,
 	county: '',
 	wish: false,
 	offeredAmenities: {
@@ -37,7 +41,7 @@ const initialState: newApartment = {
 		paidParking: false, // Платная парковка
 		airConditioner: false, // Наличие кондиционера
 		workspace: false, // Наличие рабочей зоны
-		specialFeatures: '', // Особенные характеристики
+		// specialFeatures: '', // Особенные характеристики
 		pool: false, // Наличие бассейна
 		jacuzzi: false, // Наличие джакузи
 		innerYard: false, // Наличие внутреннего двора
@@ -96,10 +100,44 @@ const newApartmentsSlice = createSlice({
 				lng: parseFloat(action.payload.lon),
 			}
 		},
+		setBoundingbox(state, action: PayloadAction<string[]>) {
+			state.boundingbox = action.payload
+		},
+		setHouseNum(state, action: PayloadAction<string>) {
+			state.houseNum = action.payload
+		},
+		setApartNum(state, action: PayloadAction<string>) {
+			state.apartNum = action.payload
+		},
+		setCityPlaceId(state, action: PayloadAction<number>) {
+			state.cityPlaceId = action.payload
+		},
+		setGests(state, action: PayloadAction<number>) {
+			state.gests = action.payload
+		},
+		setBedrooms(state, action: PayloadAction<number>) {
+			state.bedrooms = action.payload
+		},
+		setBeds(state, action: PayloadAction<number>) {
+			state.beds = action.payload
+		},
+		setBathrooms(state, action: PayloadAction<number>) {
+			state.bedrooms = action.payload
+		},
+		setOfferedAmenities(
+			state,
+			action: PayloadAction<NewApartmentOfferedAmenities>
+		) {
+			state.offeredAmenities = action.payload
+		},
 	},
 })
 
 export const {
+	setGests,
+	setBedrooms,
+	setBathrooms,
+	setBeds,
 	setHouse,
 	setTypeApartment,
 	setCountry,
@@ -108,5 +146,10 @@ export const {
 	setCity,
 	setCoordinate,
 	setAddress,
+	setBoundingbox,
+	setHouseNum,
+	setApartNum,
+	setCityPlaceId,
+	setOfferedAmenities,
 } = newApartmentsSlice.actions
 export default newApartmentsSlice.reducer

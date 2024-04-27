@@ -61,10 +61,17 @@ export const inputAutoComplete = async (
 		queryParams.append('city', inputString)
 		queryParams.append('county', county)
 		queryParams.append('layer', 'address')
-	} else if (county === '' && inputFieldFor === 'city') {
+	}
+	if (county === '' && inputFieldFor === 'city') {
 		queryParams.delete('q')
 		queryParams.delete('featureType')
 		queryParams.append('city', inputString)
+		queryParams.append('layer', 'address')
+	} else if (county !== '' && inputFieldFor === 'city') {
+		queryParams.delete('q')
+		queryParams.delete('featureType')
+		queryParams.append('city', inputString)
+		queryParams.append('county', county)
 		queryParams.append('layer', 'address')
 	}
 
@@ -97,29 +104,26 @@ export const addressAutoComplete = async (
 	county: string = '',
 	city: string = ''
 ) => {
-	const queryParams = new URLSearchParams({
-		street: inputString,
-		// addressdetails: '1',
-		//	format: 'json',
-		// limit: '3',
-	})
+	let queryString = `street=${inputString}&limit=3`
 
 	if (city !== '') {
-		queryParams.append('city', city)
+		queryString += `&city=${city}`
 	}
 	if (county !== '') {
-		queryParams.append('county', county)
+		queryString += `&county=${county}`
 	}
 	if (country !== '') {
-		queryParams.append('country', country)
+		queryString += `&country=${country}`
 	}
-	queryParams.append('format', 'json')
+	queryString += '&format=json'
+
 	try {
-		console.log(`${urlSearch}${queryParams}`)
-		const response = await fetch(`${urlSearch}${queryParams}`, {
+		console.log(`${urlSearch}${queryString}`)
+		const response = await fetch(`${urlSearch}${queryString}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
+				'Cache-Control': 'no-cache',
 				'Accept-Language': locale,
 			},
 		})
@@ -149,7 +153,7 @@ export const getAddressByLatLng = async (
 
 	try {
 		console.log(`${urlRevers}${queryParams}`)
-		const response = await fetch(`${urlSearch}${queryParams}`, {
+		const response = await fetch(`${urlRevers}${queryParams}`, {
 			method: 'GET',
 			cache: 'no-cache',
 			headers: {
@@ -160,7 +164,7 @@ export const getAddressByLatLng = async (
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`)
 		}
-		const data: any = await response.json()
+		const data: autoCompleteObj = await response.json()
 		return data
 	} catch (e) {
 		console.error('Could not fetch data:', e)

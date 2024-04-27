@@ -1,7 +1,4 @@
-// import { useAppSelector } from '@/app/redux/hook'
-// import { usePathname } from 'next/navigation'
-import React, { ComponentType, useEffect, useState } from 'react'
-// import { pageNameCollection } from './footer'
+import React, { ComponentType, useState } from 'react'
 
 export interface InjectProps {
 	activeItemId: number | null

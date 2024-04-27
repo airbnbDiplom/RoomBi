@@ -1,0 +1,59 @@
+.componentBlock > p,
+.counterBlock > p {
+	margin: 0;
+}
+.componentBlock,
+.counterBlock {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.componentBlock > p {
+	font-size: calc(1.2rem + 1vw);
+}
+.componentBlock {
+	width: 100%;
+	padding: 20px;
+	border-bottom: 1px solid grey;
+}
+.counterBlock {
+	width: 20%;
+	align-items: center;
+}
+
+.resetButton {
+	position: relative;
+	background: none;
+	border: none;
+	width: 100%;
+	height: 100%;
+	border-radius: 25px 25px 25px 25px;
+}
+.counterBtn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 24px;
+	height: 24px;
+	border: 1px solid var(--boyRed);
+	transition: box-shadow 0.1s ease;
+}
+.counterBtn:disabled {
+	background-color: rgb(211, 209, 209);
+}
+.imgContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+@media (hover: hover) {
+	.counterBtn:not(:disabled):hover {
+		box-shadow: 0 0 10px rgba(13, 13, 13, 0.5);
+	}
+}
+@media (hover: none) {
+	.counterBtn:active {
+		box-shadow: 0 0 10px rgba(13, 13, 13, 0.5);
+	}
+}
