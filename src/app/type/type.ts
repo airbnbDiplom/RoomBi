@@ -384,9 +384,16 @@ export interface newApartment {
 	countryCode: string
 	wish: boolean
 	offeredAmenities: NewApartmentOfferedAmenities // Предлагаемые удобства
-	master: NewApartmentMaster // Хозяин
+	masterId: string // Хозяин
 	description: string // Описание'
-	pictures: ImgBi[]
+
+	picturesName: string[]
+	pictureFile: string[]
+}
+export interface PhotoFileDetails {
+	name: string
+	size: number
+	type: string
 }
 export interface AmenitiesObj {
 	existence: boolean
@@ -422,10 +429,7 @@ export interface NewApartmentOfferedAmenities {
 	fireExtinguisher: boolean // Наличие огнетушителя
 	carbonMonoxideDetector: boolean // Наличие датчика угарного газа
 }
-export interface NewApartmentMaster {
-	id: string
-	name?: string
-}
+
 export interface autoCompleteObj {
 	address: Address
 	place_id: number

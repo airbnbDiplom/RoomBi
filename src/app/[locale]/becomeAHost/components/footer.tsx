@@ -11,6 +11,10 @@ const Footer = () => {
 		'/addressOfHome',
 		'/gestCount',
 		'/amenities',
+		'/imagePage',
+		'/description',
+		'/price',
+		'/preview',
 	]
 	return (
 		<div className={style.footer}>

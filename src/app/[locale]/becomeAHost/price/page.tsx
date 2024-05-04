@@ -1,13 +1,16 @@
+'use server'
 import React from 'react'
 import style from '../addApart.module.css'
-import PageHeader from '../components/header'
+import initTranslations from '@/app/i18n'
 import { HomeParams } from '@/app/type/type'
 import TranslationsProvider from '@/app/configs/TranslationsProvider'
-import initTranslations from '@/app/i18n'
-import ItemContainer from '../components/itemContainer'
+import PageHeader from '../components/header'
+import ImageItemCollection from '../components/imagePageComponent/imageItemCollection'
+import SubHeader from '../components/subHeader'
+import PriceCountComponent from '../components/pricePageComponent/priceCountComponent'
 
 const i18nNamespaces = ['translation']
-export default async function HouseType({
+export default async function PrisePage({
 	params: { locale },
 }: {
 	params: HomeParams
@@ -20,13 +23,9 @@ export default async function HouseType({
 			locale={locale}
 			resources={resources}
 		>
-			<div className={`${style.wrapper} ${style.center}`}>
-				<div className={style.centerDiv}>
-					<div className={style.block}>
-						<PageHeader text={'houseType'} />
-						<ItemContainer />
-					</div>
-				</div>
+			<div className={`${style.wrapper} ${style.flexRow}`}>
+				<PageHeader text={'price_prisePageHeader'} />
+				<PriceCountComponent />
 			</div>
 		</TranslationsProvider>
 	)

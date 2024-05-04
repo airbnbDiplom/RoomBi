@@ -31,16 +31,16 @@ const InputComponent: React.FC<InputProps> = ({
 	const houseNum = useAppSelector(state => state.newApartmentReducer.houseNum)
 	const apartNum = useAppSelector(state => state.newApartmentReducer.apartNum)
 	const { t } = useTranslation()
-	const valueInState = () => {
+	const valueInState = (): string => {
 		if (placeHolder === 'country' && country?.length > 0) return country
 		if (placeHolder === 'administrative' && county?.length > 0) return county
 		if (placeHolder === 'city' && city?.length > 0) return city
 		if (placeHolder === 'address' && address?.length > 0) return address
 		if (placeHolder === 'house' && houseNum?.length > 0) return houseNum
 		if (placeHolder === 'apart' && apartNum?.length > 0) return apartNum
-		return inputValue
+		return ''
 	}
-	const [inputValue, setInputValue] = useState('')
+	const [inputValue, setInputValue] = useState(valueInState())
 	const [timeOutId, setTimeOutId] = useState<NodeJS.Timeout | null>(null)
 	const [autoCompleteVariant, setAutoCompleteVariant] = useState<
 		autoCompleteObj[] | null
@@ -87,8 +87,6 @@ const InputComponent: React.FC<InputProps> = ({
 						countryCode
 					).then(data => {
 						setAutoCompleteVariant(data)
-
-						console.log('returnObj', data)
 					})
 				} else if (placeHolder === 'city') {
 					console.log(placeHolder)
@@ -110,7 +108,7 @@ const InputComponent: React.FC<InputProps> = ({
 						}
 					)
 				}
-			}, 500)
+			}, 200)
 			setTimeOutId(newTimeOutId)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -134,9 +132,10 @@ const InputComponent: React.FC<InputProps> = ({
 					disabled={checkState()}
 					type='text'
 					onChange={changeHandler}
-					value={valueInState()}
+					value={inputValue}
 					placeholder={t(placeHolder)}
 				/>
+
 				{autoCompleteVariant !== null && autoCompleteVariant?.length > 0 && (
 					<AutoCompleteVariant
 						placeHolder={placeHolder}

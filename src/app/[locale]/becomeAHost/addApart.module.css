@@ -7,11 +7,11 @@
 	flex-direction: column;
 }
 .wrapper {
+	padding-top: 50px;
 	position: relative;
 	background-color: white;
-
+	padding: 15px;
 	height: 80vh;
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -46,6 +46,9 @@
 }
 .videoBox video {
 	width: 100%;
+}
+.pageHeaders {
+	text-align: center;
 }
 .footer {
 	background-color: white;
@@ -95,6 +98,7 @@
 .itemAp > img {
 	width: 20%;
 }
+
 .block h2 {
 	margin-top: 20px;
 	text-align: center;
@@ -193,7 +197,9 @@
 	position: relative;
 	width: 100%;
 }
-
+.questionBlock {
+	padding: 10px;
+}
 .WH {
 	margin-top: 40px;
 	width: 60%;

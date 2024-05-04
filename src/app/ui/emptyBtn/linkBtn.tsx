@@ -1,10 +1,12 @@
 'use client'
 
+import { useAppSelector } from '@/app/redux/hook'
 import style from './linkBtnStyle.module.css'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { use, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { addNewApartServes } from '@/app/services/addnewApartService'
 interface BtnProps {
 	BgColor: string
 	btnDirection: boolean
@@ -19,7 +21,7 @@ const LinkBtn: React.FC<BtnWithValidationProps> = ({
 	pathArr,
 }) => {
 	const path = usePathname()
-
+	const stateObject = useAppSelector(state => state.newApartmentReducer)
 	const [currentPath, setCurrentPath] = useState('')
 	const [href, setHref] = useState('/')
 	const [text, setText] = useState('')

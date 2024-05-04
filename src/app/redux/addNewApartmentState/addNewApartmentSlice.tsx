@@ -3,6 +3,7 @@ import {
 	FilterLngObj,
 	newApartment,
 	NewApartmentOfferedAmenities,
+	PhotoFileDetails,
 } from '@/app/type/type'
 import { ApartmentsVariant } from '@/app/[locale]/becomeAHost/components/apartmentsVariantList'
 
@@ -15,9 +16,9 @@ const initialState: newApartment = {
 	ingMap: '',
 	latMap: '',
 	numberOfGuests: 0,
-	bedrooms: 0,
-	bathrooms: 0,
-	beds: 0,
+	bedrooms: 1,
+	bathrooms: 1,
+	beds: 1,
 	gests: 1,
 	pricePerNight: 0,
 	objectState: '',
@@ -61,12 +62,10 @@ const initialState: newApartment = {
 		fireExtinguisher: false, // Наличие огнетушителя
 		carbonMonoxideDetector: false, // Наличие датчика угарного газа
 	},
-	master: {
-		id: '',
-		name: '',
-	},
+	masterId: '',
 	description: '',
-	pictures: [],
+	picturesName: [],
+	pictureFile: [],
 }
 
 const newApartmentsSlice = createSlice({
@@ -130,6 +129,30 @@ const newApartmentsSlice = createSlice({
 		) {
 			state.offeredAmenities = action.payload
 		},
+		setPhotoFile(state, action: PayloadAction<string>) {
+			state.pictureFile.push(action.payload)
+		},
+		setPhotoName(state, action: PayloadAction<string>) {
+			state.picturesName.push(action.payload)
+		},
+		removePhotoFile(state, action: PayloadAction<number>) {
+			state.pictureFile.splice(action.payload, 1)
+		},
+		removePhotoName(state, action: PayloadAction<number>) {
+			state.picturesName.splice(action.payload, 1)
+		},
+		setTitle(state, action: PayloadAction<string>) {
+			state.title = action.payload
+		},
+		setDescription(state, action: PayloadAction<string>) {
+			state.description = action.payload
+		},
+		setPrice(state, action: PayloadAction<number>) {
+			state.pricePerNight = action.payload
+		},
+		serMasterId(state, action: PayloadAction<string>) {
+			state.masterId = action.payload
+		},
 	},
 })
 
@@ -151,5 +174,13 @@ export const {
 	setApartNum,
 	setCityPlaceId,
 	setOfferedAmenities,
+	setPhotoFile,
+	setPhotoName,
+	removePhotoFile,
+	removePhotoName,
+	setTitle,
+	setDescription,
+	setPrice,
+	serMasterId,
 } = newApartmentsSlice.actions
 export default newApartmentsSlice.reducer

@@ -34,6 +34,23 @@ const BtnValidationDataComponent = ({ pathArr }: { pathArr: string[] }) => {
 			setDisable(false)
 		} else if (currentPath === pathArr[4]) {
 			setDisable(false)
+		} else if (currentPath === pathArr[5]) {
+			setDisable(false)
+		} else if (
+			currentPath === pathArr[6] &&
+			dataForCheck.picturesName.length >= 5
+		) {
+			setDisable(false)
+		} else if (
+			currentPath === pathArr[7] &&
+			dataForCheck.title.trim().length >= 2 &&
+			dataForCheck.description.trim().length >= 10
+		) {
+			setDisable(false)
+		} else if (currentPath === pathArr[8] && dataForCheck.pricePerNight > 0) {
+			setDisable(false)
+		} else if (currentPath === pathArr[9]) {
+			setDisable(false)
 		} else {
 			setDisable(true)
 		}
@@ -43,8 +60,12 @@ const BtnValidationDataComponent = ({ pathArr }: { pathArr: string[] }) => {
 		dataForCheck.city?.length,
 		dataForCheck.country.length,
 		dataForCheck.countryCode?.length,
+		dataForCheck.description,
 		dataForCheck.house,
 		dataForCheck.location,
+		dataForCheck.picturesName.length,
+		dataForCheck.pricePerNight,
+		dataForCheck.title,
 		dataForCheck.typeApartment,
 		pathArr,
 	])

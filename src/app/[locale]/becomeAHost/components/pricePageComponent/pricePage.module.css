@@ -1,0 +1,45 @@
+.inputCounter {
+	outline: none;
+	border: none;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	font-size: calc(5rem + 1vw);
+	width: calc(1em * 4);
+	text-align: center;
+	font-weight: bolder;
+}
+
+.counterContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.insideContainer > span {
+	font-size: calc(5rem + 1vw);
+	font-weight: bolder;
+}
+.arrow {
+	padding: 5px;
+	max-width: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 15px;
+}
+.arrow > img {
+	width: 5em;
+	height: 100%;
+}
+.arrowDown > img {
+	transform: rotate(90deg);
+}
+.arrowUp > img {
+	transform: rotate(-90deg);
+}
+@media (hover: hover) {
+	.arrow:hover {
+		box-shadow: inset -9px 2px 50px -20px rgba(74, 74, 74, 0.63);
+	}
+}

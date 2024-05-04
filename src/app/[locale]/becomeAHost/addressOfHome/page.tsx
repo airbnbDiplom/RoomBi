@@ -38,7 +38,7 @@ export default async function AddressOfHome({
 			<div className={`${style.wrapper} ${style.flexRow}`}>
 				<div className={` ${style.flexRow}  ${style.WH} ${style.centerDiv}`}>
 					<PageHeader text={'addressHeader'} />
-					<div>
+					<div className={style.questionBlock}>
 						<InputComponent
 							autoCompleteFunc={inputAutoComplete}
 							placeHolder={'country'}

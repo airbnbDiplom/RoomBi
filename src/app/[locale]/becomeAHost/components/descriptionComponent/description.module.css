@@ -1,0 +1,26 @@
+.textInput,
+.textArea {
+	box-sizing: border-box;
+	width: 100%;
+	margin: 15px;
+	border-radius: 15px;
+	border: 2px solid black;
+	padding-left: 15px;
+	font-size: calc(0.5vw + 0.8rem);
+}
+.textInput {
+	height: calc(3vw + 15px);
+}
+.textInput:focus,
+.textArea:focus {
+	box-shadow: 2px 5px 25px rgb(0, 0, 0);
+}
+.textInput::placeholder,
+.textArea::placeholder {
+	font-size: calc(0.5vw + 1rem);
+	font-weight: bold;
+	color: rgba(100, 100, 100, 0.741);
+}
+.textArea {
+	height: calc(20vw + 15px);
+}

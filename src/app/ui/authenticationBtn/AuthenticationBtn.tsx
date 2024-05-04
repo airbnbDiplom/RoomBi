@@ -36,9 +36,9 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 			}
 		}
 	}, [dispatch, token])
-	let userDetails;
+	let userDetails
 	if (user) {
-		userDetails = decodeTokenAndGetUserDetails(user);
+		userDetails = decodeTokenAndGetUserDetails(user)
 	}
 	useEffect(() => {
 		getMessage()
@@ -54,8 +54,9 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				className={`custom-dropdown-toggle w-100 d-flex justify-content-end`}
 			>
 				<div
-					className={`${style.btn} ${isTeamBlack ? style.btnBlack : style.btnWhite
-						} m-0 `}
+					className={`${style.btn} ${
+						isTeamBlack ? style.btnBlack : style.btnWhite
+					} m-0 `}
 				>
 					<Image
 						priority
@@ -65,7 +66,10 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 						alt='List icon'
 					/>
 					{user ? (
-						user && userDetails && userDetails.profilePicture && userDetails.profilePicture !== "no"? (
+						user &&
+						userDetails &&
+						userDetails.profilePicture &&
+						userDetails.profilePicture !== 'no' ? (
 							<img
 								src={`https://roombi.space/Avatar/${userDetails.profilePicture}`}
 								style={{
