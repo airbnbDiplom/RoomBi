@@ -1,9 +1,12 @@
 .container1 {
   margin-left: 50px;
+  margin-right: 50px; 
   display: flex;
   justify-content: center;
   align-items: flex-start;
   font-family: var(--var-nunito), serif;
+  max-width: 1000px;
+  margin: auto; 
 }
 
 .leftBlock1 {
@@ -135,6 +138,7 @@
   grid-column: span 2;
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 60px;
 }
 
 .readyButton {
@@ -217,6 +221,11 @@
     margin: 0px;
   }
   
+  .profileHeader {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
   .readyBut {
     text-align: center;
     padding: 10px;
@@ -224,6 +233,11 @@
   .cell1 {
     justify-content: center;
     width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
   }
-
+  .aboutSection {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }

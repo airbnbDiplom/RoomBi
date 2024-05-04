@@ -15,7 +15,8 @@ export interface Profile {
   }
   export const getProfile = async (token: string) => {
     try {
-      const url = `https://roombiserver.azurewebsites.net/api/Profile/id`;
+      // const url = `https://roombiserver.azurewebsites.net/api/Profile/id`;
+      const url = `https://rombiserv.azurewebsites.net/api/Profile/id`;
       const response = await fetch(url, {
         cache: "no-store",
         method: "GET",

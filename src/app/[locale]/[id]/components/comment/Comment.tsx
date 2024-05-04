@@ -5,6 +5,8 @@ import { useAppSelector } from "@/app/redux/hook";
 import Rating from "@mui/material/Rating";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Link from 'next/link';
+import { useRouter as originalUseRouter } from 'next/router';
 
 const Comment: React.FC<{ data: GuestCommentsForApartmentPage }> = ({
   data,
@@ -27,7 +29,7 @@ const Comment: React.FC<{ data: GuestCommentsForApartmentPage }> = ({
       month: "long",
       year: "numeric",
     };
-
+    console.log("user", data.id)
     let formatter;
     if (lng !== "en") {
       formatter = new Intl.DateTimeFormat("uk-UA", options);
@@ -42,14 +44,16 @@ const Comment: React.FC<{ data: GuestCommentsForApartmentPage }> = ({
     <div>
       <div className={style.container}>
         <div className={style.blockLeft}>
-          <Image
-            className={style.mainImage}
-            src={src}
-            alt={"avatar"}
-            width={50}
-            height={50}
-            priority
-          />
+        <Link href={`/profilePage/${data.guestIdUser}`}>
+  <Image
+    className={style.mainImage}
+    src={src}
+    alt={"avatar"}
+    width={50}
+    height={50}
+    priority
+  />
+</Link>
         </div>
         <div className={style.blockRight}>
           <p> {data.userName}</p>
