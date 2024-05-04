@@ -1,4 +1,8 @@
-import { MessageObj, ChatForApartmentPageDTORedax } from "@/app/type/type";
+import {
+  MessageObj,
+  ChatForApartmentPageDTORedax,
+  CardBiProps,
+} from "@/app/type/type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type App = {
@@ -8,6 +12,7 @@ type App = {
   messengerDisplayLeftBlock: string;
   messages: MessageObj | null;
   messageObjList: MessageObj[];
+  wishList: CardBiProps[];
 };
 
 const initialState: App = {
@@ -17,6 +22,7 @@ const initialState: App = {
   messengerDisplayLeftBlock: "block",
   messages: null,
   messageObjList: [],
+  wishList: [],
 };
 
 const appSlice = createSlice({
@@ -45,6 +51,9 @@ const appSlice = createSlice({
     setLocation(state, action: PayloadAction<string>) {
       state.location = action.payload;
     },
+    setWishList(state, action: PayloadAction<CardBiProps[]>) {
+      state.wishList = action.payload;
+    },
     setMessageObjList(state, action: PayloadAction<MessageObj[]>) {
       state.messageObjList = action.payload;
     },
@@ -57,6 +66,11 @@ const appSlice = createSlice({
     setMessages(state, action: PayloadAction<MessageObj>) {
       state.messages = action.payload;
     },
+    removeItemByIdWishList(state, action: PayloadAction<number>) {
+      state.wishList = state.wishList.filter(
+        (item) => item.id !== action.payload
+      );
+    },
   },
 });
 
@@ -68,5 +82,7 @@ export const {
   setMessages,
   setMessageObjList,
   sendMessageRedax,
+  setWishList,
+  removeItemByIdWishList,
 } = appSlice.actions;
 export default appSlice.reducer;

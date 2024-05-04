@@ -115,6 +115,7 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 					)}
 
 					<Dropdown.Item href='#'>{t('helpcenter')}</Dropdown.Item>
+					<Dropdown.Item href='/wishlist'>{t('wishlist')}</Dropdown.Item>
 					{messageObjList.length > 0 && (
 						<Dropdown.Item href='/messenger'>{t('txt2CM')}</Dropdown.Item>
 					)}

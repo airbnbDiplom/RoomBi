@@ -1,0 +1,148 @@
+.container{
+    padding:0 5%;
+}
+.cardHeader{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    top: 40px;
+    left: 10px;
+    z-index: 2;
+    width: 90%;
+    }
+    
+    .btnHeart {
+        width: 25px;
+        height: 25px;
+        background-color: rgba(240, 248, 255, 0);
+        background-position: center;
+        background-image: url('/heart.png');
+        background-size: 100%;
+        border: none;
+    }
+    
+    @media (min-width: 450px) {
+        .visibility{
+            display: block;
+            }
+        }
+    
+    
+    
+    .thisRating {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    
+    .subtitle {
+        font-weight: bold;
+    }
+    
+    
+    .choiceGuests,
+    .text,
+    .subtitle {
+        margin: 0;
+        font-size: 15px;
+        margin-left: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Додає трохи місця для завершення тексту (...) */
+        white-space: nowrap; /* Забороняє перенос тексту на новий рядок */
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Chrome/Safari/Opera */
+        -khtml-user-select: none; /* Konqueror */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                                        not supported by any browser */
+        
+    }
+    
+    .choiceGuests {
+        font-size: 15px;
+        font-weight: 900;
+        padding: 3px 10px;
+        background: rgb(255, 255, 255);
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        position: relative;
+        top: 5px;
+        left: 5px;
+    }
+    
+    .card{
+        background-color: var(--gainsboro);
+        width: 60%;
+        margin-bottom: 10px;
+        margin-left: 20%;
+        cursor: pointer;
+        @media (min-width: 576px) {
+                width: 100%;
+                margin-left: 0%;
+            }
+        }
+        .caruselContainer{
+            min-width:130px;
+            min-height: 130px;
+            max-width:500px;
+            max-height: 500px;
+        }
+        @media (min-width: 576px) {
+            .card{
+        
+                width: 100%;
+                margin-left: 0%;
+                }
+            }
+            
+      
+    
+            .imageWrapper {
+                position: relative;
+                display: inline-block;
+                border-radius: 10px;
+                width: 100%;
+                max-width: 45vw; 
+                 
+                height: 0;
+                padding-top: 56.25%; /* Задание соотношения сторон для масштабирования */
+              }
+              
+              .image {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover; /* Масштабирование изображения для заполнения контейнера */
+                max-height: 70vh; /* Максимальная высота фото не больше 45% высоты экрана */
+                border-radius: 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+              }
+              
+              .image:hover {
+                transform: scale(1.01);
+              }
+              
+              
+              .deleteButton {
+                position: absolute;
+                top: 10px; /* Отступ сверху */
+                right: 10px; /* Отступ справа */
+                background-color: rgba(255, 255, 255, 0.3); /* Прозрачный белый фон */
+                border-radius: 50%; /* Скругление углов для создания круглой формы */
+                padding: 4px; /* Поля вокруг крестика */
+                cursor: pointer;
+              }
+              
+              .deleteIcon {
+                width: 24px; 
+                height: 24px; 
+              }
+         
+          
+       
+     
