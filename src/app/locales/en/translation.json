@@ -299,5 +299,20 @@
   "aboutYouLabel": "About you:",
   "timeToFillProfile": "It's time to fill out the profile",
   "profileOnRoombi": "Profile on Roombi is an important element of any booking. Tell about yourself. It's important to other guests and hosts.",
-  "createProfile": "Create profile"
+  "createProfile": "Create profile",
+  "guest": "Guest",
+  "onRoomBiSite": "on RoomBi site",
+  "editProfile": "Edit profile",
+  "whereMySchoolYearsPassed": "Where my school years passed",
+  "myJobNow": "My job now",
+  "whereILiveNow": "Where I live now",
+  "languagesISpeakOrUnderstand": "Languages I speak or understand",
+  "whichGenerationIAmFrom": "Which generation I am from",
+  "whatIAmCrazyAbout": "What I am crazy about",
+  "aboutMe": "About me",
+  "Arendator": "Landlord",
+  "reviews": "Reviews",
+  "aboutTheHost": "About the host",
+  "whatHostsSay": "what hosts say",
+  "announcements": "Announcements"
 }

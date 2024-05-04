@@ -7,7 +7,7 @@ interface AuthenticationResponseDTO {
 
 export const refreshToken = async (authenticationResponseDTO: AuthenticationResponseDTO) => {
   try {
-    const url = 'https://roombiserver.azurewebsites.net/api/User/refresh-token';
+    const url = 'https://rombiserv.azurewebsites.net/api/User/refresh-token';
     const response = await fetch(url, {
       method: "POST",
       headers: {

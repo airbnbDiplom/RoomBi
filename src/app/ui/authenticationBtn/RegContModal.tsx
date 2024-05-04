@@ -43,7 +43,7 @@ const RegContModal: React.FC<RegContModalProps> = ({
   const { t, i18n } = useTranslation();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [countryCode, setCountryCode] = useState("+380");
+  const [countryCode, setCountryCode] = useState("");
   const [phone, setPhone] = useState(countryCode);
   const [countryName, setCountryName] = useState("");
   const [error1, setError1] = useState<string | null>(null);
@@ -311,21 +311,25 @@ const RegContModal: React.FC<RegContModalProps> = ({
             {t("identityData")}
           </Form.Text>
           <div className="form-floating">
-            <Form.Select
-              id="floatingSelect"
-              className="my-2"
-              aria-label="Default select example"
-              value={countryCode}
-              onChange={(e) => {
-                setCountryCode(e.target.value);
-                setCountryName(
-                  e.target.options[e.target.selectedIndex].dataset.name || ""
-                );
-                setPhone(e.target.value);
-                setError1("");
-              }}
-            >
-              <option selected disabled value="">
+          <Form.Select
+  id="floatingSelect"
+  className="my-2"
+  aria-label="Default select example"
+  value={countryCode}
+  onChange={(e) => {
+    const oldCountryCode = countryCode;
+    const newCountryCode = e.target.value;
+    setCountryCode(newCountryCode);
+    setCountryName(
+      e.target.options[e.target.selectedIndex].dataset.name || ""
+    );
+    if (phone.startsWith(oldCountryCode)) {
+      setPhone(phone.replace(oldCountryCode, newCountryCode));
+    }
+    setError1("");
+  }}
+>
+              <option disabled value="">
                 {t("selectCountry")}
               </option>
 

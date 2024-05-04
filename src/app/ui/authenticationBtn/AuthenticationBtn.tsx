@@ -66,7 +66,8 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 					/>
 					{user ? (
 						user && userDetails && userDetails.profilePicture && userDetails.profilePicture !== "no"? (
-							<img
+							<Image
+								alt='profile picture'
 								src={`https://roombi.space/Avatar/${userDetails.profilePicture}`}
 								style={{
 									width: '30px',

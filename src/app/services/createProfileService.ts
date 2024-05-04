@@ -16,7 +16,8 @@ export interface Profile {
 
 export const createProfile = async (profileData: Profile, token: string) => {
   try {
-    const url = "https://roombiserver.azurewebsites.net/api/Profile/profile";
+    // const url = "https://roombiserver.azurewebsites.net/api/Profile/profile";
+    const url = "https://rombiserv.azurewebsites.net/api/Profile/profile";
     const response = await fetch(url, {
       method: "POST",
       headers: {

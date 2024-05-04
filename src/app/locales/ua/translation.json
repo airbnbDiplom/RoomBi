@@ -299,5 +299,20 @@
   "aboutYouLabel": "Про вас:",
   "timeToFillProfile": "Саме час заповнити профіль",
   "profileOnRoombi": "Профіль на Roombi - важливий елемент будь-якого бронювання. Розкажіть про себе. Це важливо іншим гостям та господарям.",
-  "createProfile": "Створити профіль"
+  "createProfile": "Створити профіль",
+  "guest": "Гість",
+  "onRoomBiSite": "на сайті RoomBi",
+  "editProfile": "Редагувати профіль",
+  "whereMySchoolYearsPassed": "Де пройшли мої шкільні роки",
+  "myJobNow": "Моя робота зараз",
+  "whereILiveNow": "Де я живу зараз",
+  "languagesISpeakOrUnderstand": "Мови, на яких я говорю або розумію",
+  "whichGenerationIAmFrom": "З якого я покоління",
+  "whatIAmCrazyAbout": "Що я безумно люблю",
+  "aboutMe": "Про мене",
+  "Arendator": "Орендар",
+  "reviews": "Відгуки",
+  "aboutTheHost": "Про господаря",
+  "whatHostsSay": "що говорять господарі",
+  "announcements": "Оголошення"
 }

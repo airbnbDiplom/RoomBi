@@ -203,117 +203,95 @@ const Profile: React.FC<ProfileProps> = ({ locale }) => {
             </div>
           )}
           <div className={styles.centerAlign}>{userDetails.name}</div>
-          <p className={styles.centerAlign}>Гость</p>
+          <p className={styles.centerAlign}>{t("Guest")}</p>
         </div>
         <div className={`${styles.rightSide} ${styles.centerContent}`}>
           <div className={styles.rightAlign}>{userDetails.yearsOnSite}</div>
-          <div className={styles.rightAlign}>на сайте RoomBi</div>
+          <div className={styles.rightAlign}>{t("onRoomBiSite")}</div>
         </div>
       </div>
       {schoolYears !== "" || job !== "" || location !== "" || languages !== "" || generation !== "" || favoriteSong !== "" || passion !== "" 
       || fact !== "" || skill !== "" || biography !== "" || activity !== "" || about !== "" || pets !== "" ? (
         <>
-          <div >
+          <div className={`${styles.card6}`}>
             <Link href="/editProfile">
-              <button className="btn btn-outline-dark" style={{ alignSelf: 'flex-start' }}>Редактировать профиль</button>
+              <button className="btn btn-outline-dark" style={{ alignSelf: 'flex-start' , width: '100%'}}>{t("editProfile")}</button>
             </Link>
             {schoolYears !== "" && (
-              <div>
-                <Mortarboard className={styles.icon} />
-                  Где прошли мои школьные годы: {schoolYears}
+              <div className={styles.pad}>
+                <Mortarboard className={styles.icon1} />
+                {t("whereDidMySchoolYearsPass")} {schoolYears}
               </div>
             )}
             {job !== "" && (
-              <div>
-                <Briefcase className={styles.icon} />
-                <div className={styles.textContainer}>
-                  Моя работа сейчас: {job}
-                </div>
+              <div className={styles.pad}>
+                <Briefcase className={styles.icon1} />
+                {t("myJob1")} {job}
               </div>
             )}
             {location !== "" && (
-              <div>
-                <GlobeEuropeAfrica className={styles.icon} />
-                <div className={styles.textContainer}>
-                  Где я живу сейчас: {location}
-                </div>
+              <div className={styles.pad}>
+                <GlobeEuropeAfrica className={styles.icon1} />
+                {t("myCity")} {location}
               </div>
             )}
             {languages !== "" && (
-              <div>
-                <Globe2 className={styles.icon} />
-                <div className={styles.textContainer}>
-                  Языки, на которых я говорю или понимаю: {languages}
-                </div>
+              <div className={styles.pad}>
+                <Globe2 className={styles.icon1} />
+                {t("languages")} {languages}
               </div>
             )}
             {generation !== "" && (
-              <div>
-                <GenderFemale className={styles.icon} />
-                <div className={styles.textContainer}>
-                  Из какого я поколения: {generation}
-                </div>
+              <div className={styles.pad}>
+                <GenderFemale className={styles.icon1} />
+                {t("whichGeneration")} {generation}
               </div>
             )}
             {favoriteSong !== "" && (
-              <div>
-                <MusicNoteBeamed className={styles.icon} />
-                <div className={styles.textContainer}>
-                  Любимая песня в школе: {favoriteSong}
-                </div>
+              <div className={styles.pad}>
+                <MusicNoteBeamed className={styles.icon1} />
+                {t("favoriteSchoolSongLabel")} {favoriteSong}
               </div>
             )}
             {passion !== "" && (
-              <div>
-                <Heart className={styles.icon} />
-                <div className={styles.textContainer}>
-                  Что я безумно люблю: {passion}
-                </div>
+              <div className={styles.pad}>
+                <Heart className={styles.icon1} />
+                {t("whatILove1")} {passion}
               </div>
             )}
             {fact !== "" && (
-              <div>
-                <Lightbulb className={styles.icon} />
-                <div className={styles.textContainer}>
-                  Интересный факт обо мне: {fact}
-                </div>
+              <div className={styles.pad}>
+                <Lightbulb className={styles.icon1} />
+                {t("interestingFactAboutMe1")} {fact}
               </div>
             )}
             {skill !== "" && (
-              <div>
-                <Magic className={styles.icon} />
-                <div className={styles.textContainer}>
-                  Мой самый бесполезный навык: {skill}
-                </div>
+              <div className={styles.pad}>
+                <Magic className={styles.icon1} />
+                {t("myMostUselessSkill")} {skill}
               </div>
             )}
             {biography !== "" && (
-              <div>
-                <Book className={styles.icon} />
-                <div className={styles.textContainer}>
-                  История моей жизни: {biography}
-                </div>
+              <div className={styles.pad}>
+                <Book className={styles.icon1} />
+                {t("storyOfMyLife1")} {biography}
               </div>
             )}
             {activity !== "" && (
-              <div>
-                <Clock className={styles.icon} />
-                <div className={styles.textContainer}>
-                  Что я делаю часами: {activity}
-                </div>
+              <div className={styles.pad}>
+                <Clock className={styles.icon1} />
+                {t("whatIDoForHours1")} {activity}
               </div>
             )}
             {pets !== "" && (
-              <div>
-                <img src="/icon/paw.png" alt="paws" />
-                <div className={styles.textContainer}>
-                  Мои питомцы: {pets}
-                </div>
+              <div className={styles.pad}>
+                <img src="/icon/paw.png" alt="paws" className={styles.icon1}/>
+                {t("myPets1")} {pets}
               </div>
             )}
             {about !== "" && (
-              <div className={styles.textContainer}>
-                Обо мне: {about}
+              <div className={styles.pad}>
+               {t("aboutMe")}: {about}
               </div>
             )}
           </div>

@@ -28,7 +28,7 @@ import { delAvatar } from '@/app/services/delPhotoService';
 import { signIn } from 'next-auth/react';
 import { useTranslation } from 'react-i18next';
 class Profile {
-  [key: string]: string | ((key: string, value: string) => void) | undefined;
+  [key: string]: string | ((profileData: Partial<Profile>) => Promise<void>) | undefined;
   schoolYears?: string; // Где прошли мои школьные годы
   pets?: string; // Мои питомцы
   job?: string; // Моя работа
@@ -48,9 +48,14 @@ class Profile {
     this.token = token;
   }
 
-  async updateProfile(key: string, value: string) {
-    this[key] = value;
-
+  // async updateProfile(key: string, value: string) {
+  //   this[key] = value;
+  // }
+  async updateProfile(profileData: Partial<Profile>) {
+    Object.assign(this, profileData);
+  }
+  async saveProfile() {
+    console.log('this', this);
     await createProfile(this, this.token);
   }
 }
@@ -156,6 +161,10 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
             }
           )
         }
+        else{
+          console.error("Error need delete:", response);
+          await delAvatar(saveFotoResponse.file_name);
+        }
       } catch (error) {
         console.error("Error updating user:", error);
       }
@@ -174,9 +183,9 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
   }, [loading, session]);
   let token = session?.user?.name || "";
   let profile = new Profile(token);
-  function updateProfile(modalTitle: string, inputValue: string) {
-    profile.updateProfile(modalTitle, inputValue);
-  }
+  // function updateProfile(modalTitle: string, inputValue: string) {
+  //   profile.updateProfile(modalTitle, inputValue);
+  // }
   useEffect(() => {
     async function fetchProfile() {
       const profile = await getProfile(token);
@@ -224,60 +233,254 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
     console.log("inputValue", inputValue);
     console.log('value', value);
     console.log('value2', value2);
-
     switch (title) {
       case t('whereDidYouStudy'):
         setSchoolYears(value);
-        console.log('schoolYears', value);
-        profile.updateProfile('schoolYears', value);
+        profile.updateProfile({
+          schoolYears: value,
+          pets: pets,
+          job: job,
+          myLocation: location,
+          myLanguages: languages,
+          generation: generation,
+          favoriteSchoolSong: favoriteSong,
+          passion: passion,
+          interestingFact: fact,
+          uselessSkill: skill,
+          biographyTitle: biography,
+          dailyActivity: activity,
+          aboutMe: about,
+        });
+        profile.saveProfile();
         break;
       case t('whatDoYouDo'):
         setJob(value);
-        profile.updateProfile('job', value);
+
+        profile.updateProfile({
+          schoolYears: schoolYears,
+          pets: pets,
+          job: value,
+          myLocation: location,
+          myLanguages: languages,
+          generation: generation,
+          favoriteSchoolSong: favoriteSong,
+          passion: passion,
+          interestingFact: fact,
+          uselessSkill: skill,
+          biographyTitle: biography,
+          dailyActivity: activity,
+          aboutMe: about,
+        });
+        profile.saveProfile();
         break;
       case t('whereDoYouLive'):
         setLocation(value);
-        profile.updateProfile('myLocation', value);
+        profile.updateProfile({
+          schoolYears: schoolYears,
+          pets: pets,
+          job: job,
+          myLocation: value,
+          myLanguages: languages,
+          generation: generation,
+          favoriteSchoolSong: favoriteSong,
+          passion: passion,
+          interestingFact: fact,
+          uselessSkill: skill,
+          biographyTitle: biography,
+          dailyActivity: activity,
+          aboutMe: about,
+        });
+        profile.saveProfile();
         break;
       case t('whichLanguagesDoYouSpeak'):
         setLanguages(value);
-        profile.updateProfile('myLanguages', value);
+        profile.updateProfile({
+          schoolYears: schoolYears,
+          pets: pets,
+          job: job,
+          myLocation: location,
+          myLanguages: value,
+          generation: generation,
+          favoriteSchoolSong: favoriteSong,
+          passion: passion,
+          interestingFact: fact,
+          uselessSkill: skill,
+          biographyTitle: biography,
+          dailyActivity: activity,
+          aboutMe: about,
+        });
+        profile.saveProfile();
         break;
       case t('yourBirthTime'):
         setGeneration(value2);
-        profile.updateProfile('generation', value2);
+        profile.updateProfile({
+          schoolYears: schoolYears,
+          pets: pets,
+          job: job,
+          myLocation: location,
+          myLanguages: languages,
+          generation: value,
+          favoriteSchoolSong: favoriteSong,
+          passion: passion,
+          interestingFact: fact,
+          uselessSkill: skill,
+          biographyTitle: biography,
+          dailyActivity: activity,
+          aboutMe: about,
+        });
+        profile.saveProfile();
         break;
       case t('favoriteSchoolSong'):
         setFavoriteSong(value);
-        profile.updateProfile('favoriteSchoolSong', value);
+        profile.updateProfile({
+          schoolYears: schoolYears,
+          pets: pets,
+          job: job,
+          myLocation: location,
+          myLanguages: languages,
+          generation: generation,
+          favoriteSchoolSong: value,
+          passion: passion,
+          interestingFact: fact,
+          uselessSkill: skill,
+          biographyTitle: biography,
+          dailyActivity: activity,
+          aboutMe: about,
+        });
+        profile.saveProfile();
         break;
       case t('whatDoYouLike'):
         setPassion(value);
-        profile.updateProfile('passion', value);
+        profile.updateProfile({
+          schoolYears: schoolYears,
+          pets: pets,
+          job: job,
+          myLocation: location,
+          myLanguages: languages,
+          generation: generation,
+          favoriteSchoolSong: favoriteSong,
+          passion: value,
+          interestingFact: fact,
+          uselessSkill: skill,
+          biographyTitle: biography,
+          dailyActivity: activity,
+          aboutMe: about,
+        });
+        profile.saveProfile();
         break;
       case t('shareInterestingFact'):
         setFact(value);
-        profile.updateProfile('interestingFact', value);
+        profile.updateProfile({
+          schoolYears: schoolYears,
+          pets: pets,
+          job: job,
+          myLocation: location,
+          myLanguages: languages,
+          generation: generation,
+          favoriteSchoolSong: favoriteSong,
+          passion: passion,
+          interestingFact: value,
+          uselessSkill: skill,
+          biographyTitle: biography,
+          dailyActivity: activity,
+          aboutMe: about,
+        });
+        profile.saveProfile();
         break;
       case t('uselessSkill'):
         setSkill(value);
-        profile.updateProfile('uselessSkill', value);
+        profile.updateProfile({
+          schoolYears: schoolYears,
+          pets: pets,
+          job: job,
+          myLocation: location,
+          myLanguages: languages,
+          generation: generation,
+          favoriteSchoolSong: favoriteSong,
+          passion: passion,
+          interestingFact: fact,
+          uselessSkill: value,
+          biographyTitle: biography,
+          dailyActivity: activity,
+          aboutMe: about,
+        });
+        profile.saveProfile();
         break;
       case t('mottoOrBiography'):
         setBiography(value);
-        profile.updateProfile('biographyTitle', value);
+        profile.updateProfile({
+          schoolYears: schoolYears,
+          pets: pets,
+          job: job,
+          myLocation: location,
+          myLanguages: languages,
+          generation: generation,
+          favoriteSchoolSong: favoriteSong,
+          passion: passion,
+          interestingFact: fact,
+          uselessSkill: skill,
+          biographyTitle: value,
+          dailyActivity: activity,
+          aboutMe: about,
+        });
+        profile.saveProfile();
         break;
       case t('whatYouDoForHours'):
         setActivity(value);
-        profile.updateProfile('dailyActivity', value);
+        profile.updateProfile({
+          schoolYears: schoolYears,
+          pets: pets,
+          job: job,
+          myLocation: location,
+          myLanguages: languages,
+          generation: generation,
+          favoriteSchoolSong: favoriteSong,
+          passion: passion,
+          interestingFact: fact,
+          uselessSkill: skill,
+          biographyTitle: biography,
+          dailyActivity: value,
+          aboutMe: about,
+        });
+        profile.saveProfile();
         break;
       case t('aboutYou'):
         setAbout(value);
-        profile.updateProfile('aboutMe', value);
+        profile.updateProfile({
+          schoolYears: schoolYears,
+          pets: pets,
+          job: job,
+          myLocation: location,
+          myLanguages: languages,
+          generation: generation,
+          favoriteSchoolSong: favoriteSong,
+          passion: passion,
+          interestingFact: fact,
+          uselessSkill: skill,
+          biographyTitle: biography,
+          dailyActivity: activity,
+          aboutMe: value,
+        });
+        profile.saveProfile();
         break;
       case t('doYouHavePets'):
         setPets(value);
-        profile.updateProfile('pets', value);
+        profile.updateProfile({
+          schoolYears: schoolYears,
+          pets: value,
+          job: job,
+          myLocation: location,
+          myLanguages: languages,
+          generation: generation,
+          favoriteSchoolSong: favoriteSong,
+          passion: passion,
+          interestingFact: fact,
+          uselessSkill: skill,
+          biographyTitle: biography,
+          dailyActivity: activity,
+          aboutMe: about,
+        });
+        profile.saveProfile();
         break;
       default:
         console.error(`${t('unknownTitle')}: ${title}`);
@@ -290,40 +493,72 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
       console.error('No avatar to delete');
       return;
     }
-
     try {
-      const response = await delAvatar(userDetails.profilePicture);
-      if (response.status === 'File deleted successfully') {
-        try {
-          let token = session?.user?.name || "";
-          const userDetails = decodeTokenAndGetUserDetails(token);
-          const updatedUser: User = {
-            ...currentUser,
-            Email: userDetails?.email,
-            ProfilePicture: "no",
-          };
-          const response = await updateUser(updatedUser, token);
-          console.log(response);
-          if (response?.token && response.refreshToken) {
-            const { token, refreshToken } = response;
-            await signIn(
-              'credentials',
-              {
-                token: token,
-                refreshToken: refreshToken,
-                redirect: false,
-              }
-            )
+      let token = session?.user?.name || "";
+      const decodedUserDetails = userDetails ? decodeTokenAndGetUserDetails(token) : null;
+      if (decodedUserDetails) {
+        const updatedUser: User = {
+          ...currentUser,
+          Email: decodedUserDetails?.email,
+          ProfilePicture: "no",
+        };
+        const updateResponse = await updateUser(updatedUser, token);
+        console.log("updateResponse", updateResponse);
+        if (updateResponse) {
+          const delResponse = await delAvatar(userDetails.profilePicture);
+          if (delResponse.status === 'File deleted successfully') {
+            console.log('Avatar deleted successfully');
+          } else {
+            console.error('Failed to delete avatar:', delResponse.error);
           }
-        } catch (error) {
-          console.error("Error updating user:", error);
+          const { token, refreshToken } = updateResponse;
+          await signIn(
+            'credentials',
+            {
+              token: token,
+              refreshToken: refreshToken,
+              redirect: false,
+            }
+          )
         }
-      } else {
-        console.error('Failed to delete avatar:', response.error);
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
+    // try {
+    //   const response = await delAvatar(userDetails.profilePicture);
+    //   if (response.status === 'File deleted successfully') {
+    //     try {
+    //       let token = session?.user?.name || "";
+    //       const userDetails = decodeTokenAndGetUserDetails(token);
+    //       const updatedUser: User = {
+    //         ...currentUser,
+    //         Email: userDetails?.email,
+    //         ProfilePicture: "no",
+    //       };
+    //       const response = await updateUser(updatedUser, token);
+    //       console.log(response);
+    //       if (response?.token && response.refreshToken) {
+    //         const { token, refreshToken } = response;
+    //         await signIn(
+    //           'credentials',
+    //           {
+    //             token: token,
+    //             refreshToken: refreshToken,
+    //             redirect: false,
+    //           }
+    //         )
+    //       }
+    //     } catch (error) {
+    //       console.error("Error updating user:", error);
+    //     }
+    //   } else {
+    //     console.error('Failed to delete avatar:', response.error);
+    //   }
+    // } catch (error) {
+    //   console.error('Error:', error);
+    // }
+
   };
 
   const openModal = () => {
@@ -391,157 +626,157 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
           <p>{t('betterKnow')}</p>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-  t("whereDidYouStudy"),
-  t("schoolOrCollege"),
-  t("whereDidMySchoolYearsPass"),
-  40,
-  schoolYears)}>
+          t("whereDidYouStudy"),
+          t("schoolOrCollege"),
+          t("whereDidMySchoolYearsPass"),
+          40,
+          schoolYears)}>
           <Mortarboard className={styles.icon} />
           <div className={styles.textContainer}>
-          {t('schoolYears')}{schoolYears !== "" && ":"}
+            {t('schoolYears')}{schoolYears !== "" && ":"}
             {schoolYears !== "" && <p>{schoolYears}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-  t("whatDoYouDo"),
-  t("whatIsYourProfession"),
-  t("myJob1"),
-  40,
-  job
-)}>
+          t("whatDoYouDo"),
+          t("whatIsYourProfession"),
+          t("myJob1"),
+          40,
+          job
+        )}>
           <Briefcase className={styles.icon} />
           <div className={styles.textContainer}>
-          {t('myJob')}{job !== "" && ":"}
+            {t('myJob')}{job !== "" && ":"}
             {job !== "" && <p>{job}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-  t("whereDoYouLive"),
-  t("writeYourCity"),
-  t("myCity"),
-  40,
-  location
-)}>
+          t("whereDoYouLive"),
+          t("writeYourCity"),
+          t("myCity"),
+          40,
+          location
+        )}>
           <GlobeEuropeAfrica className={styles.icon} />
           <div className={styles.textContainer}>
-          {t('whereILive')}{location !== "" && ":"}
+            {t('whereILive')}{location !== "" && ":"}
             {location !== "" && <p>{location}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-  t("whichLanguagesDoYouSpeak"),
-  t("listLanguages"),
-  t("languages"),
-  40,
-  languages
-)}>
+          t("whichLanguagesDoYouSpeak"),
+          t("listLanguages"),
+          t("languages"),
+          40,
+          languages
+        )}>
           <Globe2 className={styles.icon} />
           <div className={styles.textContainer}>
-          {t('languagesISpeak')}{languages !== "" && ":"}
+            {t('languagesISpeak')}{languages !== "" && ":"}
             {languages !== "" && <p>{languages}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-  t("yourBirthTime"),
-  t("dontWorry"),
-  t("whichGeneration"),
-  40,
-  generation
-)}>
+          t("yourBirthTime"),
+          t("dontWorry"),
+          t("whichGeneration"),
+          40,
+          generation
+        )}>
           <GenderFemale className={styles.icon} />
           <div className={styles.textContainer}>
-          {t('myGeneration')}{generation !== "" && ":"}
+            {t('myGeneration')}{generation !== "" && ":"}
             {generation !== "" && <p>{generation}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-  t("favoriteSchoolSong"),
-  t("dontBeShy"),
-  t("favoriteSchoolSongLabel"),
-  40,
-  favoriteSong
-)}>
+          t("favoriteSchoolSong"),
+          t("dontBeShy"),
+          t("favoriteSchoolSongLabel"),
+          40,
+          favoriteSong
+        )}>
           <MusicNoteBeamed className={styles.icon} />
           <div className={styles.textContainer}>
-          {t('favoriteSongInSchool')}{favoriteSong !== "" && ":"}
+            {t('favoriteSongInSchool')}{favoriteSong !== "" && ":"}
             {favoriteSong !== "" && <p>{favoriteSong}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-  t("whatDoYouLike"),
-  t("tellAboutYourPassion"),
-  t("whatILove1"),
-  40,
-  passion
-)}>
+          t("whatDoYouLike"),
+          t("tellAboutYourPassion"),
+          t("whatILove1"),
+          40,
+          passion
+        )}>
           <Heart className={styles.icon} />
           <div className={styles.textContainer}>
-          {t('whatILove')}{passion !== "" && ":"}
+            {t('whatILove')}{passion !== "" && ":"}
             {passion !== "" && <p>{passion}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-  t("shareInterestingFact"),
-  t("rememberUniqueFact"),
-  t("interestingFactAboutMe1"),
-  40,
-  fact
-)}>
+          t("shareInterestingFact"),
+          t("rememberUniqueFact"),
+          t("interestingFactAboutMe1"),
+          40,
+          fact
+        )}>
           <Lightbulb className={styles.icon} />
           <div className={styles.textContainer}>
-          {t('interestingFactAboutMe')}{fact !== "" && ":"}
+            {t('interestingFactAboutMe')}{fact !== "" && ":"}
             {fact !== "" && <p>{fact}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-  t("uselessSkill"),
-  t("tellAboutUselessSkill"),
-  t("myMostUselessSkill"),
-  40,
-  skill
-)}>
+          t("uselessSkill"),
+          t("tellAboutUselessSkill"),
+          t("myMostUselessSkill"),
+          40,
+          skill
+        )}>
           <Magic className={styles.icon} />
           <div className={styles.textContainer}>
-          {t('myUselessSkill')}{skill !== "" && ":"}
+            {t('myUselessSkill')}{skill !== "" && ":"}
             {skill !== "" && <p>{skill}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-  t("mottoOrBiography"),
-  t("imagineSomeoneWritingBook"),
-  t("storyOfMyLife1"),
-  40,
-  biography
-)}>
+          t("mottoOrBiography"),
+          t("imagineSomeoneWritingBook"),
+          t("storyOfMyLife1"),
+          40,
+          biography
+        )}>
           <Book className={styles.icon} />
           <div className={styles.textContainer}>
-          {t('storyOfMyLife')}{biography !== "" && ":"}
+            {t('storyOfMyLife')}{biography !== "" && ":"}
             {biography !== "" && <p>{biography}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-  t("whatYouDoForHours"),
-  t("tellAboutFavoriteActivities"),
-  t("whatIDoForHours1"),
-  40,
-  activity
-)}>
+          t("whatYouDoForHours"),
+          t("tellAboutFavoriteActivities"),
+          t("whatIDoForHours1"),
+          40,
+          activity
+        )}>
           <Clock className={styles.icon} />
           <div className={styles.textContainer}>
-          {t('whatIDoForHours')}{activity !== "" && ":"}
+            {t('whatIDoForHours')}{activity !== "" && ":"}
             {activity !== "" && <p>{activity}</p>}
           </div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
-  t("doYouHavePets"),
-  t("ifYesTellAboutThem"),
-  t("myPets1"),
-  40,
-  pets
-)}>
+          t("doYouHavePets"),
+          t("ifYesTellAboutThem"),
+          t("myPets1"),
+          40,
+          pets
+        )}>
           <img src="/icon/paw.png" alt="paws" />
           <div className={styles.textContainer}>
-          {t('myPets')}{pets !== "" && ":"}
+            {t('myPets')}{pets !== "" && ":"}
             {pets !== "" && <p>{pets}</p>}
           </div>
         </div>
@@ -549,14 +784,14 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
         <div className={styles.aboutSection}>
           <h1>{t('aboutYou')}</h1>
           <div className={styles.dashedBorder}>
-          <p>{t("writeSomethingInteresting")}</p>
-<a href="#" style={{ color: 'black', fontWeight: 'bold' }} onClick={openModalWithContent(
-  t("aboutYou"),
-  t("guestsAndHostsWantToKnow"),
-  t("aboutYouLabel"),
-  450,
-  about
-)}>
+            <p>{t("writeSomethingInteresting")}</p>
+            <a href="#" style={{ color: 'black', fontWeight: 'bold' }} onClick={openModalWithContent(
+              t("aboutYou"),
+              t("guestsAndHostsWantToKnow"),
+              t("aboutYouLabel"),
+              450,
+              about
+            )}>
               {t('addStoryAboutYou')}
             </a>
             {about !== "" && <p>{about}</p>}
@@ -629,7 +864,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
               />
             </Form.Group>
             <div className="text-end mb-3" style={{ fontSize: '14px', fontWeight: 'bold', color: 'gray', marginTop: '3px' }}>
-            {t('characters')}: {inputLength} {t('outof')} {maxLength}
+              {t('characters')}: {inputLength} {t('outof')} {maxLength}
             </div>
           </div>
         ) : (
@@ -647,7 +882,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
               <label htmlFor="floatingInput">{inputLabel}</label>
             </Form.Floating>
             <div className="text-end mb-3" style={{ fontSize: '14px', fontWeight: 'bold', color: 'gray', marginTop: '3px' }}>
-            {t('characters')}: {inputLength} {t('outof')} {maxLength}
+              {t('characters')}: {inputLength} {t('outof')} {maxLength}
             </div>
           </div>
         )}
