@@ -28,7 +28,7 @@ export const getFirstPage = async (userId?: string) => {
 
   const response = await fetch(url, {
     next: {
-      revalidate: 500,
+      revalidate: 5,
     },
   });
   if (!response.ok) {
