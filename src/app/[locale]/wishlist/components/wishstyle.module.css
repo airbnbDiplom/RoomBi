@@ -1,40 +1,7 @@
 .container{
     padding:0 5%;
 }
-.cardHeader{
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    top: 40px;
-    left: 10px;
-    z-index: 2;
-    width: 90%;
-    }
-    
-    .btnHeart {
-        width: 25px;
-        height: 25px;
-        background-color: rgba(240, 248, 255, 0);
-        background-position: center;
-        background-image: url('/heart.png');
-        background-size: 100%;
-        border: none;
-    }
-    
-    @media (min-width: 450px) {
-        .visibility{
-            display: block;
-            }
-        }
-    
-    
-    
-    .thisRating {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-    }
-    
+ 
     .subtitle {
         font-weight: bold;
     }
@@ -58,23 +25,10 @@
                                         not supported by any browser */
         
     }
-    
-    .choiceGuests {
-        font-size: 15px;
-        font-weight: 900;
-        padding: 3px 10px;
-        background: rgb(255, 255, 255);
-        border: none;
-        border-radius: 15px;
-        cursor: pointer;
-        position: relative;
-        top: 5px;
-        left: 5px;
-    }
-    
     .card{
         background-color: var(--gainsboro);
         width: 60%;
+       
         margin-bottom: 10px;
         margin-left: 20%;
         cursor: pointer;
@@ -83,12 +37,7 @@
                 margin-left: 0%;
             }
         }
-        .caruselContainer{
-            min-width:130px;
-            min-height: 130px;
-            max-width:500px;
-            max-height: 500px;
-        }
+     
         @media (min-width: 576px) {
             .card{
         
@@ -96,17 +45,16 @@
                 margin-left: 0%;
                 }
             }
-            
-      
-    
             .imageWrapper {
                 position: relative;
                 display: inline-block;
                 border-radius: 10px;
                 width: 100%;
+                min-height: 15vw;
+                min-width: 25vw;
                 max-width: 45vw; 
                  
-                height: 0;
+                height: 100%;
                 padding-top: 56.25%; /* Задание соотношения сторон для масштабирования */
               }
               
@@ -143,6 +91,15 @@
                 height: 24px; 
               }
          
-          
+              .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background-color: #f8f9fa; /* Цвет фона Footer */
+                padding: 20px; /* Отступы внутри Footer */
+                text-align: center; /* Выравнивание содержимого по центру */
+              }
+                 
        
      

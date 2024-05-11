@@ -12,7 +12,6 @@ export const putWishlists = async (id: number, token: string) => {
         },
         body: JSON.stringify(id),
       });
-      console.log("res.json() -----", res);
       const data = await res.json();
       const { key } = data;
       return key;
@@ -36,15 +35,19 @@ export const getWishlists = async (token: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
-
+    console.log("getWishlists - ", res.status);
+    if (!res.ok) {
+      console.log("getWishlists-0");
+      return [];
+    }
     const data = await res.json();
-    console.log("getWishlists - ", data);
     return data;
   } catch (error) {
     console.error("Error fetching wishlists:", error);
     return null;
   }
 };
+
 export const deleteWishlists = async (id: number, token: string) => {
   try {
     const url = process.env.NEXT_DELETE_WISHLISTS_ID;
