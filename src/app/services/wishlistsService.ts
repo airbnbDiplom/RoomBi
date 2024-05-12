@@ -12,7 +12,6 @@ export const putWishlists = async (id: number, token: string) => {
         },
         body: JSON.stringify(id),
       });
-      console.log("res.json() -----", res);
       const data = await res.json();
       const { key } = data;
       return key;
@@ -36,16 +35,20 @@ export const getWishlists = async (token: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
-
+    console.log("getWishlists - ", res.status);
+    if (!res.ok) {
+      console.log("getWishlists-0");
+      return [];
+    }
     const data = await res.json();
-    console.log("getWishlists - ", data);
     return data;
   } catch (error) {
     console.error("Error fetching wishlists:", error);
     return null;
   }
 };
-export const deleteWishlists = async (id: number) => {
+
+export const deleteWishlists = async (id: number, token: string) => {
   try {
     const url = process.env.NEXT_DELETE_WISHLISTS_ID;
     if (!url) {
@@ -57,15 +60,20 @@ export const deleteWishlists = async (id: number) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
     if (!response.ok) {
       throw new Error("Failed to delete wishlist");
     }
+
+    const data = await response.json();
+    const { key } = data;
+    console.log("res.json() ----- 12EEE", key);
     return true;
   } catch (error) {
     console.error("Error del wish:", error);
-    return null;
+    return false;
   }
 };

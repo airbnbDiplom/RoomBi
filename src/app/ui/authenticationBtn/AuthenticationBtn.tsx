@@ -76,6 +76,8 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 								width={30}
 								height={30}
 								style={{
+									// width: '30px',
+									// height: '30px',
 									borderRadius: '50%',
 								}}
 							/>

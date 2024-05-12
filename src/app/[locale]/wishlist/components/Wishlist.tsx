@@ -25,11 +25,12 @@ const OneWish: React.FC<CardBiProps> = ({ id, title, country, pictures }) => {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     event.stopPropagation();
-    // const success = await deleteWishlists(id,session.user.name);
+
     if (session.data?.user?.name) {
-      const success = await putWishlists(id, session.data?.user?.name);
+      // const success = await putWishlists(id, session.data?.user?.name);
+      const success = await deleteWishlists(id, session.data?.user?.name);
       console.log("success -", success);
-      if (success === "Ok") {
+      if (success === true) {
         console.log("OK handleDelete");
         dispatch(removeItemByIdWishList(id));
       } else {

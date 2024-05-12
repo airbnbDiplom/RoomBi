@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import initTranslations from "../../i18n";
 import { Footer } from "../../startComponents/footer/Footer";
 import Loading from "./../loading";
+import style from "./components/wishstyle.module.css";
 const i18nNamespaces = ["translation"];
 interface Props {
   params: {
@@ -20,7 +21,7 @@ export default async function GetList({ params: { id, locale } }: Props) {
   const { resources } = await initTranslations(locale, ["translation"]);
   const session = await getServerSession(authConfig);
   let list;
-
+  console.log("GTTGYUYGU&YGIUM777777");
   if (session) {
     if (session.user.name) {
       list = await getWishlists(session.user.name);
@@ -45,7 +46,9 @@ export default async function GetList({ params: { id, locale } }: Props) {
         ) : (
           <Loading />
         )}
-        <Footer />
+        <div className={style.footer}>
+          <Footer />
+        </div>
       </>
     </TranslationsProvider>
   );

@@ -48,10 +48,13 @@ const Footer: React.FC = () => {
           Telegram Bot
         </Link>{" "}
         <LanguageChanger />
-        <SocialNetwork src="/footer/inst.svg" />
-        <SocialNetwork src="/footer/fb.png" />
-        <SocialNetwork src="/footer/git.png" />
-        <SocialNetwork src="/footer/link.png" />
+        <SocialNetwork href="#" src="/footer/inst.svg" />
+        <SocialNetwork href="#" src="/footer/fb.png" />
+        <SocialNetwork
+          href="https://github.com/airbnbDiplom"
+          src="/footer/git.png"
+        />
+        <SocialNetwork href="#" src="/footer/link.png" />
       </div>
     </footer>
   );

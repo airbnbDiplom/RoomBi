@@ -10,7 +10,6 @@ import { useEffect, useMemo, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import { useSession } from 'next-auth/react'
 import { getAllHouses } from '@/app/services/housesServices'
-// import Loading from "@/app/[locale]/loading";
 
 const Main: React.FC<{ cardData: CardBiProps[] }> = ({
 	cardData,
