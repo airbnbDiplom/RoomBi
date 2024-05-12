@@ -26,7 +26,7 @@ const Counter: React.FC<CounterProps> = ({ title, maxCount, minCount }) => {
 	const bathrooms = useAppSelector(state => state.newApartmentReducer.bathrooms)
 	useEffect(() => {
 		const veriteToState = () => {
-			if (title === 'guests') {
+			if (title === 'gests') {
 				dispatch(setGests(counter))
 			} else if (title === 'bedrooms') {
 				dispatch(setBedrooms(counter))

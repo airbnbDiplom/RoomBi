@@ -29,7 +29,7 @@ const UserInfo = () => {
 		userDit = decodeTokenAndGetUserDetails(user)
 		if (userDit) dispatch(serMasterId(userDit.id))
 	}
-	console.log('user', userDit)
+
 	return (
 		<div className={style.userBlock}>
 			<div className={style.avatar}>

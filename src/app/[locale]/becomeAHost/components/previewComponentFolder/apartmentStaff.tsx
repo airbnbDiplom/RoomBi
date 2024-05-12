@@ -10,11 +10,13 @@ const ApartmentStaff = () => {
 	const gests = useAppSelector(state => state.newApartmentReducer.gests)
 	const bathrooms = useAppSelector(state => state.newApartmentReducer.bathrooms)
 	const { t } = useTranslation()
+	console.log('gests', gests)
+	console.log('bathrooms', bathrooms)
 	return (
 		<div className={style.apartStaff}>
-			<p>{`${t('beds')} : ${beds}`} </p>
-			<p>{`${t('bedrooms')} : ${bedrooms}`} </p>
 			<p>{`${t('gests')} : ${gests}`} </p>
+			<p>{`${t('bedrooms')} : ${bedrooms}`} </p>
+			<p>{`${t('beds')} : ${beds}`} </p>
 			<p>{`${t('bathrooms')} : ${bathrooms}`} </p>
 		</div>
 	)

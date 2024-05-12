@@ -12,12 +12,7 @@ import React, { use, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useMapEvents } from 'react-leaflet'
 interface MapEventsProps {
-	location:
-		| {
-				lat: number
-				lng: number
-		  }
-		| undefined
+	location: [number, number] | undefined
 }
 const MapEventsComponentNew: React.FC<MapEventsProps> = ({ location }) => {
 	const [clickedPosition, setClickedPosition] = useState<LatLng | null>(null)
@@ -65,6 +60,13 @@ const MapEventsComponentNew: React.FC<MapEventsProps> = ({ location }) => {
 				const newMarker = L.marker(e.latlng).addTo(map).setIcon(customIcon)
 				setMarkerPosition(newMarker)
 				map.flyTo(e.latlng, map.getZoom())
+				dispatch(
+					setCoordinate({
+						lat: e.latlng.lat.toString(),
+						lon: e.latlng.lng.toString(),
+					})
+				)
+				console.log('stateObj', stateObj)
 				//popUp(newMarker)
 			}
 		},

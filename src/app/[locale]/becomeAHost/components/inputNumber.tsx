@@ -21,11 +21,13 @@ const InputNumber: React.FC<propsInput> = ({ placeholder }) => {
 	}
 	useEffect(() => {
 		if (placeholder === 'house') {
-			dispatch(setHouseNum(value))
+			dispatch(setHouseNum(`${t('preview_houseNum')} ${value}`))
 		}
 		if (placeholder === 'apartNum') {
-			dispatch(setApartNum(value))
+			dispatch(setApartNum(`${t('preview_apartNum')} ${value}`))
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, placeholder, value])
 
 	return (

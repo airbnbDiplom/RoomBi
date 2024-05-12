@@ -1,12 +1,10 @@
 'use client'
-
-import { useAppSelector } from '@/app/redux/hook'
 import style from './linkBtnStyle.module.css'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { use, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { addNewApartServes } from '@/app/services/addnewApartService'
+import FinishBtn from '@/app/[locale]/becomeAHost/components/finishBtn'
 interface BtnProps {
 	BgColor: string
 	btnDirection: boolean
@@ -21,7 +19,7 @@ const LinkBtn: React.FC<BtnWithValidationProps> = ({
 	pathArr,
 }) => {
 	const path = usePathname()
-	const stateObject = useAppSelector(state => state.newApartmentReducer)
+
 	const [currentPath, setCurrentPath] = useState('')
 	const [href, setHref] = useState('/')
 	const [text, setText] = useState('')
@@ -51,8 +49,8 @@ const LinkBtn: React.FC<BtnWithValidationProps> = ({
 
 		if (arrPathIndex === pathArr.length - 1 && btnDirection) {
 			setText('finish')
-			setHref('/')
-			//todo logic fore fetch
+			//	setHref('/')
+
 			return
 		}
 		if (!btnDirection) {
@@ -66,7 +64,7 @@ const LinkBtn: React.FC<BtnWithValidationProps> = ({
 	}, [arrPathIndex, btnDirection, pathArr, text])
 
 	const { t } = useTranslation()
-	return (
+	return text !== 'finish' ? (
 		<Link
 			href={href || '/'}
 			style={{ background: BgColor, color: textColor }}
@@ -74,6 +72,8 @@ const LinkBtn: React.FC<BtnWithValidationProps> = ({
 		>
 			{t(text)}
 		</Link>
+	) : (
+		<FinishBtn />
 	)
 }
 

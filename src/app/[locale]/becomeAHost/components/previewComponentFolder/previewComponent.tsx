@@ -59,14 +59,12 @@ const PreviewComponent = () => {
 									&nbsp;
 								</span>
 								<span>
-									{t('preview_houseNum')}
 									{apartmentState.houseNum
 										? apartmentState.houseNum
 										: 'houseNum'}
 									&nbsp;
 								</span>
 								<span>
-									{t('preview_apartNum')}
 									{apartmentState.apartNum && apartmentState.apartNum}
 								</span>
 							</div>

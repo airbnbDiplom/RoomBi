@@ -73,9 +73,9 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 							<Image
 								alt='profile picture'
 								src={`https://roombi.space/Avatar/${userDetails.profilePicture}`}
+								width={30}
+								height={30}
 								style={{
-									width: '30px',
-									height: '30px',
 									borderRadius: '50%',
 								}}
 							/>

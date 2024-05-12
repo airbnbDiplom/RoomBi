@@ -12,9 +12,10 @@ const SearchResultList = () => {
 	const searchFilterData = useAppSelector(
 		state => state.searchFilterReducer.collection
 	)
+	console.log('searchFilterData', searchFilterData)
 	const [page, setPage] = useState(1)
 	const [isOnFetch, setOnFetch] = useState(false)
-	const pageSize = 6
+	const pageSize = 8
 
 	return (
 		<div className={style.itemTopCon}>

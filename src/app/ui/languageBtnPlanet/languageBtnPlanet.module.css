@@ -32,7 +32,6 @@
 	display: grid;
 	justify-content: center;
 	max-width: 70px;
-	max-height: auto;
 	padding: 10px;
 	border: 2px solid black;
 	box-sizing: border-box;
@@ -40,6 +39,7 @@
 	border-radius: 10px;
 	top: 20px;
 	left: -5px;
+	z-index: 1001 !important;
 }
 .DropDawnLanguage::before {
 	position: absolute;

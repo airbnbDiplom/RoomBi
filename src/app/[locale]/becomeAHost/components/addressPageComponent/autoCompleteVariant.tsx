@@ -63,7 +63,9 @@ const AutoCompleteVariant: React.FC<autoCompleteProps> = ({
 					}}
 				>
 					{placeHolder === 'city'
-						? `	${item.name} ${item.address?.district}`
+						? item.address?.district !== undefined
+							? `	${item.name} ${item.address?.district}`
+							: item.name
 						: item.name}
 				</div>
 			))}

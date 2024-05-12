@@ -4,9 +4,10 @@ import React, { use, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { autoCompleteObj } from '@/app/type/type'
 import AutoCompleteVariant from './autoCompleteVariant'
-import { useAppSelector } from '@/app/redux/hook'
+import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import InfoModal from './InfoModal'
 import style from '../../addApart.module.css'
+import { setAddress } from '@/app/redux/addNewApartmentState/addNewApartmentSlice'
 
 interface InputProps {
 	autoCompleteFunc: (
@@ -31,6 +32,7 @@ const InputComponent: React.FC<InputProps> = ({
 	const houseNum = useAppSelector(state => state.newApartmentReducer.houseNum)
 	const apartNum = useAppSelector(state => state.newApartmentReducer.apartNum)
 	const { t } = useTranslation()
+	const dispatch = useAppDispatch()
 	const valueInState = (): string => {
 		if (placeHolder === 'country' && country?.length > 0) return country
 		if (placeHolder === 'administrative' && county?.length > 0) return county
@@ -57,6 +59,9 @@ const InputComponent: React.FC<InputProps> = ({
 		setTimer(false)
 		const value = event.target.value
 		setInputValue(value)
+		if (placeHolder === 'address') {
+			dispatch(setAddress(value))
+		}
 	}
 
 	const focusHandler = () => {
@@ -76,10 +81,8 @@ const InputComponent: React.FC<InputProps> = ({
 				if (placeHolder === 'country') {
 					autoCompleteFunc(placeHolder, inputValue, t('locale')).then(data => {
 						setAutoCompleteVariant(data)
-						console.log('returnObj', data)
 					})
 				} else if (placeHolder === 'administrative') {
-					console.log('inputValue', inputValue)
 					autoCompleteFunc(
 						placeHolder,
 						inputValue,
@@ -89,7 +92,6 @@ const InputComponent: React.FC<InputProps> = ({
 						setAutoCompleteVariant(data)
 					})
 				} else if (placeHolder === 'city') {
-					console.log(placeHolder)
 					autoCompleteFunc(
 						placeHolder,
 						inputValue,
@@ -98,13 +100,11 @@ const InputComponent: React.FC<InputProps> = ({
 						county
 					).then(data => {
 						setAutoCompleteVariant(data)
-						console.log('returnObj', data)
 					})
 				} else if (placeHolder === 'address') {
 					autoCompleteFunc(inputValue, t('locale'), country, county, city).then(
 						data => {
 							setAutoCompleteVariant(data)
-							console.log('returnObj', data)
 						}
 					)
 				}

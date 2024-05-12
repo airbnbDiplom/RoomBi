@@ -372,6 +372,11 @@
 	"preview_previewPageHeader": "Check that all data is correct",
 	"preview_houseNum": "House №",
 	"preview_apartNum": "Apart. №",
+	"preview_success": "Success",
+	"preview_newApartmentAddSuccess": "The object was successfully added!",
+	"preview_felid ": "Failure",
+	"preview_newApartmentAddFalse": "The object was not added! Please contact with administration ",
+	"close": "Close",
 	"wiFi": "WiFi",
 	"tV": "TV",
 	"kitchen": "Kitchen",
@@ -413,5 +418,7 @@
 	"reviews": "Reviews",
 	"aboutTheHost": "About the host",
 	"whatHostsSay": "what hosts say",
-	"announcements": "Announcements"
+	"announcements": "Announcements",
+	"preview_notValid": "Not valid",
+	"preview_newApartmentAddNotValid": "The object was not added! Not all mandatory fields are filled in"
 }

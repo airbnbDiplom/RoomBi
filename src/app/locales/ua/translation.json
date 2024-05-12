@@ -338,7 +338,6 @@
 	"aboutTheHost": "Про господаря",
 	"whatHostsSay": "що говорять господарі",
 	"announcements": "Оголошення",
-
 	"exit": "Вихід",
 	"gratings": "Ласкаво просимо до RoomBi",
 	"let'sStart": "Давайте додамо ваше перше житло",
@@ -387,7 +386,11 @@
 	"preview_previewPageHeader": "Перевірте правильність усіх даних",
 	"preview_houseNum": "Буд. № ",
 	"preview_apartNum": "Кв. №",
-
+	"preview_success": "Успішно",
+	"preview_newApartmentAddSuccess": "Об'єкт успішно доданий!",
+	"preview_felid ": "Помилка",
+	"preview_newApartmentAddFalse": "Об'єкт не додано! Будь ласка, зв'яжіться з адміністрацією",
+	"close": "Закрити",
 	"wiFi": "WiFi",
 	"tV": "TV",
 	"kitchen": "Кухня",
@@ -412,5 +415,7 @@
 	"beachAccess": "Доступ до пляжу",
 	"skiInOut": "Катання на лижах",
 	"carbonMonoxideDetector": "Детектор чадного газу",
-	"smokeDetector": "Детектор диму"
+	"smokeDetector": "Детектор диму",
+	"preview_notValid": "Недійсний.",
+	"preview_newApartmentAddNotValid": "Об'єкт не додано! Заповнені не всі обов'язкові поля"
 }

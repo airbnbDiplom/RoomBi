@@ -9,6 +9,7 @@ export interface ApartmentsVariant {
 	title: string
 	subTitle: string
 	imgPath: string
+	ukName: string
 }
 
 const apartmentVariant: ApartmentsVariant[] = [
@@ -17,18 +18,21 @@ const apartmentVariant: ApartmentsVariant[] = [
 		title: 'fullApartment',
 		subTitle: 'fullApartmentSubtitle',
 		imgPath: '/icon/fullHouse.svg',
+		ukName: 'Все житло',
 	},
 	{
 		id: 2,
 		title: 'room',
 		subTitle: 'getsHave',
 		imgPath: '/icon/room.svg',
+		ukName: 'Кімната',
 	},
 	{
 		id: 3,
 		title: 'commonRoom',
 		subTitle: 'commonRoomSubTitle',
 		imgPath: '/icon/commonRoom.svg',
+		ukName: 'Спільна кімната',
 	},
 ]
 

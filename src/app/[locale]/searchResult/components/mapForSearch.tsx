@@ -44,7 +44,7 @@ const MapForSearch = () => {
 	if (searchFilterData !== null)
 		searchFilterData.map(item => {
 			const markerItem: MarkerItem = {
-				geocode: [parseFloat(item.ingMap), parseFloat(item.latMap)],
+				geocode: [parseFloat(item.ingMap!), parseFloat(item.latMap!)],
 				apartment: item,
 				customIcon: new DivIcon({
 					className: 'custom-marker',

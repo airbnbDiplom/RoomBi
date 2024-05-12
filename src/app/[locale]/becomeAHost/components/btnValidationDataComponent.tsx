@@ -16,7 +16,6 @@ const BtnValidationDataComponent = ({ pathArr }: { pathArr: string[] }) => {
 	const path = usePathname()
 	const currentPath = path.substring(path.lastIndexOf('/'))
 	useEffect(() => {
-		console.log('dataForCheck.house', dataForCheck.house)
 		if (currentPath === pathArr[0]) {
 			setDisable(false)
 		} else if (currentPath === pathArr[1] && dataForCheck.house) {
@@ -29,7 +28,8 @@ const BtnValidationDataComponent = ({ pathArr }: { pathArr: string[] }) => {
 			dataForCheck.country.length > 0 &&
 			dataForCheck.city?.length > 0 &&
 			dataForCheck.countryCode?.length > 0 &&
-			dataForCheck.location
+			dataForCheck.latMap !== '' &&
+			dataForCheck.ingMap !== ''
 		) {
 			setDisable(false)
 		} else if (currentPath === pathArr[4]) {

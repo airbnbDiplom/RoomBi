@@ -9,9 +9,13 @@ import { setCoordinate } from '@/app/redux/addNewApartmentState/addNewApartmentS
 
 interface mapProps {}
 const MapContainerNew: React.FC<mapProps> = () => {
-	const location = useAppSelector(state => state.newApartmentReducer.location)
+	const lat = useAppSelector(state => state.newApartmentReducer.latMap)
+	const ing = useAppSelector(state => state.newApartmentReducer.ingMap)
+	const location: [number, number] | undefined =
+		lat && ing ? [parseFloat(ing), parseFloat(lat)] : undefined
 	const dispatch = useAppDispatch()
 	useEffect(() => {
+		1
 		if ('geolocation' in navigator) {
 			// Get user's current position
 			navigator.geolocation.getCurrentPosition(

@@ -3,7 +3,6 @@ import {
 	FilterLngObj,
 	newApartment,
 	NewApartmentOfferedAmenities,
-	PhotoFileDetails,
 } from '@/app/type/type'
 import { ApartmentsVariant } from '@/app/[locale]/becomeAHost/components/apartmentsVariantList'
 
@@ -24,7 +23,7 @@ const initialState: newApartment = {
 	objectState: '',
 	objectRating: 0,
 	typeApartment: undefined,
-	location: undefined,
+	location: '',
 	house: undefined,
 	sport: '',
 	country: '',
@@ -34,33 +33,32 @@ const initialState: newApartment = {
 	county: '',
 	wish: false,
 	offeredAmenities: {
-		wiFi: false, // Наличие WiFi
-		tV: false, // Наличие телевизора
-		kitchen: false, // Наличие кухни
-		washingMachine: false, // Наличие стиральной машины
-		freeParking: false, // Бесплатная парковка
-		paidParking: false, // Платная парковка
-		airConditioner: false, // Наличие кондиционера
-		workspace: false, // Наличие рабочей зоны
-		// specialFeatures: '', // Особенные характеристики
-		pool: false, // Наличие бассейна
-		jacuzzi: false, // Наличие джакузи
-		innerYard: false, // Наличие внутреннего двора
-		bBQArea: false, // Наличие зоны для барбекю
-		outdoorDiningArea: false, // Наличие обеденной зоны на улице
-		firePit: false, // Наличие костровища
-		poolTable: false, // Наличие стола для игры в бильярд
-		fireplace: false, // Наличие камина
-		piano: false, // Наличие пианино
-		gymEquipment: false, // Наличие тренажеров
-		lakeAccess: false, // Доступ к озеру
-		beachAccess: false, // Доступ к пляжу
-		skiInOut: false, // Доступ к лыжным трассам
-		outdoorShower: false, // Наличие уличного душа
-		smokeDetector: false, // Наличие датчика дыма
-		firstAidKit: false, // Наличие аптечки
-		fireExtinguisher: false, // Наличие огнетушителя
-		carbonMonoxideDetector: false, // Наличие датчика угарного газа
+		wiFi: false,
+		tV: false,
+		kitchen: false,
+		washingMachine: false,
+		freeParking: false,
+		paidParking: false,
+		airConditioner: false,
+		workspace: false,
+		pool: false,
+		jacuzzi: false,
+		innerYard: false,
+		bBQArea: false,
+		outdoorDiningArea: false,
+		firePit: false,
+		poolTable: false,
+		fireplace: false,
+		piano: false,
+		gymEquipment: false,
+		lakeAccess: false,
+		beachAccess: false,
+		skiInOut: false,
+		outdoorShower: false,
+		smokeDetector: false,
+		firstAidKit: false,
+		fireExtinguisher: false,
+		carbonMonoxideDetector: false,
 	},
 	masterId: '',
 	description: '',
@@ -94,10 +92,7 @@ const newApartmentsSlice = createSlice({
 			state.address = action.payload
 		},
 		setCoordinate(state, action: PayloadAction<{ lat: string; lon: string }>) {
-			state.location = {
-				lat: parseFloat(action.payload.lat),
-				lng: parseFloat(action.payload.lon),
-			}
+			;(state.ingMap = action.payload.lat), (state.latMap = action.payload.lon)
 		},
 		setBoundingbox(state, action: PayloadAction<string[]>) {
 			state.boundingbox = action.payload
@@ -121,7 +116,7 @@ const newApartmentsSlice = createSlice({
 			state.beds = action.payload
 		},
 		setBathrooms(state, action: PayloadAction<number>) {
-			state.bedrooms = action.payload
+			state.bathrooms = action.payload
 		},
 		setOfferedAmenities(
 			state,
@@ -153,6 +148,9 @@ const newApartmentsSlice = createSlice({
 		serMasterId(state, action: PayloadAction<string>) {
 			state.masterId = action.payload
 		},
+		resetState(state) {
+			return initialState
+		},
 	},
 })
 
@@ -182,5 +180,6 @@ export const {
 	setDescription,
 	setPrice,
 	serMasterId,
+	resetState,
 } = newApartmentsSlice.actions
 export default newApartmentsSlice.reducer

@@ -25,6 +25,28 @@ export interface CardBiProps {
 	location: string
 	wish: boolean
 }
+export interface RentalApartmentDTOForStartPage {
+	id: number
+	title?: string
+	pricePerNight: number
+	objectRating: number
+	country?: string
+	bookingFree?: string
+	pictures?: ImgBi[]
+	ingMap?: string
+	latMap?: string
+	wish: boolean
+	location?: string // Example: "Arctic", can be null
+	house?: string // Example: "Apartment", can be null
+	sport?: string // Example: "Surfing", can be null
+}
+// interface DateBookingAlex {
+// 	Start: string
+// 	End: string
+// }
+// export interface searchCardBiProps extends CardBiProps {
+// 	dateBooking: DateBookingAlex[]
+// }
 export interface CarouselBiProps {
 	pictures: ImgBi[]
 	handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void
@@ -369,12 +391,7 @@ export interface newApartment {
 	objectState: string // Состояние объекта
 	objectRating: number // Рейтинг объекта
 	typeApartment: ApartmentsVariant | undefined // Тип апартаментов
-	location:
-		| {
-				lat: number
-				lng: number
-		  }
-		| undefined
+	location: string
 	house: FilterLngObj | undefined
 	sport: string
 	country: string
@@ -390,11 +407,7 @@ export interface newApartment {
 	picturesName: string[]
 	pictureFile: string[]
 }
-export interface PhotoFileDetails {
-	name: string
-	size: number
-	type: string
-}
+
 export interface AmenitiesObj {
 	existence: boolean
 	type: string
