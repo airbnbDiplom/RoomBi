@@ -4,12 +4,12 @@ import style from '@/app/ui/emptyBtn/linkBtnStyle.module.css'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { addNewApartServes } from '@/app/services/addNewApartService'
 import ModalAddNEwApart from './modalAddNEwApart'
 import Spinner from './btnSpinner' // Assuming you have a Spinner component
 
 import { newApartment } from '@/app/type/type'
 import { addPictureJfObject } from '@/app/services/addPictureJfObject'
+import { addNewApartServes } from '@/app/services/addnewApartService'
 
 const FinishBtn = () => {
 	const { t } = useTranslation()
