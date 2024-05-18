@@ -36,6 +36,7 @@ export const addNewApartServes = async (newApart: newApartment) => {
 		if (url) {
 			const res = await fetch(url, {
 				method: 'POST',
+				cache: 'no-store',
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -56,7 +57,7 @@ const initData = (newApart: newApartment): TransferData => {
 	const picture: Picture[] = newApart.picturesName.map(item => {
 		return {
 			PictureName: item,
-			PictureUrl: `https://roombi.space/objectPicture/${item}`,
+			PictureUrl: `${item}`,
 		}
 	})
 

@@ -417,5 +417,11 @@
 	"carbonMonoxideDetector": "Детектор чадного газу",
 	"smokeDetector": "Детектор диму",
 	"preview_notValid": "Недійсний.",
-	"preview_newApartmentAddNotValid": "Об'єкт не додано! Заповнені не всі обов'язкові поля"
+	"preview_newApartmentAddNotValid": "Об'єкт не додано! Заповнені не всі обов'язкові поля",
+	"userApartments_LessorsOffice": "Кабінет орендодавця",
+	"modalDialogDelete_question": "Ви дійсно хочете видалити ",
+	"modalDialogDelete_yes": "Так",
+	"modalDialogDelete_no": "Ні",
+	"userApartments_add": "Додати",
+	"userApartments_price": "Ціна за ніч"
 }

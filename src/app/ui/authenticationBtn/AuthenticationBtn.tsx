@@ -114,7 +114,9 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 					{role !== null && !role ? (
 						<Dropdown.Item href={'/becomeAHost'}>{t('offerrom')}</Dropdown.Item>
 					) : (
-						<Dropdown.Item href='#'>Кабинет</Dropdown.Item>
+						<Dropdown.Item href={'/userApartments'}>
+							{t('userApartments_LessorsOffice')}
+						</Dropdown.Item>
 					)}
 
 					<Dropdown.Item href='#'>{t('helpcenter')}</Dropdown.Item>
