@@ -1,4 +1,4 @@
-import { OfferedAmenitiesDTO, newApartment } from '../type/type'
+import { OfferedAmenities, newApartment } from '../type/type'
 interface Picture {
 	PictureName: string
 	PictureUrl: string
@@ -23,7 +23,7 @@ interface TransferData {
 	city: string
 	cityPlaceId: number
 	countryCode: string
-	OfferedAmenities: OfferedAmenitiesDTO
+	OfferedAmenities: OfferedAmenities
 }
 
 export const addNewApartServes = async (newApart: newApartment) => {
@@ -61,7 +61,7 @@ const initData = (newApart: newApartment): TransferData => {
 		}
 	})
 
-	const amenities: OfferedAmenitiesDTO = {
+	const amenities: OfferedAmenities = {
 		id: 0,
 		wiFi: newApart.offeredAmenities.wiFi,
 		tV: newApart.offeredAmenities.tV,
