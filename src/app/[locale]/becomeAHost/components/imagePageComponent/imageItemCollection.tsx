@@ -1,10 +1,9 @@
 'use client'
-import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
-import React, { useEffect } from 'react'
+import { useAppSelector } from '@/app/redux/hook'
+import React from 'react'
 import PreviewAddedPictureComponent from './previewAddedPictureComponent'
 import AddPictureComponent from './addPictureComponent'
 import style from './imagePageComponent.module.css'
-import { setPhotoName } from '@/app/redux/addNewApartmentState/addNewApartmentSlice'
 const ImageItemCollection = () => {
 	const picturesNameState = useAppSelector(
 		state => state.newApartmentReducer.picturesName
@@ -26,10 +25,18 @@ const ImageItemCollection = () => {
 				Array(5 - picturesFileState.length)
 					.fill(null)
 					.map((_, index) => (
-						<AddPictureComponent key={picturesFileState.length + index} />
+						<AddPictureComponent
+							key={picturesFileState.length + index}
+							index={index}
+							picturesNameLength={picturesNameState.length}
+						/>
 					))
 			) : (
-				<AddPictureComponent key={0} />
+				<AddPictureComponent
+					key={0}
+					index={0}
+					picturesNameLength={picturesNameState.length}
+				/>
 			)}
 		</div>
 	)

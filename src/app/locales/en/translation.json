@@ -362,6 +362,7 @@
 	"safety": "Mark the safety features",
 	"imageHeaderText": "Add a photo of the property",
 	"addPicture": "Add picture",
+	"addPicture_MainFoto": "Main photo",
 	"imageSubHeader": "Add at least five photos",
 	"descriptionHeaderText": "Add information about your property",
 	"titleSubHeader": "Add a title",

@@ -54,7 +54,13 @@ export const addNewApartServes = async (newApart: newApartment) => {
 	}
 }
 const initData = (newApart: newApartment): TransferData => {
-	const picture: Picture[] = newApart.picturesName.map(item => {
+	const picture: Picture[] = newApart.picturesName.map((item, index) => {
+		if (index === 1) {
+			return {
+				PictureName: 'bedroom',
+				PictureUrl: `${item}`,
+			}
+		}
 		return {
 			PictureName: item,
 			PictureUrl: `${item}`,
