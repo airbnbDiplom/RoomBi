@@ -18,7 +18,7 @@ const apartmentVariant: ApartmentsVariant[] = [
 		title: 'fullApartment',
 		subTitle: 'fullApartmentSubtitle',
 		imgPath: '/icon/fullHouse.svg',
-		ukName: 'Все житло',
+		ukName: 'Ціле помешкання',
 	},
 	{
 		id: 2,
@@ -32,7 +32,7 @@ const apartmentVariant: ApartmentsVariant[] = [
 		title: 'commonRoom',
 		subTitle: 'commonRoomSubTitle',
 		imgPath: '/icon/commonRoom.svg',
-		ukName: 'Спільна кімната',
+		ukName: 'Будь-який',
 	},
 ]
 

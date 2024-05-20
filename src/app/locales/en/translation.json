@@ -362,6 +362,7 @@
 	"safety": "Mark the safety features",
 	"imageHeaderText": "Add a photo of the property",
 	"addPicture": "Add picture",
+	"addPicture_MainFoto": "Main photo",
 	"imageSubHeader": "Add at least five photos",
 	"descriptionHeaderText": "Add information about your property",
 	"titleSubHeader": "Add a title",
@@ -420,5 +421,11 @@
 	"whatHostsSay": "what hosts say",
 	"announcements": "Announcements",
 	"preview_notValid": "Not valid",
-	"preview_newApartmentAddNotValid": "The object was not added! Not all mandatory fields are filled in"
+	"preview_newApartmentAddNotValid": "The object was not added! Not all mandatory fields are filled in",
+	"userApartments_LessorsOffice": "Lessor's office",
+	"modalDialogDelete_question": "Do you really want to delete ",
+	"modalDialogDelete_yes": "Yes",
+	"modalDialogDelete_no": "No",
+	"userApartments_add": "Add",
+	"userApartments_price": "Price for night"
 }

@@ -1,0 +1,224 @@
+.apartListContainer,
+.userInfoContainer {
+	height: 100%;
+	padding: 15px;
+}
+.apartListContainer {
+	width: 80%;
+}
+.apartListContainer::after {
+	content: '';
+	/* background: rgb(10, 10, 10); */
+	position: absolute;
+	top: 50%;
+	left: 80%;
+	height: 99%;
+	border: 1px solid black;
+	border-radius: 5px;
+	width: 7px;
+	box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+	transform: translateY(-50%); /* Shift the element up by half of its height */
+}
+.addNewBtnContainer {
+	width: 100%;
+	display: flex;
+	justify-content: end;
+}
+.addNewApartment > img {
+	margin-left: 5px;
+}
+.avatar {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.avatar img {
+	width: 100%;
+	height: 100%;
+}
+.backBtn,
+.addNewApartment,
+.deleteBtn {
+	text-decoration: none;
+	padding: 5px 10px;
+	background-color: black;
+	border-radius: 15px;
+	color: white;
+	font-size: calc(0.7em + 1vw);
+	font-weight: bold;
+	transition: all 100ms ease;
+}
+.deleteBtn {
+	background-color: rgb(108, 55, 55);
+}
+.loading {
+	position: absolute;
+	top: 50%;
+}
+.itemContainer {
+	width: 100%;
+	padding: 10px;
+	border-top: 1px solid grey;
+}
+.itemContainer:first-child {
+	border-top: none;
+}
+.itemList {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 5vh;
+}
+.itemContentContainer {
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: row;
+}
+.itemDeleteBtnContainer {
+	display: flex;
+	justify-content: end;
+	padding: 15px;
+}
+.itemSmallCarousel {
+	width: 40%;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.carousel {
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 15px;
+	max-width: 350px;
+}
+
+.itemSmallCarousel img {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: cover; /* чтобы изображение сохраняло пропорции */
+	width: auto;
+	height: auto;
+}
+
+.itemSmallInfo {
+	width: 60%;
+	padding: 15px;
+	text-wrap: wrap;
+	word-wrap: break-word;
+}
+.itemSmallInfo p {
+	font-size: calc(1.5rem + 1vw);
+	font-weight: 500;
+}
+
+.itemSmallInfo h1 {
+	font-size: calc(2vw + 2em);
+	font-weight: 700;
+}
+.itemSmallInfo span {
+	font-size: calc(1vw + 1em);
+	font-weight: 600;
+}
+.userInfoContainer {
+	height: 100vh;
+	width: 20%;
+	padding-top: 15px;
+	position: sticky;
+	top: 0;
+}
+.userCard {
+	width: 100%;
+	border: 1px solid rgb(0, 0, 0);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding: 15px;
+	border-radius: 15px;
+	background-color: rgb(243, 241, 238);
+	box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+}
+.userData {
+	width: 100%;
+	margin-top: 10px;
+}
+.userCard p {
+	font-weight: 500;
+	width: 100%;
+	word-wrap: break-word;
+	font-size: 1em;
+}
+.wrapper {
+	position: relative;
+	width: 100%;
+	min-height: 100vh;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	background-color: white;
+}
+@media (max-width: 992px) {
+	.wrapper {
+		flex-direction: column;
+	}
+	.apartListContainer,
+	.userInfoContainer {
+		width: 100%;
+	}
+	.userInfoContainer {
+		height: auto;
+	}
+	.apartListContainer {
+		height: 80%;
+	}
+	.apartListContainer::after {
+		top: auto;
+		height: 5px;
+		width: 90%;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+	}
+	.itemContainer {
+		margin: 0 15px;
+	}
+
+	.userInfoContainer {
+		order: 1;
+		position: relative;
+	}
+	.apartListContainer {
+		order: 2;
+	}
+}
+@media (hover: hover) {
+	.backBtn:hover,
+	.addNewApartment:hover {
+		background-color: rgb(95, 95, 95);
+	}
+	.deleteBtn:hover {
+		background-color: rgb(150, 79, 79);
+	}
+	.itemContentContainer:hover {
+		background-color: rgb(229, 231, 233);
+		cursor: pointer;
+	}
+}
+@media (hover: none) {
+	.backBtn:active,
+	.addNewApartment:hover {
+		background-color: rgb(95, 95, 95);
+	}
+	.deleteBtn:active {
+		background-color: rgb(150, 79, 79);
+	}
+	.itemContentContainer:hover {
+		background-color: rgb(229, 231, 233);
+	}
+}

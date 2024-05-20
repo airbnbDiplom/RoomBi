@@ -442,29 +442,25 @@ abbr[title] {
 	background: black !important;
 }
 
-
 /*                         -------        ------Вертикальний скролбар------      ------                            */
 /* Вертикальний скролбар */
 ::-webkit-scrollbar {
 	width: 5px; /* Ширина скролбара */
-  }
-  
-  /* Курсор при наведенні на скролбар */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Курсор при наведенні на скролбар */
+::-webkit-scrollbar-thumb {
 	background-color: #1900d8; /* Колір скролбара */
 	border-radius: 5px; /* Округлість скролбара */
-  }
-  
-  /* Курсор при наведенні на скролбар */
-  ::-webkit-scrollbar-thumb:hover {
+}
+
+/* Курсор при наведенні на скролбар */
+::-webkit-scrollbar-thumb:hover {
 	background-color: #06465f; /* Колір скролбара при наведенні */
-  }
-  
-  
-  
-  /* Круглий скролбар */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Круглий скролбар */
+::-webkit-scrollbar-thumb {
 	background-color: #161617;
 	border-radius: 50px; /* Зробити скролбар круглим */
-  }
-  
+}

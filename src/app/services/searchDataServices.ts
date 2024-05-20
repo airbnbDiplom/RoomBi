@@ -10,8 +10,8 @@ const searchDataService = async (
 	page = 1,
 	pageSize = 8
 ) => {
-	const urlSearch = 'https://localhost:7158//api/DataSearchForSorting/sort'
-	//process.env.NEXT_GET_SEARCH_DATA
+	const urlSearch = process.env.NEXT_GET_SEARCH_DATA
+	// ;('https://localhost:7158/api/DataSearchForSorting/sort')
 
 	if (urlSearch === undefined) return null
 	try {
@@ -19,6 +19,7 @@ const searchDataService = async (
 		console.log('page', page)
 		console.log('pageSize', pageSize)
 		console.log('urlSearch', urlSearch)
+		console.log('data', data)
 		const response = await fetch(
 			`${urlSearch}?page=${page}&pageSize=${pageSize}`,
 			{

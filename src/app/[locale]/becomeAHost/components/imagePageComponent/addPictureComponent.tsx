@@ -9,7 +9,14 @@ import {
 	setPhotoFile,
 	setPhotoName,
 } from '@/app/redux/addNewApartmentState/addNewApartmentSlice'
-const AddPictureComponent = () => {
+
+const AddPictureComponent = ({
+	index,
+	picturesNameLength,
+}: {
+	index: number
+	picturesNameLength: number
+}) => {
 	const { t } = useTranslation()
 	const dispatch = useAppDispatch()
 	const addPictureHandler = (
@@ -17,6 +24,7 @@ const AddPictureComponent = () => {
 	) => {
 		inputFileRef.current?.click()
 	}
+	console.log(index)
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0]
 		if (file) {
@@ -56,7 +64,11 @@ const AddPictureComponent = () => {
 				width={50}
 				height={50}
 			/>
-			<p>{t('addPicture')}</p>
+			<p>
+				{t('addPicture')}{' '}
+				{picturesNameLength === 1 && index === 0 && t('bedroom')}
+				{picturesNameLength === 0 && index === 0 && t('addPicture_MainFoto')}
+			</p>
 		</div>
 	)
 }

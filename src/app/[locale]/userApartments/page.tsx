@@ -2,7 +2,9 @@ import { HomeParams } from '@/app/type/type'
 import React from 'react'
 import initTranslations from '@/app/i18n'
 import TranslationsProvider from '@/app/configs/TranslationsProvider'
-
+import ApartmentsList from './components/apartmentsList'
+import UserInfo from './components/userInfo'
+import style from './userApartments.module.css'
 const i18nNamespaces = ['translation']
 
 export default async function SearchDataView({
@@ -18,7 +20,10 @@ export default async function SearchDataView({
 			locale={locale}
 			resources={resources}
 		>
-			<div></div>
+			<div className={style.wrapper}>
+				<ApartmentsList />
+				<UserInfo />
+			</div>
 		</TranslationsProvider>
 	)
 }

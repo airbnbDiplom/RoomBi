@@ -240,7 +240,38 @@ export interface OfferedAmenitiesDTO {
 	description: string // Описание
 	[key: string]: boolean | string | number
 }
-
+export interface OfferedAmenities {
+	id: number
+	wiFi: boolean // Наличие WiFi
+	tV: boolean // Наличие телевизора
+	kitchen: boolean // Наличие кухни
+	washingMachine: boolean // Наличие стиральной машины
+	freeParking: boolean // Бесплатная парковка
+	paidParking: boolean // Платная парковка
+	airConditioner: boolean // Наличие кондиционера
+	workspace: boolean // Наличие рабочей зоны
+	specialFeatures: string // Особенные характеристики
+	pool: boolean // Наличие бассейна
+	jacuzzi: boolean // Наличие джакузи
+	innerYard: boolean // Наличие внутреннего двора
+	bBQArea: boolean // Наличие зоны для барбекю
+	outdoorDiningArea: boolean // Наличие обеденной зоны на улице
+	firePit: boolean // Наличие костровища
+	poolTable: boolean // Наличие стола для игры в бильярд
+	fireplace: boolean // Наличие камина
+	piano: boolean // Наличие пианино
+	gymEquipment: boolean // Наличие тренажеров
+	lakeAccess: boolean // Доступ к озеру
+	beachAccess: boolean // Доступ к пляжу
+	skiInOut: boolean // Доступ к лыжным трассам
+	outdoorShower: boolean // Наличие уличного душа
+	smokeDetector: boolean // Наличие датчика дыма
+	firstAidKit: boolean // Наличие аптечки
+	fireExtinguisher: boolean // Наличие огнетушителя
+	carbonMonoxideDetector: boolean // Наличие датчика угарного газа
+	description: string // Описание
+	[key: string]: boolean | string | number
+}
 export interface BookingForApartmentPageDTO {
 	checkInDate: Date // Дата заезда
 	checkOutDate: Date // Дата выезда

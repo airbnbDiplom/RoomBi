@@ -1,4 +1,4 @@
-import { OfferedAmenitiesDTO, newApartment } from '../type/type'
+import { OfferedAmenities, newApartment } from '../type/type'
 interface Picture {
 	PictureName: string
 	PictureUrl: string
@@ -23,7 +23,7 @@ interface TransferData {
 	city: string
 	cityPlaceId: number
 	countryCode: string
-	OfferedAmenities: OfferedAmenitiesDTO
+	OfferedAmenities: OfferedAmenities
 }
 
 export const addNewApartServes = async (newApart: newApartment) => {
@@ -36,6 +36,7 @@ export const addNewApartServes = async (newApart: newApartment) => {
 		if (url) {
 			const res = await fetch(url, {
 				method: 'POST',
+				cache: 'no-store',
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -53,14 +54,20 @@ export const addNewApartServes = async (newApart: newApartment) => {
 	}
 }
 const initData = (newApart: newApartment): TransferData => {
-	const picture: Picture[] = newApart.picturesName.map(item => {
+	const picture: Picture[] = newApart.picturesName.map((item, index) => {
+		if (index === 1) {
+			return {
+				PictureName: 'bedroom',
+				PictureUrl: `${item}`,
+			}
+		}
 		return {
 			PictureName: item,
-			PictureUrl: `https://roombi.space/objectPicture/${item}`,
+			PictureUrl: `${item}`,
 		}
 	})
 
-	const amenities: OfferedAmenitiesDTO = {
+	const amenities: OfferedAmenities = {
 		id: 0,
 		wiFi: newApart.offeredAmenities.wiFi,
 		tV: newApart.offeredAmenities.tV,
