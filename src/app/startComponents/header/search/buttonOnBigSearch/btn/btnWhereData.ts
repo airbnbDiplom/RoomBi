@@ -14,7 +14,7 @@ export const btnDataArray: btnDataI[] = [
 	},
 	{
 		value: 'Румунія',
-		imgSrc: '/searchimg/84bdf81ae143.webp ',
+		imgSrc: '/searchimg/rum.webp',
 	},
 	{
 		value: 'Італия',
