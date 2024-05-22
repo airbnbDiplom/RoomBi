@@ -83,7 +83,7 @@
   
     .card {
       flex-basis: 100%;
-      width: 530px;
+      width: auto;
     } 
   }
 

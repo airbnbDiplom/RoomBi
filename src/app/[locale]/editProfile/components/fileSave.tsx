@@ -22,12 +22,7 @@ const FileTest = () => {
 
   const sub = async () => {
     const res = await saveFoto(fileData);
-    console.log("res 3", res);
   };
-
-  useEffect(() => {
-    console.log("Component mounted on the client");
-  }, []);
 
   return (
     <div>

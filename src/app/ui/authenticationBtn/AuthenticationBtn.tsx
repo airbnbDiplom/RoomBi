@@ -112,7 +112,14 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				<Dropdown.Menu className={style.itemFont}>
 					<Dropdown.Item href='/accountPage'>{t('Account')} </Dropdown.Item>
 					{role !== null && !role ? (
-						<Dropdown.Item href={'/becomeAHost'}>{t('offerrom')}</Dropdown.Item>
+						<>
+							<Dropdown.Item href={'/becomeAHost'}>
+								{t('offerrom')}
+							</Dropdown.Item>
+							<Dropdown.Item href={'/rentalHistory'}>
+								{t('rentalHistory')}
+							</Dropdown.Item>
+						</>
 					) : (
 						<Dropdown.Item href={'/userApartments'}>
 							{t('userApartments_LessorsOffice')}

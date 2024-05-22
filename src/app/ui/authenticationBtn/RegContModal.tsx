@@ -144,7 +144,6 @@ const RegContModal: React.FC<RegContModalProps> = ({
       }
       return true;
     };
-    console.log(date);
     if (!validateDate(date)) {
       return;
     }
@@ -165,7 +164,6 @@ const RegContModal: React.FC<RegContModalProps> = ({
     };
 
     try {
-      console.log(user);
       const res = await signIn("credentials", {
         ...user,
         redirect: false,

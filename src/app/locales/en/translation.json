@@ -176,7 +176,6 @@
 	"txt1CM": "About the house",
 	"txt2CM": "Message",
 	"txt3CM": "Send",
-
 	"txtFB11": "WiFi",
 	"txtFB12": "TV",
 	"txtFB13": "Kitchen",
@@ -208,7 +207,6 @@
 	"txtFB_2": "Characteristics",
 	"txtFB_3": "Location",
 	"txtFB_4": "Safety",
-
 	"txtFB_L0": "Host language",
 	"txtFB_L1": "English",
 	"txtFB_L2": "Ukrainian",
@@ -222,7 +220,6 @@
 	"txtFB_L10": "Arabic",
 	"txtFB_L11": "Turkish",
 	"txtFB_L12": "Finnish",
-
 	"txtFB_TH0": "Type of housing",
 	"txtFB_TH1": "Rooms",
 	"txtFB_TH2": "Houses",
@@ -231,7 +228,6 @@
 	"txtFB_TH5": "Details",
 	"searchSpinnerMessage": "Start search according to your request...",
 	"searchNoResult": "No results were found for your request",
-
 	"geminiBtnWeather": "View the weather for the selected dates",
 	"weatherForSelectedDates": "Weather for selected dates.",
 	"updatingData": "Updating data...",
@@ -323,7 +319,6 @@
 	"timeToFillProfile": "It's time to fill out the profile",
 	"profileOnRoombi": "Profile on Roombi is an important element of any booking. Tell about yourself. It's important to other guests and hosts.",
 	"createProfile": "Create profile",
-
 	"exit": "Exit",
 	"gratings": "Welcome to RoomBi",
 	"let'sStart": "Let's add your first home",
@@ -384,7 +379,6 @@
 	"washingMachine": "Washing machine",
 	"airConditioner": "Conditioner",
 	"workspace": "Workspace",
-
 	"extinguisher": "Extinguisher",
 	"freeParking": "Free parking",
 	"paidParking": "Paid parking",
@@ -404,7 +398,6 @@
 	"skiInOut": "Skiing",
 	"carbonMonoxideDetector": "Carbon monoxide detector",
 	"smokeDetector": "Smoke detector",
-
 	"guest": "Guest",
 	"onRoomBiSite": "on RoomBi site",
 	"editProfile": "Edit profile",
@@ -428,4 +421,30 @@
 	"modalDialogDelete_no": "No",
 	"userApartments_add": "Add",
 	"userApartments_price": "Price for night"
+	"announcements": "Announcements",
+	"rentalHistory": "Rental History",
+	"checkIn": "Check-in:",
+	"checkOut": "Check-out:",
+	"leaveReview": "Leave a review",
+	"close": "Close",
+	"addReview": "Add review",
+	"rate": "Rate:",
+	"leaveReviews": "Leave a review:",
+	"charactersLeft": "Characters left: ",
+	"errorFillComment": "Please fill in the review: ",
+	"errorFillRating": "Please fill in the rating: ",
+	"countrys": "Country: ",
+  	"totalPrice": "Total Price: ",
+	"noRentalsFound": "No rentals found",
+  "viewRentalHistory": "View your rental history",
+  "profilePage": "Profile Page",
+  "goToProfile": "Go to profile",
+  "bornIn60s": "Born in the 60s",
+  "bornIn70s": "Born in the 70s",
+  "bornIn80s": "Born in the 80s",
+  "bornIn00s": "Born in the 00s",
+  "bornIn10s": "Born in the 10s",
+  "bornIn20s": "Born in the 20s",
+  "bornInOther": "Born in other years",
+  "noReviews": "No reviews yet"
 }

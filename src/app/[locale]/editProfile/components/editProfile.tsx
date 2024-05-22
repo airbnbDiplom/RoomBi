@@ -27,6 +27,7 @@ import { getProfile } from '@/app/services/GetProfileService';
 import { delAvatar } from '@/app/services/delPhotoService';
 import { signIn } from 'next-auth/react';
 import { useTranslation } from 'react-i18next';
+
 class Profile {
   [key: string]: string | ((profileData: Partial<Profile>) => Promise<void>) | undefined;
   schoolYears?: string; // Где прошли мои школьные годы
@@ -55,7 +56,6 @@ class Profile {
     Object.assign(this, profileData);
   }
   async saveProfile() {
-    console.log('this', this);
     await createProfile(this, this.token);
   }
 }
@@ -108,7 +108,6 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
 
     if (input.files != null && input.files.length > 0) {
       const selectedFile = input.files[0];
-      console.log("selectedFile", selectedFile);
       if (selectedFile) {
         let updatedFileData = new FormData();
         updatedFileData.append("upload", selectedFile);
@@ -145,11 +144,9 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
         Email: userDetails?.email,
         ProfilePicture: saveFotoResponse.file_name,
       };
-      console.log("updatedUser", updatedUser);
 
       try {
         const response = await updateUser(updatedUser, token);
-        console.log(response);
         if (response?.token && response.refreshToken) {
           const { token, refreshToken } = response;
           await signIn(
@@ -169,7 +166,6 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
         console.error("Error updating user:", error);
       }
     }
-    console.log("res 3", saveFotoResponse);
   };
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -212,7 +208,6 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setInputValue(event.target.value);
     setInputLength(event.target.value.length);
-    console.log('inputValue', inputValue);
   };
   const openModalWithContent = (title: string, message: string, inputLabel: string, maxLength: number, initialValue: string) => () => {
     setTitle(title);
@@ -230,9 +225,6 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
   function handleSave(event: React.MouseEvent<HTMLButtonElement>) {
     const value = inputValue;
     const value2 = switchState;
-    console.log("inputValue", inputValue);
-    console.log('value', value);
-    console.log('value2', value2);
     switch (title) {
       case t('whereDidYouStudy'):
         setSchoolYears(value);
@@ -312,14 +304,18 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
         profile.saveProfile();
         break;
       case t('yourBirthTime'):
-        setGeneration(value2);
+        if (value2 === "On") {
+          setGeneration("On");
+        } else if (value2 === "Off") {
+          setGeneration("");
+        }
         profile.updateProfile({
           schoolYears: schoolYears,
           pets: pets,
           job: job,
           myLocation: location,
           myLanguages: languages,
-          generation: value,
+          generation: value2,
           favoriteSchoolSong: favoriteSong,
           passion: passion,
           interestingFact: fact,
@@ -503,11 +499,9 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
           ProfilePicture: "no",
         };
         const updateResponse = await updateUser(updatedUser, token);
-        console.log("updateResponse", updateResponse);
         if (updateResponse) {
           const delResponse = await delAvatar(userDetails.profilePicture);
           if (delResponse.status === 'File deleted successfully') {
-            console.log('Avatar deleted successfully');
           } else {
             console.error('Failed to delete avatar:', delResponse.error);
           }
@@ -586,7 +580,25 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
     Country: '',
   });
   const userDetails = decodeTokenAndGetUserDetails(token);
-
+  const birthDate = new Date(userDetails?.dateOfBirth || '');
+  const birthYear = birthDate.getFullYear();
+  let generationText = t('bornInOther');
+  
+  if (birthYear >= 1957 && birthYear < 1967) {
+    generationText = t('bornIn60s');
+  } else if (birthYear >= 1967 && birthYear < 1977) {
+    generationText = t('bornIn70s');
+  } else if (birthYear >= 1977 && birthYear < 1987) {
+    generationText = t('bornIn80s');
+  } else if (birthYear >= 1987 && birthYear < 1997) {
+    generationText = t('bornIn90s');
+  } else if (birthYear >= 1997 && birthYear < 2007) {
+    generationText = t('bornIn00s');
+  } else if (birthYear >= 2007 && birthYear < 2017) {
+    generationText = t('bornIn10s');
+  } else if (birthYear >= 2017) {
+    generationText = t('bornIn20s');
+  }
   return (
     <div className={styles.container1}>
       <div className={styles.leftBlock1}>
@@ -685,9 +697,9 @@ const EditProfile: React.FC<EditProfileProps> = ({ locale }) => {
         )}>
           <GenderFemale className={styles.icon} />
           <div className={styles.textContainer}>
-            {t('myGeneration')}{generation !== "" && ":"}
-            {generation !== "" && <p>{generation}</p>}
-          </div>
+  {t('myGeneration')}{generation !== "" && ":"}
+  {generation !== "" && <p>{generationText}</p>}
+</div>
         </div>
         <div className={styles.cell1} onClick={openModalWithContent(
           t("favoriteSchoolSong"),

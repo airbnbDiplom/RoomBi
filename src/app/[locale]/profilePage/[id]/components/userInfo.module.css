@@ -14,7 +14,9 @@
 .item {
   margin: 0 20px;
 }
-
+.slick-next:before, .slick-prev:before {
+  display: none !important;
+}
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -27,6 +29,7 @@
   word-break: break-word;
   overflow-wrap: break-word;
   padding-bottom: 540px;
+  max-width: 1900px;
 }
 
 .myClassLeft {
@@ -147,9 +150,7 @@
 
 .cardAp a {
   color: inherit;
-  /* Make the color of the link the same as the color of the text */
   text-decoration: none;
-  /* Remove the underline from the link */
 }
 
 .pad {
@@ -200,7 +201,6 @@
   grid-column: 1;
   grid-row: 1;
   margin-top: 0px;
-  /* Изменено здесь */
   margin-left: 30%;
   min-width: 350px;
   max-width: 400px;
@@ -219,14 +219,12 @@
   grid-row: 2;
   align-self: start;
   padding-top: 0px;
-  /* Изменено здесь */
   max-width: 300px;
   max-height: 400px;
 }
 
 .topMarginLine2 {
   margin-top: 0px;
-  /* Изменено здесь */
   border-top: 1px solid lightgray;
 }
 
@@ -294,6 +292,10 @@
     border-radius: 5px;
     background-color: #f9f9f9;
   }
+  
+  /* .slick-next, .slick-prev {
+    z-index: 1 !important;
+  } */
 
   .commentHeader {
     display: flex;

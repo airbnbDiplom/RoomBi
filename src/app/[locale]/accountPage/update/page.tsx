@@ -68,7 +68,6 @@ export default function UpdateUser({
       const token = session?.user?.name;
 
       const userDetails = decodeTokenAndGetUserDetails(token || '');
-      console.log('userDetails', userDetails);
       if (userDetails) {
         setFirstName(userDetails.firstName);
         setLastName(userDetails.lastName);

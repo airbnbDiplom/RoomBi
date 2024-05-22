@@ -131,26 +131,30 @@ export const authConfig = {
 	],
 	callbacks: {
 		async jwt({ token, user, account, profile, isNewUser }) {
-			const isTokenExpired = checkTokenExpiration(token.name)
-			if (isTokenExpired) {
-				const authenticationResponseDTO = {
-					token: token.name,
-					refreshToken: token.email,
-				}
-				const newToken = await refreshToken(authenticationResponseDTO)
-				if (newToken) {
-					token.name = newToken.responseData.token
-					token.email = newToken.responseData.refreshToken
-				}
-			}
+			// const isTokenExpired = checkTokenExpiration(token.name)
+			// console.log('resfresh', token.email)
+			// if (isTokenExpired) {
+			// 	const authenticationResponseDTO = {
+			// 		token: token.name,
+			// 		refreshToken: token.email,
+			// 	}
+			// 	const newToken = await refreshToken(authenticationResponseDTO)
+			// 	console.log('newToken', newToken)
+			// 	if (newToken) {
+			// 		token.name = newToken.responseData.token
+			// 		token.email = newToken.responseData.refreshToken
+			// 	}
+			// 	console.log('resfresh', token.email)
+			// }
 			return token
 		},
 		async session({ session, user, token }) {
-			if (token.email && token.name) {
-				session.user.name = token.name
-				session.user.email = token.email
-				session.user.image = 'not google'
-			}
+			// if (token.email && token.name) {
+			// 	console.log('resfresh', token.email)
+			// 	session.user.name = token.name
+			// 	session.user.email = token.email
+			// 	session.user.image = 'not google'
+			// }
 			if (session.user.image !== 'not google') {
 				const requestUser = new RequestUser(
 					session.user.email,

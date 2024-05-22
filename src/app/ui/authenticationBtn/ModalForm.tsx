@@ -152,8 +152,6 @@ const ModalForm: React.FC<ModalFormProps> = ({
 			type: type,
 		}
 
-		console.log(user)
-
 		try {
 			const res: string | SignInResponse | undefined = await signIn(
 				'credentials',
@@ -164,11 +162,8 @@ const ModalForm: React.FC<ModalFormProps> = ({
 					redirect: false,
 				}
 			)
-			console.log(res?.status, res?.error)
 
 			if (res?.error === 'Ok') {
-				console.log('Response is a string: ', res.error)
-				console.log('OK - ', res)
 				handleClose()
 				setShowNewModal(true)
 				setServerError('')
@@ -358,33 +353,33 @@ const ModalForm: React.FC<ModalFormProps> = ({
 								{t('continue')}
 							</Button>
 						</Form>
-						<div
-							style={{
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'center',
-							}}
-						>
-							<hr style={{ flex: 1 }} />
-							<p style={{ margin: '0 10px' }} className={styles.itemFont}>
-								{t('or')}
-							</p>
-							<hr style={{ flex: 1 }} />
-						</div>
-						<Button
-							variant='outline-dark'
-							className={`google-button ${styles.googleButton} ${styles.itemFont}`}
-							onClick={handleSignIn}
-						>
-							<Image
-								priority
-								src='/icon/google.svg'
-								width={18}
-								height={18}
-								alt='google icon'
-							/>
-							{t('continueWithGoogle')}
-						</Button>
+						{/* <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <hr style={{ flex: 1 }} />
+              <p style={{ margin: "0 10px" }} className={styles.itemFont}>
+                {t("or")}
+              </p>
+              <hr style={{ flex: 1 }} />
+            </div>
+            <Button
+              variant="outline-dark"
+              className={`google-button ${styles.googleButton} ${styles.itemFont}`}
+              onClick={handleSignIn}
+            >
+              <Image
+                priority
+                src="/icon/google.svg"
+                width={18}
+                height={18}
+                alt="google icon"
+              />
+              {t("continueWithGoogle")}
+            </Button> */}
 						{/* <button onClick={() => signOut()}>signOut</button> */}
 					</>
 				</Modal.Body>
