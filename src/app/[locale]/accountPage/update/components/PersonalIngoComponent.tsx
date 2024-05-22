@@ -129,7 +129,6 @@ const PersonalInfoComponent: React.FC<PersonalInfoComponentProps> = ({ userToken
 
         try {
             const response = await updateUser(updatedUser, userToken);
-            console.log(response);
             if (response?.token && response.refreshToken) {
                 const { token, refreshToken } = response;
                 await signIn(
@@ -244,17 +243,17 @@ const PersonalInfoComponent: React.FC<PersonalInfoComponentProps> = ({ userToken
     }, []);
     const { t } = useTranslation();
     return (<div className={`${styles.contentContainer} ${styles.itemFont}`}>
-        <div className={styles.innerContainer} style={{ position: 'relative', minWidth: '530px' }}>
+      <div className={`${styles.innerContainer} ${styles.relativePositionMinWidth}`}>
             <div style={{ display: 'flex', alignItems: 'center', fontSize: '14px', justifyContent: 'flex-start' }}>
                 <a href="/accountPage" style={{ color: 'black' }}>{t('Account')}</a> <ChevronRight style={{ margin: '0 1em' }} /> {t('personalInfo')}
             </div>
             <h2 style={{ marginTop: '15px', marginBottom: '50px' }}> {t('personalInfo')} </h2>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }} >
+            <div className={styles.flexJustifySpaceBetween}>
                 <div>
                     <div className={`${styles.infoSection} ${styles.infoSectionCustom} `} style={{ color: isEditing && isEditing !== 'name' ? 'lightgray' : 'black' }}>
-                        <div style={{ fontSize: '20px' }}>{t('documentName')} </div>
+                    <div className={styles.fontSize20px}>{t('documentName')}</div>
                         {isEditing === 'name' ? (
-                            <div style={{ fontSize: '13px' }}>
+                                <div className={styles.fontSize13px}>
                                 <p>{t('documentNameDescription')} </p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                                     <Form.Floating className="mb-3" style={{ width: '50%', marginRight: '2%' }}>

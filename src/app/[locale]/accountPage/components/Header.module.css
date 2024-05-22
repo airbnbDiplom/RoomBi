@@ -70,7 +70,7 @@
 @media (max-width: 600px) {
 	.header {
 		padding-left: 20px;
-		width: 530px;
+		width: auto;
 	  display: flex;
 	  justify-content: space-between;
 	  align-items: center;

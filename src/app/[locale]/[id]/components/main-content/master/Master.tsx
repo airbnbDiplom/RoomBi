@@ -3,6 +3,7 @@ import { MasterForApartmentPage } from "@/app/type/type";
 import style from "./master.module.css";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
+import Link from 'next/link';
 const Master: React.FC<{ data: MasterForApartmentPage }> = ({
   data,
 }: {
@@ -12,6 +13,7 @@ const Master: React.FC<{ data: MasterForApartmentPage }> = ({
   return (
     <div className={style.container}>
       <div>
+      <Link href={`/profilePage/${data.id}`}>
         <Image
           className={style.img}
           src={`https://roombi.space/Avatar/${data.profilePicture}`}
@@ -19,6 +21,7 @@ const Master: React.FC<{ data: MasterForApartmentPage }> = ({
           height={100}
           alt="Picture of the author"
         />
+        </Link>
       </div>
       <div>
         <p>

@@ -47,7 +47,6 @@ const Profile: React.FC<ProfileProps> = ({ locale }) => {
     async function fetchProfile() {
       let token = session?.user?.name || "";
       profile = await getProfile(token);
-      console.log('profile', profile);
       if (profile) {
         setSchoolYears(profile.schoolYears || "");
         setJob(profile.job || "");
@@ -95,7 +94,6 @@ const Profile: React.FC<ProfileProps> = ({ locale }) => {
 
       const token = session?.user?.name;
       const details = decodeTokenAndGetUserDetails(token || '');
-      console.log('details', details);
       let userDetails = { name: '', email: '', yearsOnSite: '' };
 
       if (details) {
@@ -187,7 +185,25 @@ const Profile: React.FC<ProfileProps> = ({ locale }) => {
   }, [loading, session]);
   let token1 = session?.user?.name || "";
   const usDetails = decodeTokenAndGetUserDetails(token1);
-
+  const birthDate = new Date(usDetails?.dateOfBirth || '');
+  const birthYear = birthDate.getFullYear();
+  let generationText = t('bornInOther');
+  
+  if (birthYear >= 1957 && birthYear < 1967) {
+    generationText = t('bornIn60s');
+  } else if (birthYear >= 1967 && birthYear < 1977) {
+    generationText = t('bornIn70s');
+  } else if (birthYear >= 1977 && birthYear < 1987) {
+    generationText = t('bornIn80s');
+  } else if (birthYear >= 1987 && birthYear < 1997) {
+    generationText = t('bornIn90s');
+  } else if (birthYear >= 1997 && birthYear < 2007) {
+    generationText = t('bornIn00s');
+  } else if (birthYear >= 2007 && birthYear < 2017) {
+    generationText = t('bornIn10s');
+  } else if (birthYear >= 2017) {
+    generationText = t('bornIn20s');
+  }
   return (
     <div className={styles['grid-container']}>
       <div className={`${styles.card} ${styles.card1} ${styles.roundedShadow}`}>
@@ -244,7 +260,7 @@ const Profile: React.FC<ProfileProps> = ({ locale }) => {
             {generation !== "" && (
               <div className={styles.pad}>
                 <GenderFemale className={styles.icon1} />
-                {t("whichGeneration")} {generation}
+                {t("whichGeneration")} {generationText}
               </div>
             )}
             {favoriteSong !== "" && (

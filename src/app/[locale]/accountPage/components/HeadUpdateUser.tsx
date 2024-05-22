@@ -23,7 +23,6 @@ const HeaderUpdateUser: FC = () => {
 		const data = sessionStorage.getItem('dataSearch')
 		if (data !== null) {
 			const dataParse = JSON.parse(data)
-			console.log('dataParse', dataParse)
 			dispatch(setState(dataParse))
 			sessionStorage.removeItem('dataSearch')
 		}

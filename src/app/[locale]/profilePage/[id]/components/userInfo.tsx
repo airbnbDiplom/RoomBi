@@ -47,7 +47,7 @@ const NextArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
       style={{ ...style, display: "block", background: "transparent", color: "black", borderRadius: "50%", fontSize: "20px" }}
       onClick={onClick}
     >
-      &#9654;
+      &gt;
     </div>
   );
 };
@@ -60,7 +60,7 @@ const PrevArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
       style={{ ...style, display: "block", background: "transparent", color: "black", borderRadius: "50%", fontSize: "20px" }}
       onClick={onClick}
     >
-      &#9664;
+      &lt;
     </div>
   );
 };
@@ -70,8 +70,8 @@ const settings = {
   speed: 500,
   slidesToShow: 3,
   slidesToScroll: 1,
-  swipe: true, // Enable or disable swiping to change slides
-  touchMove: true, // Enable or disable slide motion with touch
+  swipe: true, 
+  touchMove: true, 
   nextArrow: <NextArrow />,
   prevArrow: <PrevArrow />,
 };
@@ -109,13 +109,9 @@ const UserInfo: React.FC<UserInfoProps> = ({ locale, id }) => {
   useEffect(() => {
     const fetchUser = async () => {
       const userData = await getUser(parseInt(id));
-      console.log('userData', userData);
       const comments = userData?.commentsAboutGuestDTO || [];
-      console.log('comments', comments);
       const rentAp = userData?.rentalApartments || [];
-      console.log('rentAp', rentAp);
-      const pic = userData?.rentalApartments?.map((apartment) => apartment.Pictures).flat() || [];
-      console.log('pic', pic);
+      const pic = userData?.rentalApartments?.map((apartment) => apartment.pictures).flat() || [];
       setPictures(pic);
       setRentalApartments(rentAp);
       setUser(userData || null);
@@ -126,9 +122,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ locale, id }) => {
   }, [id]);
   useEffect(() => {
     if (user) {
-      console.log('user', user);
       setSchoolYears(user.schoolYears || "");
-      console.log('schoolYears', user.schoolYears);
       setJob(user.job || "");
       setLocation(user.myLocation || "");
       setLanguages(user.myLanguages || "");
@@ -146,7 +140,6 @@ const UserInfo: React.FC<UserInfoProps> = ({ locale, id }) => {
       setName(user.name || "");
       setUserStatus(user.userStatus ? t("Arendator") : t("Guest"));
       const registrationDate = user.airbnbRegistrationYear ? new Date(user.airbnbRegistrationYear) : new Date();
-      console.log('registrationDate', registrationDate);
       const now = new Date();
 
       const years = differenceInYears(now, registrationDate);
@@ -214,15 +207,34 @@ const UserInfo: React.FC<UserInfoProps> = ({ locale, id }) => {
         const yearsSite = `${1} ${'day'}`;
         setYearsOnSite(yearsSite || "");
       }
-      console.log('yearsOnSite', yearsOnSite);
     }
 
   }, [user]);
 
+  
   const { t } = useTranslation();
+  const birthDate = new Date(user?.dateOfBirth || '');
+  const birthYear = birthDate.getFullYear();
+  let generationText = t('bornInOther');
+  
+  if (birthYear >= 1957 && birthYear < 1967) {
+    generationText = t('bornIn60s');
+  } else if (birthYear >= 1967 && birthYear < 1977) {
+    generationText = t('bornIn70s');
+  } else if (birthYear >= 1977 && birthYear < 1987) {
+    generationText = t('bornIn80s');
+  } else if (birthYear >= 1987 && birthYear < 1997) {
+    generationText = t('bornIn90s');
+  } else if (birthYear >= 1997 && birthYear < 2007) {
+    generationText = t('bornIn00s');
+  } else if (birthYear >= 2007 && birthYear < 2017) {
+    generationText = t('bornIn10s');
+  } else if (birthYear >= 2017) {
+    generationText = t('bornIn20s');
+  }
 
   if (!user) {
-    return <div>loading...</div>;
+    return <div style={{ textAlign: 'center' }}>loading...</div>;
   }
 
   return (
@@ -245,8 +257,14 @@ const UserInfo: React.FC<UserInfoProps> = ({ locale, id }) => {
           </p>
         </div>
         <div className={`${styles.rightSide} ${styles.centerContent}`}>
-          <div className={styles.rightAlign}>{comments.length}</div>
-          <div className={styles.rightAlign}>{t("reviews")}</div>
+        {comments.length > 0 ? (
+  <>
+    <div className={styles.rightAlign}>{comments.length}</div>
+    <div className={styles.rightAlign}>{t("reviews")}</div>
+  </>
+) : (
+  <div className={styles.rightAlign}>{t("noReviews")}</div>
+)}
           <br />
           <div className={styles.rightAlign}>{yearsOnSite}</div>
           <div className={styles.rightAlign}>{t("onRoomBiSite")}</div>
@@ -254,7 +272,9 @@ const UserInfo: React.FC<UserInfoProps> = ({ locale, id }) => {
       </div>
       <>
         <div className={`${styles.card6}`}>
-          <h3 className={styles.hbold2}>{t("aboutTheHost")} {name}</h3>
+          {(schoolYears || job || location || languages || generation || favoriteSong || passion || fact || skill || biography || activity || about || pets) &&
+            <h3 className={styles.hbold2}>{t("aboutTheHost")} {name}</h3>
+          }
           {schoolYears !== "" && (
             <div className={styles.pad}>
               <Mortarboard className={styles.icon1} />
@@ -282,7 +302,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ locale, id }) => {
           {generation !== "" && (
             <div className={styles.pad}>
               <GenderFemale className={styles.icon1} />
-              {t("whichGeneration")} {generation}
+              {t("whichGeneration")} {generationText}
             </div>
           )}
           {favoriteSong !== "" && (
@@ -332,82 +352,80 @@ const UserInfo: React.FC<UserInfoProps> = ({ locale, id }) => {
               {t("aboutMe")}: {about}
             </div>
           )}
-{comments && comments.length > 0 && (
-  <>
+          {comments && comments.length > 0 && (
+            <>
 
-          <h3 className={styles.hbold}>{name} : {t("whatHostsSay")}</h3>
-          <br />
-          <div>
-          <Carousel>
-              {comments.map((comment) => (
-                <div key={comment.id} className={styles.commentBox}>
-                  <div className={styles.container}>
-                    <div className={styles.blockLeft}>
-                      <Link href={`/profilePage/${comment.masterIdUser}`}>
-                        <Image
-                          className={styles.mainImage}
-                          src={`https://roombi.space/Avatar/${comment.masterAvatar}` || "/userInfo/userInf.svg"}
-                          alt={"avatar"}
-                          width={50}
-                          height={50}
-                          priority
-                        />
-                      </Link>
-                    </div>
-                    <div className={styles.blockRight}>
-                      <p>{comment.masterName}</p>
-                      <p>{new Date(comment.dateComments).toLocaleDateString()}</p>
-                    </div>
-                  </div>
-                  <p>{comment.comment}</p>
-                </div>
-              ))}
-          </Carousel>
-          </div>
-          <>
-            <span className={styles.btn}>
-              <Button variant="light" onClick={handleShow}>
-                {t("btnsHowMoreCommentsStart")} {comments.length}{" "}
-                {t("btnsHowMoreCommentsEnd")}
-              </Button>
-            </span>
-
-            <Modal show={show} onHide={handleClose} size="lg">
-              <Modal.Body>
-                {comments.map((comment) => (
-                  <div key={comment.id} className={styles.item}>
-                    <div>
-
-                      <div key={comment.id} className={styles.commentBox}>
-                        <div className={styles.container}>
-                          <div className={styles.blockLeft}>
-                            <Link href={`/profilePage/${comment.masterIdUser}`}>
-                              <Image
-                                className={styles.mainImage}
-                                src={`https://roombi.space/Avatar/${comment.masterAvatar}` || "/userInfo/userInf.svg"}
-                                alt={"avatar"}
-                                width={50}
-                                height={50}
-                                priority
-                              />
-                            </Link>
-                          </div>
-                          <div className={styles.blockRight}>
-                            <p>{comment.masterName}</p>
-                            <p>{new Date(comment.dateComments).toLocaleDateString()}</p>
-                          </div>
-                        </div>
-                        <p>{comment.comment}</p>
+              <h3 className={styles.hbold}>{name} : {t("whatHostsSay")}</h3>
+              <br />
+              <div>
+                {comments.slice(0, 2).map((comment) => (
+                  <div key={comment.id} className={styles.commentBox}>
+                    <div className={styles.container}>
+                      <div className={styles.blockLeft}>
+                        <Link href={`/profilePage/${comment.masterId}`}>
+                          <Image
+                            className={styles.mainImage}
+                            src={`https://roombi.space/Avatar/${comment.masterAvatar}` || "/userInfo/userInf.svg"}
+                            alt={"avatar"}
+                            width={50}
+                            height={50}
+                            priority
+                          />
+                        </Link>
+                      </div>
+                      <div className={styles.blockRight}>
+                        <p>{comment.masterName}</p>
+                        <p>{new Date(comment.dateComments).toLocaleDateString()}</p>
                       </div>
                     </div>
-                    <span className={styles.br}></span>
+                    <p>{comment.comment}</p>
                   </div>
                 ))}
-              </Modal.Body>
-            </Modal>
-          </>
-          </>
-)}
+              </div>
+              <>
+                <span className={styles.btn}>
+                  <Button variant="light" onClick={handleShow}>
+                    {t("btnsHowMoreCommentsStart")} {comments.length}{" "}
+                    {t("btnsHowMoreCommentsEnd")}
+                  </Button>
+                </span>
+
+                <Modal show={show} onHide={handleClose} size="lg">
+                  <Modal.Body>
+                    {comments.map((comment) => (
+                      <div key={comment.id} className={styles.item}>
+                        <div>
+
+                          <div key={comment.id} className={styles.commentBox}>
+                            <div className={styles.container}>
+                              <div className={styles.blockLeft}>
+                                <Link href={`/profilePage/${comment.masterId}`}>
+                                  <Image
+                                    className={styles.mainImage}
+                                    src={`https://roombi.space/Avatar/${comment.masterAvatar}` || "/userInfo/userInf.svg"}
+                                    alt={"avatar"}
+                                    width={50}
+                                    height={50}
+                                    priority
+                                  />
+                                </Link>
+                              </div>
+                              <div className={styles.blockRight}>
+                                <p>{comment.masterName}</p>
+                                <p>{new Date(comment.dateComments).toLocaleDateString()}</p>
+                              </div>
+                            </div>
+                            <p>{comment.comment}</p>
+                          </div>
+                        </div>
+                        <span className={styles.br}></span>
+                      </div>
+                    ))}
+                  </Modal.Body>
+                </Modal>
+              </>
+            </>
+          )}
           {RentalApartments && RentalApartments.length > 0 && (
             <>
               <h3 className={styles.hbold}>{name} : {t("announcements")}</h3>
@@ -416,9 +434,14 @@ const UserInfo: React.FC<UserInfoProps> = ({ locale, id }) => {
                 {RentalApartments.map((apartment) => (
                   <div key={apartment.id} className={styles.cardAp}>
                     <Link href={`/${apartment.id}`}>
-                      {/* <img src={apartment.Pictures?.[0]?.pictureName && `https://roombi.space/Car/${pictures[0].pictureName}`} alt={apartment.title} /> */}
-                      <Image src={"https://roombi.space/Car/293.webp"} alt="title" width={150} height={150} />
-
+                      {/* <img src={`https://roombi.space/Car/${apartment.pictures?.[0]?.pictureUrl}`} alt={apartment.title} /> */}
+                      {/* <Image src={"https://roombi.space/Car/293.webp"} alt="title" width={150} height={150} /> */}
+                      <Image
+                        src={`https://roombi.space/Car/${apartment.pictures?.[0]?.pictureUrl}`}
+                        alt={apartment.title || 'default alt text'}
+                        width={150}
+                        height={150}
+                      />
                       <div>{apartment.title}</div>
                     </Link>
                   </div>

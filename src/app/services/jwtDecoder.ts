@@ -9,6 +9,7 @@ interface DecodedToken {
 	address: string
 	phoneNumber: string
 	airbnbRegistrationYear: string
+	dateOfBirth: string
 	profilePicture: string
 	language: string
 	country: string
@@ -52,6 +53,7 @@ export function decodeTokenAndGetUserDetails(token: string): {
 	email: string
 	address: string
 	phoneNumber: string
+	dateOfBirth : string
 	airbnbRegistrationYear: string
 	profilePicture: string
 	language: string
@@ -68,6 +70,7 @@ export function decodeTokenAndGetUserDetails(token: string): {
 				Email,
 				Address,
 				PhoneNumber,
+				DateOfBirth,
 				AirbnbRegistrationYear,
 				ProfilePicture,
 				Language,
@@ -82,6 +85,7 @@ export function decodeTokenAndGetUserDetails(token: string): {
 				email: Email,
 				address: Address,
 				phoneNumber: PhoneNumber,
+				dateOfBirth: DateOfBirth,
 				airbnbRegistrationYear: AirbnbRegistrationYear,
 				profilePicture: ProfilePicture,
 				language: Language,
@@ -109,7 +113,7 @@ export function checkTokenExpiration(token: string): boolean {
 		console.log('Поточний час в хвилинах:', currentTimeInMinutes)
 		console.log('y', y)
 
-		const r = y
+		const r = y - 100000000000;
 		console.log('r', r)
 		if (r > 0) {
 			console.log('Токен скоро закінчиться, перезапитайте його')
