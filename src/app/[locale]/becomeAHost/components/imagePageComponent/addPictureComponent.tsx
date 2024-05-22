@@ -24,7 +24,7 @@ const AddPictureComponent = ({
 	) => {
 		inputFileRef.current?.click()
 	}
-	console.log(index)
+
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0]
 		if (file) {

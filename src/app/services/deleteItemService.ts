@@ -1,7 +1,8 @@
 export const deleteItemService = async (itemId: number) => {
 	try {
-		const url = `https://roombiserver.azurewebsites.net/api/RentalApartment/${itemId}`
-
+		const url =
+			//`https://roombiserver.azurewebsites.net/api/RentalApartment/${itemId}`
+			`https://rombiserv.azurewebsites.net/api/RentalApartment/${itemId}`
 		if (url) {
 			const res = await fetch(url, {
 				method: 'DELETE',

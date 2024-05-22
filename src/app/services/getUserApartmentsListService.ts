@@ -4,9 +4,14 @@ import { RentalApartmentDTOForStartPage } from '../type/type'
 
 export const getUserApartmentsListService = async (userId: number) => {
 	try {
-		const url = `https://roombiserver.azurewebsites.net/api/RentalApartment/masterobj?idMaster=${userId}`
-		console.log('URL', url)
-		if (url === undefined) return null
+		const url =
+			//  `https://roombiserver.azurewebsites.net/api/RentalApartment/masterobj?idMaster=${userId}`
+			`https://rombiserv.azurewebsites.net/api/RentalApartment/masterobj?idMaster=${userId}`
+
+		if (url === undefined) {
+			console.log('url undefined')
+			return null
+		}
 		const response = await fetch(url, {
 			method: 'POST',
 			cache: 'no-store',
