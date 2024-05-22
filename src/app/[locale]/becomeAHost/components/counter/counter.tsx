@@ -40,7 +40,7 @@ const Counter: React.FC<CounterProps> = ({ title, maxCount, minCount }) => {
 	}, [counter, dispatch, title])
 	useEffect(() => {
 		const getFromState = () => {
-			if (title === 'guests') {
+			if (title === 'gests') {
 				if (guests > 1) setCounter(guests)
 			} else if (title === 'bedrooms') {
 				if (bedrooms > 0) setCounter(bedrooms)
