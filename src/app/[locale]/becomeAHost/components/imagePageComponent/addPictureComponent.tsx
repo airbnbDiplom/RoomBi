@@ -66,7 +66,7 @@ const AddPictureComponent = ({
 			/>
 			<p>
 				{t('addPicture')}{' '}
-				{picturesNameLength === 1 && index === 0 && t('bedroom')}
+				{picturesNameLength === 1 && index === 0 && t('bedrooms')}
 				{picturesNameLength === 0 && index === 0 && t('addPicture_MainFoto')}
 			</p>
 		</div>
