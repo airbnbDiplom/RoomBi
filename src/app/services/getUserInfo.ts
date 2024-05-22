@@ -30,7 +30,7 @@ export interface User {
 }
 
   export interface RentalApartment {
-    Pictures: Picture[];
+    pictures: Picture[];
     id: number;
     title?: string;
   }
@@ -45,7 +45,7 @@ export interface CommentsAboutGuest {
   id: number;
   comment?: string;
   dateComments: Date;
-  masterIdUser: number;
+  masterId: number;
   masterName: string // Имя пользователя
 	masterAvatar: string // Аватар пользователя
 }

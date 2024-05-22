@@ -73,6 +73,8 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 							<Image
 								alt='profile picture'
 								src={`https://roombi.space/Avatar/${userDetails.profilePicture}`}
+								width={30}
+							height={30}
 								style={{
 									width: '30px',
 									height: '30px',
@@ -110,7 +112,10 @@ const AuthenticationBtn: React.FC<ThemProps> = ({ isTeamBlack }) => {
 				<Dropdown.Menu className={style.itemFont}>
 					<Dropdown.Item href='/accountPage'>{t('Account')} </Dropdown.Item>
 					{role !== null && !role ? (
-						<Dropdown.Item href={'/becomeAHost'}>{t('offerrom')}</Dropdown.Item>
+					  <>
+					  <Dropdown.Item href={'/becomeAHost'}>{t('offerrom')}</Dropdown.Item>
+					  <Dropdown.Item href={'/rentalHistory'}>{t('rentalHistory')}</Dropdown.Item>
+				  </>
 					) : (
 						<Dropdown.Item href='#'>Кабинет</Dropdown.Item>
 					)}

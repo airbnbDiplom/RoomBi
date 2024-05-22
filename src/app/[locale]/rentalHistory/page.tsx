@@ -4,13 +4,13 @@ import initTranslations from '@/app/i18n'
 import { Footer } from '@/app/startComponents/footer/Footer'
 import { HomeParams } from '@/app/type/type'
 import React, { useEffect, useState } from 'react';
-import styles from '@/app/[locale]/accountPage/account.module.css'
-import { HeaderUpdateUser } from './components/HeadUpdateUser'
+import styles from '@/app/[locale]/editProfile/editProfile.module.css'
 import { useSession } from 'next-auth/react';
-import { decodeTokenAndGetUserDetails } from '@/app/services/jwtDecoder'
-import AccountContainer from './components/AccountContainer';
+import { decodeTokenAndGetUserDetails, decodeTokenAndGetExpiration } from '@/app/services/jwtDecoder'
 import { Session } from 'next-auth';
 import NeedAuthPage from '@/app/[locale]/needAuthPage';
+import { HeaderUpdateUser } from '../accountPage/components/HeadUpdateUser'
+import EditProfile from './components/rentalHistory'
 const i18nNamespaces = ['translation']
 
 export default function AccountPage({
@@ -46,7 +46,7 @@ export default function AccountPage({
           userDetails = { name: '', email: details.email }; 
         }
       }
-
+      
 
       setUserDetails(userDetails);
     };
@@ -72,7 +72,7 @@ export default function AccountPage({
           </div>
           <NeedAuthPage />;
           <div className={styles.footer}>
-            <Footer />
+          <Footer />
           </div>
         </div>
 
@@ -91,7 +91,7 @@ export default function AccountPage({
           <HeaderUpdateUser />
         </div>
         <div className={styles.content}>
-          <AccountContainer userDetails={userDetails} />
+        <EditProfile locale={locale} />
         </div>
         <div className={styles.footer}>
           <Footer />

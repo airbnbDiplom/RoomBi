@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PersonVcard } from 'react-bootstrap-icons';
+import { BookHalf, PersonCircle, HouseDoor, PersonVcard } from 'react-bootstrap-icons';
 import styles from '@/app/[locale]/accountPage/account.module.css'
 
 type AccountContainerProps = {
@@ -32,13 +32,30 @@ const AccountContainer: React.FC<AccountContainerProps> = ({ userDetails }) => {
     </a>
   </div>
   <div className={styles.card}>
-    
-  </div>
-  <div className={styles.card}>
-    
-  </div>
+  <a href="/rentalHistory" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+    <div>
+    <BookHalf size={35} />
+    </div>
+    <div>
+      <div style={{ fontWeight: 'bold' }}>{t('rentalHistory')}</div>
+      <div>{t('viewRentalHistory')}</div>
+    </div>
+  </a>
 </div>
 
+<div className={styles.card}>
+  <a href="/profilePage" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+    <div>
+    <HouseDoor size={35} />
+    </div>
+    <div>
+      <div style={{ fontWeight: 'bold' }}>{t('profilePage')}</div>
+      <div>{t('goToProfile')}</div>
+    </div>
+  </a>
+</div>
+</div>
+{/* 
 <div className={`${styles.container} ${styles.marginTop}`}>
   <div className={styles.card}>
     
@@ -49,7 +66,7 @@ const AccountContainer: React.FC<AccountContainerProps> = ({ userDetails }) => {
   <div className={styles.card}>
     
   </div>
-</div>
+</div> */}
 </div >
  );
 };

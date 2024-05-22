@@ -152,7 +152,6 @@ const ModalForm: React.FC<ModalFormProps> = ({
       type: type,
     };
 
-    console.log(user);
 
     try {
       const res: string | SignInResponse | undefined = await signIn(
@@ -164,11 +163,8 @@ const ModalForm: React.FC<ModalFormProps> = ({
           redirect: false,
         }
       );
-      console.log(res?.status, res?.error);
 
       if (res?.error === "Ok") {
-        console.log("Response is a string: ", res.error);
-        console.log("OK - ", res);
         handleClose();
         setShowNewModal(true);
         setServerError("");
@@ -358,7 +354,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
                 {t("continue")}
               </Button>
             </Form>
-            <div
+            {/* <div
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -384,7 +380,7 @@ const ModalForm: React.FC<ModalFormProps> = ({
                 alt="google icon"
               />
               {t("continueWithGoogle")}
-            </Button>
+            </Button> */}
             {/* <button onClick={() => signOut()}>signOut</button> */}
           </>
         </Modal.Body>

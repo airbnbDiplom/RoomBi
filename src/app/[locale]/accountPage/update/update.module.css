@@ -4,8 +4,62 @@
   min-height: 100vh;
   align-items: center;
   padding-left: 20px;
+  padding-bottom: 70px; 
+}
+.flexJustifySpaceBetween {
+  display: flex;
+  justify-content: space-between;
 }
 
+.infoSectionCustom {
+  color: black; 
+}
+
+.fontSize20px {
+  font-size: 20px;
+}
+
+.fontSize13px {
+  font-size: 13px;
+}
+
+.flexJustifySpaceBetweenWidth100 {
+  display: 'flex';
+  justify-content: 'space-between';
+  width: '100%';
+}
+
+.mb3Width50MarginRight2 {
+  width: '50%';
+  margin-right: '2%';
+}
+
+.mb3Width50 {
+  width: '50%';
+}
+
+.buttonDark {
+  border-radius: '5px';
+}
+
+.buttonTransparent {
+  position: 'absolute';
+  right: 0;
+  top: 0;
+  margin: '0 0 0 2em';
+  color: 'black'; 
+  background-color: 'transparent';
+  border: 'none';
+  text-decoration: 'underline';
+  cursor: 'pointer';
+}
+
+.flexJustifySpaceBetweenAlignItemsCenterFontSize14px {
+  display: 'flex';
+  justify-content: 'space-between';
+  align-items: 'center';
+  font-size: '14px';
+}
 .contentContainer {
   justify-content: center;
   min-height: 100vh;
@@ -17,7 +71,10 @@
   flex-direction: column;
   align-items: flex-start;
 }
-
+.relativePositionMinWidth {
+  position: relative;
+  min-width: 530px;
+}
 .footer {
   position: fixed;
   left: 0;
@@ -46,6 +103,17 @@
 @media (max-width: 600px) {
   .pageContainer {
     align-items: flex-start;
+    width: 400px;
+  }
+  .contentContainer {
+    min-height: auto;
+  
+  }
+  .relativePositionMinWidth {
+    min-width: 400px;
+  }
+  .infoSectionCustom {
+    width: 400px;
   }
 }
 
