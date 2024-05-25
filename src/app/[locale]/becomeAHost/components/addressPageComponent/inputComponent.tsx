@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
 import InfoModal from './InfoModal'
 import style from '../../addApart.module.css'
 import { setAddress } from '@/app/redux/addNewApartmentState/addNewApartmentSlice'
+import { log } from 'console'
 
 interface InputProps {
 	autoCompleteFunc: (
