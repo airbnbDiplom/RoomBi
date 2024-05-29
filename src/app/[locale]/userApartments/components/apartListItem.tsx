@@ -4,9 +4,11 @@ import React, { useState } from 'react'
 import DeleteBtn from './deleteBtn'
 import ModalDialog from './ModalDialog'
 import style from '../userApartments.module.css'
-import SmallCarousel from './smallCarousel'
+
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/navigation'
+import CoverComponent from './coverComponent'
+import UpdateBtn from './updateBtn'
 
 interface Props {
 	item: RentalApartmentDTOForStartPage
@@ -32,25 +34,21 @@ const ApartListItem: React.FC<Props> = ({ item, delete: deleteItem }) => {
 	return (
 		<>
 			<div className={style.itemContainer}>
-				<div className={style.itemContentContainer}>
-					<div className={style.itemSmallCarousel}>
-						<div className={style.carousel}>
-							<SmallCarousel
-								pictures={item?.pictures?.map(picture => picture.pictureUrl)}
-							/>
-						</div>
-					</div>
-					<div className={style.itemSmallInfo} onClick={pageHandler}>
-						<h1>{item.title}</h1>
-						<p>
-							{t('userApartments_price')}: $ <span>{item.pricePerNight}</span>
-						</p>
-					</div>
+				<div className={style.carousel}>
+					<CoverComponent pictures={item.pictures![0].pictureUrl} />
+				</div>
+				<div className={style.itemSmallInfo} onClick={pageHandler}>
+					<h1>{item.title}</h1>
+					<p>
+						{t('userApartments_price')}: $ <span>{item.pricePerNight}</span>
+					</p>
 				</div>
 				<div className={style.itemDeleteBtnContainer}>
+					<UpdateBtn itemId={item.id} />
 					<DeleteBtn showModal={handleShowModal} />
 				</div>
 			</div>
+
 			<ModalDialog
 				title={item?.title!}
 				deleteItem={() => deleteItem(item.id)}

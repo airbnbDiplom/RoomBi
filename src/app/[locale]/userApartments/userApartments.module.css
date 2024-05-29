@@ -8,7 +8,6 @@
 }
 .apartListContainer::after {
 	content: '';
-	/* background: rgb(10, 10, 10); */
 	position: absolute;
 	top: 50%;
 	left: 80%;
@@ -38,8 +37,7 @@
 	height: 100%;
 }
 .backBtn,
-.addNewApartment,
-.deleteBtn {
+.addNewApartment {
 	text-decoration: none;
 	padding: 5px 10px;
 	background-color: black;
@@ -49,81 +47,108 @@
 	font-weight: bold;
 	transition: all 100ms ease;
 }
+.updateBtn,
 .deleteBtn {
-	background-color: rgb(108, 55, 55);
+	margin: 0 5px;
+	padding: 5px 10px;
+	font-size: calc(1vw + 0.5rem);
+	font-weight: 700;
+	font-style: italic;
+	border: none;
+	background-color: #ffffff00;
+	z-index: 10;
+	transition: all ease-in 0.2s;
 }
+.deleteBtn {
+	color: red;
+}
+
 .loading {
 	position: absolute;
 	top: 50%;
+	left: 50%;
 }
 .itemContainer {
+	margin: 0 auto;
+	position: relative;
 	width: 100%;
-	padding: 10px;
-	border-top: 1px solid grey;
-}
-.itemContainer:first-child {
-	border-top: none;
-}
-.itemList {
+	max-width: 450px;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	background: radial-gradient(
+				circle at 100% 100%,
+				#ffffff 0,
+				#ffffff 3px,
+				transparent 3px
+			)
+			0% 0%/8px 8px no-repeat,
+		radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+			100% 0%/8px 8px no-repeat,
+		radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+			0% 100%/8px 8px no-repeat,
+		radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px) 100%
+			100%/8px 8px no-repeat,
+		linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+			calc(100% - 16px) no-repeat,
+		linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+			calc(100% - 10px) no-repeat,
+		linear-gradient(
+			100deg,
+			#040404 0%,
+			rgba(23, 16, 5, 1) 22%,
+			rgba(67, 44, 8, 1) 63%,
+			#9c650d 100%
+		);
+	border: 1px solid black;
+	border-radius: 8px;
+	padding: 15px;
+	justify-content: space-between;
+}
+.itemContainer:hover {
+	animation: gradientAnimation 0.5s ease-in-out 0s 1 normal forwards;
+}
+.itemContainer:not(:hover) {
+	animation: gradientAnimationReverse 0.5s ease-in-out forwards;
+}
+
+.itemList {
+	position: relative;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+
 	margin-top: 5vh;
-}
-.itemContentContainer {
 	width: 100%;
-	height: auto;
-	display: flex;
-	flex-direction: row;
+	display: grid;
+	place-content: center;
+	gap: 5px;
 }
+
 .itemDeleteBtnContainer {
 	display: flex;
 	justify-content: end;
 	padding: 15px;
 }
-.itemSmallCarousel {
-	width: 40%;
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-.carousel {
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+
+.itemContainer img {
+	min-height: 300px;
 	border-radius: 15px;
-	max-width: 350px;
+	object-fit: contain;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
-.itemSmallCarousel img {
-	max-width: 100%;
-	max-height: 100%;
-	object-fit: cover; /* чтобы изображение сохраняло пропорции */
-	width: auto;
-	height: auto;
-}
-
-.itemSmallInfo {
-	width: 60%;
-	padding: 15px;
-	text-wrap: wrap;
-	word-wrap: break-word;
-}
-.itemSmallInfo p {
-	font-size: calc(1.5rem + 1vw);
+.itemContainer p {
+	font-size: calc(0.7rem + 1vw);
 	font-weight: 500;
 }
 
-.itemSmallInfo h1 {
-	font-size: calc(2vw + 2em);
+.itemContainer h1 {
+	font-size: calc(1vw + 1em);
 	font-weight: 700;
 }
-.itemSmallInfo span {
-	font-size: calc(1vw + 1em);
-	font-weight: 600;
+.itemContainer span {
+	font-size: calc(1vw + 0.5em);
+	font-weight: 900;
 }
 .userInfoContainer {
 	height: 100vh;
@@ -185,9 +210,6 @@
 		right: 0;
 		margin: 0 auto;
 	}
-	.itemContainer {
-		margin: 0 15px;
-	}
 
 	.userInfoContainer {
 		order: 1;
@@ -203,7 +225,12 @@
 		background-color: rgb(95, 95, 95);
 	}
 	.deleteBtn:hover {
-		background-color: rgb(150, 79, 79);
+		border-radius: 15px;
+		background-color: rgb(230, 202, 202);
+	}
+	.updateBtn:hover {
+		border-radius: 15px;
+		background-color: rgba(95, 78, 62, 0.52);
 	}
 	.itemContentContainer:hover {
 		background-color: rgb(229, 231, 233);
@@ -216,9 +243,586 @@
 		background-color: rgb(95, 95, 95);
 	}
 	.deleteBtn:active {
-		background-color: rgb(150, 79, 79);
+		border-radius: 15px;
+		background-color: rgb(230, 202, 202);
 	}
 	.itemContentContainer:hover {
 		background-color: rgb(229, 231, 233);
+	}
+}
+@keyframes gradientAnimation {
+	0% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				100deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	10% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				120deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	20% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				140deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	30% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				160deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	40% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				180deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	50% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				200deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	60% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				220deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	70% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				240deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	80% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				260deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	90% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				280deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	100% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				300deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+}
+@keyframes gradientAnimationReverse {
+	0% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				300deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	10% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				280deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	20% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				260deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	30% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				240deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	40% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				220deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	50% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				200deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	60% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				180deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	70% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				160deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	80% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				140deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	90% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				120deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
+	}
+	100% {
+		background: radial-gradient(
+					circle at 100% 100%,
+					#ffffff 0,
+					#ffffff 3px,
+					transparent 3px
+				)
+				0% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 0%/8px 8px no-repeat,
+			radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				0% 100%/8px 8px no-repeat,
+			radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px)
+				100% 100%/8px 8px no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 10px)
+				calc(100% - 16px) no-repeat,
+			linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 16px)
+				calc(100% - 10px) no-repeat,
+			linear-gradient(
+				100deg,
+				#040404 0%,
+				rgba(23, 16, 5, 1) 22%,
+				rgba(67, 44, 8, 1) 63%,
+				#9c650d 100%
+			);
 	}
 }

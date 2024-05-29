@@ -441,6 +441,7 @@
 	"preview_notValid": "Недійсний.",
 	"preview_newApartmentAddNotValid": "Об'єкт не додано! Заповнені не всі обов'язкові поля",
 	"userApartments_LessorsOffice": "Кабінет орендодавця",
+	"userApartments_updateBtn": "Редагувати",
 	"modalDialogDelete_question": "Ви дійсно хочете видалити ",
 	"modalDialogDelete_yes": "Так",
 	"modalDialogDelete_no": "Ні",

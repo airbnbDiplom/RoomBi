@@ -45,7 +45,6 @@ const ApartmentsList = () => {
 		)
 		deleteItemService(itemId).then(data => {
 			if (data !== 200) {
-				console.log(data)
 			}
 		})
 	}
