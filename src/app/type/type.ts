@@ -434,7 +434,7 @@ export interface newApartment {
 	offeredAmenities: NewApartmentOfferedAmenities // Предлагаемые удобства
 	masterId: string // Хозяин
 	description: string // Описание'
-
+	pictures: ImgBi[]
 	picturesName: string[]
 	pictureFile: string[]
 }
@@ -444,7 +444,8 @@ export interface AmenitiesObj {
 	type: string
 }
 export interface NewApartmentOfferedAmenities {
-	[key: string]: boolean
+	[key: string]: boolean | string
+	description: string
 	wiFi: boolean // Наличие WiFi
 	tV: boolean // Наличие телевизора
 	kitchen: boolean // Наличие кухни

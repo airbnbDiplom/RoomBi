@@ -2,7 +2,6 @@
 import Image from 'next/image'
 import React from 'react'
 import style from './imagePageComponent.module.css'
-
 import { useTranslation } from 'react-i18next'
 import { useAppDispatch } from '@/app/redux/hook'
 import {

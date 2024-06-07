@@ -7,6 +7,8 @@ import newApartmentReducer from './addNewApartmentState/addNewApartmentSlice'
 import reservReducer from './reservState/reservSlice'
 import searchFilterReducer from './searchInHeader/searchFilterSlice'
 import searchPriviesSearchObjectReducer from './searchInHeader/searchPriviesSearchObjectSliec'
+import updateApartmentSlice from './updateApartment/updateApartmentSlice'
+import saveBtnSlice from './updateApartment/saveBtnSlice'
 const store = configureStore({
 	reducer: {
 		appReducer,
@@ -17,6 +19,8 @@ const store = configureStore({
 		searchFilterReducer,
 		searchPriviesSearchObjectReducer,
 		newApartmentReducer,
+		updateApartmentSlice,
+		saveBtnSlice,
 	},
 })
 

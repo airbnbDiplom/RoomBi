@@ -1,4 +1,4 @@
-import Footer from './components/footer'
+import { Footer } from '@/app/startComponents/footer/Footer'
 import React from 'react'
 
 export default function BecomeAHostLayout({

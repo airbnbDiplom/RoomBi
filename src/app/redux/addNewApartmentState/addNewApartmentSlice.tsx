@@ -59,11 +59,13 @@ const initialState: newApartment = {
 		firstAidKit: false,
 		fireExtinguisher: false,
 		carbonMonoxideDetector: false,
+		description: '',
 	},
 	masterId: '',
 	description: '',
 	picturesName: [],
 	pictureFile: [],
+	pictures: [],
 }
 
 const newApartmentsSlice = createSlice({

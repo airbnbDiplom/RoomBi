@@ -1,9 +1,11 @@
 import React from 'react'
 import initTranslations from '@/app/i18n'
 import TranslationsProvider from '@/app/configs/TranslationsProvider'
-import style from '../userApartments.module.css'
+import style from './edit.module.css'
 import { getApartamentId } from '@/app/services/housesServices'
-import { RentalApartmentDTO } from '@/app/type/type'
+import { newApartment } from '@/app/type/type'
+
+import Main from './components/main'
 
 const i18nNamespaces = ['translation']
 
@@ -13,8 +15,7 @@ export default async function UserApartmentsItem({
 	params: { locale: string; id: string }
 }) {
 	const { resources } = await initTranslations(locale, ['translation'])
-	const hous: RentalApartmentDTO = await getApartamentId(id)
-	console.log('hous', hous)
+	const apartmentData: newApartment = await getApartamentId(id)
 
 	return (
 		<TranslationsProvider
@@ -23,8 +24,7 @@ export default async function UserApartmentsItem({
 			resources={resources}
 		>
 			<div className={style.wrapper}>
-				{id}
-				<div>{hous ? hous.title : 'no data'}</div>
+				<Main apartmentData={apartmentData} />
 			</div>
 		</TranslationsProvider>
 	)
