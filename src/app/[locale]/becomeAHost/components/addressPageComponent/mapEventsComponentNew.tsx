@@ -19,7 +19,7 @@ const MapEventsComponentNew: React.FC<MapEventsProps> = ({ location }) => {
 	const [markerPosition, setMarkerPosition] = useState<L.Marker<any> | null>(
 		null
 	)
-	//const address = useAppSelector(state => state.newApartmentReducer.address)
+
 	const customIcon = L.icon({
 		iconUrl: '/icon/pointOnMap.svg',
 		iconSize: [32, 32],

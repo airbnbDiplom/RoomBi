@@ -49,7 +49,7 @@ const WhereOptionDropDawn: React.FC<WhereOptionDropDawnProps> = ({
 									setItemToStore(item)
 								}}
 								className={`${style.whereOptionDropDawnBlokItem}`}
-								key={item.place_id}
+								key={item.osm_id}
 							>
 								<div>
 									<div className={`${style.imagePoint}`}>

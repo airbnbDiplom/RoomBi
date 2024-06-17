@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect } from 'react'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer } from 'react-leaflet'
 import style from '../../addApart.module.css'
 import MapEventsComponentNew from './mapEventsComponentNew'
 import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
@@ -15,7 +15,6 @@ const MapContainerNew: React.FC<mapProps> = () => {
 		lat && ing ? [parseFloat(ing), parseFloat(lat)] : undefined
 	const dispatch = useAppDispatch()
 	useEffect(() => {
-		1
 		if ('geolocation' in navigator) {
 			// Get user's current position
 			navigator.geolocation.getCurrentPosition(

@@ -66,6 +66,7 @@ const initialState: newApartment = {
 	picturesName: [],
 	pictureFile: [],
 	pictures: [],
+	dateBooking: [],
 }
 
 const newApartmentsSlice = createSlice({

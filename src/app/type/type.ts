@@ -437,6 +437,7 @@ export interface newApartment {
 	pictures: ImgBi[]
 	picturesName: string[]
 	pictureFile: string[]
+	dateBooking: DateBooking[]
 }
 
 export interface AmenitiesObj {

@@ -5,7 +5,7 @@ import style from './edit.module.css'
 import { getApartamentId } from '@/app/services/housesServices'
 import { newApartment } from '@/app/type/type'
 
-import Main from './components/main'
+import MyMain from './components/myMain'
 
 const i18nNamespaces = ['translation']
 
@@ -24,7 +24,7 @@ export default async function UserApartmentsItem({
 			resources={resources}
 		>
 			<div className={style.wrapper}>
-				<Main apartmentData={apartmentData} />
+				<MyMain apartmentData={apartmentData} />
 			</div>
 		</TranslationsProvider>
 	)

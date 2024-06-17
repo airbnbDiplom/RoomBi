@@ -1,5 +1,16 @@
-import { ImgBi, newApartment } from '@/app/type/type'
+import {
+	DateBi,
+	DateBooking,
+	FilterLngObj,
+	ImgBi,
+	newApartment,
+} from '@/app/type/type'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { ApartmentsVariant } from '@/app/[locale]/becomeAHost/components/apartmentsVariantList'
+import {
+	setCity,
+	setCountry,
+} from '../addNewApartmentState/addNewApartmentSlice'
 
 const initialState: newApartment = {
 	boundingbox: [],
@@ -61,6 +72,7 @@ const initialState: newApartment = {
 	picturesName: [],
 	pictures: [],
 	pictureFile: [],
+	dateBooking: [],
 }
 
 const updateApartmentSlice = createSlice({
@@ -88,9 +100,73 @@ const updateApartmentSlice = createSlice({
 		setFileNameArray(state, action: PayloadAction<string[]>) {
 			state.picturesName = action.payload
 		},
+		setDateBooking(state, action: PayloadAction<DateBooking>) {
+			state.dateBooking.push(action.payload)
+		},
+		setDeleteAmenity(state, action: PayloadAction<string>) {
+			state.offeredAmenities[action.payload] = false
+		},
+		setAmenityInEdit(state, action: PayloadAction<string>) {
+			state.offeredAmenities[action.payload] = true
+		},
+		setGestsEdit(state, action: PayloadAction<number>) {
+			state.gests = action.payload
+		},
+		setBedroomsEdit(state, action: PayloadAction<number>) {
+			state.bedrooms = action.payload
+		},
+		setBedsEdit(state, action: PayloadAction<number>) {
+			state.beds = action.payload
+		},
+		setBathroomsEdit(state, action: PayloadAction<number>) {
+			state.bathrooms = action.payload
+		},
+		setApartmentPartEdit(state, action: PayloadAction<ApartmentsVariant>) {
+			state.typeApartment = action.payload
+		},
+		setHouseEdit(state, action: PayloadAction<FilterLngObj>) {
+			state.house = action.payload
+		},
+		setSportsEdit(state, action: PayloadAction<FilterLngObj>) {
+			state.sport = action.payload.nameUa
+		},
+		setLocationEdit(state, action: PayloadAction<FilterLngObj>) {
+			state.location = action.payload.nameUa
+		},
+		setCountryEdit(state, action: PayloadAction<string>) {
+			state.country = action.payload
+		},
+		setCountryCodeEdit(state, action: PayloadAction<string>) {
+			state.countryCode = action.payload
+		},
+		setCityEdit(state, action: PayloadAction<string>) {
+			state.city = action.payload
+		},
+		setPlaceIdEdit(state, action: PayloadAction<number>) {
+			state.cityPlaceId = action.payload
+		},
+		setCoordinateEdit(
+			state,
+			action: PayloadAction<{ lat: string; lon: string }>
+		) {
+			;(state.ingMap = action.payload.lat), (state.latMap = action.payload.lon)
+		},
+		setAddressEdit(state, action: PayloadAction<string>) {
+			state.address = action.payload
+		},
 	},
 })
 export const {
+	setAddressEdit,
+	setCoordinateEdit,
+	setCityEdit,
+	setPlaceIdEdit,
+	setCountryCodeEdit,
+	setCountryEdit,
+	setApartmentPartEdit,
+	setLocationEdit,
+	setSportsEdit,
+	setHouseEdit,
 	setApartment,
 	setDescriptionUpdate,
 	setPictureArray,
@@ -98,5 +174,12 @@ export const {
 	setFileNameArray,
 	setNewFileItemArray,
 	setNewFileNameArray,
+	setDateBooking,
+	setDeleteAmenity,
+	setAmenityInEdit,
+	setGestsEdit,
+	setBedroomsEdit,
+	setBedsEdit,
+	setBathroomsEdit,
 } = updateApartmentSlice.actions
 export default updateApartmentSlice.reducer

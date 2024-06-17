@@ -4,8 +4,11 @@ import { RentalApartmentDTOForStartPage } from '../type/type'
 
 export const getUserApartmentsListService = async (userId: number) => {
 	try {
-		const url = `https://roombiserver.azurewebsites.net/api/RentalApartment/masterobj?idMaster=${userId}`
-		//`https://rombiserv.azurewebsites.net/api/RentalApartment/masterobj?idMaster=${userId}`
+		let url = `https://roombiserver.azurewebsites.net/api/RentalApartment/masterobj?idMaster=${userId}`
+		// if (!url) {
+		// 	// url = `https://roombiserver.azurewebsites.net/api/RentalApartment/masterobj?idMaster=${userId}`
+		// 	;`https://rombiserv.azurewebsites.net/api/RentalApartment/masterobj?idMaster=${userId}`
+		// }
 
 		if (url === undefined) {
 			console.log('url undefined')
@@ -19,7 +22,7 @@ export const getUserApartmentsListService = async (userId: number) => {
 			},
 		})
 
-		if (!response.ok) throw new Error('Unable to fetch countries.')
+		if (!response.ok) throw new Error('Unable to fetch Apartments.')
 		if (response.ok) {
 			const responseData: RentalApartmentDTOForStartPage[] =
 				await response.json()

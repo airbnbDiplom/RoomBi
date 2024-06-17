@@ -12,7 +12,7 @@ export interface ApartmentsVariant {
 	ukName: string
 }
 
-const apartmentVariant: ApartmentsVariant[] = [
+export const apartmentVariant: ApartmentsVariant[] = [
 	{
 		id: 1,
 		title: 'fullApartment',

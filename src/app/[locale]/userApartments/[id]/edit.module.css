@@ -16,7 +16,7 @@
 	justify-content: space-between;
 	align-items: center;
 	font-size: calc(1vh + 1rem);
-	transition: all 0.1s ease;
+	transition: all 500ms ease;
 	padding: 10px;
 }
 .addBtn img {
@@ -24,6 +24,18 @@
 	background-color: var(--gainsboro);
 	border-radius: 10px;
 	padding: 2px;
+}
+.amenitiesBlock {
+	margin: 3vh 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.amenitiesItemContainer {
+	border: 1px solid var(--eerieBlack);
+	display: flex;
+	flex-direction: row;
+	background-color: var(--gainsboro);
 }
 .backGroundDiv {
 	color: var(--gainsboro);
@@ -56,8 +68,40 @@
 	background-color: transparent;
 	font-weight: 600;
 }
+.calendarBlock {
+	width: 100%;
+	display: grid;
+	place-content: center;
+	padding: 15px 0;
+}
+.calendar {
+	margin: 0 auto;
+	width: 100% !important;
+}
 .descriptionBlock textarea {
 	resize: none;
+}
+.dropdownSide {
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+}
+.dropdownSide_dropdown {
+	margin-top: 15px;
+}
+.dropdownSide_dropdown button {
+	width: 100%;
+	margin-bottom: 5px;
+}
+.dropdownSide_dropdown > div {
+	overflow-y: scroll;
+	height: 30vh;
+}
+.dropdownSide_addBtn {
+	border: 1px solid var(--eerieBlack);
+	font-size: calc(0.5rem + 1vw);
+	border-radius: 5px;
+	transition: all 0.1s ease;
 }
 .failValid {
 	color: red !important;
@@ -87,6 +131,14 @@
 	font-size: calc(1vw + 1.5rem);
 	font-family: var(--var-Inknut_Antiqua);
 }
+.listContainer {
+	width: 80%;
+	display: grid;
+	gap: 5px;
+	grid-template-columns: repeat(2, minmax(50%, 1fr));
+	place-content: center;
+	background-color: var(--gainsboro);
+}
 .imageContainer {
 	position: relative;
 	width: 100%;
@@ -104,12 +156,26 @@
 	grid-auto-flow: column;
 	grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
 	grid-template-rows: repeat(2, minmax(50px, 300px));
-
 	padding: 0;
 }
+.inputBlock {
+	position: relative;
+}
+.inputBlock_autoCompleteBlock {
+	z-index: 1001;
+	position: absolute;
+	width: 100%;
+	background-color: var(--gainsboro);
+	border: 1px solid var(--darkLava);
+	border-radius: 15px;
+	padding: 5px 20px;
+	box-shadow: 1px 1px 7.5px rgba(40, 40, 40, 0.756);
+}
+
 .imageItem {
 	border: 1px solid var(--gainsboro);
 }
+
 .itemGrid {
 	width: 100%;
 	height: 100%;
@@ -118,6 +184,27 @@
 .itemListBlock {
 	height: 100%;
 	overflow-x: auto;
+}
+.itemAmenitiesList_insideContent {
+	width: 60%;
+	display: flex;
+	justify-content: space-around;
+}
+.itemAmenitiesList_insideImg {
+	width: 20%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.itemAmenitiesList_itemDelete {
+	width: 20%;
+	margin: 0 auto;
+	text-align: center;
+	transition: background-color 200ms ease;
+}
+.itemAmenitiesList_itemDelete img {
+	background-color: var(--gainsboro);
+	border-radius: 15px;
 }
 .imageItem:hover {
 	position: relative;
@@ -133,6 +220,54 @@
 .imageModal img {
 	max-width: 100%;
 	max-height: 100%;
+}
+.reserveDate {
+	min-width: 300px;
+	background-color: var(--gainsboro);
+	border-radius: 15px;
+	font-size: calc(0.5rem + 1vw);
+}
+.reserveDate:disabled {
+	background-color: rgb(109, 109, 109);
+	color: rgb(177, 177, 177);
+}
+.reserveDateContainer {
+	width: 100%;
+	display: grid;
+	place-content: center;
+}
+.switchBlock {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+.switcherBlock {
+	margin-top: 15px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	width: 100%;
+}
+.switcherItem_block {
+	text-align: center;
+	font-size: calc(0.7rem + 1vw);
+}
+.switcherItem_block button {
+	min-width: 250px;
+	max-width: 90%;
+	text-align: center;
+	font-size: 1rem;
+}
+.switcherItem_dropdown > div {
+	min-width: 100%;
+	max-height: 30vh;
+	overflow-y: auto;
+}
+.switcherItem_dropdownItem {
+	display: flex;
+	justify-content: space-between;
 }
 .textBlock {
 	padding-top: 3vh;
@@ -166,6 +301,12 @@
 		min-height: auto;
 		min-height: 30vh;
 	}
+	.amenitiesBlock {
+		flex-direction: column;
+	}
+	.listContainer {
+		width: 100%;
+	}
 	.insideImageBlock {
 		width: 100%;
 	}
@@ -179,22 +320,64 @@
 		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 		grid-template-rows: repeat(2, minmax(100px, 1fr));
 	}
+	.listContainer {
+		grid-template-columns: repeat(1, minmax(100%, 1fr));
+
+		margin-bottom: 10px;
+	}
 }
 @media (hover: hover) {
+	.inputBlock_autoCompleteItem:hover {
+		cursor: pointer;
+		background-color: rgba(128, 128, 128, 0.436);
+	}
 	.btnSave:hover {
 		background-color: var(--darkLava);
 		color: var(--gainsboro);
 		border: 2px solid var(--eerieBlack);
 	}
+	.itemAmenitiesList_itemDelete:hover {
+		background-color: var(--eerieBlack);
+	}
 	.addBtn:hover {
 		background-color: var(--darkLava);
 		color: var(--gainsboro);
 	}
+	.reserveDate:hover {
+		background-color: var(--darkLava);
+		color: var(--gainsboro);
+	}
+	.reserveDate:disabled:hover {
+		background-color: rgb(109, 109, 109);
+		color: rgb(177, 177, 177);
+	}
+	.dropdownSide_addBtn:hover {
+		background-color: var(--darkLava);
+		color: var(--gainsboro);
+	}
+	.dropdownSide_addBtn:disabled:hover {
+		background-color: rgb(109, 109, 109);
+		color: rgb(177, 177, 177);
+	}
 }
 @media (hover: none) {
+	.inputBlock_autoCompleteItem:active {
+		background-color: rgba(128, 128, 128, 0.436);
+	}
 	.btnSave:active {
 		background-color: var(--darkLava);
 		color: var(--gainsboro);
 		border: 2px solid var(--eerieBlack);
+	}
+	.itemAmenitiesList_itemDelete:active {
+		background-color: var(--eerieBlack);
+	}
+	.reserveDate:active {
+		background-color: var(--darkLava);
+		color: var(--gainsboro);
+	}
+	.dropdownSide_addBtn:active {
+		background-color: var(--darkLava);
+		color: var(--gainsboro);
 	}
 }

@@ -30,10 +30,13 @@ export const addNewApartServes = async (newApart: newApartment) => {
 	try {
 		const dataForTransfer: TransferData = initData(newApart)
 		console.log('dataForTransfer', dataForTransfer)
-		const url =
-			// 'https://roombiserver.azurewebsites.net/api/RentalApartment/create'
-			'https://rombiserv.azurewebsites.net/api/RentalApartment/create'
-
+		let url = process.env.NEXT_ADD_APARTMENT
+		// 'https://roombiserver.azurewebsites.net/api/RentalApartment/create'
+		//'https://rombiserv.azurewebsites.net/api/RentalApartment/create'
+		if (url === undefined) {
+			url = 'https://roombiserver.azurewebsites.net/api/RentalApartment/create'
+			//'https://rombiserv.azurewebsites.net/api/RentalApartment/create'
+		}
 		if (url) {
 			const res = await fetch(url, {
 				method: 'POST',

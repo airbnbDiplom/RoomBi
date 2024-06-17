@@ -151,7 +151,7 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 									transferData.where = {
 										type: data[i].addresstype,
 										countryCode: data[i].address.country_code,
-										placeId: data[i].place_id,
+										placeId: data[i].osm_id,
 									}
 									transferDataToServer(transferData)
 								}
@@ -165,7 +165,7 @@ const SearchBtn: React.FC<props> = ({ inputRef }) => {
 				transferData.where = {
 					type: dataSearch.whereObj.addresstype,
 					countryCode: dataSearch.whereObj.address.country_code,
-					placeId: dataSearch.whereObj.place_id,
+					placeId: dataSearch.whereObj.osm_id,
 				}
 				transferDataToServer(transferData)
 			} else {

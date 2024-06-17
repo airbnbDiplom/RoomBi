@@ -11,7 +11,7 @@ import AddNewBtn from './addNewBtn'
 import { deleteItemService } from '@/app/services/deleteItemService'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
-debugger
+
 const ApartmentsList = () => {
 	const { t } = useTranslation()
 	const [userApartmentsList, setUserApartmentsList] = useState<

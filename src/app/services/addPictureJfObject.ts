@@ -3,8 +3,8 @@ export const addPictureJfObject = async (
 	picturesName: string
 ) => {
 	try {
-		const url = 'https://roombi.space/'
-		// process.env.NEXT_SAVE_FOTO;
+		let url = process.env.NEXT_SAVE_FOTO
+		if (!url) url = 'https://roombi.space/'
 		if (!url) {
 			throw new Error('URL is undefined.')
 		}
