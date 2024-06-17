@@ -16,6 +16,9 @@ class RequestUser {
 	}
 }
 
+
+let tempName = null;
+let tempEmail = null;
 export const authConfig = {
 	providers: [
 		GoogleProfile({
@@ -36,14 +39,14 @@ export const authConfig = {
 				profile: { label: 'Profile', type: 'profile' },
 			},
 			async authorize(credentials) {
-				console.log('credentials')
+				console.log('credentials', credentials)
 				if (credentials.token && credentials.refreshToken) {
 					const sessionUser = {
 						name: credentials.token,
 						email: credentials.refreshToken,
 						image: 'not google',
 					}
-					console.log('profile')
+					console.log('profile'. sessionUser)
 					return sessionUser
 				}
 				if (!credentials?.email || !credentials?.password) return null
@@ -131,30 +134,31 @@ export const authConfig = {
 	],
 	callbacks: {
 		async jwt({ token, user, account, profile, isNewUser }) {
-			// const isTokenExpired = checkTokenExpiration(token.name)
-			// console.log('resfresh', token.email)
-			// if (isTokenExpired) {
-			// 	const authenticationResponseDTO = {
-			// 		token: token.name,
-			// 		refreshToken: token.email,
-			// 	}
-			// 	const newToken = await refreshToken(authenticationResponseDTO)
-			// 	console.log('newToken', newToken)
-			// 	if (newToken) {
-			// 		token.name = newToken.responseData.token
-			// 		token.email = newToken.responseData.refreshToken
-			// 	}
-			// 	console.log('resfresh', token.email)
-			// }
+			const isTokenExpired = checkTokenExpiration(token.name)
+			if (isTokenExpired) {
+				const authenticationResponseDTO = {
+					token: token.name,
+					refreshToken: token.email,
+				}
+				const newToken = await refreshToken(authenticationResponseDTO)
+				if (newToken) {
+					token.name = newToken.responseData.token
+					tempName = newToken.responseData.token
+					token.email = newToken.responseData.refreshToken
+					tempEmail = newToken.responseData.refreshToken
+				}
+			}
+		
 			return token
 		},
-		async session({ session, user, token }) {
-			// if (token.email && token.name) {
-			// 	console.log('resfresh', token.email)
-			// 	session.user.name = token.name
-			// 	session.user.email = token.email
-			// 	session.user.image = 'not google'
-			// }
+		async session({ session, user, token, tempName, tempEmail }) {
+			if (tempName && tempEmail) {
+				session.user.name = tempName
+				session.user.email = tempEmail
+				session.user.image = 'not google'
+				tempName = null
+				tempEmail = null
+			}
 			if (session.user.image !== 'not google') {
 				const requestUser = new RequestUser(
 					session.user.email,
