@@ -151,7 +151,7 @@ export const authConfig = {
 		
 			return token
 		},
-		async session({ session, user, token, tempName, tempEmail }) {
+		async session({ session, user, token }) {
 			if (tempName && tempEmail) {
 				session.user.name = tempName
 				session.user.email = tempEmail

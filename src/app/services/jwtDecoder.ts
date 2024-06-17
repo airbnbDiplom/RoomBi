@@ -113,7 +113,7 @@ export function checkTokenExpiration(token: string): boolean {
 		console.log('Поточний час в хвилинах:', currentTimeInMinutes)
 		console.log('y', y)
 
-		const r = y + 49;
+		const r = y;
 		console.log('r', r)
 		if (r > 0) {
 			console.log('Токен скоро закінчиться, перезапитайте його')
