@@ -30,6 +30,15 @@
 	background-color: var(--eerieBlack);
 	border-radius: 25px;
 }
+.Search_search {
+	width: 60%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 35px;
+	border-radius: 15px;
+	background-color: var(--boyRed);
+}
 .textWrap {
 	text-wrap: wrap;
 }

@@ -6,8 +6,13 @@ import React, { SetStateAction, useEffect, useRef, useState } from 'react'
 import { useAppDispatch } from '@/app/redux/hook'
 import { setBtnState } from '@/app/redux/searchInHeader/SearchBtnStateSlice'
 import { useTranslation } from 'react-i18next'
+import { divIcon } from 'leaflet'
+interface Props {
+	width: number
+}
 
-const SmallSearch: React.FC<SearchKindSwitch> = ({
+const SmallSearch: React.FC<SearchKindSwitch & Props> = ({
+	width,
 	setSmallSearchOn,
 	setBigSearchOn,
 	setBigSearchOnBySmall,
@@ -41,6 +46,13 @@ const SmallSearch: React.FC<SearchKindSwitch> = ({
 		}
 	}, [scroll, setBigSearchOn, setBigSearchOnBySmall, setSmallSearchOn])
 
+	const mobileEvent = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+		setTimeout(() => {
+			setSmallSearchOn(false)
+			setBigSearchOnBySmall(true)
+			setBigSearchOn(true)
+		}, 150)
+	}
 	const clickOpenDropDawnInBigSearch = (
 		event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
 		options: string
@@ -74,66 +86,83 @@ const SmallSearch: React.FC<SearchKindSwitch> = ({
 	}
 
 	return (
-		<Row className={` ${style.main}  p-0`} ref={smallSearch}>
-			<Col
-				className={` 
+		<>
+			{width > 560 ? (
+				<Row className={` ${style.main}  p-0`} ref={smallSearch}>
+					<Col
+						className={` 
 				d-flex align-items-center justify-content-center p-0`}
-			>
-				<button
-					className={`p-0 ${style.resetButton}`}
-					onClick={event => {
-						clickOpenDropDawnInBigSearch(event, `whereSmall`)
-					}}
-				>
-					<div
-						className={`mt-3 mb-3 me-1 p-0 ${style.border} ${style.textWrap}`}
 					>
-						{t('Anywhere')}
-					</div>
-				</button>
-			</Col>
-			<Col className={`d-flex align-items-center justify-content-center p-0`}>
-				<button
-					onClick={event => {
-						clickOpenDropDawnInBigSearch(event, `whenSmall`)
-					}}
-					className={`p-0 ${style.resetButton}`}
-				>
-					<div
-						className={`mt-3 mb-3 me-1 pe-1 p-0 ${style.border} ${style.textWrap}`}
+						<button
+							className={`p-0 ${style.resetButton}`}
+							onClick={event => {
+								clickOpenDropDawnInBigSearch(event, `whereSmall`)
+							}}
+						>
+							<div
+								className={`mt-3 mb-3 me-1 p-0 ${style.border} ${style.textWrap}`}
+							>
+								{t('Anywhere')}
+							</div>
+						</button>
+					</Col>
+					<Col
+						className={`d-flex align-items-center justify-content-center p-0`}
 					>
-						{t('AnyWeek')}
-					</div>
-				</button>
-			</Col>
-			<Col className={`d-flex align-items-center justify-content-center p-0`}>
-				<button
-					className={`p-0 ${style.resetButton}`}
-					onClick={event => {
-						clickOpenDropDawnInBigSearch(event, `whoSmall`)
-					}}
-				>
-					<div className={`mt-3 mb-3 p-0 ${style.textWrap}`}>
-						{t('AddedGuests')}
-					</div>
-				</button>
-			</Col>
-			<Col
-				xs={'auto'}
-				sm={'auto'}
-				md={'auto'}
-				lg={'auto'}
-				xl={'auto'}
-				className={` ${style.cursor}  ${style.search} d-flex align-items-center justify-content-center m-1 p-0 '`}
-			>
-				<Image
-					src={'/icon/search.svg'}
-					width={20}
-					height={20}
-					alt='search icon'
-				/>
-			</Col>
-		</Row>
+						<button
+							onClick={event => {
+								clickOpenDropDawnInBigSearch(event, `whenSmall`)
+							}}
+							className={`p-0 ${style.resetButton}`}
+						>
+							<div
+								className={`mt-3 mb-3 me-1 pe-1 p-0 ${style.border} ${style.textWrap}`}
+							>
+								{t('AnyWeek')}
+							</div>
+						</button>
+					</Col>
+					<Col
+						className={`d-flex align-items-center justify-content-center p-0`}
+					>
+						<button
+							className={`p-0 ${style.resetButton}`}
+							onClick={event => {
+								clickOpenDropDawnInBigSearch(event, `whoSmall`)
+							}}
+						>
+							<div className={`mt-3 mb-3 p-0 ${style.textWrap}`}>
+								{t('AddedGuests')}
+							</div>
+						</button>
+					</Col>
+					<Col
+						xs={'auto'}
+						sm={'auto'}
+						md={'auto'}
+						lg={'auto'}
+						xl={'auto'}
+						className={` ${style.cursor}  ${style.search} d-flex align-items-center justify-content-center m-1 p-0 '`}
+					>
+						<Image
+							src={'/icon/search.svg'}
+							width={20}
+							height={20}
+							alt='search icon'
+						/>
+					</Col>
+				</Row>
+			) : (
+				<div onClick={mobileEvent} className={style.Search_search}>
+					<Image
+						src={'/icon/search.svg'}
+						width={30}
+						height={30}
+						alt='search icon'
+					/>
+				</div>
+			)}
+		</>
 	)
 }
 

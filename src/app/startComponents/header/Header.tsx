@@ -12,6 +12,7 @@ import { setState } from '@/app/redux/searchInHeader/SearchSlice'
 import { useSession } from 'next-auth/react'
 import ModalForm from '@/app/ui/authenticationBtn/ModalForm'
 import { decodeTokenGetUserRole } from '@/app/services/jwtDecoder'
+import SmallSearchMobile from './smallSearch/smallSearchMobile'
 
 const Header: FC = () => {
 	const { t } = useTranslation()
@@ -58,44 +59,43 @@ const Header: FC = () => {
 					</Link>
 				</div>
 				<div className={style.searchBar}>
-					{width > 576
-						? isSmallSearchOn && (
-								<SmallSearch
-									setSmallSearchOn={setSmallSearchOn}
-									setBigSearchOn={setBigSearchOn}
-									setBigSearchOnBySmall={setBigSearchOnBySmall}
-								/>
-						  )
-						: null}
-					{width > 576 ? (
-						isBigSearchOn && (
-							<Search
-								setTeamBlack={setTeamBlack}
-								isTeamBlack={isTeamBlack}
-								propsKindSwitch={{
-									isSmallSearchOn,
-									isBigSearchOn,
-									isBigSearchOnBySmall,
-									setSmallSearchOn,
-									setBigSearchOn: setBigSearchOn,
-									setBigSearchOnBySmall,
-								}}
-							/>
-						)
-					) : (
-						<Search
-							setTeamBlack={setTeamBlack}
-							isTeamBlack={isTeamBlack}
-							propsKindSwitch={{
-								isSmallSearchOn,
-								isBigSearchOn,
-								isBigSearchOnBySmall,
-								setSmallSearchOn,
-								setBigSearchOn: setBigSearchOn,
-								setBigSearchOnBySmall,
-							}}
+					{isSmallSearchOn && (
+						<SmallSearch
+							width={width}
+							setSmallSearchOn={setSmallSearchOn}
+							setBigSearchOn={setBigSearchOn}
+							setBigSearchOnBySmall={setBigSearchOnBySmall}
 						/>
 					)}
+					{width > 576
+						? isBigSearchOn && (
+								<Search
+									setTeamBlack={setTeamBlack}
+									isTeamBlack={isTeamBlack}
+									propsKindSwitch={{
+										isSmallSearchOn,
+										isBigSearchOn,
+										isBigSearchOnBySmall,
+										setSmallSearchOn,
+										setBigSearchOn: setBigSearchOn,
+										setBigSearchOnBySmall,
+									}}
+								/>
+						  )
+						: isBigSearchOn && (
+								<Search
+									setTeamBlack={setTeamBlack}
+									isTeamBlack={isTeamBlack}
+									propsKindSwitch={{
+										isSmallSearchOn,
+										isBigSearchOn,
+										isBigSearchOnBySmall,
+										setSmallSearchOn,
+										setBigSearchOn: setBigSearchOn,
+										setBigSearchOnBySmall,
+									}}
+								/>
+						  )}
 				</div>
 				<div className={style.linkContainer}>
 					{data === null ? (
