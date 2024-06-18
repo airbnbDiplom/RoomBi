@@ -8,7 +8,10 @@ import CountryTextInputAuto from './countryInputAuto'
 import CityInputText from './cityInputText'
 import MapBlock from './mapBlock'
 import { useEffect } from 'react'
-import { getAddressByLatLng } from '@/app/services/autoCompleteService'
+import {
+	getAddressByLatLng,
+	inputAutoComplete,
+} from '@/app/services/autoCompleteService'
 import {
 	setCityEdit,
 	setCountryCodeEdit,
@@ -33,11 +36,20 @@ const AddressBlock = () => {
 		if (city === '' && lat !== '' && ing !== '') {
 			getAddressByLatLng(ing, lat, t('locale')).then(res => {
 				if (res?.address.city) {
-					console.log('res', res)
 					dispatch(setCityEdit(res?.address.city))
-					dispatch(setPlaceIdEdit(res?.osm_id))
-					if (countryCode === '')
+					if (countryCode === '') {
 						dispatch(setCountryCodeEdit(res?.address.country_code))
+						inputAutoComplete(
+							'city',
+							res?.address.city,
+							t('locale'),
+							countryCode
+						).then(res => {
+							if (res) {
+								dispatch(setPlaceIdEdit(res[0]?.osm_id))
+							}
+						})
+					}
 				}
 			})
 		}

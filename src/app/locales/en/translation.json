@@ -453,6 +453,11 @@
 	"userApartmentsEdit_AddressSubHeaderCity": "Edit City",
 	"userApartmentsEdit_errorFieldIsRequired": "Field is Required",
 	"userApartmentsEdit_MapSubHeader": "Edit cordinates on map",
+	"userApartmentsEdit_priceEditHeader": "Edit Price",
+	"userApartmentsEdit_EditApartmentAddSuccess": "Edit Success",
+	"userApartmentsEdit_EditApartmentAddFalse": "Edit is false",
+	"userApartmentsEdit_EditApartmentNotValid": "Not All required field are added",
+
 	"announcements": "Announcements",
 	"rentalHistory": "Rental History",
 	"checkIn": "Check-in:",

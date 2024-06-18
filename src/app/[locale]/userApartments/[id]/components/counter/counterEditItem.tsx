@@ -37,18 +37,17 @@ const CounterEditItem: React.FC<ICounterEditItem> = ({
 		}
 	}
 	useEffect(() => {
+		setCounter(value)
+	}, [value])
+	useEffect(() => {
 		if (title === 'gests') {
 			dispatch(setGestsEdit(counter))
-			console.log('gests', counter)
 		} else if (title === 'bedrooms') {
 			dispatch(setBedroomsEdit(counter))
-			console.log('bedrooms', counter)
 		} else if (title === 'beds') {
 			dispatch(setBedsEdit(counter))
-			console.log('beds', counter)
 		} else if (title === 'bathrooms') {
 			dispatch(setBathroomsEdit(counter))
-			console.log('bathrooms', counter)
 		}
 	}, [dispatch, title, counter])
 

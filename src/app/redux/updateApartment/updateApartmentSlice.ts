@@ -40,7 +40,7 @@ const initialState: newApartment = {
 	wish: false,
 	offeredAmenities: {
 		wiFi: false,
-		tV: false,
+		tv: false,
 		kitchen: false,
 		washingMachine: false,
 		freeParking: false,
@@ -50,7 +50,7 @@ const initialState: newApartment = {
 		pool: false,
 		jacuzzi: false,
 		innerYard: false,
-		bBQArea: false,
+		bbqArea: false,
 		outdoorDiningArea: false,
 		firePit: false,
 		poolTable: false,
@@ -128,10 +128,11 @@ const updateApartmentSlice = createSlice({
 			state.house = action.payload
 		},
 		setSportsEdit(state, action: PayloadAction<FilterLngObj>) {
-			state.sport = action.payload.nameUa
+			state.sport = action.payload.nameUa === 'Нет' ? '' : action.payload.nameUa
 		},
 		setLocationEdit(state, action: PayloadAction<FilterLngObj>) {
-			state.location = action.payload.nameUa
+			state.location =
+				action.payload.nameUa === 'Нет' ? '' : action.payload.nameUa
 		},
 		setCountryEdit(state, action: PayloadAction<string>) {
 			state.country = action.payload
@@ -154,9 +155,17 @@ const updateApartmentSlice = createSlice({
 		setAddressEdit(state, action: PayloadAction<string>) {
 			state.address = action.payload
 		},
+		setMasterIdForEdit(state, action: PayloadAction<string>) {
+			state.masterId = action.payload
+		},
+		setPriceEditEdit(state, action: PayloadAction<number>) {
+			state.pricePerNight = action.payload
+		},
 	},
 })
 export const {
+	setPriceEditEdit,
+	setMasterIdForEdit,
 	setAddressEdit,
 	setCoordinateEdit,
 	setCityEdit,

@@ -1,9 +1,9 @@
-import { OfferedAmenities, newApartment } from '../type/type'
+import { DateBooking, OfferedAmenities, newApartment } from '../type/type'
 interface Picture {
 	PictureName: string
 	PictureUrl: string
 }
-interface TransferData {
+interface TransferDataWithDate {
 	title: string // Заголовок
 	address: string // Адрес
 	masterId: number // Хозяин
@@ -15,20 +15,21 @@ interface TransferData {
 	bathrooms: number // Количество ванных комнат
 	beds: number // Количество кроватей
 	pricePerNight: number
-	typeApartment: string //*спросить*/
-	house: string //*спросить*/
-	location: string
-	sport: string
+	typeApartment: string
+	house: string
+	location: string //*Может быть ''*/
+	sport: string //*Может быть ''*/
 	country: string
 	city: string
 	cityPlaceId: number
 	countryCode: string
 	OfferedAmenities: OfferedAmenities
+	dateBooking: DateBooking[]
 }
 
-export const addNewApartServes = async (newApart: newApartment) => {
+export const updateApartmentService = async (newApart: newApartment) => {
 	try {
-		const dataForTransfer: TransferData = initData(newApart)
+		const dataForTransfer: TransferDataWithDate = initData(newApart)
 		console.log('dataForTransfer', dataForTransfer)
 		let url = process.env.NEXT_ADD_APARTMENT
 		// 'https://roombiserver.azurewebsites.net/api/RentalApartment/create'
@@ -44,31 +45,43 @@ export const addNewApartServes = async (newApart: newApartment) => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify(dataForTransfer),
+				body: JSON.stringify(newApart),
 			})
 
 			if (!res.ok) {
 				return null
 			}
 
-			return res.status
+			return res.statusText
 		}
 	} catch (e) {
 		return null
 	}
 }
-const initData = (newApart: newApartment): TransferData => {
-	const picture: Picture[] = newApart.picturesName.map((item, index) => {
+const initData = (newApart: newApartment): TransferDataWithDate => {
+	const picture: Picture[] = newApart.pictures.map((item, index) => {
 		if (index === 1) {
 			return {
 				PictureName: 'bedroom',
-				PictureUrl: `${item}`,
+				PictureUrl: `${item.pictureName}`,
 			}
 		}
 		return {
-			PictureName: item,
-			PictureUrl: `${item}`,
+			PictureName: item.pictureName,
+			PictureUrl: `${item.pictureUrl}`,
 		}
+	})
+	newApart.picturesName.map((item, index) => {
+		if (index === 1) {
+			picture.push({
+				PictureName: 'bedroom',
+				PictureUrl: `${item}`,
+			})
+		} else
+			picture.push({
+				PictureName: item,
+				PictureUrl: `${item}`,
+			})
 	})
 
 	const amenities: OfferedAmenities = {
@@ -85,7 +98,7 @@ const initData = (newApart: newApartment): TransferData => {
 		pool: newApart.offeredAmenities.pool,
 		jacuzzi: newApart.offeredAmenities.jacuzzi,
 		innerYard: newApart.offeredAmenities.innerYard,
-		bBQArea: newApart.offeredAmenities.bbqArea,
+		bbqArea: newApart.offeredAmenities.bbqArea,
 		outdoorDiningArea: newApart.offeredAmenities.outdoorDiningArea,
 		firePit: newApart.offeredAmenities.firePit,
 		poolTable: newApart.offeredAmenities.poolTable,
@@ -100,7 +113,7 @@ const initData = (newApart: newApartment): TransferData => {
 		firstAidKit: newApart.offeredAmenities.firstAidKit,
 		fireExtinguisher: newApart.offeredAmenities.fireExtinguisher,
 		carbonMonoxideDetector: newApart.offeredAmenities.carbonMonoxideDetector,
-		description: newApart.description.trim(),
+		description: newApart.offeredAmenities.description.trim(),
 	}
 	return {
 		title: newApart.title.trim(),
@@ -114,14 +127,15 @@ const initData = (newApart: newApartment): TransferData => {
 		bathrooms: newApart.bathrooms,
 		beds: newApart.beds,
 		pricePerNight: newApart.pricePerNight,
-		typeApartment: newApart.typeApartment!.ukName,
-		house: newApart.house!.nameUa,
-		sport: '',
-		location: '',
+		typeApartment: newApart.typeApartment as any,
+		house: newApart.house as any,
+		sport: newApart.sport,
+		location: newApart.location,
 		country: newApart.country,
 		city: newApart.city,
 		cityPlaceId: newApart.cityPlaceId,
 		countryCode: newApart.countryCode,
 		OfferedAmenities: amenities,
+		dateBooking: newApart.dateBooking,
 	}
 }

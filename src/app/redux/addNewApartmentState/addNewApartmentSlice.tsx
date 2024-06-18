@@ -34,7 +34,7 @@ const initialState: newApartment = {
 	wish: false,
 	offeredAmenities: {
 		wiFi: false,
-		tV: false,
+		tv: false,
 		kitchen: false,
 		washingMachine: false,
 		freeParking: false,
@@ -44,7 +44,7 @@ const initialState: newApartment = {
 		pool: false,
 		jacuzzi: false,
 		innerYard: false,
-		bBQArea: false,
+		bbqArea: false,
 		outdoorDiningArea: false,
 		firePit: false,
 		poolTable: false,

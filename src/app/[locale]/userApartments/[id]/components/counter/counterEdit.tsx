@@ -27,13 +27,13 @@ const CounterEdit = () => {
 			/>
 			<CounterEditItem
 				title={'bedrooms'}
-				value={beds}
+				value={bedrooms}
 				maxValue={100}
 				minValue={1}
 			/>
 			<CounterEditItem
 				title={'beds'}
-				value={bedrooms}
+				value={beds}
 				maxValue={100}
 				minValue={1}
 			/>

@@ -34,6 +34,26 @@ const SwitchBlock = () => {
 	const HouseNearApartment = useAppSelector(
 		state => state.updateApartmentSlice.house
 	)
+
+	const sportArr = filterData.filter(item => item.type === 'sport')
+	sportArr.unshift({
+		id: 0,
+		label: 'Select',
+		nameUa: 'Нет',
+		nameEn: 'No',
+		src: '/icon/close.svg',
+		type: 'sport',
+	})
+	const locationArr = filterData.filter(item => item.type === 'location')
+	locationArr.unshift({
+		id: 0,
+		label: 'Select',
+		nameUa: 'Нет',
+		nameEn: 'No',
+		src: '/icon/close.svg',
+		type: 'location',
+	})
+
 	useEffect(() => {
 		if (apartmentType !== undefined && HouseNearApartment !== undefined) {
 			setLoading(true)
@@ -76,7 +96,7 @@ const SwitchBlock = () => {
 										item.nameUa === locationNearApartment
 								)?.[0]
 							}
-							array={filterData.filter(item => item.type === 'location')}
+							array={locationArr}
 							dispatchFuncFO={setLocationEdit}
 						/>
 						<SwitcherItem
@@ -87,7 +107,7 @@ const SwitchBlock = () => {
 										item.type === 'sport' && item.nameUa === sportNearApartment
 								)?.[0]
 							}
-							array={filterData.filter(item => item.type === 'sport')}
+							array={sportArr}
 							dispatchFuncFO={setSportsEdit}
 						/>
 					</div>

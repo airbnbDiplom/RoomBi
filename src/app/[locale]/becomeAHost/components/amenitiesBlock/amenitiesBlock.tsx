@@ -12,7 +12,7 @@ const AmenitiesBlock = () => {
 
 	const amenities = [
 		{ key: 'wiFi', value: amenitiesState.wiFi, title: 'txtFB11' },
-		{ key: 'tV', value: amenitiesState.tV, title: 'txtFB12' },
+		{ key: 'tV', value: amenitiesState.tv, title: 'txtFB12' },
 		{ key: 'kitchen', value: amenitiesState.kitchen, title: 'txtFB13' },
 		{
 			key: 'washingMachine',
@@ -32,7 +32,7 @@ const AmenitiesBlock = () => {
 		{ key: 'pool', value: amenitiesState.pool, title: 'txtFB21' },
 		{ key: 'jacuzzi', value: amenitiesState.jacuzzi, title: 'txtFB22' },
 		{ key: 'innerYard', value: amenitiesState.innerYard, title: 'txtFB23' },
-		{ key: 'bBQArea', value: amenitiesState.bBQArea, title: 'txtFB24' },
+		{ key: 'bBQArea', value: amenitiesState.bbqArea, title: 'txtFB24' },
 		{
 			key: 'outdoorDiningArea',
 			value: amenitiesState.outdoorDiningArea,

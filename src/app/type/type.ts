@@ -243,7 +243,7 @@ export interface OfferedAmenitiesDTO {
 export interface OfferedAmenities {
 	id: number
 	wiFi: boolean // Наличие WiFi
-	tV: boolean // Наличие телевизора
+	tv: boolean // Наличие телевизора
 	kitchen: boolean // Наличие кухни
 	washingMachine: boolean // Наличие стиральной машины
 	freeParking: boolean // Бесплатная парковка
@@ -254,7 +254,7 @@ export interface OfferedAmenities {
 	pool: boolean // Наличие бассейна
 	jacuzzi: boolean // Наличие джакузи
 	innerYard: boolean // Наличие внутреннего двора
-	bBQArea: boolean // Наличие зоны для барбекю
+	bbqArea: boolean // Наличие зоны для барбекю
 	outdoorDiningArea: boolean // Наличие обеденной зоны на улице
 	firePit: boolean // Наличие костровища
 	poolTable: boolean // Наличие стола для игры в бильярд
@@ -448,7 +448,7 @@ export interface NewApartmentOfferedAmenities {
 	[key: string]: boolean | string
 	description: string
 	wiFi: boolean // Наличие WiFi
-	tV: boolean // Наличие телевизора
+	tv: boolean // Наличие телевизора
 	kitchen: boolean // Наличие кухни
 	washingMachine: boolean // Наличие стиральной машины
 	freeParking: boolean // Бесплатная парковка
@@ -459,7 +459,7 @@ export interface NewApartmentOfferedAmenities {
 	pool: boolean // Наличие бассейна
 	jacuzzi: boolean // Наличие джакузи
 	innerYard: boolean // Наличие внутреннего двора
-	bBQArea: boolean // Наличие зоны для барбекю
+	bbqArea: boolean // Наличие зоны для барбекю
 	outdoorDiningArea: boolean // Наличие обеденной зоны на улице
 	firePit: boolean // Наличие костровища
 	poolTable: boolean // Наличие стола для игры в бильярд

@@ -6,7 +6,6 @@ interface Props {
 import style from '../../edit.module.css'
 import AmenitiesItem from './amenitiesItem'
 const AmenitiesList: React.FC<Props> = ({ booleanProps }) => {
-	console.log('booleanProps', booleanProps)
 	return (
 		<div className={style.listContainer}>
 			{booleanProps.map(prop => (

@@ -90,7 +90,7 @@ const FinishBtn = () => {
 					setShow={setShow}
 					setModalSuccess={setModalSuccess}
 					tittle={'preview_success'}
-					message={'preview_newApartmentAddSuccess'}
+					message={'userApartmentsEdit_EditApartmentAddSuccess'}
 				/>
 			)}
 			{modalSuccess === 2 && (
@@ -99,7 +99,7 @@ const FinishBtn = () => {
 					setShow={setShow}
 					setModalSuccess={setModalSuccess}
 					tittle={'preview_felid'}
-					message={'preview_newApartmentAddFalse'}
+					message={'userApartmentsEdit_EditApartmentAddFalse'}
 				/>
 			)}
 			{modalSuccess === 3 && (
@@ -108,7 +108,7 @@ const FinishBtn = () => {
 					setShow={setShow}
 					setModalSuccess={setModalSuccess}
 					tittle={'preview_notValid'}
-					message={'preview_newApartmentAddNotValid'}
+					message={'userApartmentsEdit_EditApartmentNotValid'}
 				/>
 			)}
 		</>
