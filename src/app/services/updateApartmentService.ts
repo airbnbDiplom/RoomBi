@@ -4,6 +4,7 @@ interface Picture {
 	PictureUrl: string
 }
 interface TransferDataWithDate {
+	apartmentId: number
 	title: string // Заголовок
 	address: string // Адрес
 	masterId: number // Хозяин
@@ -17,8 +18,8 @@ interface TransferDataWithDate {
 	pricePerNight: number
 	typeApartment: string
 	house: string
-	location: string //*Может быть ''*/
-	sport: string //*Может быть ''*/
+	location?: string | null //*Может быть ''*/
+	sport: string | null //*Может быть ''*/
 	country: string
 	city: string
 	cityPlaceId: number
@@ -27,15 +28,24 @@ interface TransferDataWithDate {
 	dateBooking: DateBooking[]
 }
 
-export const updateApartmentService = async (newApart: newApartment) => {
+export const updateApartmentService = async (
+	newApart: newApartment,
+	apartmentId: string
+) => {
 	try {
-		const dataForTransfer: TransferDataWithDate = initData(newApart)
+		const dataForTransfer: TransferDataWithDate = initData(
+			newApart,
+			apartmentId
+		)
 		console.log('dataForTransfer', dataForTransfer)
-		let url = process.env.NEXT_ADD_APARTMENT
-		// 'https://roombiserver.azurewebsites.net/api/RentalApartment/create'
+		let url =
+			'https://roombiserver.azurewebsites.net/api/RentalApartment/create'
+		//'https://localhost:7158/api/RentalApartment/update'
+
 		//'https://rombiserv.azurewebsites.net/api/RentalApartment/create'
 		if (url === undefined) {
-			url = 'https://roombiserver.azurewebsites.net/api/RentalApartment/create'
+			url = 'https://rombiserv.azurewebsites.net/api/RentalApartment/create'
+			//	'https://roombiserver.azurewebsites.net/api/RentalApartment/create'
 			//'https://rombiserv.azurewebsites.net/api/RentalApartment/create'
 		}
 		if (url) {
@@ -45,20 +55,23 @@ export const updateApartmentService = async (newApart: newApartment) => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify(newApart),
+				body: JSON.stringify(dataForTransfer),
 			})
 
 			if (!res.ok) {
 				return null
 			}
 
-			return res.statusText
+			return res
 		}
 	} catch (e) {
 		return null
 	}
 }
-const initData = (newApart: newApartment): TransferDataWithDate => {
+const initData = (
+	newApart: newApartment,
+	apartmentId: string
+): TransferDataWithDate => {
 	const picture: Picture[] = newApart.pictures.map((item, index) => {
 		if (index === 1) {
 			return {
@@ -85,7 +98,7 @@ const initData = (newApart: newApartment): TransferDataWithDate => {
 	})
 
 	const amenities: OfferedAmenities = {
-		id: 0,
+		id: parseInt(newApart.offeredAmenities.id),
 		wiFi: newApart.offeredAmenities.wiFi,
 		tv: newApart.offeredAmenities.tv,
 		kitchen: newApart.offeredAmenities.kitchen,
@@ -116,6 +129,7 @@ const initData = (newApart: newApartment): TransferDataWithDate => {
 		description: newApart.offeredAmenities.description.trim(),
 	}
 	return {
+		apartmentId: parseInt(apartmentId),
 		title: newApart.title.trim(),
 		address: `${newApart.address} ${newApart.houseNum} ${newApart.apartNum}`,
 		masterId: parseInt(newApart.masterId),
@@ -127,10 +141,10 @@ const initData = (newApart: newApartment): TransferDataWithDate => {
 		bathrooms: newApart.bathrooms,
 		beds: newApart.beds,
 		pricePerNight: newApart.pricePerNight,
-		typeApartment: newApart.typeApartment as any,
-		house: newApart.house as any,
-		sport: newApart.sport,
-		location: newApart.location,
+		typeApartment: newApart.typeApartment!.ukName,
+		house: newApart.house!.nameUa,
+		sport: newApart.sport !== '' ? newApart.sport : null,
+		location: newApart.location !== '' ? newApart.location : null,
 		country: newApart.country,
 		city: newApart.city,
 		cityPlaceId: newApart.cityPlaceId,

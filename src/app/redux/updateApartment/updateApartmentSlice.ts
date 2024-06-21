@@ -39,6 +39,7 @@ const initialState: newApartment = {
 	county: '',
 	wish: false,
 	offeredAmenities: {
+		id: '',
 		wiFi: false,
 		tv: false,
 		kitchen: false,

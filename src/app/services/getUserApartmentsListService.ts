@@ -5,9 +5,13 @@ import { RentalApartmentDTOForStartPage } from '../type/type'
 export const getUserApartmentsListService = async (userId: number) => {
 	try {
 		let url = `https://roombiserver.azurewebsites.net/api/RentalApartment/masterobj?idMaster=${userId}`
+		// 	;`https://rombiserv.azurewebsites.net/api/RentalApartment/masterobj?idMaster=${userId}`
+		//`https://localhost:7158/api/RentalApartment/masterobj?idMaster=${userId}
+		console.log('url', url)
 		// if (!url) {
 		// 	// url = `https://roombiserver.azurewebsites.net/api/RentalApartment/masterobj?idMaster=${userId}`
 		// 	;`https://rombiserv.azurewebsites.net/api/RentalApartment/masterobj?idMaster=${userId}`
+		//`https://localhost:7158/api/RentalApartment/masterobj?idMaster=${userId}`
 		// }
 
 		if (url === undefined) {

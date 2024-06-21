@@ -445,6 +445,7 @@ export interface AmenitiesObj {
 	type: string
 }
 export interface NewApartmentOfferedAmenities {
+	id: string
 	[key: string]: boolean | string
 	description: string
 	wiFi: boolean // Наличие WiFi

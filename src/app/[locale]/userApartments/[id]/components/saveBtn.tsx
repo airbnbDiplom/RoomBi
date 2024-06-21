@@ -8,7 +8,10 @@ import { set, update } from 'lodash'
 import { addPictureJfObject } from '@/app/services/addPictureJfObject'
 import ModalAddNEwApart from '@/app/[locale]/becomeAHost/components/modalAddNEwApart'
 import { updateApartmentService } from '@/app/services/updateApartmentService'
-const SaveBtn = () => {
+interface Props {
+	apartmentId: string
+}
+const SaveBtn: React.FC<Props> = ({ apartmentId }) => {
 	const { t } = useTranslation()
 	const [loading, setLoading] = useState(false)
 	const apartmentData = useAppSelector(state => state.updateApartmentSlice)
@@ -16,6 +19,7 @@ const SaveBtn = () => {
 
 	const [modalSuccess, setModalSuccess] = useState<number>(0)
 	const [show, setShow] = useState(false)
+
 	const validateObj = () => {
 		if (
 			apartmentData.masterId === '' ||
@@ -44,17 +48,18 @@ const SaveBtn = () => {
 				className={style.btnSave}
 				onClick={() => {
 					setLoading(true)
-					console.log('apartmentData', apartmentData)
+
 					if (validateObj()) {
-						updateApartmentService(apartmentData).then(res => {
+						// console.log('apartmentId', apartmentId)
+						updateApartmentService(apartmentData, apartmentId).then(res => {
 							setLoading(false)
-							if (res === 'ok') {
-								// for (let i = 0; i < apartmentData.pictureFile.length; i++) {
-								// 	addPictureJfObject(
-								// 		apartmentData.pictureFile[i],
-								// 		apartmentData.picturesName[i]
-								// 	)
-								// }
+							if (res) {
+								for (let i = 0; i < apartmentData.pictureFile.length; i++) {
+									addPictureJfObject(
+										apartmentData.pictureFile[i],
+										apartmentData.picturesName[i]
+									)
+								}
 								console.log('photoSend')
 								setLoading(false)
 								setModalSuccess(1)

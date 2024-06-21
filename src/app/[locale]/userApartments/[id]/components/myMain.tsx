@@ -18,11 +18,12 @@ import AddressBlock from './address/addressBlock'
 import PriceBlock from './price/priceBlock'
 interface props {
 	apartmentData: newApartment
+	apartmentId: string
 }
 
-const MyMain: React.FC<props> = ({ apartmentData }) => {
+const MyMain: React.FC<props> = ({ apartmentData, apartmentId }) => {
 	const dispatch = useAppDispatch()
-
+	console.log('apartmentData', apartmentData)
 	useEffect(() => {
 		dispatch(setApartment(apartmentData))
 		const userID = (apartmentData as any).master as MasterForApartmentPage
@@ -30,9 +31,10 @@ const MyMain: React.FC<props> = ({ apartmentData }) => {
 			dispatch(setMasterIdForEdit(userID.id.toString()))
 		}
 	}, [apartmentData, dispatch])
+
 	return (
 		<>
-			<HeaderForEdit />
+			<HeaderForEdit apartmentId={apartmentId} />
 			<ImageEdit />
 			<TextApartment />
 			<AmenitiesBlock />
@@ -46,6 +48,3 @@ const MyMain: React.FC<props> = ({ apartmentData }) => {
 }
 
 export default MyMain
-function setMasterIdEdit(masterId: string): any {
-	throw new Error('Function not implemented.')
-}

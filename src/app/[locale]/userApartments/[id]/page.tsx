@@ -24,7 +24,7 @@ export default async function UserApartmentsItem({
 			resources={resources}
 		>
 			<div className={style.wrapper}>
-				<MyMain apartmentData={apartmentData} />
+				<MyMain apartmentData={apartmentData} apartmentId={id} />
 			</div>
 		</TranslationsProvider>
 	)
