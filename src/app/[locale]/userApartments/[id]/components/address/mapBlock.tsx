@@ -1,14 +1,15 @@
 'use client'
 
-import { useAppDispatch, useAppSelector } from '@/app/redux/hook'
+import { useAppSelector } from '@/app/redux/hook'
 import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 import style from '@/app/[locale]/becomeAHost/addApart.module.css'
 import 'leaflet/dist/leaflet.css'
-import MapEventsComponentNew from '@/app/[locale]/becomeAHost/components/addressPageComponent/mapEventsComponentNew'
 import MapEvent from './mapEvent'
-import L, { LatLngExpression } from 'leaflet'
+import L from 'leaflet'
 import { Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
+import { useMemo } from 'react'
+import dynamic from 'next/dynamic'
 const MapBlock = () => {
 	const lat = useAppSelector(state => state.updateApartmentSlice.latMap)
 	const ing = useAppSelector(state => state.updateApartmentSlice.ingMap)
@@ -16,11 +17,11 @@ const MapBlock = () => {
 
 	const location: [number, number] | undefined =
 		lat && ing ? [parseFloat(ing), parseFloat(lat)] : undefined
-	const dispatch = useAppDispatch()
 	const customIcon = L.icon({
 		iconUrl: '/icon/pointOnMap.svg',
 		iconSize: [32, 32],
 	})
+
 	return (
 		<>
 			<div className={style.mapContainerNew}>

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import CountryTextInputAuto from './countryInputAuto'
 import CityInputText from './cityInputText'
 import MapBlock from './mapBlock'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import {
 	getAddressByLatLng,
 	inputAutoComplete,
@@ -18,13 +18,12 @@ import {
 	setPlaceIdEdit,
 } from '@/app/redux/updateApartment/updateApartmentSlice'
 import AddressEdit from './addressEdit'
+import dynamic from 'next/dynamic'
 
 const AddressBlock = () => {
 	const lat = useAppSelector(state => state.updateApartmentSlice.latMap)
 	const ing = useAppSelector(state => state.updateApartmentSlice.ingMap)
-	const addressCurr = useAppSelector(
-		state => state.updateApartmentSlice.address
-	)
+
 	const city = useAppSelector(state => state.updateApartmentSlice.city)
 	const countryCode = useAppSelector(
 		state => state.updateApartmentSlice.countryCode
@@ -54,7 +53,14 @@ const AddressBlock = () => {
 			})
 		}
 	}, [lat, ing, t, city, countryCode, dispatch])
-
+	const MapBlock = useMemo(
+		() =>
+			dynamic(() => import('./mapBlock').then(mod => mod.default), {
+				// loading: () => <Loading />,
+				ssr: false,
+			}),
+		[]
+	)
 	return (
 		<div className={style.addressEditBlock}>
 			<Form.Label>{t('userApartmentsEdit_AddressHeader')}</Form.Label>
