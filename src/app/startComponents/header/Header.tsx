@@ -12,7 +12,6 @@ import { setState } from '@/app/redux/searchInHeader/SearchSlice'
 import { useSession } from 'next-auth/react'
 import ModalForm from '@/app/ui/authenticationBtn/ModalForm'
 import { decodeTokenGetUserRole } from '@/app/services/jwtDecoder'
-import SmallSearchMobile from './smallSearch/smallSearchMobile'
 
 const Header: FC = () => {
 	const { t } = useTranslation()
@@ -38,7 +37,6 @@ const Header: FC = () => {
 		const data = sessionStorage.getItem('dataSearch')
 		if (data !== null) {
 			const dataParse = JSON.parse(data)
-			console.log('dataParse', dataParse)
 			dispatch(setState(dataParse))
 			sessionStorage.removeItem('dataSearch')
 		}
