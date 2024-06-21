@@ -16,7 +16,7 @@ export default async function UserApartmentsItem({
 }) {
 	const { resources } = await initTranslations(locale, ['translation'])
 	const apartmentData: newApartment = await getApartamentId(id)
-
+	console.log('apartmentData', apartmentData)
 	return (
 		<TranslationsProvider
 			namespaces={i18nNamespaces}
