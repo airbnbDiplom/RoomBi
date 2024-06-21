@@ -39,14 +39,11 @@ export const updateApartmentService = async (
 		)
 		console.log('dataForTransfer', dataForTransfer)
 		let url =
-			'https://roombiserver.azurewebsites.net/api/RentalApartment/create'
+			'https://roombiserver.azurewebsites.net/api/RentalApartment/update'
 		//'https://localhost:7158/api/RentalApartment/update'
 
-		//'https://rombiserv.azurewebsites.net/api/RentalApartment/create'
 		if (url === undefined) {
-			url = 'https://rombiserv.azurewebsites.net/api/RentalApartment/create'
-			//	'https://roombiserver.azurewebsites.net/api/RentalApartment/create'
-			//'https://rombiserv.azurewebsites.net/api/RentalApartment/create'
+			url = 'https://rombiserv.azurewebsites.net/api/RentalApartment/update'
 		}
 		if (url) {
 			const res = await fetch(url, {
